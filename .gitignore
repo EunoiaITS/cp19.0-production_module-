@@ -3,7 +3,6 @@
 /config/.env
 /logs/*
 /tmp/*
-/vendor/*
 
 # OS generated files #
 ######################
