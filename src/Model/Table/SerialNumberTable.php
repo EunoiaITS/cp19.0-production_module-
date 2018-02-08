@@ -1,0 +1,130 @@
+<?php
+namespace App\Model\Table;
+
+use Cake\ORM\Query;
+use Cake\ORM\RulesChecker;
+use Cake\ORM\Table;
+use Cake\Validation\Validator;
+
+/**
+ * SerialNumber Model
+ *
+ * @method \App\Model\Entity\SerialNumber get($primaryKey, $options = [])
+ * @method \App\Model\Entity\SerialNumber newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\SerialNumber[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\SerialNumber|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\SerialNumber patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\SerialNumber[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\SerialNumber findOrCreate($search, callable $callback = null, $options = [])
+ *
+ * @mixin \Cake\ORM\Behavior\TimestampBehavior
+ */
+class SerialNumberTable extends Table
+{
+
+    /**
+     * Initialize method
+     *
+     * @param array $config The configuration for the Table.
+     * @return void
+     */
+    public function initialize(array $config)
+    {
+        parent::initialize($config);
+
+        $this->setTable('serial_number');
+        $this->setDisplayField('id');
+        $this->setPrimaryKey('id');
+
+        $this->addBehavior('Timestamp');
+    }
+
+    /**
+     * Default validation rules.
+     *
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationDefault(Validator $validator)
+    {
+        $validator
+            ->integer('id')
+            ->allowEmpty('id', 'create');
+
+        $validator
+            ->scalar('date')
+            ->maxLength('date', 255)
+            ->requirePresence('date', 'create')
+            ->notEmpty('date');
+
+        $validator
+            ->scalar('model')
+            ->maxLength('model', 255)
+            ->requirePresence('model', 'create')
+            ->notEmpty('model');
+
+        $validator
+            ->scalar('version')
+            ->maxLength('version', 255)
+            ->requirePresence('version', 'create')
+            ->notEmpty('version');
+
+        $validator
+            ->scalar('type1')
+            ->maxLength('type1', 255)
+            ->requirePresence('type1', 'create')
+            ->notEmpty('type1');
+
+        $validator
+            ->scalar('type2')
+            ->maxLength('type2', 255)
+            ->requirePresence('type2', 'create')
+            ->notEmpty('type2');
+
+        $validator
+            ->scalar('quantity')
+            ->maxLength('quantity', 255)
+            ->requirePresence('quantity', 'create')
+            ->notEmpty('quantity');
+
+        $validator
+            ->scalar('created_by')
+            ->maxLength('created_by', 255)
+            ->requirePresence('created_by', 'create')
+            ->notEmpty('created_by');
+
+        $validator
+            ->scalar('department')
+            ->maxLength('department', 255)
+            ->requirePresence('department', 'create')
+            ->notEmpty('department');
+
+        $validator
+            ->scalar('section')
+            ->maxLength('section', 255)
+            ->requirePresence('section', 'create')
+            ->notEmpty('section');
+
+        $validator
+            ->scalar('remark')
+            ->maxLength('remark', 255)
+            ->allowEmpty('remark');
+
+        $validator
+            ->scalar('status')
+            ->maxLength('status', 255)
+            ->allowEmpty('status');
+
+        $validator
+            ->scalar('verified_by')
+            ->maxLength('verified_by', 255)
+            ->allowEmpty('verified_by');
+
+        $validator
+            ->scalar('approved_by')
+            ->maxLength('approved_by', 255)
+            ->allowEmpty('approved_by');
+
+        return $validator;
+    }
+}
