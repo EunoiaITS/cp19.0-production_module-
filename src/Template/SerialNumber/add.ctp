@@ -5,7 +5,7 @@
 <div class="planner-from">
     <div class="container-fluid">
         <div class="row">
-            <form action="<?php echo $this->url->bind(['controller'=>'SerialNumber','action'=>'add'])?>" method="post" class="planner-relative">
+            <form action="<?php echo $this->url->build(['controller'=>'SerialNumber','action'=>'add'])?>" method="post" class="planner-relative">
             <div class="col-sm-12 col-sm-12">
                 <div class="part-title-planner text-uppercase text-center"><b>Create Serial Number Form</b></div>
                     <div class="col-sm-6">
@@ -90,98 +90,56 @@
                     </div>
             </div>
             <div class="clearfix"></div>
-            <!--============== Add drawing table area ===================-->
-            <div class="planner-table table-responsive clearfix">
-                <div class="col-sm-12">
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Model</th>
-                            <th>Version</th>
-                            <th>Type 1</th>
-                            <th>Type 2</th>
-                            <th>Year</th>
-                            <th>Month</th>
-                            <th>Model</th>
-                            <th>Sequence</th>
-                        </tr>
-                        </thead>
-                        <tbody class="csn-text-up">
-                        <tr>
-                            <td>1</td>
-                            <td>RMU INS</td>
-                            <td>zzt</td>
-                            <td>INDOOR</td>
-                            <td>MOTORIZED</td>
-                            <td><input type="text" class="form-control"></td>
-                            <td><input type="text" class="form-control"></td>
-                            <td>20</td>
-                            <td>209323</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>RMU INS</td>
-                            <td>ZZT</td>
-                            <td>INDOOR</td>
-                            <td>MOTORIZED</td>
-                            <td><input type="text" class="form-control"></td>
-                            <td><input type="text" class="form-control"></td>
-                            <td>20</td>
-                            <td>209323</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>RMU INS</td>
-                            <td>ZZT</td>
-                            <td>INDOOR</td>
-                            <td>MOTORIZED</td>
-                            <td><input type="text" class="form-control"></td>
-                            <td><input type="text" class="form-control"></td>
-                            <td>20</td>
-                            <td>209323</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-            <div class="col-sm-offset-8 col-sm-4 col-xs-12">
-                <div class="prepareted-by-submit">
-                    <div class="button btn btn-info btn-submit">Submit</div>
-                </div>
-            </div>
-            </form>
         </div>
     </div>
-    </div>
+</div>
+            <!--============== Add drawing table area ===================-->
     <script type="text/javascript">
         $(document).ready(function() {
+            var total = $('#cn-type-qty').val();
             $('#sn_id').on('click', function (e) {
                 e.preventDefault();
-                alert($('#cn-type-qty').val());
+                var html =
+                    '<div class="planner-table table-responsive clearfix">'+
+                    '<div class="col-sm-12">'+
+                    '<table class="table table-bordered">'+
+                    '<thead>'+
+                    '<tr>'+
+                    '<th>No</th>'+
+                    '<th>Model</th>'+
+                    '<th>Version</th>'+
+                    '<th>Type 1</th>'+
+                    '<th>Type 2</th>'+
+                    '<th>Year</th>'+
+                    '<th>Month</th>'+
+                    '<th>Model</th>'+
+                    '<th>Sequence</th>'+
+                    '</tr>'+
+                    '</thead>'+
+                    '<tbody class="csn-text-up">'+
+                    '<tr>'+
+                    '<td>1</td>'+
+                    '<td>RMU INS</td>'+
+                    '<td>zzt</td>'+
+                    '<td>INDOOR</td>'+
+                    '<td>MOTORIZED</td>'+
+                    '<td><input type="text" name="year'+total+'" class="form-control"></td>'+
+                    '<td><input type="text" name="month'+total+'"  class="form-control"></td>'+
+                    '<td>20</td>'+
+                    '<td>209323</td>'+
+                    '</tr>'+
+                    '</tbody>'+
+                    '</table>'+
+                    '</div>'+
+                    '</div>'+
+                    '<div class="clearfix"></div>'+
+                    '<div class="col-sm-offset-8 col-sm-4 col-xs-12">'+
+                    '<div class="prepareted-by-submit">'+
+                    '<div class="button btn btn-info btn-submit">Submit</div>'+
+                    '</div>'+
+                    '</div>'+
+                    '</form>';
+                $('#sn_id').append(html);
             });
         });
     </script>

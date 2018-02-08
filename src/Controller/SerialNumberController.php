@@ -59,6 +59,20 @@ class SerialNumberController extends AppController
         if ($this->request->is('post')) {
             $serialNumber = $this->SerialNumber->patchEntity($serialNumber, $this->request->getData());
             if ($this->SerialNumber->save($serialNumber)) {
+                $serial_no = $this->SerialNumber->find('all', ['fields' => 'id'])->last();
+                if($this->request->getData('total') != null){
+                    $serialChild = TableRegistry::get('SerialNumberChild');
+                    $serialData = array();
+                    for($i = 1; $i <= $this->request->getData('total'); $i++){
+                        $serialData[$i]['serial_number_id'] = $serial_no['id'];
+                        $serialData[$i]['year'] = $this->request->getData('year'.$i);
+                        $serialData[$i]['month'] = $this->request->getData('month'.$i);
+                    }
+                    $serials = $serialChild->newEntities($serialData);
+                    foreach($serials as $serial){
+                        $serialChild->save($serial);
+                    }
+                }
                 $this->Flash->success(__('The serial number has been saved.'));
 
                 return $this->redirect(['action' => 'add']);
