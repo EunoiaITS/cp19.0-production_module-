@@ -124,4 +124,27 @@ class SerialNumberController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function verify($id = null){
+        $sn = $this->SerialNumber->get($id, [
+            'contain' => []
+        ]);
+        $this->loadModel('SerialNumberChild');
+        $sn_items = $this->SerialNumberChild->find('all')
+            ->where(['serial_number_id' => $sn->id]);
+        $this->set('sn', $sn);
+        $this->set('items', $sn_items);
+    }
+
+    public function approve($id = null){
+        $sn = $this->SerialNumber->get($id, [
+            'contain' => []
+        ]);
+        $this->loadModel('SerialNumberChild');
+        $sn_items = $this->SerialNumberChild->find('all')
+            ->where(['serial_number_id' => $sn->id]);
+        $this->set('sn', $sn);
+        $this->set('items', $sn_items);
+    }
+
 }
