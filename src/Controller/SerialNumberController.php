@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * SerialNumber Controller
@@ -51,19 +52,16 @@ class SerialNumberController extends AppController
      */
     public function add()
     {
-//        $this->autoRender=false;
-//        echo "<pre>";
-//        print_r($this->request);
-//        echo "</pre>";
+        $this->loadModel('SerialNumberChild');
         $serialNumber = $this->SerialNumber->newEntity();
         if ($this->request->is('post')) {
             $serialNumber = $this->SerialNumber->patchEntity($serialNumber, $this->request->getData());
             if ($this->SerialNumber->save($serialNumber)) {
                 $serial_no = $this->SerialNumber->find('all', ['fields' => 'id'])->last();
-                if($this->request->getData('total') != null){
+                if($this->request->getData('quantity') != null){
                     $serialChild = TableRegistry::get('SerialNumberChild');
                     $serialData = array();
-                    for($i = 1; $i <= $this->request->getData('total'); $i++){
+                    for($i = 0; $i < $this->request->getData('quantity'); $i++){
                         $serialData[$i]['serial_number_id'] = $serial_no['id'];
                         $serialData[$i]['year'] = $this->request->getData('year'.$i);
                         $serialData[$i]['month'] = $this->request->getData('month'.$i);
@@ -80,6 +78,7 @@ class SerialNumberController extends AppController
             $this->Flash->error(__('The serial number could not be saved. Please, try again.'));
         }
         $this->set(compact('serialNumber'));
+        $this->set('sequence', $this->SerialNumberChild->find('all')->count());
     }
 
     /**

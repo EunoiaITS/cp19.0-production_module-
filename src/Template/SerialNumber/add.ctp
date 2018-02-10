@@ -3,9 +3,9 @@
       ==============-->
 
 <div class="planner-from">
+    <form method="post" action="<?php $this->url->build(['controller' => 'SerialNumber', 'action' => 'add']); ?>" class="planner-relative">
     <div class="container-fluid">
         <div class="row">
-            <form action="<?php echo $this->url->build(['controller'=>'SerialNumber','action'=>'add'])?>" method="post" class="planner-relative">
             <div class="col-sm-12 col-sm-12">
                 <div class="part-title-planner text-uppercase text-center"><b>Create Serial Number Form</b></div>
                     <div class="col-sm-6">
@@ -14,7 +14,7 @@
                                 <label for="cn-type-date" class="planner-year">Date <span class="planner-fright">:</span></label>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <input type="text" name="date" class="form-control datepicker" id="cn-type-date">
+                                <input name="date" type="text" class="form-control datepicker" id="cn-type-date" required="">
                             </div>
                         </div>
                         <div class="form-group">
@@ -22,7 +22,7 @@
                                 <label for="model-planer" class="planner-year">Model <span class="planner-fright">:</span></label>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <input type="text" name="model" class="form-control" id="model-planer">
+                                <input name="model" type="text" class="form-control" id="model-planer" required="">
                             </div>
                         </div>
                         <div class="form-group">
@@ -30,7 +30,7 @@
                                 <label for="cn-version" class="planner-year">Version <span class="planner-fright">:</span></label>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <input type="text" name="version" class="form-control" id="cn-version">
+                                <input name="version" type="text" class="form-control" id="cn-version" required="">
                             </div>
                         </div>
                         <div class="form-group">
@@ -38,7 +38,7 @@
                                 <label for="cn-type-1" class="planner-year">Type 1 <span class="planner-fright">:</span></label>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <input type="text" name="type1" class="form-control" id="cn-type-1">
+                                <input name="type1" type="text" class="form-control" id="cn-type-1" required="">
                             </div>
                         </div>
                         <div class="form-group">
@@ -46,7 +46,7 @@
                                 <label for="cn-type-2" class="planner-year">Type 2 <span class="planner-fright">:</span></label>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <input type="text" name="type2" class="form-control" id="cn-type-2">
+                                <input name="type2" type="text" class="form-control" id="cn-type-2" required="">
                             </div>
                         </div>
                         <div class="form-group">
@@ -54,7 +54,7 @@
                                 <label for="cn-type-qty" class="planner-year">Qty <span class="planner-fright">:</span></label>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <input type="text" name="quantity" class="form-control" id="cn-type-qty">
+                                <input name="quantity" type="text" class="form-control" id="cn-type-qty" required="">
                             </div>
                         </div>
                     </div>
@@ -65,6 +65,7 @@
                             </div>
                             <div class="col-sm-5 col-xs-6">
                                 <p class="cn-main-text">Khamal</p>
+                                <input type="hidden" name="created_by" value="requester">
                             </div>
                         </div>
                         <div class="form-group">
@@ -75,9 +76,6 @@
                                 <p class="cn-main-text">Production</p>
                             </div>
                         </div>
-                        <input type="hidden" name="created_by" value="Kamal">
-                        <input type="hidden" name="department" value="prod">
-                        <input type="hidden" name="section" value="welding">
                         <div class="form-group">
                             <div class="col-sm-3 col-xs-6">
                                 <p class="cn-text">Section <span class="planner-fright">:</span></p>
@@ -86,60 +84,72 @@
                                 <p class="cn-main-text">Planner</p>
                             </div>
                         </div>
-                        <button class="btn btn-info btn-csn" id="sn_id">Create</button>
+                        <button type="button" id="create-table" class="btn btn-info btn-csn">Create</button>
                     </div>
             </div>
+
             <div class="clearfix"></div>
+            <!--============== Add drawing table area ===================-->
+            <div class="planner-table table-responsive clearfix">
+                <div class="col-sm-12">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Model</th>
+                            <th>Version</th>
+                            <th>Type 1</th>
+                            <th>Type 2</th>
+                            <th>Year</th>
+                            <th>Month</th>
+                            <th>Model</th>
+                            <th>Sequence</th>
+                        </tr>
+                        </thead>
+                        <tbody class="csn-text-up" id="data-table">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="col-sm-offset-8 col-sm-4 col-xs-12">
+                <div class="prepareted-by-submit">
+                    <button type="submit" class="button btn btn-info btn-submit">Submit</button>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-            <!--============== Add drawing table area ===================-->
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var total = $('#cn-type-qty').val();
-            $('#sn_id').on('click', function (e) {
+    </form>
+    <script>
+        $(document).ready(function(){
+            var sequence = <?php echo $sequence; ?>;
+            var seq = parseInt(sequence);
+            $('#create-table').on('click', function(e){
                 e.preventDefault();
-                var html =
-                    '<div class="planner-table table-responsive clearfix">'+
-                    '<div class="col-sm-12">'+
-                    '<table class="table table-bordered">'+
-                    '<thead>'+
-                    '<tr>'+
-                    '<th>No</th>'+
-                    '<th>Model</th>'+
-                    '<th>Version</th>'+
-                    '<th>Type 1</th>'+
-                    '<th>Type 2</th>'+
-                    '<th>Year</th>'+
-                    '<th>Month</th>'+
-                    '<th>Model</th>'+
-                    '<th>Sequence</th>'+
-                    '</tr>'+
-                    '</thead>'+
-                    '<tbody class="csn-text-up">'+
-                    '<tr>'+
-                    '<td>1</td>'+
-                    '<td>RMU INS</td>'+
-                    '<td>zzt</td>'+
-                    '<td>INDOOR</td>'+
-                    '<td>MOTORIZED</td>'+
-                    '<td><input type="text" name="year'+total+'" class="form-control"></td>'+
-                    '<td><input type="text" name="month'+total+'"  class="form-control"></td>'+
-                    '<td>20</td>'+
-                    '<td>209323</td>'+
-                    '</tr>'+
-                    '</tbody>'+
-                    '</table>'+
-                    '</div>'+
-                    '</div>'+
-                    '<div class="clearfix"></div>'+
-                    '<div class="col-sm-offset-8 col-sm-4 col-xs-12">'+
-                    '<div class="prepareted-by-submit">'+
-                    '<div class="button btn btn-info btn-submit">Submit</div>'+
-                    '</div>'+
-                    '</div>'+
-                    '</form>';
-                $('#sn_id').append(html);
+                var formDate = $('#cn-type-date').val();
+                var formModel = $('#model-planer').val();
+                var formVersion = $('#cn-version').val();
+                var formType1 = $('#cn-type-1').val();
+                var formType2 = $('#cn-type-2').val();
+                var formQuantity = $('#cn-type-qty').val();
+                var qty = parseInt(formQuantity);
+                var html_table = '';
+                for(i = 0; i < qty; i++){
+                    seq++;
+                    html_table += '<tr>'+
+                    '<td>'+(i+1)+'</td>'+
+                    '<td>'+formModel+'</td>'+
+                    '<td>'+formVersion+'</td>'+
+                    '<td>'+formType1+'</td>'+
+                    '<td>'+formType2+'</td>'+
+                    '<td><input name="year'+i+'" type="text" class="form-control" required=""></td>'+
+                    '<td><input name="month'+i+'" type="text" class="form-control" required=""></td>'+
+                    '<td></td>'+
+                    '<td>'+seq+'</td>'+
+                    '</tr>';
+                }
+                $('#data-table').html(html_table);
             });
         });
     </script>

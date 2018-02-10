@@ -94,16 +94,14 @@ class SerialNumberTable extends Table
             ->notEmpty('created_by');
 
         $validator
-            ->scalar('department')
-            ->maxLength('department', 255)
-            ->requirePresence('department', 'create')
-            ->notEmpty('department');
+            ->scalar('model_code')
+            ->maxLength('model_code', 255)
+            ->allowEmpty('model_code');
 
         $validator
-            ->scalar('section')
-            ->maxLength('section', 255)
-            ->requirePresence('section', 'create')
-            ->notEmpty('section');
+            ->scalar('reject_remark')
+            ->maxLength('reject_remark', 255)
+            ->allowEmpty('reject_remark');
 
         $validator
             ->scalar('remark')
