@@ -7,19 +7,21 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * SerialNumber Model
+ * Nbdo Model
  *
- * @method \App\Model\Entity\SerialNumber get($primaryKey, $options = [])
- * @method \App\Model\Entity\SerialNumber newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\SerialNumber[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\SerialNumber|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\SerialNumber patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\SerialNumber[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\SerialNumber findOrCreate($search, callable $callback = null, $options = [])
+ * @property \App\Model\Table\NbdoItemsTable|\Cake\ORM\Association\HasMany $NbdoItems
+ *
+ * @method \App\Model\Entity\Nbdo get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Nbdo newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\Nbdo[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Nbdo|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Nbdo patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Nbdo[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Nbdo findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class SerialNumberTable extends Table
+class NbdoTable extends Table
 {
 
     /**
@@ -32,11 +34,15 @@ class SerialNumberTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('serial_number');
+        $this->setTable('nbdo');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->hasMany('NbdoItems', [
+            'foreignKey' => 'nbdo_id'
+        ]);
     }
 
     /**
@@ -58,50 +64,38 @@ class SerialNumberTable extends Table
             ->notEmpty('date');
 
         $validator
-            ->scalar('model')
-            ->maxLength('model', 255)
-            ->requirePresence('model', 'create')
-            ->notEmpty('model');
+            ->scalar('cust_name')
+            ->maxLength('cust_name', 255)
+            ->requirePresence('cust_name', 'create')
+            ->notEmpty('cust_name');
 
         $validator
-            ->scalar('version')
-            ->maxLength('version', 255)
-            ->requirePresence('version', 'create')
-            ->notEmpty('version');
+            ->scalar('address')
+            ->maxLength('address', 255)
+            ->allowEmpty('address');
 
         $validator
-            ->scalar('type1')
-            ->maxLength('type1', 255)
-            ->requirePresence('type1', 'create')
-            ->notEmpty('type1');
+            ->scalar('contact_person')
+            ->maxLength('contact_person', 255)
+            ->allowEmpty('contact_person');
 
         $validator
-            ->scalar('type2')
-            ->maxLength('type2', 255)
-            ->requirePresence('type2', 'create')
-            ->notEmpty('type2');
+            ->scalar('contact_no')
+            ->maxLength('contact_no', 255)
+            ->requirePresence('contact_no', 'create')
+            ->notEmpty('contact_no');
 
         $validator
-            ->scalar('quantity')
-            ->maxLength('quantity', 255)
-            ->requirePresence('quantity', 'create')
-            ->notEmpty('quantity');
+            ->scalar('location')
+            ->maxLength('location', 255)
+            ->requirePresence('location', 'create')
+            ->notEmpty('location');
 
         $validator
             ->scalar('created_by')
             ->maxLength('created_by', 255)
             ->requirePresence('created_by', 'create')
             ->notEmpty('created_by');
-
-        $validator
-            ->scalar('model_code')
-            ->maxLength('model_code', 255)
-            ->allowEmpty('model_code');
-
-        $validator
-            ->scalar('reject_remark')
-            ->maxLength('reject_remark', 255)
-            ->allowEmpty('reject_remark');
 
         $validator
             ->scalar('remark')

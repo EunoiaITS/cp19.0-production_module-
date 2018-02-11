@@ -10,6 +10,9 @@
 <!-- main js -->
 <script src="<?php echo $this->request->webroot.'assets/js/main.js';?>"></script>
 
+<!-- jquery ui -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

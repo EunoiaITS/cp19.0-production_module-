@@ -40,7 +40,7 @@ class SerialNumberChildTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('SerialNumbers', [
+        $this->belongsTo('SerialNumber', [
             'foreignKey' => 'serial_number_id',
             'joinType' => 'INNER'
         ]);
@@ -82,7 +82,7 @@ class SerialNumberChildTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['serial_number_id'], 'SerialNumbers'));
+        $rules->add($rules->existsIn(['serial_number_id'], 'SerialNumber'));
 
         return $rules;
     }

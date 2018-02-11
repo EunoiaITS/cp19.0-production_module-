@@ -49,7 +49,7 @@ Router::scope('/', function (RouteBuilder $routes) {
      * its action called 'display', and we pass a param to select the view file
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
-    $routes->connect('/', ['controller' => 'SerialNumber', 'action' => 'add']);
+    $routes->connect('/', ['controller' => 'SerialNumber', 'action' => 'dashboard']);
 
     /**
      * ...and connect the rest of 'Pages' controller's URLs.

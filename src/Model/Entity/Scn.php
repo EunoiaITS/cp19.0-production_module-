@@ -4,26 +4,22 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * SerialNumber Entity
+ * Scn Entity
  *
  * @property int $id
  * @property string $date
- * @property string $model
- * @property string $version
- * @property string $type1
- * @property string $type2
- * @property string $quantity
+ * @property string $location
  * @property string $created_by
- * @property string $department
- * @property string $section
  * @property string $remark
  * @property string $status
  * @property string $verified_by
  * @property string $approved_by
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
+ *
+ * @property \App\Model\Entity\ScnItem[] $scn_items
  */
-class SerialNumber extends Entity
+class Scn extends Entity
 {
 
     /**
@@ -37,19 +33,14 @@ class SerialNumber extends Entity
      */
     protected $_accessible = [
         'date' => true,
-        'model' => true,
-        'version' => true,
-        'type1' => true,
-        'type2' => true,
-        'quantity' => true,
+        'location' => true,
         'created_by' => true,
-        'model_code' => true,
-        'reject_remark' => true,
         'remark' => true,
         'status' => true,
         'verified_by' => true,
         'approved_by' => true,
         'created' => true,
-        'modified' => true
+        'modified' => true,
+        'scn_items' => true
     ];
 }

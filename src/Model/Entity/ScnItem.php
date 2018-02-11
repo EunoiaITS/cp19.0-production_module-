@@ -4,26 +4,21 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * SerialNumber Entity
+ * ScnItem Entity
  *
  * @property int $id
- * @property string $date
- * @property string $model
- * @property string $version
- * @property string $type1
- * @property string $type2
+ * @property string $scn_id
+ * @property string $part_no
+ * @property string $part_desc
  * @property string $quantity
- * @property string $created_by
- * @property string $department
- * @property string $section
+ * @property string $reason
  * @property string $remark
- * @property string $status
- * @property string $verified_by
- * @property string $approved_by
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
+ *
+ * @property \App\Model\Entity\Scn $scn
  */
-class SerialNumber extends Entity
+class ScnItem extends Entity
 {
 
     /**
@@ -36,20 +31,14 @@ class SerialNumber extends Entity
      * @var array
      */
     protected $_accessible = [
-        'date' => true,
-        'model' => true,
-        'version' => true,
-        'type1' => true,
-        'type2' => true,
+        'scn_id' => true,
+        'part_no' => true,
+        'part_desc' => true,
         'quantity' => true,
-        'created_by' => true,
-        'model_code' => true,
-        'reject_remark' => true,
+        'reason' => true,
         'remark' => true,
-        'status' => true,
-        'verified_by' => true,
-        'approved_by' => true,
         'created' => true,
-        'modified' => true
+        'modified' => true,
+        'scn' => true
     ];
 }

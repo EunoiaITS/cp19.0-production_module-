@@ -3,7 +3,6 @@
       ==============-->
 
 <div class="planner-from">
-    <form method="post" action="<?php echo $this->url->build(['controller' => 'SerialNumber', 'action' => 'add']); ?>" class="planner-relative">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12 col-sm-12">
@@ -11,50 +10,42 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <div class="col-sm-3 col-xs-6">
-                                <label for="cn-type-date" class="planner-year">Date <span class="planner-fright">:</span></label>
+                                <p class="cn-text">Model <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <input name="date" type="text" class="form-control datepicker" id="cn-type-date" required="">
+                                <p class="cn-main-text"><?= $sn->model ?></p>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-3 col-xs-6">
-                                <label for="model-planer" class="planner-year">Model <span class="planner-fright">:</span></label>
+                                <p class="cn-text">Version <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <input name="model" type="text" class="form-control" id="model-planer" required="">
+                                <p class="cn-main-text"><?= $sn->version ?></p>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-3 col-xs-6">
-                                <label for="cn-version" class="planner-year">Version <span class="planner-fright">:</span></label>
+                                <p class="cn-text">Type 1 <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <input name="version" type="text" class="form-control" id="cn-version" required="">
+                                <p class="cn-main-text"><?= $sn->type1 ?></p>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-3 col-xs-6">
-                                <label for="cn-type-1" class="planner-year">Type 1 <span class="planner-fright">:</span></label>
+                                <p class="cn-text">Type 2 <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <input name="type1" type="text" class="form-control" id="cn-type-1" required="">
+                                <p class="cn-main-text"><?= $sn->type2 ?></p>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-3 col-xs-6">
-                                <label for="cn-type-2" class="planner-year">Type 2 <span class="planner-fright">:</span></label>
+                                <p class="cn-text">Qty <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <input name="type2" type="text" class="form-control" id="cn-type-2" required="">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-3 col-xs-6">
-                                <label for="cn-type-qty" class="planner-year">Qty <span class="planner-fright">:</span></label>
-                            </div>
-                            <div class="col-sm-5 col-xs-6">
-                                <input name="quantity" type="text" class="form-control" id="cn-type-qty" required="">
+                                <p class="cn-main-text"><?= $sn->quantity ?></p>
                             </div>
                         </div>
                     </div>
@@ -65,7 +56,6 @@
                             </div>
                             <div class="col-sm-5 col-xs-6">
                                 <p class="cn-main-text">Khamal</p>
-                                <input type="hidden" name="created_by" value="requester">
                             </div>
                         </div>
                         <div class="form-group">
@@ -84,7 +74,14 @@
                                 <p class="cn-main-text">Planner</p>
                             </div>
                         </div>
-                        <button type="button" id="create-table" class="btn btn-info btn-csn">Create</button>
+                        <div class="form-group">
+                            <div class="col-sm-3 col-xs-6">
+                                <p class="cn-text">Verify <span class="planner-fright">:</span></p>
+                            </div>
+                            <div class="col-sm-5 col-xs-6">
+                                <p class="cn-main-text">Tamiri</p>
+                            </div>
+                        </div>
                     </div>
             </div>
 
@@ -106,7 +103,22 @@
                             <th>Sequence</th>
                         </tr>
                         </thead>
-                        <tbody class="csn-text-up" id="data-table">
+                        <tbody class="csn-text-up">
+                        <?php $count = 0; ?>
+                        <?php foreach($items as $item): ?>
+                            <?php $count++; ?>
+                            <tr>
+                                <td><?php echo $count; ?></td>
+                                <td><?= $sn->model; ?></td>
+                                <td><?= $sn->version; ?></td>
+                                <td><?= $sn->type1; ?></td>
+                                <td><?= $sn->type2; ?></td>
+                                <td><?= $item->year; ?></td>
+                                <td><?= $item->month; ?></td>
+                                <td>20</td>
+                                <td><?= $item->id; ?></td>
+                            </tr>
+                        <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -114,42 +126,38 @@
 
             <div class="clearfix"></div>
             <div class="col-sm-offset-8 col-sm-4 col-xs-12">
-                <div class="prepareted-by-submit">
-                    <button type="submit" class="button btn btn-info btn-submit">Submit</button>
+                <div class="prepareted-by-csn">
+                    <form method="post" action="<?php echo $this->url->build(['controller' => 'SerialNumber', 'action' => 'edit', $sn->id]); ?>">
+                        <input type="hidden" name="status" value="verified">
+                        <input type="hidden" name="verified_by" value="manager">
+                        <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>
+                        <button type="submit" class="button btn btn-info">Verify</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    </form>
-    <script>
-        $(document).ready(function(){
-            var sequence = <?php echo $sequence; ?>;
-            var seq = parseInt(sequence);
-            $('#create-table').on('click', function(e){
-                e.preventDefault();
-                var formDate = $('#cn-type-date').val();
-                var formModel = $('#model-planer').val();
-                var formVersion = $('#cn-version').val();
-                var formType1 = $('#cn-type-1').val();
-                var formType2 = $('#cn-type-2').val();
-                var formQuantity = $('#cn-type-qty').val();
-                var qty = parseInt(formQuantity);
-                var html_table = '';
-                for(i = 0; i < qty; i++){
-                    seq++;
-                    html_table += '<tr>'+
-                    '<td>'+(i+1)+'</td>'+
-                    '<td>'+formModel+'</td>'+
-                    '<td>'+formVersion+'</td>'+
-                    '<td>'+formType1+'</td>'+
-                    '<td>'+formType2+'</td>'+
-                    '<td><input name="year'+i+'" type="text" class="form-control" required=""></td>'+
-                    '<td><input name="month'+i+'" type="text" class="form-control" required=""></td>'+
-                    '<td></td>'+
-                    '<td>'+seq+'</td>'+
-                    '</tr>';
-                }
-                $('#data-table').html(html_table);
-            });
-        });
-    </script>
+
+    <!--========================
+    Remark popup module
+    ======================-->
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-center" id="myModalLabel">Please Key In Remarks Here </h4>
+                </div>
+                <form method="post" action="<?php echo $this->url->build(['controller' => 'SerialNumber', 'action' => 'edit', $sn->id]); ?>">
+                <div class="modal-body">
+                    <input type="hidden" name="status" value="rejected">
+                    <textarea name="remark" id="" class="popup-textarea" cols="20" rows="8"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Okay</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>

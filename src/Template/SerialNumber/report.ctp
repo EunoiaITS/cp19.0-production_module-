@@ -19,25 +19,33 @@
                             <th>Version</th>
                             <th>Type 1</th>
                             <th>Type 2</th>
+                            <th>SN</th>
                             <th>Create By</th>
                             <th>Department</th>
                             <th>Section</th>
-                            <th>Verify</th>
+                            <th>Current Section</th>
+                            <th>Operator Name</th>
+                            <th>Status</th>
+                            <th>Remark</th>
                         </tr>
                         </thead>
                         <tbody class="csn-text-up">
-                        <?php foreach($serialNumber as $sn): ?>
+                        <?php foreach($sn as $s): ?>
                             <tr>
-                                <td><?= $sn->id ?></td>
-                                <td><?= $sn->date ?></td>
-                                <td><?= $sn->model ?></td>
-                                <td><?= $sn->version ?></td>
-                                <td><?= $sn->type1 ?></td>
-                                <td><?= $sn->type2 ?></td>
-                                <td><?= $sn->created_by ?></td>
-                                <td>Khamal</td>
+                                <td><?= $s->id ?></td>
+                                <td><?= $s->date ?></td>
+                                <td><?= $s->model ?></td>
+                                <td><?= $s->version ?></td>
+                                <td><?= $s->type1 ?></td>
+                                <td><?= $s->type2 ?></td>
+                                <td><?= $s->quantity ?></td>
+                                <td><?= $s->created_by ?></td>
                                 <td>Production</td>
-                                <td><a href="<?php echo $this->url->build(['controller' => 'SerialNumber', 'action' => 'verify', $sn->id]); ?>">Verify</a></td>
+                                <td>Planner</td>
+                                <td>Store</td>
+                                <td>Meget</td>
+                                <td><?= $s->status ?></td>
+                                <td><?= $s->remark ?></td>
                             </tr>
                         <?php endforeach; ?>
                         </tbody>

@@ -4,26 +4,26 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * SerialNumber Entity
+ * Nbdo Entity
  *
  * @property int $id
  * @property string $date
- * @property string $model
- * @property string $version
- * @property string $type1
- * @property string $type2
- * @property string $quantity
+ * @property string $cust_name
+ * @property string $address
+ * @property string $contact_person
+ * @property string $contact_no
+ * @property string $location
  * @property string $created_by
- * @property string $department
- * @property string $section
  * @property string $remark
  * @property string $status
  * @property string $verified_by
  * @property string $approved_by
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
+ *
+ * @property \App\Model\Entity\NbdoItem[] $nbdo_items
  */
-class SerialNumber extends Entity
+class Nbdo extends Entity
 {
 
     /**
@@ -37,19 +37,18 @@ class SerialNumber extends Entity
      */
     protected $_accessible = [
         'date' => true,
-        'model' => true,
-        'version' => true,
-        'type1' => true,
-        'type2' => true,
-        'quantity' => true,
+        'cust_name' => true,
+        'address' => true,
+        'contact_person' => true,
+        'contact_no' => true,
+        'location' => true,
         'created_by' => true,
-        'model_code' => true,
-        'reject_remark' => true,
         'remark' => true,
         'status' => true,
         'verified_by' => true,
         'approved_by' => true,
         'created' => true,
-        'modified' => true
+        'modified' => true,
+        'nbdo_items' => true
     ];
 }

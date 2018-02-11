@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * SerialNumber Controller
@@ -15,6 +16,23 @@ class SerialNumberController extends AppController
     public function initialize(){
         parent::initialize();
         $this->viewBuilder()->setLayout('mainframe');
+    }
+    public function dashboard(){
+        $urlToEng = 'http://localhost/engmodule/api/all-parts';
+
+        $optionsForEng = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'GET'
+            ]
+        ];
+        $contextForEng  = stream_context_create($optionsForEng);
+        $resultFromEng = file_get_contents($urlToEng, false, $contextForEng);
+        if ($resultFromEng === FALSE) {
+            echo 'ERROR!!';
+        }
+        $dataFromEng = json_decode($resultFromEng);
+        $this->set('data', $dataFromEng);
     }
     /**
      * Index method
@@ -51,19 +69,16 @@ class SerialNumberController extends AppController
      */
     public function add()
     {
-//        $this->autoRender=false;
-//        echo "<pre>";
-//        print_r($this->request);
-//        echo "</pre>";
+        $this->loadModel('SerialNumberChild');
         $serialNumber = $this->SerialNumber->newEntity();
         if ($this->request->is('post')) {
             $serialNumber = $this->SerialNumber->patchEntity($serialNumber, $this->request->getData());
             if ($this->SerialNumber->save($serialNumber)) {
                 $serial_no = $this->SerialNumber->find('all', ['fields' => 'id'])->last();
-                if($this->request->getData('total') != null){
+                if($this->request->getData('quantity') != null){
                     $serialChild = TableRegistry::get('SerialNumberChild');
                     $serialData = array();
-                    for($i = 1; $i <= $this->request->getData('total'); $i++){
+                    for($i = 0; $i < $this->request->getData('quantity'); $i++){
                         $serialData[$i]['serial_number_id'] = $serial_no['id'];
                         $serialData[$i]['year'] = $this->request->getData('year'.$i);
                         $serialData[$i]['month'] = $this->request->getData('month'.$i);
@@ -80,6 +95,7 @@ class SerialNumberController extends AppController
             $this->Flash->error(__('The serial number could not be saved. Please, try again.'));
         }
         $this->set(compact('serialNumber'));
+        $this->set('sequence', $this->SerialNumberChild->find('all')->count());
     }
 
     /**
@@ -125,4 +141,38 @@ class SerialNumberController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function verify($id = null){
+        $sn = $this->SerialNumber->get($id, [
+            'contain' => []
+        ]);
+        $this->loadModel('SerialNumberChild');
+        $sn_items = $this->SerialNumberChild->find('all')
+            ->where(['serial_number_id' => $sn->id]);
+        $this->set('sn', $sn);
+        $this->set('items', $sn_items);
+    }
+
+    public function approve($id = null){
+        $sn = $this->SerialNumber->get($id, [
+            'contain' => []
+        ]);
+        $this->loadModel('SerialNumberChild');
+        $sn_items = $this->SerialNumberChild->find('all')
+            ->where(['serial_number_id' => $sn->id]);
+        $this->set('sn', $sn);
+        $this->set('items', $sn_items);
+    }
+
+    public function report(){
+        $sn = $this->SerialNumber->find('all');
+        $this->set('sn', $sn);
+    }
+
+    public function monthlyReport(){
+        $sn = $this->SerialNumber->find('all')
+            ->where(['status' => 'approved']);
+        $this->set('sn', $sn);
+    }
+
 }

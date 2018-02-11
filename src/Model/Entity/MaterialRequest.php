@@ -4,18 +4,12 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * SerialNumber Entity
+ * MaterialRequest Entity
  *
  * @property int $id
  * @property string $date
- * @property string $model
- * @property string $version
- * @property string $type1
- * @property string $type2
- * @property string $quantity
+ * @property string $location
  * @property string $created_by
- * @property string $department
- * @property string $section
  * @property string $remark
  * @property string $status
  * @property string $verified_by
@@ -23,7 +17,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
  */
-class SerialNumber extends Entity
+class MaterialRequest extends Entity
 {
 
     /**
@@ -37,14 +31,8 @@ class SerialNumber extends Entity
      */
     protected $_accessible = [
         'date' => true,
-        'model' => true,
-        'version' => true,
-        'type1' => true,
-        'type2' => true,
-        'quantity' => true,
+        'location' => true,
         'created_by' => true,
-        'model_code' => true,
-        'reject_remark' => true,
         'remark' => true,
         'status' => true,
         'verified_by' => true,
