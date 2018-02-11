@@ -9,8 +9,6 @@
 <script src="<?php echo $this->request->webroot.'assets/js/bootstrap-datepicker.min.js';?>"></script>
 <!-- main js -->
 <script src="<?php echo $this->request->webroot.'assets/js/main.js';?>"></script>
-<!-- main js -->
-<script src="<?php echo $this->request->webroot.'assets/js/index.js';?>"></script>
 
 
 
