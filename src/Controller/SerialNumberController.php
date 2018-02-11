@@ -17,6 +17,23 @@ class SerialNumberController extends AppController
         parent::initialize();
         $this->viewBuilder()->setLayout('mainframe');
     }
+    public function dashboard(){
+        $urlToEng = 'http://localhost/engmodule/api/all-parts';
+
+        $optionsForEng = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'GET'
+            ]
+        ];
+        $contextForEng  = stream_context_create($optionsForEng);
+        $resultFromEng = file_get_contents($urlToEng, false, $contextForEng);
+        if ($resultFromEng === FALSE) {
+            echo 'ERROR!!';
+        }
+        $dataFromEng = json_decode($resultFromEng);
+        $this->set('data', $dataFromEng);
+    }
     /**
      * Index method
      *
@@ -145,6 +162,17 @@ class SerialNumberController extends AppController
             ->where(['serial_number_id' => $sn->id]);
         $this->set('sn', $sn);
         $this->set('items', $sn_items);
+    }
+
+    public function report(){
+        $sn = $this->SerialNumber->find('all');
+        $this->set('sn', $sn);
+    }
+
+    public function monthlyReport(){
+        $sn = $this->SerialNumber->find('all')
+            ->where(['status' => 'approved']);
+        $this->set('sn', $sn);
     }
 
 }

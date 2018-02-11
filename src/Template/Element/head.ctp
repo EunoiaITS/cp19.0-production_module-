@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="<?php echo $this->request->webroot.'assets/css/bootstrap-datepicker.css'; ?>">
 <!-- iconfont css -->
 <link rel="stylesheet" href="<?php echo $this->request->webroot.'assets/css/font-awesome.min.css'; ?>">
+<!-- jquery ui css -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <!-- main css -->
 <link rel="stylesheet" href="<?php echo $this->request->webroot.'assets/css/style.css'; ?>">
 
