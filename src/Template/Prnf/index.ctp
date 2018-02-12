@@ -1,93 +1,77 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Prnf[]|\Cake\Collection\CollectionInterface $prnf
- */
-?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Prnf'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="prnf index large-9 medium-8 columns content">
-    <h3><?= __('Prnf') ?></h3>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-            <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('date') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('part_name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('part_no') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('quantity') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('description') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('reason') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('document') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('created_by') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('remark') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('approved_by') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('approved2_investigation') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('approved2_reason') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('approved2_document') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('approved2_remark') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('approved3_correction') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('approved3_reason') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('approved3_document') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('approved3_remark') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('approved4_conclusion') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('approved4_reason') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('approved4_document') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('approved4_remark') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('created') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($prnf as $prnf): ?>
-            <tr>
-                <td><?= $this->Number->format($prnf->id) ?></td>
-                <td><?= h($prnf->date) ?></td>
-                <td><?= h($prnf->part_name) ?></td>
-                <td><?= h($prnf->part_no) ?></td>
-                <td><?= h($prnf->quantity) ?></td>
-                <td><?= h($prnf->description) ?></td>
-                <td><?= h($prnf->reason) ?></td>
-                <td><?= h($prnf->document) ?></td>
-                <td><?= h($prnf->created_by) ?></td>
-                <td><?= h($prnf->remark) ?></td>
-                <td><?= h($prnf->approved_by) ?></td>
-                <td><?= h($prnf->approved2_investigation) ?></td>
-                <td><?= h($prnf->approved2_reason) ?></td>
-                <td><?= h($prnf->approved2_document) ?></td>
-                <td><?= h($prnf->approved2_remark) ?></td>
-                <td><?= h($prnf->approved3_correction) ?></td>
-                <td><?= h($prnf->approved3_reason) ?></td>
-                <td><?= h($prnf->approved3_document) ?></td>
-                <td><?= h($prnf->approved3_remark) ?></td>
-                <td><?= h($prnf->approved4_conclusion) ?></td>
-                <td><?= h($prnf->approved4_reason) ?></td>
-                <td><?= h($prnf->approved4_document) ?></td>
-                <td><?= h($prnf->approved4_remark) ?></td>
-                <td><?= h($prnf->created) ?></td>
-                <td><?= h($prnf->modified) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $prnf->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $prnf->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $prnf->id], ['confirm' => __('Are you sure you want to delete # {0}?', $prnf->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+<!--=========
+Production Planner page
+==============-->
+
+<div class="planner-from">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="part-title-planner text-uppercase text-center"><b>Production Reject Note Approval Status</b></div>
+            </div><!-- end mit title -->
+        </div>
+
+        <div class="clearfix"></div>
+
+        <!--============== Add drawing table area ===================-->
+
+        <div class="planner-table table-responsive clearfix">
+            <div class="col-sm-12">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th rowspan="2">No</th>
+                        <th rowspan="2">Date</th>
+                        <th rowspan="2">Prn No</th>
+                        <th rowspan="2">Part No</th>
+                        <th rowspan="2">Part Name</th>
+                        <th rowspan="2" >Description</th>
+                        <th rowspan="2">QTY</th>
+                        <th rowspan="2">Document</th>
+                        <th rowspan="2">Create By</th>
+                        <th rowspan="2">Section</th>
+                        <th colspan="4">Production</th>
+                        <th colspan="2">Technical</th>
+                        <th colspan="4">Quality Assurance</th>
+                    </tr>
+                    <tr class="table-cell">
+                        <th>Status</th>
+                        <th>Verify By</th>
+                        <th>Status</th>
+                        <th>Approve</th>
+                        <th>Status</th>
+                        <th>Approve 2</th>
+                        <th>Status</th>
+                        <th>Approve 3</th>
+                        <th>Status</th>
+                        <th>Approve 4</th>
+                    </tr>
+                    </thead>
+                    <tbody class="csn-text-up">
+                    <tr>
+                        <td>1</td>
+                        <td>15/10/2017</td>
+                        <td>MR12345</td>
+                        <td>0264</td>
+                        <td>Spring Shaft Assy</td>
+                        <td>SPRING SHAFT TAK BOLE DIMASUKKAN PADA LUBANG SOCKET TRIPPING LEVER ASSY PROSES PERTAMA UNTUK MECH TGAGAL</td>
+                        <td>27</td>
+                        <td><a href="#">View</a></td>
+                        <td>Malik</td>
+                        <td>Sub Assy Ins</td>
+                        <td class="colored-csn">Verified</td>
+                        <td>Rusli</td>
+                        <td class="colored-csn">Approved</td>
+                        <td>Tarmimi</td>
+                        <td  class="colored-csn">Approved</td>
+                        <td>Zainal</td>
+                        <td  class="colored-csn">Approved</td>
+                        <td>Zul-khairi</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
