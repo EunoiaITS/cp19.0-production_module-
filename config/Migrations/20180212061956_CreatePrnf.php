@@ -1,7 +1,7 @@
 <?php
 use Migrations\AbstractMigration;
 
-class CreatePrn extends AbstractMigration
+class CreatePrnf extends AbstractMigration
 {
     /**
      * Change Method.
@@ -12,7 +12,7 @@ class CreatePrn extends AbstractMigration
      */
     public function change()
     {
-        $table = $this->table('prn');
+        $table = $this->table('prnf');
         $table->addColumn('date', 'string', [
             'default' => null,
             'limit' => 255,

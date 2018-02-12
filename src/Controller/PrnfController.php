@@ -4,13 +4,13 @@ namespace App\Controller;
 use App\Controller\AppController;
 
 /**
- * Prn Controller
+ * Prnf Controller
  *
- * @property \App\Model\Table\PrnTable $Prn
+ * @property \App\Model\Table\PrnfTable $Prnf
  *
- * @method \App\Model\Entity\Prn[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @method \App\Model\Entity\Prnf[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class PrnController extends AppController
+class PrnfController extends AppController
 {
 
     /**
@@ -20,25 +20,25 @@ class PrnController extends AppController
      */
     public function index()
     {
-        $prn = $this->paginate($this->Prn);
+        $prnf = $this->paginate($this->Prnf);
 
-        $this->set(compact('prn'));
+        $this->set(compact('prnf'));
     }
 
     /**
      * View method
      *
-     * @param string|null $id Prn id.
+     * @param string|null $id Prnf id.
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
-        $prn = $this->Prn->get($id, [
+        $prnf = $this->Prnf->get($id, [
             'contain' => []
         ]);
 
-        $this->set('prn', $prn);
+        $this->set('prnf', $prnf);
     }
 
     /**
@@ -48,58 +48,58 @@ class PrnController extends AppController
      */
     public function add()
     {
-        $prn = $this->Prn->newEntity();
+        $prnf = $this->Prnf->newEntity();
         if ($this->request->is('post')) {
-            $prn = $this->Prn->patchEntity($prn, $this->request->getData());
-            if ($this->Prn->save($prn)) {
-                $this->Flash->success(__('The prn has been saved.'));
+            $prnf = $this->Prnf->patchEntity($prnf, $this->request->getData());
+            if ($this->Prnf->save($prnf)) {
+                $this->Flash->success(__('The prnf has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The prn could not be saved. Please, try again.'));
+            $this->Flash->error(__('The prnf could not be saved. Please, try again.'));
         }
-        $this->set(compact('prn'));
+        $this->set(compact('prnf'));
     }
 
     /**
      * Edit method
      *
-     * @param string|null $id Prn id.
+     * @param string|null $id Prnf id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)
     {
-        $prn = $this->Prn->get($id, [
+        $prnf = $this->Prnf->get($id, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $prn = $this->Prn->patchEntity($prn, $this->request->getData());
-            if ($this->Prn->save($prn)) {
-                $this->Flash->success(__('The prn has been saved.'));
+            $prnf = $this->Prnf->patchEntity($prnf, $this->request->getData());
+            if ($this->Prnf->save($prnf)) {
+                $this->Flash->success(__('The prnf has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The prn could not be saved. Please, try again.'));
+            $this->Flash->error(__('The prnf could not be saved. Please, try again.'));
         }
-        $this->set(compact('prn'));
+        $this->set(compact('prnf'));
     }
 
     /**
      * Delete method
      *
-     * @param string|null $id Prn id.
+     * @param string|null $id Prnf id.
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $prn = $this->Prn->get($id);
-        if ($this->Prn->delete($prn)) {
-            $this->Flash->success(__('The prn has been deleted.'));
+        $prnf = $this->Prnf->get($id);
+        if ($this->Prnf->delete($prnf)) {
+            $this->Flash->success(__('The prnf has been deleted.'));
         } else {
-            $this->Flash->error(__('The prn could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The prnf could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);

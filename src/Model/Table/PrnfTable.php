@@ -7,19 +7,19 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Prn Model
+ * Prnf Model
  *
- * @method \App\Model\Entity\Prn get($primaryKey, $options = [])
- * @method \App\Model\Entity\Prn newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Prn[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Prn|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Prn patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Prn[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Prn findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\Prnf get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Prnf newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\Prnf[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Prnf|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Prnf patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Prnf[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Prnf findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class PrnTable extends Table
+class PrnfTable extends Table
 {
 
     /**
@@ -32,7 +32,7 @@ class PrnTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('prn');
+        $this->setTable('prnf');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
