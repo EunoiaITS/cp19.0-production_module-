@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Nbdo Controller
@@ -12,6 +13,11 @@ use App\Controller\AppController;
  */
 class NbdoController extends AppController
 {
+
+    public function initialize(){
+        parent::initialize();
+        $this->viewBuilder()->setLayout('mainframe');
+    }
 
     /**
      * Index method
@@ -48,17 +54,95 @@ class NbdoController extends AppController
      */
     public function add()
     {
+        $urlTosSales = 'http://localhost/salesmodule/customer/all-cust';
+
+        $optionsForSales = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'GET'
+            ]
+        ];
+        $contextForSales  = stream_context_create($optionsForSales);
+        $resultFromSales = file_get_contents($urlTosSales, false, $contextForSales);
+        if ($resultFromSales === FALSE) {
+            echo 'ERROR!!';
+        }
+        $dataFromSales = json_decode($resultFromSales);
+        $cust_details = null;
+        foreach($dataFromSales as $ss){
+            $cust_details .= '{label:"'.$ss->name.'",idx:"'.$ss->address.'",contact:"'.$ss->contactno1.'",conper:"'.$ss->contact_details->name.'"},';
+        }
+        $cust_details = rtrim($cust_details, ',');
+
+        $urlToEng = 'http://localhost/engmodule/api/all-parts';
+
+        $optionsForEng = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'GET'
+            ]
+        ];
+        $contextForEng  = stream_context_create($optionsForEng);
+        $resultFromEng = file_get_contents($urlToEng, false, $contextForEng);
+        if ($resultFromEng === FALSE) {
+            echo 'ERROR!!';
+        }
+        $dataFromEng = json_decode($resultFromEng);
+        $part_no = $part_name = null;
+        foreach($dataFromEng as $pm){
+            $part_no .= '{label:"'.$pm->partNo.'",idx:"'.$pm->partName.'"},';
+            $part_name .= '{label:"'.$pm->partName.'",idx:"'.$pm->partNo.'"},';
+        }
+        $part_no = rtrim($part_no, ',');
+        $part_name = rtrim($part_name, ',');
+        $count = $this->Nbdo->find('all')->last();
         $nbdo = $this->Nbdo->newEntity();
+        $this->loadModel('NbdoItems');
         if ($this->request->is('post')) {
             $nbdo = $this->Nbdo->patchEntity($nbdo, $this->request->getData());
             if ($this->Nbdo->save($nbdo)) {
+                $nbdo_no = $this->Nbdo->find('all', ['fields' => 'id'])->last();
+                if($this->request->getData('total') != null){
+                    $nbdoItem = TableRegistry::get('NbdoItems');
+                    $itemData = array();
+                    for($i = 0; $i < $this->request->getData('total'); $i++){
+                        $itemData[$i]['nbdo_id'] = $nbdo_no['id'];
+                        $itemData[$i]['part_no'] = $this->request->getData('part_no'.$i);
+                        $itemData[$i]['part_desc'] = $this->request->getData('part_desc'.$i);
+                        $itemData[$i]['quantity'] = $this->request->getData('quantity'.$i);
+                        if ($this->request->getData('document'.$i) != '') {
+                            $fileName = $this->request->getData('document'.$i);
+                            $ext = substr(strtolower(strrchr($fileName['name'], '.')), 1);
+                            $arr_ext = array('jpg', 'jpeg', 'gif', 'png');
+                            $setNewFileName = 'uploadedFile'.$i;
+                            $imageFileName = $setNewFileName . '.' . $ext;
+                            $uploadPath = WWW_ROOT . 'uploads/nbdo/' . $nbdo_no['id'] . '/';
+                            if (!file_exists($uploadPath)) {
+                                mkdir($uploadPath);
+                            }
+                            $uploadFile = $uploadPath.$imageFileName;
+                            if (move_uploaded_file($fileName['tmp_name'], $uploadFile)) {
+                                $itemData[$i]['document'] = 'uploads/nbdo/'.$nbdo_no['id'].'/'.$imageFileName;
+                            }
+                        }
+                    }
+                    $items = $nbdoItem->newEntities($itemData);
+                    foreach($items as $item){
+                        $nbdoItem->save($item);
+                    }
+                }
+
                 $this->Flash->success(__('The nbdo has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'add']);
             }
             $this->Flash->error(__('The nbdo could not be saved. Please, try again.'));
         }
         $this->set(compact('nbdo'));
+        $this->set('sn_no', (isset($count->id) ? ($count->id + 1) : 1));
+        $this->set('part_no', $part_no);
+        $this->set('part_name', $part_name);
+        $this->set('cust_details', $cust_details);
     }
 
     /**
@@ -104,4 +188,32 @@ class NbdoController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function verify($id = null){
+        $nbdo = $this->Nbdo->get($id, [
+            'contain' => []
+        ]);
+        $this->loadModel('NbdoItems');
+        $nbdo_items = $this->NbdoItems->find('all')
+            ->where(['nbdo_id' => $nbdo->id]);
+        $this->set('nbdo', $nbdo);
+        $this->set('items', $nbdo_items);
+    }
+
+    public function approve($id = null){
+        $nbdo = $this->Nbdo->get($id, [
+            'contain' => []
+        ]);
+        $this->loadModel('NbdoItems');
+        $nbdo_items = $this->NbdoItems->find('all')
+            ->where(['nbdo_id' => $nbdo->id]);
+        $this->set('nbdo', $nbdo);
+        $this->set('items', $nbdo_items);
+    }
+
+    public function report(){
+        $mr = $this->Nbdo->find('all');
+        $this->set('mr', $mr);
+    }
+
 }
