@@ -3,12 +3,12 @@ prn page
 ==============-->
 
 <div class="planner-from">
+    <form action="<?php echo $this->Url->build(['controller'=>'prnf','action'=>'approval4']);?>" method="post" enctype="multipart/form-data">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
                 <div class="part-title-planner text-uppercase text-center"><b>Production Reject Note Form</b></div>
             </div><!-- end mit title -->
-            <form action="#">
                 <div class="col-md-5 col-sm-6">
                     <div class="form-group">
                         <div class="col-sm-3 col-xs-6">
@@ -135,7 +135,6 @@ prn page
                         </div>
                     </div>
                 </div>
-            </form>
         </div>
 
         <div class="clearfix"></div>
@@ -215,8 +214,8 @@ prn page
                     </thead>
                     <tbody class="csn-text-up">
                     <tr>
-                        <td><input type="text" class="form-control"></td>
-                        <td><input type="text" class="form-control"></td>
+                        <td><input name="approved4_conclusion" type="text" class="form-control"></td>
+                        <td><input name="approved4_reason" type="text" class="form-control"></td>
                         <td><a href="#">Upload</a></td>
                         <td></td>
                     </tr>
@@ -230,10 +229,11 @@ prn page
         <div class="col-sm-offset-8 col-sm-4 col-xs-12">
             <div class="prepareted-by-csn">
                 <button class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>
-                <div class="button btn btn-info">Approve</div>
+                <button type="submit" class="button btn btn-info">Approve</button>
             </div>
         </div>
     </div>
+    </form>
 </div>
 
 <!--========================

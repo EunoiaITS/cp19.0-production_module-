@@ -3,12 +3,12 @@ prn page
 ==============-->
 
 <div class="planner-from">
+    <form action="<?php echo $this->Url->build(['controller'=>'prnf','action'=>'approval3']);?>" method="post" enctype="multipart/form-data">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
                 <div class="part-title-planner text-uppercase text-center"><b>Production Reject Note Form</b></div>
             </div><!-- end mit title -->
-            <form action="#">
                 <div class="col-md-5 col-sm-6">
                     <div class="form-group">
                         <div class="col-sm-3 col-xs-6">
@@ -125,7 +125,6 @@ prn page
                         </div>
                     </div>
                 </div>
-            </form>
         </div>
 
         <div class="clearfix"></div>
@@ -185,9 +184,11 @@ prn page
                     </thead>
                     <tbody class="csn-text-up">
                     <tr>
-                        <td><input type="text" class="form-control"></td>
-                        <td><input type="text" class="form-control"></td>
-                        <td><a href="#">Upload</a></td>
+                        <td><input name="approved3_correction" type="text" class="form-control"></td>
+                        <td><input name="approved2_reason" type="text" class="form-control"></td>
+                        <td><label class="btn btn-info">
+                                Upload <input type="file" name="approved3_document" hidden style="display: none !important;">
+                            </label></td>
                         <td></td>
                     </tr>
                     </tbody>
@@ -204,6 +205,7 @@ prn page
             </div>
         </div>
     </div>
+</form>
 </div>
 
 <!--========================
