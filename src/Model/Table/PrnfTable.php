@@ -54,49 +54,36 @@ class PrnfTable extends Table
         $validator
             ->scalar('date')
             ->maxLength('date', 255)
-            ->requirePresence('date', 'create')
             ->notEmpty('date');
-
-        $validator
-            ->scalar('part_name')
-            ->maxLength('part_name', 255)
-            ->requirePresence('part_name', 'create')
-            ->notEmpty('part_name');
 
         $validator
             ->scalar('part_no')
             ->maxLength('part_no', 255)
-            ->requirePresence('part_no', 'create')
             ->notEmpty('part_no');
 
         $validator
             ->scalar('quantity')
             ->maxLength('quantity', 255)
-            ->requirePresence('quantity', 'create')
             ->notEmpty('quantity');
 
         $validator
             ->scalar('description')
             ->maxLength('description', 255)
-            ->requirePresence('description', 'create')
             ->notEmpty('description');
 
         $validator
             ->scalar('reason')
             ->maxLength('reason', 255)
-            ->requirePresence('reason', 'create')
             ->notEmpty('reason');
 
         $validator
             ->scalar('document')
             ->maxLength('document', 255)
-            ->requirePresence('document', 'create')
-            ->notEmpty('document');
+            ->allowEmpty('document');
 
         $validator
             ->scalar('created_by')
             ->maxLength('created_by', 255)
-            ->requirePresence('created_by', 'create')
             ->notEmpty('created_by');
 
         $validator

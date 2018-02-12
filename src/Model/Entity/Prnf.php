@@ -46,7 +46,6 @@ class Prnf extends Entity
      */
     protected $_accessible = [
         'date' => true,
-        'part_name' => true,
         'part_no' => true,
         'quantity' => true,
         'description' => true,

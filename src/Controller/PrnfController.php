@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Prnf Controller
@@ -12,7 +13,10 @@ use App\Controller\AppController;
  */
 class PrnfController extends AppController
 {
-
+    public function initialize(){
+        parent::initialize();
+        $this->viewBuilder()->setLayout('mainframe');
+    }
     /**
      * Index method
      *
@@ -50,11 +54,32 @@ class PrnfController extends AppController
     {
         $prnf = $this->Prnf->newEntity();
         if ($this->request->is('post')) {
+//            $this->autoRender =false;
+//            echo "<pre>";
+//            print_r($this->request)->getData();
+//            echo "</pre>";
             $prnf = $this->Prnf->patchEntity($prnf, $this->request->getData());
             if ($this->Prnf->save($prnf)) {
+                $prnf_no = $this->Prnf->find('all', ['fields' => 'id'])->last();
+                if ($this->request->getData('upload_file') != '') {
+                    $fileName = $this->request->getData('upload_file');
+                    $ext = substr(strtolower(strrchr($fileName['name'], '.')), 1);
+                    $arr_ext = array('jpg', 'jpeg', 'gif', 'png');
+                    $setNewFileName = 'uploadedFile';
+                    $imageFileName = $setNewFileName . '.' . $ext;
+                    $uploadPath = WWW_ROOT . 'uploads/Prnf/' . $prnf_no['id'] . '/';
+                    if (!file_exists($uploadPath)) {
+                        mkdir($uploadPath);
+                    }
+                    $uploadFile = $uploadPath.$imageFileName;
+                    if (move_uploaded_file($fileName['tmp_name'], $uploadFile)) {
+                        $prnf->document = 'uploads/Prnf/'.$prnf_no['id'].'/'.$imageFileName;
+                        $this->Prnf->save($prnf);
+                    }
+                }
                 $this->Flash->success(__('The prnf has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'add']);
             }
             $this->Flash->error(__('The prnf could not be saved. Please, try again.'));
         }
