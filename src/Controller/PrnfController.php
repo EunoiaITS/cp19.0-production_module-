@@ -129,4 +129,48 @@ class PrnfController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    public function verify($id = null)
+    {
+        $prnf = $this->Prnf->get($id, [
+            'contain' => []
+        ]);
+
+        $this->set('prnf', $prnf);
+    }
+    public function approval1($id = null)
+    {
+        $prnf = $this->Prnf->get($id, [
+            'contain' => []
+        ]);
+
+        $this->set('prnf', $prnf);
+    }
+    public function approval2($id = null)
+    {
+        $prnf = $this->Prnf->get($id, [
+            'contain' => []
+        ]);
+
+        $this->set('prnf', $prnf);
+    }
+    public function approval3($id = null)
+    {
+        $prnf = $this->Prnf->get($id, [
+            'contain' => []
+        ]);
+
+        $this->set('prnf', $prnf);
+    }
+    public function approval4($id = null)
+    {
+        $prnf = $this->Prnf->get($id, [
+            'contain' => []
+        ]);
+
+        $this->set('prnf', $prnf);
+    }
+    public function report(){
+        $prnf = $this->Prnf->find('all');
+        $this->set('prnf', $prnf);
+    }
 }
