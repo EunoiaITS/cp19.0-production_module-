@@ -114,7 +114,7 @@
                 STORE CREDIT NOTE (SCN)<span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li class="color-hsh"><a href="scr-form.html">SCN Create</a></li>
+                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'scn','action'=>'add']);?>">SCN Create</a></li>
                 <li class="color-hsh"><a href="scr-verify.html">SCN verify</a></li>
                 <li class="color-hsh"><a href="scr-approve.html">SCN Approve</a></li>
                 <li class="color-hsh2"><a href="scr-approval-st.html">Approval Status</a></li>

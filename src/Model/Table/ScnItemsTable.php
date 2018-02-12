@@ -11,13 +11,13 @@ use Cake\Validation\Validator;
  *
  * @property \App\Model\Table\ScnsTable|\Cake\ORM\Association\BelongsTo $Scns
  *
- * @method \App\Model\Entity\ScnItem get($primaryKey, $options = [])
- * @method \App\Model\Entity\ScnItem newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\ScnItem[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\ScnItem|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\ScnItem patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\ScnItem[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\ScnItem findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\ScnItems get($primaryKey, $options = [])
+ * @method \App\Model\Entity\ScnItems newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\ScnItems[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\ScnItems|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\ScnItems patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\ScnItems[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\ScnItems findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */

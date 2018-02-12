@@ -17,7 +17,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
  *
- * @property \App\Model\Entity\ScnItem[] $scn_items
+ * @property \App\Model\Entity\ScnItems[] $scn_items
  */
 class Scn extends Entity
 {

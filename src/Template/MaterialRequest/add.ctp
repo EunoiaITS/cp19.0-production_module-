@@ -123,7 +123,7 @@
             html_table += '<tr>'+
             '<td>'+(count+1)+'</td>'+
             '<td><input type="text" class="form-control part-no" id="part-no'+count+'" rel="part-name'+count+'" name="part_no'+count+'" required></td>'+
-            '<td><input type="text" class="form-control part-name" id="part-name'+count+'" rel="part-no'+count+'" name="part_desc'+count+'" required></td>'+
+            '<td><input type="text" class="form-control part-name" id="part-name'+count+'" rel="part-name'+count+'" name="part_desc'+count+'" required></td>'+
             '<td><input type="text" class="form-control" name="quantity'+count+'" required></td>'+
             '<td></td>'+
             '</tr>';
