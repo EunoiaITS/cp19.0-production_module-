@@ -249,5 +249,4 @@ class PrnfController extends AppController
         $prnf = $this->Prnf->find('all');
         $this->set('prnf', $prnf);
     }
-
 }

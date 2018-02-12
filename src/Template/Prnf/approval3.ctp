@@ -3,7 +3,7 @@ prn page
 ==============-->
 
 <div class="planner-from">
-    <form action="<?php echo $this->Url->build(['controller'=>'prnf','action'=>'approval3']);?>" method="post" enctype="multipart/form-data">
+    <form action="<?php echo $this->Url->build(['controller'=>'prnf','action'=>'approval3',$prnf->id]);?>" method="post" enctype="multipart/form-data">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
@@ -200,8 +200,12 @@ prn page
         <div class="clearfix"></div>
         <div class="col-sm-offset-8 col-sm-4 col-xs-12">
             <div class="prepareted-by-csn">
-                <button class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>
-                <div class="button btn btn-info">Approve</div>
+                <form method="post" action="<?php echo $this->url->build(['controller' => 'Prnf', 'action' => 'approval3', $prnf->id]); ?>">
+                    <input type="hidden" name="verified_by" value="manager">
+                    <input type="hidden" name="status" value="verified">
+                    <button class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>
+                    <button type="submit" class="button btn btn-info">Approve</button>
+                </form>
             </div>
         </div>
     </div>
