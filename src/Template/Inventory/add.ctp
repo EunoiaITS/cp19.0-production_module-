@@ -107,7 +107,8 @@ add item
         });
         $(document).on('autocompleteselect', part_no, function(e, ui) {
             targetName = $(this).attr('rel');
-            $('#drawing-no,#part-name'+targetName).val(ui.item.idx);
+            $('#part-name'+targetName).val(ui.item.idx);
+            $('#drawing-no'+targetName).val(ui.item.idw);
         });
         var data_name = [<?php echo $part_name; ?>];
         var options_name = {
@@ -120,7 +121,9 @@ add item
         });
         $(document).on('autocompleteselect', part_name, function(e, ui) {
             targetNo = $(this).attr('rel');
-            $('#drawing-no,#part-no'+targetNo).val(ui.item.idx);
+            $('#part-no'+targetNo).val(ui.item.idx);
+            $('#drawing-no'+targetNo).val(ui.item.idw);
+
         });
         var data_draw = [<?php echo $drawing_no; ?>];
         var options_draw = {
@@ -133,7 +136,8 @@ add item
         });
         $(document).on('autocompleteselect', drawing_no, function(e, ui) {
             targetDraw = $(this).attr('rel');
-            $('#part-no,#part-name'+targetDraw).val(ui.item.idx);
+            $('#part-name'+targetDraw).val(ui.item.idx);
+            $('#part-name'+targetDraw).val(ui.item.idw);
         });
     });
 </script>
