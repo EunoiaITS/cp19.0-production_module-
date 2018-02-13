@@ -7,19 +7,19 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * SerialNumber Model
+ * Fgtt Model
  *
- * @method \App\Model\Entity\SerialNumber get($primaryKey, $options = [])
- * @method \App\Model\Entity\SerialNumber newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\SerialNumber[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\SerialNumber|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\SerialNumber patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\SerialNumber[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\SerialNumber findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\Fgtt get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Fgtt newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\Fgtt[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Fgtt|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Fgtt patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Fgtt[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Fgtt findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class SerialNumberTable extends Table
+class FgttTable extends Table
 {
 
     /**
@@ -32,7 +32,7 @@ class SerialNumberTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('serial_number');
+        $this->setTable('fgtt');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
@@ -64,50 +64,16 @@ class SerialNumberTable extends Table
             ->notEmpty('so_no');
 
         $validator
-            ->scalar('model')
-            ->maxLength('model', 255)
-            ->requirePresence('model', 'create')
-            ->notEmpty('model');
-
-        $validator
-            ->scalar('version')
-            ->maxLength('version', 255)
-            ->requirePresence('version', 'create')
-            ->notEmpty('version');
-
-        $validator
-            ->scalar('type1')
-            ->maxLength('type1', 255)
-            ->requirePresence('type1', 'create')
-            ->notEmpty('type1');
-
-        $validator
-            ->scalar('type2')
-            ->maxLength('type2', 255)
-            ->requirePresence('type2', 'create')
-            ->notEmpty('type2');
-
-        $validator
-            ->scalar('quantity')
-            ->maxLength('quantity', 255)
-            ->requirePresence('quantity', 'create')
-            ->notEmpty('quantity');
+            ->scalar('location')
+            ->maxLength('location', 255)
+            ->requirePresence('location', 'create')
+            ->notEmpty('location');
 
         $validator
             ->scalar('created_by')
             ->maxLength('created_by', 255)
             ->requirePresence('created_by', 'create')
             ->notEmpty('created_by');
-
-        $validator
-            ->scalar('model_code')
-            ->maxLength('model_code', 255)
-            ->allowEmpty('model_code');
-
-        $validator
-            ->scalar('reject_remark')
-            ->maxLength('reject_remark', 255)
-            ->allowEmpty('reject_remark');
 
         $validator
             ->scalar('remark')

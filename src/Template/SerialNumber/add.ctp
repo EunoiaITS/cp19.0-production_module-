@@ -19,6 +19,14 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-3 col-xs-6">
+                                <label for="cn-type-so" class="planner-year">SO No <span class="planner-fright">:</span></label>
+                            </div>
+                            <div class="col-sm-5 col-xs-6">
+                                <input name="so_no" type="text" class="form-control" id="cn-type-so" required="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3 col-xs-6">
                                 <label for="model-planer" class="planner-year">Model <span class="planner-fright">:</span></label>
                             </div>
                             <div class="col-sm-5 col-xs-6">
@@ -121,8 +129,18 @@
         </div>
     </div>
     </form>
+    </div>
     <script>
         $(document).ready(function(){
+            var so_no = 'input#cn-type-so';
+            var data = [<?php echo $so_no; ?>];
+            var options = {
+                source: data,
+                minLength: 0
+            };
+            $(document).on('keydown.autocomplete', so_no, function() {
+                $(this).autocomplete(options);
+            });
             var sequence = <?php echo $sequence; ?>;
             var seq = parseInt(sequence);
             $('#create-table').on('click', function(e){
