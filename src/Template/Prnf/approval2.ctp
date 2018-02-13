@@ -159,7 +159,7 @@ prn page
                         <td><input type="text" name="approved2_investigation" class="form-control"></td>
                         <td><input type="text" name="approved2_reason" class="form-control"></td>
                         <td><label class="btn btn-info">
-                                Upload <input type="file" name="approved2_document" hidden style="display: none !important;">
+                                Upload <input type="file" name="approved2_doc" hidden style="display: none !important;">
                             </label></td>
                         <td></td>
                     </tr>
@@ -173,8 +173,7 @@ prn page
         <div class="col-sm-offset-8 col-sm-4 col-xs-12">
             <div class="prepareted-by-csn">
                 <form method="post" action="<?php echo $this->url->build(['controller' => 'Prnf', 'action' => 'approval2', $prnf->id]); ?>">
-                    <input type="hidden" name="verified_by" value="manager">
-                    <input type="hidden" name="status" value="verified">
+                    <input type="hidden" name="approved2_by" value="manager">
                     <button class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>
                     <button type="submit" class="button btn btn-info">Approve</button>
                 </form>

@@ -87,15 +87,36 @@ class PrnfTable extends Table
             ->notEmpty('created_by');
 
         $validator
+            ->scalar('status')
+            ->maxLength('status', 255)
+            ->allowEmpty('status');
+
+        $validator
+            ->scalar('verified_by')
+            ->maxLength('verified_by', 255)
+            ->allowEmpty('verified_by');
+
+        $validator
             ->scalar('remark')
             ->maxLength('remark', 255)
             ->allowEmpty('remark');
 
         $validator
-            ->scalar('approved_by')
+            ->scalar('approved1_by')
             ->maxLength('approved_by', 255)
             ->allowEmpty('approved_by');
-
+        $validator
+            ->scalar('approved2_by')
+            ->maxLength('approved_by', 255)
+            ->allowEmpty('approved_by');
+        $validator
+            ->scalar('approved3_by')
+            ->maxLength('approved_by', 255)
+            ->allowEmpty('approved_by');
+        $validator
+            ->scalar('approved4_by')
+            ->maxLength('approved_by', 255)
+            ->allowEmpty('approved_by');
         $validator
             ->scalar('approved2_investigation')
             ->maxLength('approved2_investigation', 255)

@@ -1,7 +1,6 @@
 <!--=========
       Production Planner page
       ==============-->
-
 <div class="planner-from">
     <div class="container-fluid">
         <div class="row">
@@ -114,8 +113,12 @@
         <div class="clearfix"></div>
         <div class="col-sm-offset-8 col-sm-4 col-xs-12">
             <div class="prepareted-by-csn">
-                <button class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>
-                <div class="button btn btn-info">Verify</div>
+                <form method="post" action="<?php echo $this->url->build(['controller' => 'Scn', 'action' => 'edit', $scn->id]); ?>">
+                    <input type="hidden" name="verified_by" value="manager">
+                    <input type="hidden" name="status" value="verified">
+                    <button class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>
+                    <button type="submit" class="button btn btn-info">Verify</button>
+                </form>
             </div>
         </div>
     </div>
