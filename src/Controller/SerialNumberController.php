@@ -69,6 +69,25 @@ class SerialNumberController extends AppController
      */
     public function add()
     {
+        $urlToSales = 'http://salesmodule.acumenits.com/sales-order/all-po';
+
+        $optionsForSales = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'GET'
+            ]
+        ];
+        $contextForSales  = stream_context_create($optionsForSales);
+        $resultFromSales = file_get_contents($urlToSales, false, $contextForSales);
+        if ($resultFromSales === FALSE) {
+            echo 'ERROR!!';
+        }
+        $dataFromSales = json_decode($resultFromSales);
+        $so_no = null;
+        foreach($dataFromSales as $pm){
+            $so_no .= '"'.$pm->salesorder_no.'",';
+        }
+        $so_no = rtrim($so_no, ',');
         $this->loadModel('SerialNumberChild');
         $serialNumber = $this->SerialNumber->newEntity();
         if ($this->request->is('post')) {
@@ -96,6 +115,7 @@ class SerialNumberController extends AppController
         }
         $this->set(compact('serialNumber'));
         $this->set('sequence', $this->SerialNumberChild->find('all')->count());
+        $this->set('so_no', $so_no);
     }
 
     /**
