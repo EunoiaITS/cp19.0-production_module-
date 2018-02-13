@@ -38,9 +38,9 @@ Production Planner page
                     <tbody id="add-item-table">
                     <tr>
                         <td>1</td>
-                        <td><input type="text" class="form-control part-no" id="part-no0" rel="part-name0" name="part_no0"></td>
-                        <td><input type="text" class="form-control part-name" id="part-name0" rel="part-no0" name="part_name0"></td>
-                        <td><input type="text" class="form-control drawing-no" id="drawing-no0" rel="part-no0" name="drawing_no0"></td>
+                        <td><input type="text" class="form-control part-no" id="part-no0" rel="0" name="part_no0"></td>
+                        <td><input type="text" class="form-control part-name" id="part-name0" rel="0" name="part_name0"></td>
+                        <td><input type="text" class="form-control drawing-no" id="drawing-no0" rel="0" name="drawing_no0"></td>
                         <td><input type="text" class="form-control" name="section0"></td>
                         <td><input type="text" class="form-control" name="uom0"></td>
                         <td><input type="text" class="form-control" name="current_quantity0"></td>
@@ -76,9 +76,9 @@ add item
             e.preventDefault();
             var html_create = '<tr>'+
                 '<td>'+(count+1)+'</td>'+
-                '<td><input type="text" name="part_no'+count+'" id="part-no'+count+'" rel="part-name'+count+'" class="form-control part-no half-control-sm"></td>'+
-                '<td><input type="text" name="part_name'+count+'" id="part-name'+count+'" rel="part-no'+count+'" class="form-control part-name"></td>'+
-                '<td><input type="text" name="drawing_no'+count+'" id="drawing-no'+count+'" rel="part-no'+count+'" class="form-control drawing-no"></td>'+
+                '<td><input type="text" name="part_no'+count+'" id="part-no'+count+'" rel="'+count+'" class="form-control part-no half-control-sm"></td>'+
+                '<td><input type="text" name="part_name'+count+'" id="part-name'+count+'" rel="'+count+'" class="form-control part-name"></td>'+
+                '<td><input type="text" name="drawing_no'+count+'" id="drawing-no'+count+'" rel="'+count+'" class="form-control drawing-no"></td>'+
                 '<td><input type="text" name="section'+count+'" class="form-control"></td>'+
                 '<td><input type="text" name="uom'+count+'" class="form-control"></td>'+
                 '<td><input type="text" name="current_quantity'+count+'" class="form-control"></td>'+
@@ -107,7 +107,7 @@ add item
         });
         $(document).on('autocompleteselect', part_no, function(e, ui) {
             targetName = $(this).attr('rel');
-            $('#'+targetName).val(ui.item.idx);
+            $('#drawing-no,#part-name'+targetName).val(ui.item.idx);
         });
         var data_name = [<?php echo $part_name; ?>];
         var options_name = {
@@ -120,7 +120,7 @@ add item
         });
         $(document).on('autocompleteselect', part_name, function(e, ui) {
             targetNo = $(this).attr('rel');
-            $('#'+targetNo).val(ui.item.idx);
+            $('#drawing-no,#part-no'+targetNo).val(ui.item.idx);
         });
         var data_draw = [<?php echo $drawing_no; ?>];
         var options_draw = {
@@ -133,7 +133,7 @@ add item
         });
         $(document).on('autocompleteselect', drawing_no, function(e, ui) {
             targetDraw = $(this).attr('rel');
-            $('#'+targetDraw).val(ui.item.idx);
+            $('#part-no,#part-name'+targetDraw).val(ui.item.idx);
         });
     });
 </script>
