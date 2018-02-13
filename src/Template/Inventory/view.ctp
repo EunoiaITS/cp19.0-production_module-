@@ -107,7 +107,6 @@ Production Planner page
         <div class="clearfix"></div>
     </div>
 </div>
-</div>
 
 <!--Inventory edit popup
   ===================-->

@@ -40,7 +40,7 @@ Production Planner page
                         <td>1</td>
                         <td><input type="text" class="form-control part-no" id="part-no0" rel="part-name0" name="part_no0"></td>
                         <td><input type="text" class="form-control part-name" id="part-name0" rel="part-no0" name="part_name0"></td>
-                        <td><input type="text" class="form-control drawing-no" id="drawing-no0" name="drawing_no0"></td>
+                        <td><input type="text" class="form-control drawing-no" id="drawing-no0" rel="part-no0" name="drawing_no0"></td>
                         <td><input type="text" class="form-control" name="section0"></td>
                         <td><input type="text" class="form-control" name="uom0"></td>
                         <td><input type="text" class="form-control" name="current_quantity0"></td>
@@ -78,7 +78,7 @@ add item
                 '<td>'+(count+1)+'</td>'+
                 '<td><input type="text" name="part_no'+count+'" id="part-no'+count+'" rel="part-name'+count+'" class="form-control part-no half-control-sm"></td>'+
                 '<td><input type="text" name="part_name'+count+'" id="part-name'+count+'" rel="part-no'+count+'" class="form-control part-name"></td>'+
-                '<td><input type="text" name="drawing_no'+count+'" id="drawing-no'+count+'" class="form-control drawing-no"></td>'+
+                '<td><input type="text" name="drawing_no'+count+'" id="drawing-no'+count+'" rel="part-no'+count+'" class="form-control drawing-no"></td>'+
                 '<td><input type="text" name="section'+count+'" class="form-control"></td>'+
                 '<td><input type="text" name="uom'+count+'" class="form-control"></td>'+
                 '<td><input type="text" name="current_quantity'+count+'" class="form-control"></td>'+
@@ -95,6 +95,7 @@ add item
         });
         var part_no = 'input.part-no';
         var part_name = 'input.part-name';
+        var drawing_no = 'input.drawing-no';
         var data_no = [<?php echo $part_no; ?>];
         var options_no = {
             source: data_no,
@@ -120,6 +121,19 @@ add item
         $(document).on('autocompleteselect', part_name, function(e, ui) {
             targetNo = $(this).attr('rel');
             $('#'+targetNo).val(ui.item.idx);
+        });
+        var data_draw = [<?php echo $drawing_no; ?>];
+        var options_draw = {
+            source: data_draw,
+            minLength: 0
+        };
+        var targetDraw = null;
+        $(document).on('keydown.autocomplete', drawing_no, function() {
+            $(this).autocomplete(options_draw);
+        });
+        $(document).on('autocompleteselect', drawing_no, function(e, ui) {
+            targetDraw = $(this).attr('rel');
+            $('#'+targetDraw).val(ui.item.idx);
         });
     });
 </script>

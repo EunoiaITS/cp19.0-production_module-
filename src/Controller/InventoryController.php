@@ -69,9 +69,9 @@ class InventoryController extends AppController
         $dataFromEng = json_decode($resultFromEng);
         $part_no = $part_name = $drawing_no =null;
         foreach($dataFromEng as $pm){
-            $part_no .= '{label:"'.$pm->partNo.'",idx:"'.$pm->partName.'"},';
-            $part_name .= '{label:"'.$pm->partName.'",idx:"'.$pm->partNo.'"},';
-            $drawing_no .= '{label:"'.$pm->drawingNo.'",idx:"'.$pm->drawingNo.'"},';
+            $part_no .= '{label:"'.$pm->partNo.'",idx:"'.$pm->partName.'",idx:"'.$pm->drawingNo.'"},';
+            $part_name .= '{label:"'.$pm->partName.'",idx:"'.$pm->partNo.'",idx:"'.$pm->drawingNo.'"},';
+            $drawing_no .= '{label:"'.$pm->drawingNo.'",idx:"'.$pm->partNo.'",idx:"'.$pm->partName.'"},';
         }
         $part_no = rtrim($part_no, ',');
         $part_name = rtrim($part_name, ',');
