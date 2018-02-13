@@ -185,9 +185,9 @@ prn page
                     <tbody class="csn-text-up">
                     <tr>
                         <td><input name="approved3_correction" type="text" class="form-control"></td>
-                        <td><input name="approved2_reason" type="text" class="form-control"></td>
+                        <td><input name="approved3_reason" type="text" class="form-control"></td>
                         <td><label class="btn btn-info">
-                                Upload <input type="file" name="approved3_document" hidden style="display: none !important;">
+                                Upload <input type="file" name="approved3_doc" hidden style="display: none !important;">
                             </label></td>
                         <td></td>
                     </tr>
@@ -201,8 +201,7 @@ prn page
         <div class="col-sm-offset-8 col-sm-4 col-xs-12">
             <div class="prepareted-by-csn">
                 <form method="post" action="<?php echo $this->url->build(['controller' => 'Prnf', 'action' => 'approval3', $prnf->id]); ?>">
-                    <input type="hidden" name="verified_by" value="manager">
-                    <input type="hidden" name="status" value="verified">
+                    <input type="hidden" name="approved3_by" value="User 3">
                     <button class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>
                     <button type="submit" class="button btn btn-info">Approve</button>
                 </form>

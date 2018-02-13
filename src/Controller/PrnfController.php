@@ -98,6 +98,10 @@ class PrnfController extends AppController
         $prnf = $this->Prnf->get($id, [
             'contain' => []
         ]);
+//        $this->autoRender = false;
+//        echo "<pre>";
+//        print_r($this->request)->getAll();
+//        echo "</pre>";
         if ($this->request->is(['patch', 'post', 'put'])) {
             $prnf = $this->Prnf->patchEntity($prnf, $this->request->getData());
             if ($this->Prnf->save($prnf)) {
@@ -153,8 +157,8 @@ class PrnfController extends AppController
             $prnf = $this->Prnf->patchEntity($prnf, $this->request->getData());
             if ($this->Prnf->save($prnf)) {
                 $prnf_no = $this->Prnf->find('all', ['fields' => 'id'])->last();
-                if ($this->request->getData('approved2_document') != '') {
-                    $fileName = $this->request->getData('approved2_document');
+                if ($this->request->getData('approved2_doc') != '') {
+                    $fileName = $this->request->getData('approved2_doc');
                     $ext = substr(strtolower(strrchr($fileName['name'], '.')), 1);
                     $arr_ext = array('jpg', 'jpeg', 'gif', 'png');
                     $setNewFileName = 'uploadedFile';
@@ -165,7 +169,7 @@ class PrnfController extends AppController
                     }
                     $uploadFile = $uploadPath.$imageFileName;
                     if (move_uploaded_file($fileName['tmp_name'], $uploadFile)) {
-                        $prnf->document = 'uploads/Prnf/'.$prnf_no['id'].'/'.$imageFileName;
+                        $prnf->approved2_document = 'uploads/Prnf/'.$prnf_no['id'].'/'.$imageFileName;
                         $this->Prnf->save($prnf);
                     }
                 }
@@ -187,8 +191,8 @@ class PrnfController extends AppController
             $prnf = $this->Prnf->patchEntity($prnf, $this->request->getData());
             if ($this->Prnf->save($prnf)) {
                 $prnf_no = $this->Prnf->find('all', ['fields' => 'id'])->last();
-                if ($this->request->getData('approved3_document') != '') {
-                    $fileName = $this->request->getData('approved3_document');
+                if ($this->request->getData('approved3_doc') != '') {
+                    $fileName = $this->request->getData('approved3_doc');
                     $ext = substr(strtolower(strrchr($fileName['name'], '.')), 1);
                     $arr_ext = array('jpg', 'jpeg', 'gif', 'png');
                     $setNewFileName = 'uploadedFile';
@@ -199,7 +203,7 @@ class PrnfController extends AppController
                     }
                     $uploadFile = $uploadPath.$imageFileName;
                     if (move_uploaded_file($fileName['tmp_name'], $uploadFile)) {
-                        $prnf->document = 'uploads/Prnf/'.$prnf_no['id'].'/'.$imageFileName;
+                        $prnf->approved3_document = 'uploads/Prnf/'.$prnf_no['id'].'/'.$imageFileName;
                         $this->Prnf->save($prnf);
                     }
                 }
@@ -220,8 +224,8 @@ class PrnfController extends AppController
             $prnf = $this->Prnf->patchEntity($prnf, $this->request->getData());
             if ($this->Prnf->save($prnf)) {
                 $prnf_no = $this->Prnf->find('all', ['fields' => 'id'])->last();
-                if ($this->request->getData('approved4_document') != '') {
-                    $fileName = $this->request->getData('approved4_document');
+                if ($this->request->getData('approved4_doc') != '') {
+                    $fileName = $this->request->getData('approved4_doc');
                     $ext = substr(strtolower(strrchr($fileName['name'], '.')), 1);
                     $arr_ext = array('jpg', 'jpeg', 'gif', 'png');
                     $setNewFileName = 'uploadedFile';
@@ -232,7 +236,7 @@ class PrnfController extends AppController
                     }
                     $uploadFile = $uploadPath.$imageFileName;
                     if (move_uploaded_file($fileName['tmp_name'], $uploadFile)) {
-                        $prnf->document = 'uploads/Prnf/'.$prnf_no['id'].'/'.$imageFileName;
+                        $prnf->approved4_document = 'uploads/Prnf/'.$prnf_no['id'].'/'.$imageFileName;
                         $this->Prnf->save($prnf);
                     }
                 }
