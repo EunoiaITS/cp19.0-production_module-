@@ -278,11 +278,7 @@ abstract class ObjectRegistry implements Countable, IteratorAggregate
                 $objectName = $i;
             }
             list(, $name) = pluginSplit($objectName);
-            if (isset($config['class'])) {
-                $normal[$name] = $config;
-            } else {
-                $normal[$name] = ['class' => $objectName, 'config' => $config];
-            }
+            $normal[$name] = ['class' => $objectName, 'config' => $config];
         }
 
         return $normal;
