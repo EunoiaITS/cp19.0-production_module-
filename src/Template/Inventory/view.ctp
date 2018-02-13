@@ -36,70 +36,26 @@ Production Planner page
                     </tr>
                     </thead>
                     <tbody class="csn-text-up">
+                    <?php $n =0;
+                    foreach($inventory as $inv): ?>
                     <tr>
-                        <td>1</td>
-                        <td>0233</td>
-                        <td>Screw Cover</td>
-                        <td>PDD-121-005</td>
-                        <td></td>
-                        <td>pcs</td>
-                        <td>315</td>
-                        <td>A</td>
-                        <td>1</td>
-                        <td>1-2</td>
-                        <td>3</td>
-                        <td>100</td>
-                        <td>1000</td>
-                        <td><button class="btn btn-info" data-toggle="modal" data-target="#myModal">Edit</button></td>
+                        <?php $n++;?>
+                        <td><?php echo $n; ?></td>
+                        <td><?= $inv->part_no; ?></td>
+                        <td><?= $inv->part_name; ?></td>
+                        <td><?= $inv->part_no; ?></td>
+                        <td><?= $inv->section; ?></td>
+                        <td><?= $inv->uom; ?></td>
+                        <td><?= $inv->current_quantity; ?></td>
+                        <td><?= $inv->zon; ?></td>
+                        <td><?= $inv->rack_no; ?></td>
+                        <td><?= $inv->bin_no; ?></td>
+                        <td><?= $inv->level; ?></td>
+                        <td><?= $inv->min_stock; ?></td>
+                        <td><?= $inv->max_stock; ?></td>
+                        <td><button class="btn btn-info" data-toggle="modal" data-target="#myModal"><?= $this->Html->link(__('Edit'), ['action' => 'edit', $inv->id]) ?></button></td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>0262</td>
-                        <td>Speoal Twin Gasket</td>
-                        <td>Lro28-3</td>
-                        <td></td>
-                        <td>pcs</td>
-                        <td>500</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><button class="btn btn-info" data-toggle="modal" data-target="#myModal">Edit</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>0263</td>
-                        <td>Spring Bearing Assembly</td>
-                        <td>L15-Springs Bea</td>
-                        <td></td>
-                        <td>pcs</td>
-                        <td>652</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><button class="btn btn-info" data-toggle="modal" data-target="#myModal">Edit</button></td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>0264</td>
-                        <td>Spring Hacder</td>
-                        <td>L12-set off le</td>
-                        <td></td>
-                        <td>pcs</td>
-                        <td>1000</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><button class="btn btn-info" data-toggle="modal" data-target="#myModal">Edit</button></td>
-                    </tr>
+                    <?php endforeach;?>
                     </tbody>
                 </table>
             </div>
