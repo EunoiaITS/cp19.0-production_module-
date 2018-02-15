@@ -39,7 +39,21 @@ class MitController extends AppController
      */
     public function view()
     {
+        $urlToSales = 'http://salesmodule.acumenits.com/api/all-data';
 
+        $optionsForSales = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'GET'
+            ]
+        ];
+        $contextForSales  = stream_context_create($optionsForSales);
+        $resultFromSales = file_get_contents($urlToSales, false, $contextForSales);
+        if ($resultFromSales === FALSE) {
+            echo 'ERROR!!';
+        }
+        $dataFromSales = json_decode($resultFromSales);
+        $this->set('sales',$dataFromSales);
     }
 
     /**
@@ -47,10 +61,46 @@ class MitController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id = null)
     {
+        $urlToSales = 'http://salesmodule.acumenits.com/api/item-details/'.$id;
+
+        $optionsForSales = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'GET'
+            ]
+        ];
+        $contextForSales  = stream_context_create($optionsForSales);
+        $resultFromSales = file_get_contents($urlToSales, false, $contextForSales);
+        if ($resultFromSales === FALSE) {
+            echo 'ERROR!!';
+        }
+        $dataFromSales = json_decode($resultFromSales);
+        $this->set('sales',$dataFromSales);
+
+
+        $urlToEng = 'http://engmodule.acumenits.com/api/bom-parts';
+        $sendToEng['model']=$dataFromSales->model;
+        $sendToEng['version']=$dataFromSales->version;
+        $optionsForEng = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'POST',
+                'content' => http_build_query($sendToEng)
+            ]
+        ];
+        $contextForEng  = stream_context_create($optionsForEng);
+        $resultFromEng = file_get_contents($urlToEng, false, $contextForEng);
+        if ($resultFromEng === FALSE) {
+            echo 'ERROR!!';
+        }
+        $dataFromEng = json_decode($resultFromEng);
+        $this->set('eng',$dataFromEng);
+
         $mit = $this->Mit->newEntity();
         if ($this->request->is('post')) {
+
             $mit = $this->Mit->patchEntity($mit, $this->request->getData());
             if ($this->Mit->save($mit)) {
                 $this->Flash->success(__('The mit has been saved.'));
@@ -60,6 +110,7 @@ class MitController extends AppController
             $this->Flash->error(__('The mit could not be saved. Please, try again.'));
         }
         $this->set(compact('mit'));
+
     }
 
     /**

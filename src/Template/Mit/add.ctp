@@ -1,37 +1,169 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Mit $mit
- */
-?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Mit'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
-<div class="mit form large-9 medium-8 columns content">
-    <?= $this->Form->create($mit) ?>
-    <fieldset>
-        <legend><?= __('Add Mit') ?></legend>
-        <?php
-            echo $this->Form->control('po_no');
-            echo $this->Form->control('sales_order_no');
-            echo $this->Form->control('date');
-            echo $this->Form->control('location');
-            echo $this->Form->control('part_no');
-            echo $this->Form->control('description');
-            echo $this->Form->control('used_quantity');
-            echo $this->Form->control('requested_quantity');
-            echo $this->Form->control('stock_quantity');
-            echo $this->Form->control('availability');
-            echo $this->Form->control('status');
-            echo $this->Form->control('verified_by');
-            echo $this->Form->control('approved_by');
-            echo $this->Form->control('acknowledged_by');
-            echo $this->Form->control('remark');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
-</div>
+<!--=========
+MiT form page
+==============-->
+
+<div class="planner-from">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-sm-12">
+                <div class="part-title-planner text-uppercase text-center"><b>Material Issue Ticket Form</b></div>
+                <form action="#" class="planner-relative">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="col-sm-3 col-xs-6">
+                                <p class="cn-text">Date <span class="planner-fright">:</span></p>
+                            </div>
+                            <div class="col-sm-5 col-xs-6">
+                                <p class="cn-main-text">01/01/2018</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3 col-xs-6">
+                                <p class="cn-text">SO NO <span class="planner-fright">:</span></p>
+                            </div>
+                            <div class="col-sm-5 col-xs-6">
+                                <p class="cn-main-text"><?= $sales->so->salesorder_no?></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3 col-xs-6">
+                                <p class="cn-text">Customer Name <span class="planner-fright">:</span></p>
+                            </div>
+                            <div class="col-sm-5 col-xs-6">
+                                <p class="cn-main-text text-uppercase"><?= $sales->cus->name?></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3 col-xs-6">
+                                <p class="cn-text">Model <span class="planner-fright">:</span></p>
+                            </div>
+                            <div class="col-sm-5 col-xs-6">
+                                <p class="cn-main-text text-uppercase"><?= $sales->model?></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3 col-xs-6">
+                                <p class="cn-text">Version <span class="planner-fright">:</span></p>
+                            </div>
+                            <div class="col-sm-5 col-xs-6">
+                                <p class="cn-main-text text-uppercase"><?= $sales->version?></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3 col-xs-6">
+                                <p class="cn-text">Type 1 <span class="planner-fright">:</span></p>
+                            </div>
+                            <div class="col-sm-5 col-xs-6">
+                                <p class="cn-main-text">Indoor</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3 col-xs-6">
+                                <p class="cn-text">Type 2 <span class="planner-fright">:</span></p>
+                            </div>
+                            <div class="col-sm-5 col-xs-6">
+                                <p class="cn-main-text">Motorized</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3 col-xs-6">
+                                <p class="cn-text">Quantity <span class="planner-fright">:</span></p>
+                            </div>
+                            <div class="col-sm-5 col-xs-6">
+                                <p class="cn-main-text"><?= $sales->quantity?></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="col-sm-3 col-xs-6">
+                                <p class="cn-text text-uppercase">MIT NO <span class="planner-fright">:</span></p>
+                            </div>
+                            <div class="col-sm-5 col-xs-6">
+                                <p class="cn-main-text text-uppercase">MIT 12345</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3 col-xs-6">
+                                <p class="cn-text">Create By <span class="planner-fright">:</span></p>
+                            </div>
+                            <div class="col-sm-5 col-xs-6">
+                                <p class="cn-main-text">Malik</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3 col-xs-6">
+                                <p class="cn-text">Department <span class="planner-fright">:</span></p>
+                            </div>
+                            <div class="col-sm-5 col-xs-6">
+                                <p class="cn-main-text">Production</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3 col-xs-6">
+                                <p class="cn-text">Section <span class="planner-fright">:</span></p>
+                            </div>
+                            <div class="col-sm-5 col-xs-6">
+                                <p class="cn-main-text">Welding</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3 col-xs-6">
+                                <label class="cn-text" for="mit-form">Location <span class="planner-fright">:</span></label>
+                            </div>
+                            <div class="col-sm-5 col-xs-6">
+                                <select class="form-control" name="" id="mit-form">
+                                    <option value="indkom_16">INDKOM 16</option>
+                                    <option value="indkom_24">INDKOM 24</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="clearfix"></div>
+            <!--============== Add drawing table area ===================-->
+            <div class="planner-table table-responsive clearfix">
+                <div class="col-sm-12">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Part No</th>
+                            <th>Description</th>
+                            <th>Used QTY</th>
+                            <th>Request QTY</th>
+                            <th>Section Stock Availability</th>
+                            <th>Net QTY</th>
+                        </tr>
+                        </thead>
+                        <tbody class="csn-text-up">
+                        <?php $i=0;foreach($eng as $en):?>
+                            <?php $i++;?>
+                        <tr>
+                            <td><?php echo $i;?></td>
+                            <td><?= $en->partNo?></td>
+                            <td><?= $en->partName?></td>
+                            <td><?= $en->quality?></td>
+                            <td>200</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <?php endforeach;?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="col-sm-offset-8 col-sm-4 col-xs-12">
+                <div class="prepareted-by-submit">
+                    <div class="button btn btn-info btn-submit">Submit</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+

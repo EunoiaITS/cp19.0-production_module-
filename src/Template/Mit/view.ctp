@@ -1,7 +1,10 @@
 <!--=========
 Production Planner page
 ==============-->
-
+<?php
+//echo "<pre>";
+//print_r($sales);
+//echo "</pre>"?>
 <div class="planner-from">
     <div class="container-fluid">
         <div class="row">
@@ -32,67 +35,25 @@ Production Planner page
                             </tr>
                             </thead>
                             <tbody class="csn-text-up">
-                            <tr>
-                                <td>1</td>
-                                <td>PO 12345</td>
-                                <td>SO 12345</td>
-                                <td>TND005</td>
-                                <td>Tnb Rawang</td>
-                                <td>31/01/2018</td>
-                                <td>30/02/2018</td>
-                                <td>RMU INS</td>
-                                <td>ZZTT</td>
-                                <td>INDOOR</td>
+                            <?php $i=0;foreach ($sales as $s){?>
+                                <?php foreach ($s->soi as $item){?>
+                                <?php $i ++;?>
+                                <tr>
+                                <td><?php echo $i;?></td>
+                                <td><?= $s->poNo;?></td>
+                                <td><?= $s->salesorder_no;?></td>
+                                <td><?php foreach ($s->cus as $c){echo $c->name;} ?></td>
+                                <td><?php foreach ($s->cus as $c){echo $c->customerID;} ?></td>
+                                <td><?= $s->date;?></td>
+                                <td><?= $s->delivery_date;?></td>
+                                <td><?= $item->model;?></td>
+                                <td><?= $item->version;?></td>
+                                <td>Type 1</td>
                                 <td>Motorized</td>
-                                <td>200</td>
-                                <td><a href="mit-verify-form.html">Select</a></td>
+                                <td><?= $item->quantity;?></td>
+                                <td><a href="<?php echo $this->Url->build(['controller'=>'mit','action'=>'add',$item->id])?>">Select</a></td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>PO 12345</td>
-                                <td>SO 12345</td>
-                                <td>TND005</td>
-                                <td>Tnb Rawang</td>
-                                <td>31/01/2018</td>
-                                <td>30/02/2018</td>
-                                <td>RMU INS</td>
-                                <td>ZZTT</td>
-                                <td>INDOOR</td>
-                                <td>Motorized</td>
-                                <td>200</td>
-                                <td><a href="mit-verify-form.html">Select</a></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>PO 12345</td>
-                                <td>SO 12345</td>
-                                <td>TND005</td>
-                                <td>Tnb Rawang</td>
-                                <td>31/01/2018</td>
-                                <td>30/02/2018</td>
-                                <td>RMU INS</td>
-                                <td>ZZTT</td>
-                                <td>INDOOR</td>
-                                <td>Motorized</td>
-                                <td>200</td>
-                                <td><a href="mit-verify-form.html">Select</a></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>PO 12345</td>
-                                <td>SO 12345</td>
-                                <td>TND005</td>
-                                <td>Tnb Rawang</td>
-                                <td>31/01/2018</td>
-                                <td>30/02/2018</td>
-                                <td>RMU INS</td>
-                                <td>ZZTT</td>
-                                <td>INDOOR</td>
-                                <td>Motorized</td>
-                                <td>200</td>
-                                <td><a href="mit-verify-form.html">Select</a></td>
-                            </tr>
-
+                            <?php }}?>
                             </tbody>
                         </table>
                     </div>

@@ -55,6 +55,7 @@ Production Planner page
                         <td id="max-stock<?= $inv->id; ?>"><?= $inv->max_stock; ?></td>
                         <td><button id="modal-popup" class="btn btn-info my_button" id="view<?= $inv->id; ?>" data-toggle="modal" data-target="#myModal" rel="<?= $inv->id; ?>">Edit</button></td>
                     </tr>
+                        <span class="hidden" id="edit-id<?= $inv->id;?>"><?= $inv->id; ?></span>
                     <?php endforeach;?>
                     </tbody>
                 </table>
@@ -67,7 +68,7 @@ Production Planner page
 <!--Inventory edit popup
   ===================-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
-    <form action="<?php echo $this->Url->build(['controller'=>'Inventory','action'=>'edit',$inv->id]);?>" method="post">
+    <form action="<?php echo $this->Url->build(['controller'=>'Inventory','action'=>'edit']);?>" method="post">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -148,6 +149,7 @@ Production Planner page
                 </table>
             </div>
             <div class="modal-footer">
+                <input type="hidden" id="inventory_id" name="inv_name" value="">
                 <button id="modal-save" type="submit" class="btn btn-primary save">Save</button>
             </div>
         </div>
@@ -171,7 +173,7 @@ Production Planner page
             $('#level-view').val($('#level'+id).text());
             $('#min-stock-view').val($('#min-stock'+id).text());
             $('#max-stock-view').val($('#max-stock'+id).text());
-            $.cookie('id',id);
+            $('#inventory_id').val(id);
         });
     });
 </script>
