@@ -147,7 +147,7 @@ MiT form page
                             <td><?= $en->partNo?></td>
                             <td><?= $en->partName?></td>
                             <td><?= $en->quality?></td>
-                            <td>200</td>
+                            <td><?= ($sales->quantity * $en->quality)?></td>
                             <td></td>
                             <td></td>
                         </tr>

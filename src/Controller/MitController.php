@@ -97,7 +97,6 @@ class MitController extends AppController
         }
         $dataFromEng = json_decode($resultFromEng);
         $this->set('eng',$dataFromEng);
-
         $mit = $this->Mit->newEntity();
         if ($this->request->is('post')) {
 
