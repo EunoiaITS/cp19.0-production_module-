@@ -38,22 +38,7 @@ class Mit extends Entity
      * @var array
      */
     protected $_accessible = [
-        'po_no' => true,
-        'sales_order_no' => true,
-        'date' => true,
-        'location' => true,
-        'part_no' => true,
-        'description' => true,
-        'used_quantity' => true,
-        'requested_quantity' => true,
-        'stock_quantity' => true,
-        'availability' => true,
-        'status' => true,
-        'verified_by' => true,
-        'approved_by' => true,
-        'acknowledged_by' => true,
-        'remark' => true,
-        'created' => true,
-        'modified' => true
+        '*' => true,
+        'id' =>false
     ];
 }
