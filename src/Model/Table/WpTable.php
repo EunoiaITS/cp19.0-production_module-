@@ -62,9 +62,21 @@ class WpTable extends Table
             ->allowEmpty('so_no');
 
         $validator
-            ->scalar('serial_no')
-            ->maxLength('serial_no', 255)
-            ->allowEmpty('serial_no');
+        ->scalar('serial_no')
+        ->maxLength('serial_no', 255)
+        ->allowEmpty('serial_no');
+        $validator
+            ->scalar('model')
+            ->maxLength('model', 255)
+            ->allowEmpty('model');
+        $validator
+            ->scalar('version')
+            ->maxLength('version', 255)
+            ->allowEmpty('version');
+        $validator
+            ->scalar('wp_no')
+            ->maxLength('wp_no', 255)
+            ->allowEmpty('wp_no');
 
         $validator
             ->scalar('wld1_on')
