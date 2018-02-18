@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
+use Cake\Event\Event;
 
 /**
  * SerialNumber Controller
@@ -18,21 +19,6 @@ class SerialNumberController extends AppController
         $this->viewBuilder()->setLayout('mainframe');
     }
     public function dashboard(){
-        $urlToEng = 'http://engmodule.acumenits.com/api/all-parts';
-
-        $optionsForEng = [
-            'http' => [
-                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-                'method'  => 'GET'
-            ]
-        ];
-        $contextForEng  = stream_context_create($optionsForEng);
-        $resultFromEng = file_get_contents($urlToEng, false, $contextForEng);
-        if ($resultFromEng === FALSE) {
-            echo 'ERROR!!';
-        }
-        $dataFromEng = json_decode($resultFromEng);
-        $this->set('data', $dataFromEng);
     }
     /**
      * Index method
@@ -41,7 +27,20 @@ class SerialNumberController extends AppController
      */
     public function index()
     {
-        $serialNumber = $this->paginate($this->SerialNumber);
+        if($this->Auth->user('role') == 'requester'){
+            $serialNumber = $this->SerialNumber->find('all')
+                ->where(['status' => 'requested']);
+        }
+
+        if($this->Auth->user('role') == 'verifier'){
+            $serialNumber = $this->SerialNumber->find('all')
+                ->where(['status' => 'requested']);
+        }
+
+        if($this->Auth->user('role') == 'approve_1'){
+            $serialNumber = $this->SerialNumber->find('all')
+                ->where(['status' => 'verified']);
+        }
 
         $this->set(compact('serialNumber'));
     }
@@ -116,6 +115,10 @@ class SerialNumberController extends AppController
         $this->set(compact('serialNumber'));
         $this->set('sequence', $this->SerialNumberChild->find('all')->count());
         $this->set('so_no', $so_no);
+        $this->set('pic', $this->Auth->user('username'));
+        $this->set('pic_name', $this->Auth->user('name'));
+        $this->set('pic_dept', $this->Auth->user('dept'));
+        $this->set('pic_section', $this->Auth->user('section'));
     }
 
     /**
@@ -193,6 +196,21 @@ class SerialNumberController extends AppController
         $sn = $this->SerialNumber->find('all')
             ->where(['status' => 'approved']);
         $this->set('sn', $sn);
+    }
+
+//    public function beforeFilter(Event $event)
+//    {
+//        $this->Auth->allow(['index', 'add', 'edit', 'view', 'delete', 'approve', 'verify', 'report', 'statusReport']);
+//    }
+
+    public function isAuthorized($user){
+        // All registered users can add articles
+        if ($this->request->getParam('action') === 'add' || $this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'monthlyReport' || $this->request->getParam('action') === 'report') {
+            return true;
+        }
+
+        return parent::isAuthorized($user);
+
     }
 
 }

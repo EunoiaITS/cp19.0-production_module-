@@ -48,7 +48,7 @@
                                 <p class="cn-text">Create By <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text text-uppercase">Fauzi</p>
+                                <p class="cn-main-text text-uppercase"><?= $pic_name ?></p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -56,7 +56,7 @@
                                 <p class="cn-text">Department <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text">Production</p>
+                                <p class="cn-main-text"><?= $pic_dept ?></p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -64,7 +64,7 @@
                                 <p class="cn-text">Section <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text">Welding</p>
+                                <p class="cn-main-text"><?= $pic_section ?></p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -109,7 +109,8 @@
             <div class="clearfix"></div>
             <div class="col-sm-offset-8 col-sm-4 col-xs-12">
                 <div class="prepareted-by-submit">
-                    <input type="hidden" name="created_by" value="requester">
+                    <input type="hidden" name="status" value="requested">
+                    <input type="hidden" name="created_by" value="<?= $pic ?>">
                     <button type="submit" class="button btn btn-info btn-submit">Create</button>
                 </div>
             </div>

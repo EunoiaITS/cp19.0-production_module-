@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
+use Cake\Event\Event;
 
 /**
  * Nbdo Controller
@@ -26,7 +27,20 @@ class NbdoController extends AppController
      */
     public function index()
     {
-        $nbdo = $this->paginate($this->Nbdo);
+        if($this->Auth->user('role') == 'requester'){
+            $nbdo = $this->Nbdo->find('all')
+                ->where(['status' => 'requested']);
+        }
+
+        if($this->Auth->user('role') == 'verifier'){
+            $nbdo = $this->Nbdo->find('all')
+                ->where(['status' => 'requested']);
+        }
+
+        if($this->Auth->user('role') == 'approve_1'){
+            $nbdo = $this->Nbdo->find('all')
+                ->where(['status' => 'verified']);
+        }
 
         $this->set(compact('nbdo'));
     }
@@ -143,6 +157,10 @@ class NbdoController extends AppController
         $this->set('part_no', $part_no);
         $this->set('part_name', $part_name);
         $this->set('cust_details', $cust_details);
+        $this->set('pic', $this->Auth->user('username'));
+        $this->set('pic_name', $this->Auth->user('name'));
+        $this->set('pic_dept', $this->Auth->user('dept'));
+        $this->set('pic_section', $this->Auth->user('section'));
     }
 
     /**
@@ -214,6 +232,16 @@ class NbdoController extends AppController
     public function report(){
         $mr = $this->Nbdo->find('all');
         $this->set('mr', $mr);
+    }
+
+    public function isAuthorized($user){
+        // All registered users can add articles
+        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'edit' || $this->request->getParam('action') === 'add' || $this->request->getParam('action') === 'edit' || $this->request->getParam('action') === 'verify' || $this->request->getParam('action') === 'approve' || $this->request->getParam('action') === 'statusReport' || $this->request->getParam('action') === 'report') {
+            return true;
+        }
+
+        return parent::isAuthorized($user);
+
     }
 
 }
