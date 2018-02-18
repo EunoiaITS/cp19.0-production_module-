@@ -1,7 +1,9 @@
 <!--=========
 Production Planner page
 ==============-->
-
+<?php echo "<pre>";
+print_r($sales);
+echo "</pre>";?>
 <div class="planner-from">
     <div class="container-fluid">
         <div class="row">
@@ -45,67 +47,20 @@ Production Planner page
                             </tr>
                             </thead>
                             <tbody class="csn-text-up">
-                            <tr>
-                                <td>1</td>
-                                <td>SO12345</td>
-                                <td>Tnb Rawang</td>
-                                <td></td>
+                            <?php $i=0;foreach ($sales as $sal):?>
+                            <?php foreach ($sal->soi as $item):?>
+                                <?php $i++;?>
+                                <tr>
+                                <td><?php echo $i;?></td>
+                                <td><?= $sal->salesorder_no?></td>
+                                <td><?php foreach ($sal->cus as $c){echo $c->name;} ?></td>
+                                <td><?=  date('d/m/Y', strtotime($sal->date));?></td>
                                 <td>MIT 12345</td>
-                                <td>RMU INS 24</td>
-                                <td>ZZTT</td>
+                                <td><?= $item->model?></td>
+                                <td><?= $item->version?></td>
                                 <td>INDOOR</td>
                                 <td>Motorized</td>
-                                <td>200</td>
-                                <td>MALIK</td>
-                                <td>Production</td>
-                                <td>Welding</td>
-                                <td>Indkom 16</td>
-                                <td>13/10/2017</td>
-                                <td class="colored-csn">Ack</td>
-                                <td>Amira</td>
-                                <td>15/10/2017</td>
-                                <td  class="colored-yellow">Partial Delivery</td>
-                                <td  class="colored-csn">Ack</td>
-                                <td>Joned</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>SO12345</td>
-                                <td>Tnb Rawang</td>
-                                <td></td>
-                                <td>MIT 12345</td>
-                                <td>RMU INS 24</td>
-                                <td>ZZTT</td>
-                                <td>INDOOR</td>
-                                <td>Motorized</td>
-                                <td>200</td>
-                                <td>MALIK</td>
-                                <td>Production</td>
-                                <td>Welding</td>
-                                <td>Indkom 16</td>
-                                <td>13/10/2017</td>
-                                <td class="colored-csn">Ack</td>
-                                <td>Amira</td>
-                                <td>15/10/2017</td>
-                                <td  class="colored-csn">Complete</td>
-                                <td  class="colored-csn">Ack</td>
-                                <td>Joned</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>SO12345</td>
-                                <td>Tnb Rawang</td>
-                                <td></td>
-                                <td>MIT 12345</td>
-                                <td>RMU INS 24</td>
-                                <td>ZZTT</td>
-                                <td>INDOOR</td>
-                                <td>Motorized</td>
-                                <td>200</td>
+                                <td><?= $item->quantity;?></td>
                                 <td>MALIK</td>
                                 <td>Production</td>
                                 <td>Welding</td>
@@ -120,6 +75,7 @@ Production Planner page
                                 <td></td>
                                 <td></td>
                             </tr>
+                            <?php endforeach;endforeach;?>
                             </tbody>
                         </table>
                     </div>

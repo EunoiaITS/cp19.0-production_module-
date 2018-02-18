@@ -1,7 +1,11 @@
 <!--=========
 MiT form page
 ==============-->
-
+<?php //echo "<pre>";
+//foreach ($inv as $i){
+//    print_r($i);
+//}
+//echo "</pre>";?>
 <div class="planner-from">
     <form action="<?php echo $this->Url->build(['controller'=>'mit','action'=>'add',$sales->id])?>" method="post" class="planner-relative">
     <div class="container-fluid">

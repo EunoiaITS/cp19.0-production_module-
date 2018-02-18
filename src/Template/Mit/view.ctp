@@ -44,8 +44,8 @@ Production Planner page
                                 <td><?= $s->salesorder_no;?></td>
                                 <td><?php foreach ($s->cus as $c){echo $c->name;} ?></td>
                                 <td><?php foreach ($s->cus as $c){echo $c->customerID;} ?></td>
-                                <td><?= $s->date;?></td>
-                                <td><?= $s->delivery_date;?></td>
+                                <td><?=  date('d/m/Y', strtotime($s->date));?></td>
+                                <td><?= date('d/m/Y', strtotime($s->delivery_date));?></td>
                                 <td><?= $item->model;?></td>
                                 <td><?= $item->version;?></td>
                                 <td>Type 1</td>

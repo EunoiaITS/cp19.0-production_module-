@@ -94,6 +94,10 @@ class MitController extends AppController
             echo 'ERROR!!';
         }
         $dataFromEng = json_decode($resultFromEng);
+        $this->loadModel('Inventory');
+//        $inv = $this->Inventory->find('all')
+//            ->Where(['part_no'=> $dataFromEng->partNo])
+//            ->Where(['part_name'=> $dataFromEng->partName]);
         $mit = $this->Mit->newEntity();
         if ($this->request->is('post')) {
             $mit = $this->Mit->patchEntity($mit, $this->request->getData());
@@ -107,6 +111,7 @@ class MitController extends AppController
         $this->set(compact('mit'));
         $this->set('eng',$dataFromEng);
         $this->set('sales',$dataFromSales);
+//        $this->set('inv',$inv);
     }
 
     /**
@@ -316,6 +321,20 @@ class MitController extends AppController
         $this->set('sales',$dataFromSales);
     }
     public function report(){
+        $urlToSales = 'http://salesmodule.acumenits.com/api/all-data';
 
+        $optionsForSales = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'GET'
+            ]
+        ];
+        $contextForSales  = stream_context_create($optionsForSales);
+        $resultFromSales = file_get_contents($urlToSales, false, $contextForSales);
+        if ($resultFromSales === FALSE) {
+            echo 'ERROR!!';
+        }
+        $dataFromSales = json_decode($resultFromSales);
+        $this->set('sales',$dataFromSales);
     }
 }
