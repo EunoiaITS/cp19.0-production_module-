@@ -77,8 +77,6 @@ class MitController extends AppController
             echo 'ERROR!!';
         }
         $dataFromSales = json_decode($resultFromSales);
-        $this->set('sales',$dataFromSales);
-
 
         $urlToEng = 'http://engmodule.acumenits.com/api/bom-parts';
         $sendToEng['model']=$dataFromSales->model;
@@ -96,20 +94,19 @@ class MitController extends AppController
             echo 'ERROR!!';
         }
         $dataFromEng = json_decode($resultFromEng);
-        $this->set('eng',$dataFromEng);
         $mit = $this->Mit->newEntity();
         if ($this->request->is('post')) {
-
             $mit = $this->Mit->patchEntity($mit, $this->request->getData());
             if ($this->Mit->save($mit)) {
                 $this->Flash->success(__('The mit has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'add',$id]);
             }
             $this->Flash->error(__('The mit could not be saved. Please, try again.'));
         }
         $this->set(compact('mit'));
-
+        $this->set('eng',$dataFromEng);
+        $this->set('sales',$dataFromSales);
     }
 
     /**
@@ -154,5 +151,171 @@ class MitController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+    public function verify($id = null){
+        $urlToSales = 'http://salesmodule.acumenits.com/api/item-details/'.$id;
+
+        $optionsForSales = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'GET'
+            ]
+        ];
+        $contextForSales  = stream_context_create($optionsForSales);
+        $resultFromSales = file_get_contents($urlToSales, false, $contextForSales);
+        if ($resultFromSales === FALSE) {
+            echo 'ERROR!!';
+        }
+        $dataFromSales = json_decode($resultFromSales);
+
+        $urlToEng = 'http://engmodule.acumenits.com/api/bom-parts';
+        $sendToEng['model']=$dataFromSales->model;
+        $sendToEng['version']=$dataFromSales->version;
+        $optionsForEng = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'POST',
+                'content' => http_build_query($sendToEng)
+            ]
+        ];
+        $contextForEng  = stream_context_create($optionsForEng);
+        $resultFromEng = file_get_contents($urlToEng, false, $contextForEng);
+        if ($resultFromEng === FALSE) {
+            echo 'ERROR!!';
+        }
+        $dataFromEng = json_decode($resultFromEng);
+        $mit = $this->Mit->get($id, [
+            'contain' => []
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $mit = $this->Mit->patchEntity($mit, $this->request->getData());
+            if ($this->Mit->save($mit)) {
+                $this->Flash->success(__('The mit has been saved.'));
+
+                return $this->redirect(['action' => 'verify',$id]);
+            }
+            $this->Flash->error(__('The mit could not be saved. Please, try again.'));
+        }
+        $this->set(compact('mit'));
+        $this->set('eng',$dataFromEng);
+        $this->set('sales',$dataFromSales);
+    }
+    public function approval($id = null){
+        $urlToSales = 'http://salesmodule.acumenits.com/api/item-details/'.$id;
+
+        $optionsForSales = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'GET'
+            ]
+        ];
+        $contextForSales  = stream_context_create($optionsForSales);
+        $resultFromSales = file_get_contents($urlToSales, false, $contextForSales);
+        if ($resultFromSales === FALSE) {
+            echo 'ERROR!!';
+        }
+        $dataFromSales = json_decode($resultFromSales);
+
+        $urlToEng = 'http://engmodule.acumenits.com/api/bom-parts';
+        $sendToEng['model']=$dataFromSales->model;
+        $sendToEng['version']=$dataFromSales->version;
+        $optionsForEng = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'POST',
+                'content' => http_build_query($sendToEng)
+            ]
+        ];
+        $contextForEng  = stream_context_create($optionsForEng);
+        $resultFromEng = file_get_contents($urlToEng, false, $contextForEng);
+        if ($resultFromEng === FALSE) {
+            echo 'ERROR!!';
+        }
+        $dataFromEng = json_decode($resultFromEng);
+        $mit = $this->Mit->newEntity();
+        if ($this->request->is('post')) {
+            $mit = $this->Mit->patchEntity($mit, $this->request->getData());
+            if ($this->Mit->save($mit)) {
+                $this->Flash->success(__('The mit has been saved.'));
+
+                return $this->redirect(['action' => 'add',$id]);
+            }
+            $this->Flash->error(__('The mit could not be saved. Please, try again.'));
+        }
+        $this->set(compact('mit'));
+        $this->set('eng',$dataFromEng);
+        $this->set('sales',$dataFromSales);
+    }
+    public function acknowledge($id = null){
+        $this->loadModel('Mit');
+        $urlToSales = 'http://salesmodule.acumenits.com/api/all-data';
+
+        $optionsForSales = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'GET'
+            ]
+        ];
+        $contextForSales  = stream_context_create($optionsForSales);
+        $resultFromSales = file_get_contents($urlToSales, false, $contextForSales);
+        if ($resultFromSales === FALSE) {
+            echo 'ERROR!!';
+        }
+        $dataFromSales = json_decode($resultFromSales);
+        $status = $this->Mit->find('all')
+            ->Where(['so_item_id' => $id]);
+        $this->set('sales',$dataFromSales);
+        $this->set('status',$status);
+    }
+    public function acknowledgeVerify($id=null){
+        $urlToSales = 'http://salesmodule.acumenits.com/api/item-details/'.$id;
+
+        $optionsForSales = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'GET'
+            ]
+        ];
+        $contextForSales  = stream_context_create($optionsForSales);
+        $resultFromSales = file_get_contents($urlToSales, false, $contextForSales);
+        if ($resultFromSales === FALSE) {
+            echo 'ERROR!!';
+        }
+        $dataFromSales = json_decode($resultFromSales);
+
+        $urlToEng = 'http://engmodule.acumenits.com/api/bom-parts';
+        $sendToEng['model']=$dataFromSales->model;
+        $sendToEng['version']=$dataFromSales->version;
+        $optionsForEng = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'POST',
+                'content' => http_build_query($sendToEng)
+            ]
+        ];
+        $contextForEng  = stream_context_create($optionsForEng);
+        $resultFromEng = file_get_contents($urlToEng, false, $contextForEng);
+        if ($resultFromEng === FALSE) {
+            echo 'ERROR!!';
+        }
+        $dataFromEng = json_decode($resultFromEng);
+        $mit = $this->Mit->get($id, [
+            'contain' => []
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $mit = $this->Mit->patchEntity($mit, $this->request->getData());
+            if ($this->Mit->save($mit)) {
+                $this->Flash->success(__('The mit has been saved.'));
+
+                return $this->redirect(['action' => 'acknowledge',$id]);
+            }
+            $this->Flash->error(__('The mit could not be saved. Please, try again.'));
+        }
+        $this->set(compact('mit'));
+        $this->set('eng',$dataFromEng);
+        $this->set('sales',$dataFromSales);
+    }
+    public function report(){
+
     }
 }
