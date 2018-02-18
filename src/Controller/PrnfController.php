@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
+use Cake\Event\Event;
 
 /**
  * Prnf Controller
@@ -84,6 +85,10 @@ class PrnfController extends AppController
             $this->Flash->error(__('The prnf could not be saved. Please, try again.'));
         }
         $this->set(compact('prnf'));
+        $this->set('pic', $this->Auth->user('username'));
+        $this->set('pic_name', $this->Auth->user('name'));
+        $this->set('pic_dept', $this->Auth->user('dept'));
+        $this->set('pic_section', $this->Auth->user('section'));
     }
 
     /**
@@ -253,4 +258,15 @@ class PrnfController extends AppController
         $prnf = $this->Prnf->find('all');
         $this->set('prnf', $prnf);
     }
+
+    public function isAuthorized($user){
+        // All registered users can add articles
+        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'view' || $this->request->getParam('action') === 'add' || $this->request->getParam('action') === 'edit' || $this->request->getParam('action') === 'verify' || $this->request->getParam('action') === 'approve' || $this->request->getParam('action') === 'statusReport' || $this->request->getParam('action') === 'report') {
+            return true;
+        }
+
+        return parent::isAuthorized($user);
+
+    }
+
 }

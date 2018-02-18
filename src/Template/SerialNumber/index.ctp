@@ -5,7 +5,7 @@
 <div class="planner-from">
     <div class="container-fluid">
         <div class="row">
-            <div class="part-title-planner text-uppercase text-center"><b>Serial Number Report</b></div>
+            <div class="part-title-planner text-uppercase text-center"><b>Serial Number Requests</b></div>
             <div class="clearfix"></div>
             <!--============== Add drawing table area ===================-->
             <div class="planner-table table-responsive clearfix">
@@ -22,7 +22,7 @@
                             <th>Create By</th>
                             <th>Department</th>
                             <th>Section</th>
-                            <th>Verify</th>
+                            <th><?php $action = ''; if($role == 'verifier'){$action = 'verify';echo 'Verify';}elseif($role == 'approve_1'){$action = 'approve';echo 'Approve';}else{$action = 'edit';echo 'Edit';} ?></th>
                         </tr>
                         </thead>
                         <tbody class="csn-text-up">
@@ -35,9 +35,9 @@
                                 <td><?= $sn->type1 ?></td>
                                 <td><?= $sn->type2 ?></td>
                                 <td><?= $sn->created_by ?></td>
-                                <td>Khamal</td>
+                                <td><?= $role; ?></td>
                                 <td>Production</td>
-                                <td><a href="<?php echo $this->url->build(['controller' => 'SerialNumber', 'action' => 'verify', $sn->id]); ?>">Verify</a></td>
+                                <td><a href="<?php echo $this->url->build(['controller' => 'SerialNumber', 'action' => $action, $sn->id]); ?>"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve_1'){echo 'Approve';}else{echo 'Edit';} ?></a></td>
                             </tr>
                         <?php endforeach; ?>
                         </tbody>

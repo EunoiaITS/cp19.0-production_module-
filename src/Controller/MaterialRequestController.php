@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
+use Cake\Event\Event;
 
 /**
  * MaterialRequest Controller
@@ -26,7 +27,20 @@ class MaterialRequestController extends AppController
      */
     public function index()
     {
-        $materialRequest = $this->paginate($this->MaterialRequest);
+        if($this->Auth->user('role') == 'requester'){
+            $materialRequest = $this->MaterialRequest->find('all')
+                ->where(['status' => 'requested']);
+        }
+
+        if($this->Auth->user('role') == 'verifier'){
+            $materialRequest = $this->MaterialRequest->find('all')
+                ->where(['status' => 'requested']);
+        }
+
+        if($this->Auth->user('role') == 'approve_1'){
+            $materialRequest = $this->MaterialRequest->find('all')
+                ->where(['status' => 'verified']);
+        }
 
         $this->set(compact('materialRequest'));
     }
@@ -106,6 +120,10 @@ class MaterialRequestController extends AppController
         $this->set('sn_no', (isset($count->id) ? ($count->id + 1) : 1));
         $this->set('part_no', $part_no);
         $this->set('part_name', $part_name);
+        $this->set('pic', $this->Auth->user('username'));
+        $this->set('pic_name', $this->Auth->user('name'));
+        $this->set('pic_dept', $this->Auth->user('dept'));
+        $this->set('pic_section', $this->Auth->user('section'));
     }
 
     /**
@@ -177,6 +195,16 @@ class MaterialRequestController extends AppController
     public function report(){
         $mr = $this->MaterialRequest->find('all');
         $this->set('mr', $mr);
+    }
+
+    public function isAuthorized($user){
+        // All registered users can add articles
+        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'view' || $this->request->getParam('action') === 'add' || $this->request->getParam('action') === 'edit' || $this->request->getParam('action') === 'verify' || $this->request->getParam('action') === 'approve' || $this->request->getParam('action') === 'statusReport' || $this->request->getParam('action') === 'report') {
+            return true;
+        }
+
+        return parent::isAuthorized($user);
+
     }
 
 }

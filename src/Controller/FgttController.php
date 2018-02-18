@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * Fgtt Controller
@@ -25,7 +26,20 @@ class FgttController extends AppController
      */
     public function index()
     {
-        $fgtt = $this->paginate($this->Fgtt);
+        if($this->Auth->user('role') == 'requester'){
+            $fgtt = $this->Fgtt->find('all')
+                ->where(['status' => 'requested']);
+        }
+
+        if($this->Auth->user('role') == 'verifier'){
+            $fgtt = $this->Fgtt->find('all')
+                ->where(['status' => 'requested']);
+        }
+
+        if($this->Auth->user('role') == 'approve_1'){
+            $fgtt = $this->Fgtt->find('all')
+                ->where(['status' => 'verified']);
+        }
 
         $this->set(compact('fgtt'));
     }
@@ -85,6 +99,10 @@ class FgttController extends AppController
         $this->set(compact('fgtt'));
         $this->set('so_nos', $so_nos);
         $this->set('fgtt_no', (isset($count->id) ? ($count->id + 1) : 1));
+        $this->set('pic', $this->Auth->user('username'));
+        $this->set('pic_name', $this->Auth->user('name'));
+        $this->set('pic_dept', $this->Auth->user('dept'));
+        $this->set('pic_section', $this->Auth->user('section'));
     }
 
     /**
@@ -176,6 +194,16 @@ class FgttController extends AppController
     public function report(){
         $fgtt = $this->Fgtt->find('all');
         $this->set('fgtt', $fgtt);
+    }
+
+    public function isAuthorized($user){
+        // All registered users can add articles
+        if ($this->request->getParam('action') === 'add' || $this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'view' || $this->request->getParam('action') === 'add' || $this->request->getParam('action') === 'edit' || $this->request->getParam('action') === 'verify' || $this->request->getParam('action') === 'approve' || $this->request->getParam('action') === 'statusReport' || $this->request->getParam('action') === 'report') {
+            return true;
+        }
+
+        return parent::isAuthorized($user);
+
     }
 
 }

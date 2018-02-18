@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
+use Cake\Event\Event;
 /**
  * Inventory Controller
  *
@@ -107,6 +108,10 @@ class InventoryController extends AppController
         $this->set('part_no', $part_no);
         $this->set('part_name', $part_name);
         $this->set('drawing_no', $drawing_no);
+        $this->set('pic', $this->Auth->user('username'));
+        $this->set('pic_name', $this->Auth->user('name'));
+        $this->set('pic_dept', $this->Auth->user('dept'));
+        $this->set('pic_section', $this->Auth->user('section'));
     }
 
     /**
@@ -151,4 +156,20 @@ class InventoryController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function beforeFilter(Event $event)
+    {
+        $this->Auth->allow(['index', 'add', 'edit', 'view', 'delete', 'approve', 'verify', 'report', 'statusReport']);
+    }
+
+    public function isAuthorized($user){
+        // All registered users can add articles
+        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'view' || $this->request->getParam('action') === 'add' || $this->request->getParam('action') === 'edit' || $this->request->getParam('action') === 'verify' || $this->request->getParam('action') === 'approve' || $this->request->getParam('action') === 'statusReport' || $this->request->getParam('action') === 'report') {
+            return true;
+        }
+
+        return parent::isAuthorized($user);
+
+    }
+
 }

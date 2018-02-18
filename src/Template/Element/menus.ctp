@@ -4,7 +4,7 @@
 
 <div id="sidebar">
     <ul>
-        <li><a href="login.html" class="active">Home (Login)</a></li>
+        <li><a href="<?php echo $this->Url->build(['controller' => 'SerialNumber', 'action' => 'dashboard']); ?>" class="active">Home (Dashboard)</a></li>
         <div class="btn-group-vertical" role="group" class="dropdown">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 SERIAL NUMBER &nbsp;
@@ -12,11 +12,10 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                 <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller' => 'SerialNumber', 'action' => 'add']); ?>">Create Serial Number</a></li>
-                <li class="color-hsh"><a href="csn-verification.html">Verification</a></li>
-                <li class="color-hsh"><a href="csn-approval-1st.html">1st Approval</a></li>
-                <li class="color-hsh3"><a href="csn-approval-status.html">Approval Status</a></li>
-                <li class="color-hsh2"><a href="csn-report.html">CSN Report</a></li>
-                <li class="color-hsh2"><a href="csn-mounthly-report.html">CSN Mounthy Report</a></li>
+                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller' => 'SerialNumber', 'action' => 'index']); ?>">Requests</a></li>
+                <li class="color-hsh3"><a href="<?php echo $this->Url->build(['controller' => 'SerialNumber', 'action' => 'statusReport']); ?>">Approval Status</a></li>
+                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller' => 'SerialNumber', 'action' => 'report']); ?>">CSN Report</a></li>
+                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller' => 'SerialNumber', 'action' => 'monthlyReport']); ?>">CSN Mounthy Report</a></li>
             </ul>
         </div>
 
@@ -85,11 +84,10 @@
                 MATERIAL REQUEST<span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li class="color-hsh"><a href="mr-form.html">Create Material Request</a></li>
-                <li class="color-hsh"><a href="mr-verify-1.html">Material Request Verification</a></li>
-                <li class="color-hsh"><a href="mr-verify-2.html">Material Request Approval Status</a></li>
-                <li class="color-hsh2"><a href="mr-approval.html">Approval Status</a></li>
-                <li class="color-hsh2"><a href="mr-reporting.html">Report</a></li>
+                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller' => 'MaterialRequest', 'action' => 'add']); ?>">Create Material Request</a></li>
+                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller' => 'MaterialRequest', 'action' => 'index']); ?>">Requests</a></li>
+                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller' => 'MaterialRequest', 'action' => 'statusReport']); ?>">Approval Status</a></li>
+                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller' => 'MaterialRequest', 'action' => 'report']); ?>">Report</a></li>
             </ul>
         </div>
 
@@ -98,14 +96,10 @@
                 PRODUCTION REJECTION NOTE FORM<span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li class="color-hsh"><a href="prn-form.html">PRN Create</a></li>
-                <li class="color-hsh"><a href="prn-approve.html">Verification</a></li>
-                <li class="color-hsh"><a href="prn-qa-approve.html">approval 1</a></li>
-                <li class="color-hsh"><a href="prn-qa-manager-approve.html">approval 2</a></li>
-                <li class="color-hsh"><a href="prn-qa-correction.html">approval 3</a></li>
-                <li class="color-hsh"><a href="prn-qa-correction-approve.html">approval 4</a></li>
-                <li class="color-hsh2"><a href="prn-approval-status.html">Approval Status</a></li>
-                <li class="color-hsh2"><a href="prn-reporting.html">Report</a></li>
+                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller' => 'Prnf', 'action' => 'add']); ?>">PRN Create</a></li>
+                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller' => 'Prnf', 'action' => 'index']); ?>">PRN Requests</a></li>
+                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller' => 'Prnf', 'action' => 'statusReport']); ?>">Approval Status</a></li>
+                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller' => 'Prnf', 'action' => 'report']); ?>">Report</a></li>
             </ul>
         </div>
 
@@ -114,11 +108,10 @@
                 STORE CREDIT NOTE (SCN)<span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'scn','action'=>'add']);?>">SCN Create</a></li>
-                <li class="color-hsh"><a href="scr-verify.html">SCN verify</a></li>
-                <li class="color-hsh"><a href="scr-approve.html">SCN Approve</a></li>
-                <li class="color-hsh2"><a href="scr-approval-st.html">Approval Status</a></li>
-                <li class="color-hsh2"><a href="scr-reporting.html">Report</a></li>
+                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'Scn','action'=>'add']);?>">SCN Create</a></li>
+                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'Scn','action'=>'index']);?>">SCN Requests</a></li>
+                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'Scn','action'=>'statusReport']);?>">Approval Status</a></li>
+                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'Scn','action'=>'report']);?>">Report</a></li>
             </ul>
         </div>
 
@@ -127,11 +120,10 @@
                 FINISH GOODS TRANSFER Note(FGTT)<span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li class="color-hsh"><a href="fgtt-form.html">FGTT Create</a></li>
-                <li class="color-hsh"><a href="fgtt-verify-1.html">FGTT Verification</a></li>
-                <li class="color-hsh"><a href="fgtt-verify-2.html">FGTT Approval</a></li>
-                <li class="color-hsh2"><a href="fgtt-form-view.html">Approval Status</a></li>
-                <li class="color-hsh2"><a href="fgtt-reporting.html">Report</a></li>
+                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'Fgtt','action'=>'add']);?>">FGTT Create</a></li>
+                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'Fgtt','action'=>'index']);?>">FGTT Requests</a></li>
+                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'Fgtt','action'=>'statusReport']);?>">Approval Status</a></li>
+                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'Fgtt','action'=>'report']);?>">Report</a></li>
             </ul>
         </div>
 
@@ -140,11 +132,10 @@
                 NON BILLING DELIVERY ORDER<span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li class="color-hsh"><a href="nbdo-form.html">NBDO Create</a></li>
-                <li class="color-hsh"><a href="nbdo-verify-1.html">NBDO Verification</a></li>
-                <li class="color-hsh"><a href="nbdo-verify-2.html">NBDO Approval</a></li>
-                <li class="color-hsh2"><a href="nbdo-print-form.html">Approval Status</a></li>
-                <li class="color-hsh2"><a href="nbdo-reporting.html">Report</a></li>
+                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'Nbdo','action'=>'add']);?>">NBDO Create</a></li>
+                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'Nbdo','action'=>'index']);?>">NBDO Requests</a></li>
+                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'Nbdo','action'=>'statusReport']);?>">Approval Status</a></li>
+                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'Nbdo','action'=>'report']);?>">Report</a></li>
             </ul>
         </div>
     </ul>

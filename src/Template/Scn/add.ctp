@@ -31,8 +31,7 @@
                             <p class="cn-text">Create By <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text">Malik</p>
-                            <input type="hidden" name="created_by" value="requester">
+                            <p class="cn-main-text"><?= $pic_name ?></p>
                         </div>
                     </div>
 
@@ -41,7 +40,7 @@
                             <p class="cn-text">Department <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text">Production</p>
+                            <p class="cn-main-text"><?= $pic_dept ?></p>
                         </div>
                     </div>
 
@@ -50,7 +49,7 @@
                             <p class="cn-text">Section <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text">Welding</p>
+                            <p class="cn-main-text"><?= $pic_section ?></p>
                         </div>
                     </div>
 
@@ -60,8 +59,8 @@
                         </div>
                         <div class="col-sm-5 col-xs-6">
                             <select class="form-control" name="location" id="scn-lo-form">
-                                <option value="indkom_16">INDKOM 16</option>
-                                <option value="indkom_24">INDKOM 24</option>
+                                <option value="INDKOM 16">INDKOM 16</option>
+                                <option value="INDKOM 24">INDKOM 24</option>
                             </select>
                         </div>
                     </div>
@@ -105,6 +104,8 @@
 
         <div class="clearfix"></div>
         <div class="col-sm-offset-10 col-sm-2 col-xs-12">
+            <input type="hidden" name="created_by" value="<?= $pic ?>">
+            <input type="hidden" name="status" value="requested">
             <button type="submit" class="button btn btn-info btn-submit">Create</button>
         </div>
     </div>
