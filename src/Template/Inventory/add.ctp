@@ -136,8 +136,9 @@ add item
         });
         $(document).on('autocompleteselect', drawing_no, function(e, ui) {
             targetDraw = $(this).attr('rel');
-            $('#part-name'+targetDraw).val(ui.item.idx);
-            $('#part-no'+targetDraw).val(ui.item.idw);
+            $('#part-no'+targetDraw).val(ui.item.idx);
+            $('#part-name'+targetDraw).val(ui.item.idw);
+
         });
     });
 </script>

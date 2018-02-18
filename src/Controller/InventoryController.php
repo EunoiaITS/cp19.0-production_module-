@@ -121,21 +121,20 @@ class InventoryController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit()
     {
-        $inventory = $this->Inventory->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $inventory = $this->Inventory->patchEntity($inventory, $this->request->getData());
-            if ($this->Inventory->save($inventory)) {
+        if ($this->request->is('post')) {
+            $inv_id = $this->Inventory->get($this->request->getData('inv_name'), [
+                'contain' => []
+            ]);
+            $inv_id = $this->Inventory->patchEntity($inv_id, $this->request->getData());
+            if ($this->Inventory->save($inv_id)) {
                 $this->Flash->success(__('The inventory has been saved.'));
 
                 return $this->redirect(['action' => 'view']);
             }
             $this->Flash->error(__('The inventory could not be saved. Please, try again.'));
-        }
-        $this->set(compact('inventory'));
+    }
     }
 
     /**
