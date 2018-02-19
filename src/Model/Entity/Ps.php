@@ -13,7 +13,7 @@ use Cake\ORM\Entity;
  * @property string $status
  * @property string $remark
  */
-class P extends Entity
+class Ps extends Entity
 {
 
     /**

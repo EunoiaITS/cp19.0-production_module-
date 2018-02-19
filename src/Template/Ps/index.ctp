@@ -1,7 +1,7 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\P[]|\Cake\Collection\CollectionInterface $ps
+ * @var \App\Model\Entity\Ps[]|\Cake\Collection\CollectionInterface $ps
  */
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">

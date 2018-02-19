@@ -52,34 +52,20 @@ class DrTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->scalar('date')
-            ->maxLength('date', 255)
-            ->allowEmpty('date');
+            ->scalar('ps_id')
+            ->maxLength('ps_id', 255)
+            ->allowEmpty('ps_id');
 
         $validator
-            ->scalar('created_by')
-            ->maxLength('created_by', 255)
-            ->allowEmpty('created_by');
-
-        $validator
-            ->scalar('total_target')
-            ->maxLength('total_target', 255)
-            ->allowEmpty('total_target');
+            ->scalar('so_no')
+            ->maxLength('so_no', 255)
+            ->allowEmpty('so_no');
 
         $validator
             ->scalar('quantity')
             ->maxLength('quantity', 255)
             ->allowEmpty('quantity');
 
-        $validator
-            ->scalar('status')
-            ->maxLength('status', 255)
-            ->allowEmpty('status');
-
-        $validator
-            ->scalar('remark')
-            ->maxLength('remark', 255)
-            ->allowEmpty('remark');
 
         return $validator;
     }

@@ -1,4 +1,3 @@
-
 <!-- SCRIPT -->
 <script src="<?php echo $this->request->webroot.'assets/js/jquery-1.12.2.min.js';?>"></script>
 <!-- bootstrap js -->
@@ -7,8 +6,12 @@
 <script src="<?php echo $this->request->webroot.'assets/js/jQuery.print.js';?>"></script>
 <!-- bootstrap datepicker js -->
 <script src="<?php echo $this->request->webroot.'assets/js/bootstrap-datepicker.min.js';?>"></script>
+
+<script src="<?php echo $this->request->webroot.'assets/js/zabuto_calendar.js';?>"></script>
 <!-- main js -->
 <script src="<?php echo $this->request->webroot.'assets/js/main.js';?>"></script>
+
+
 
 <!-- jquery ui -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

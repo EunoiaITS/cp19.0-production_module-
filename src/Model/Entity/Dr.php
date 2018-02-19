@@ -29,13 +29,7 @@ class Dr extends Entity
      * @var array
      */
     protected $_accessible = [
-        'date' => true,
-        'created_by' => true,
-        'total_target' => true,
-        'quantity' => true,
-        'status' => true,
-        'remark' => true,
-        'created' => true,
-        'modified' => true
+        '*' => true,
+        'id' =>false
     ];
 }
