@@ -12,6 +12,7 @@ use App\Controller\AppController;
  */
 class MitController extends AppController
 {
+
     public function initialize()
     {
         parent::initialize();
@@ -157,6 +158,7 @@ class MitController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
     public function verify($id = null){
         $urlToSales = 'http://salesmodule.acumenits.com/api/item-details/'.$id;
 
@@ -205,6 +207,7 @@ class MitController extends AppController
         $this->set('eng',$dataFromEng);
         $this->set('sales',$dataFromSales);
     }
+
     public function approval($id = null){
         $urlToSales = 'http://salesmodule.acumenits.com/api/item-details/'.$id;
 
@@ -251,6 +254,7 @@ class MitController extends AppController
         $this->set('eng',$dataFromEng);
         $this->set('sales',$dataFromSales);
     }
+
     public function acknowledge($id = null){
         $this->loadModel('Mit');
         $urlToSales = 'http://salesmodule.acumenits.com/api/all-data';
@@ -272,6 +276,7 @@ class MitController extends AppController
         $this->set('sales',$dataFromSales);
         $this->set('status',$status);
     }
+
     public function acknowledgeVerify($id=null){
         $urlToSales = 'http://salesmodule.acumenits.com/api/item-details/'.$id;
 
@@ -320,6 +325,7 @@ class MitController extends AppController
         $this->set('eng',$dataFromEng);
         $this->set('sales',$dataFromSales);
     }
+
     public function report(){
         $urlToSales = 'http://salesmodule.acumenits.com/api/all-data';
 
@@ -337,4 +343,15 @@ class MitController extends AppController
         $dataFromSales = json_decode($resultFromSales);
         $this->set('sales',$dataFromSales);
     }
+
+    public function isAuthorized($user){
+        // All registered users can add articles
+        if ($this->request->getParam('action') === 'view' || $this->request->getParam('action') === 'edit' || $this->request->getParam('action') === 'add' || $this->request->getParam('action') === 'edit' || $this->request->getParam('action') === 'verify' || $this->request->getParam('action') === 'approve' || $this->request->getParam('action') === 'statusReport' || $this->request->getParam('action') === 'report') {
+            return true;
+        }
+
+        return parent::isAuthorized($user);
+
+    }
+
 }
