@@ -40,7 +40,7 @@ class WipSectionTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Wips', [
+        $this->belongsTo('Wip', [
             'foreignKey' => 'wip_id',
             'joinType' => 'INNER'
         ]);
@@ -100,7 +100,7 @@ class WipSectionTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['wip_id'], 'Wips'));
+        $rules->add($rules->existsIn(['wip_id'], 'Wip'));
 
         return $rules;
     }
