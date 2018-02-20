@@ -26,10 +26,7 @@ class Ps extends Entity
      * @var array
      */
     protected $_accessible = [
-        'date' => true,
-        'created_by' => true,
-        'total' => true,
-        'status' => true,
-        'remark' => true
+        '*' => true,
+        'id' => false
     ];
 }

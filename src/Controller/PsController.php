@@ -134,7 +134,8 @@ class PsController extends AppController
         }
         $ps = $this->Ps->newEntity();
         if ($this->request->is(['post'])) {
-            $ps->date = date('d-m-Y');
+            $ps->date = $this->request->getData('date');
+            $ps->total = $this->request->getData('total');
             $ps->created_by = 'requester';
             $ps->status = 'requested';
             if ($this->Ps->save($ps)) {
@@ -155,7 +156,7 @@ class PsController extends AppController
                 }
                 $this->Flash->success(__('The scn has been saved.'));
 
-                return $this->redirect(['action' => 'daily-report?date='.date('d-m-Y')]);
+                return $this->redirect(['action' => 'scheduler']);
             }
             $this->Flash->error(__('The ps could not be saved. Please, try again.'));
         }

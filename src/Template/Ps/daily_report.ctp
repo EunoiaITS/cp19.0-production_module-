@@ -65,7 +65,7 @@ Create serial number form page
                             <td><?= $items->version?></td>
                             <td>INDoor</td>
                             <td>Motorized</td>
-                            <td><input name="quantity<?= $count?>" id="quantity-id<?= $count?>" type="text" class="form-control"></td>
+                            <td><input name="quantity<?= $count?>" id="quantity-id<?= $count?>" type="text" class="form-control quantity"></td>
                             <td></td>
                         </tr>
                             <div id="add-item-table">
@@ -75,6 +75,8 @@ Create serial number form page
                             </div>
 
                     <?php $count++;?><?php endforeach;endforeach;?>
+                    <input id="to-id" type="hidden" name="total" value="">
+                    <input id="date-id" type="hidden" name="date" value="">
                         <tr>
                             <td colspan="7">Total Daily Target</td>
                             <td id="total"></td>
@@ -95,8 +97,17 @@ Create serial number form page
 </div>
 <script>
     $(document).ready(function(){
-            var count = "<?php echo $count;?>"
-            var total = $('#quantity'+count).val();
-            $('#total').val(total);
+        var date = "<?php echo $date;?>";
+        $('.quantity').on('change',function(){
+            var total = 0;
+            $('.quantity').each(function(){
+                total += parseInt($(this).val()) || 0;
+                //alert($(this).val());
+                $('#total').text(total);
+                $('#to-id').val(total);
+
+            });
+        });
+        $('#date-id').val(date);
     });
 </script>
