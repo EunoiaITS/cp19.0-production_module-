@@ -16,6 +16,8 @@
 <!-- main css -->
 <link rel="stylesheet" href="<?php echo $this->request->webroot.'assets/css/style.css'; ?>">
 
+<link rel="stylesheet" href="<?php echo $this->request->webroot.'assets/css/zabuto_calendar.min.css'; ?>">
+
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <!-- mordanizer js -->
 <script src="<?php echo $this->request->webroot.'assets/js/modernizr-2.8.3.min.js'; ?>"></script>

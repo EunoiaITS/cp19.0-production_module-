@@ -9,13 +9,13 @@ use Cake\Validation\Validator;
 /**
  * Ps Model
  *
- * @method \App\Model\Entity\P get($primaryKey, $options = [])
- * @method \App\Model\Entity\P newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\P[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\P|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\P patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\P[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\P findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\Ps get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Ps newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\Ps[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Ps|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Ps patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Ps[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Ps findOrCreate($search, callable $callback = null, $options = [])
  */
 class PsTable extends Table
 {

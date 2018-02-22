@@ -13,7 +13,7 @@ use Cake\ORM\Entity;
  * @property string $status
  * @property string $remark
  */
-class P extends Entity
+class Ps extends Entity
 {
 
     /**
@@ -26,10 +26,7 @@ class P extends Entity
      * @var array
      */
     protected $_accessible = [
-        'date' => true,
-        'created_by' => true,
-        'total' => true,
-        'status' => true,
-        'remark' => true
+        '*' => true,
+        'id' => false
     ];
 }
