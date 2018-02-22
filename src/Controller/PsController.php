@@ -13,6 +13,12 @@ use App\Controller\AppController;
 class PsController extends AppController
 {
 
+    public function initialize()
+    {
+        parent::initialize();
+        $this->viewBuilder()->setLayout('mainframe');
+    }
+
     /**
      * Index method
      *
@@ -104,4 +110,57 @@ class PsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function main(){
+        $urlToSales = 'http://salesmodule.acumenits.com/api/all-data';
+
+        $optionsForSales = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'GET'
+            ]
+        ];
+        $contextForSales  = stream_context_create($optionsForSales);
+        $resultFromSales = file_get_contents($urlToSales, false, $contextForSales);
+        if ($resultFromSales === FALSE) {
+            echo 'ERROR!!';
+        }
+        $dataFromSales = json_decode($resultFromSales);
+        $this->loadModel('SerialNumber');
+        $this->loadModel('Fgtt');
+        foreach($dataFromSales as $sn_match){
+            $matches = $this->SerialNumber->find('all')
+                ->where(['so_no' => $sn_match->salesorder_no]);
+            foreach($matches as $match){
+                $sn_match->production_sn = $match;
+            }
+            $fgtts = $this->Fgtt->find('all')
+                ->where(['so_no' => $sn_match->salesorder_no]);
+            foreach($fgtts as $fgtt){
+                $sn_match->fgtt = $fgtt;
+            }
+            $start    = (new \DateTime($sn_match->date))->modify('first day of this month');
+            $end      = (new \DateTime('2018-09-26'))->modify('first day of next month');
+            $interval = \DateInterval::createFromDateString('1 month');
+            $period   = new \DatePeriod($start, $interval, $end);
+
+            $months = array();
+            foreach ($period as $dt) {
+                $months[] = $dt->format("Y-M");
+            }
+            $sn_match->months = $months;
+        }
+        $this->set('sales',$dataFromSales);
+    }
+
+    public function isAuthorized($user){
+        // All registered users can add articles
+        if ($this->request->getParam('action') === 'view' || $this->request->getParam('action') === 'edit' || $this->request->getParam('action') === 'add' || $this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'verify' || $this->request->getParam('action') === 'approve' || $this->request->getParam('action') === 'main' || $this->request->getParam('action') === 'report') {
+            return true;
+        }
+
+        return parent::isAuthorized($user);
+
+    }
+
 }
