@@ -111,16 +111,7 @@ class PsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function main(){}
-    public function scheduler(){
-
-    }
-    public function dailyReport(){
-//        $this->autoRender = false;
-//        echo "<pre>";
-//        print_r($this->request);
-//        echo "</pre>";
-        $date = $this->request->getQuery('date');
+    public function main(){
         $urlToSales = 'http://salesmodule.acumenits.com/api/all-data';
 
         $optionsForSales = [
@@ -159,6 +150,17 @@ class PsController extends AppController
             }
             $sn_match->months = $months;
         }
+        $this->set('sales',$dataFromSales);
+    }
+    public function scheduler(){
+
+    }
+    public function dailyReport(){
+//        $this->autoRender = false;
+//        echo "<pre>";
+//        print_r($this->request);
+//        echo "</pre>";
+        $date = $this->request->getQuery('date');
         $ps = $this->Ps->newEntity();
         if ($this->request->is(['post'])) {
             $ps->date = $this->request->getData('date');
@@ -187,14 +189,70 @@ class PsController extends AppController
             }
             $this->Flash->error(__('The ps could not be saved. Please, try again.'));
         }
-        $dataFromSales = json_decode($resultFromSales);
-        $this->set('sales',$dataFromSales);
         $this->set('date',$date);
+    }
+
+    public function monthlyScheduler(){
+        $this->loadModel('PsMonthly');
+        $count = $this->PsMonthly->find('all')->last();
+        $month = $this->request->getQuery('month');
+        $year = $this->request->getQuery('year');
+        if($month == null){
+            $month = date('m');
+        }
+        if($year == null){
+            $year = date('Y');
+        }
+        $urlToSales = 'http://salesmodule.acumenits.com/api/month-data';
+
+        $optionsForSales = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'POST',
+                'content' => $this->request->getData()
+            ]
+        ];
+        $contextForSales  = stream_context_create($optionsForSales);
+        $resultFromSales = file_get_contents($urlToSales, false, $contextForSales);
+        if ($resultFromSales === FALSE) {
+            $this->Flash->error(__('No data found for the selected month. Please try again!'));
+        }
+        $dataFromSales = json_decode($resultFromSales);
+        $this->loadModel('Fgtt');
+        foreach($dataFromSales as $sn_match){
+            $fgtts = $this->Fgtt->find('all')
+                ->where(['so_no' => $sn_match->salesorder_no]);
+            foreach($fgtts as $fgtt){
+                $sn_match->fgtt = $fgtt;
+            }
+        }
+        if($this->request->is('post')){
+            if($this->request->getData('total_items') < 1){
+                $this->Flash->error(__('No data found for the selected month. Please try again!'));
+                return $this->redirect(['action' => 'monthlyScheduler']);
+            }
+            $ps = $this->PsMonthly->newEntity();
+            $ps = $this->PsMonthly->patchEntity($ps, $this->request->getData());
+            if ($this->PsMonthly->save($ps)) {
+                $this->Flash->success(__('The ps has been saved.'));
+
+                return $this->redirect(['action' => 'monthlyScheduler']);
+            }
+            $this->Flash->error(__('The ps could not be saved. Please, try again.'));
+        }
+        $this->set('sales', $dataFromSales);
+        $this->set('month', $month);
+        $this->set('year', $year);
+        $this->set('pic', $this->Auth->user('username'));
+        $this->set('pic_name', $this->Auth->user('name'));
+        $this->set('pic_dept', $this->Auth->user('dept'));
+        $this->set('pic_section', $this->Auth->user('section'));
+        $this->set('sn_no', (isset($count->id) ? ($count->id + 1) : 1));
     }
 
     public function isAuthorized($user){
         // All registered users can add articles
-        if ($this->request->getParam('action') === 'scheduler' || $this->request->getParam('action') === 'dailyReport' || $this->request->getParam('action') === 'add' || $this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'verify' || $this->request->getParam('action') === 'approve' || $this->request->getParam('action') === 'main' || $this->request->getParam('action') === 'report') {
+        if ($this->request->getParam('action') === 'scheduler' || $this->request->getParam('action') === 'dailyReport' || $this->request->getParam('action') === 'monthlyScheduler' || $this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'verify' || $this->request->getParam('action') === 'approve' || $this->request->getParam('action') === 'main' || $this->request->getParam('action') === 'report') {
             return true;
         }
 

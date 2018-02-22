@@ -16,22 +16,27 @@ class CreatePsMonthly extends AbstractMigration
         $table->addColumn('date', 'string', [
             'default' => null,
             'limit' => 255,
-            'null' => true,
+            'null' => false,
         ]);
         $table->addColumn('location', 'string', [
             'default' => null,
             'limit' => 255,
-            'null' => true,
+            'null' => false,
         ]);
         $table->addColumn('year', 'string', [
             'default' => null,
             'limit' => 255,
-            'null' => true,
+            'null' => false,
         ]);
         $table->addColumn('month', 'string', [
             'default' => null,
             'limit' => 255,
-            'null' => true,
+            'null' => false,
+        ]);
+        $table->addColumn('total_items', 'string', [
+            'default' => null,
+            'limit' => 255,
+            'null' => false,
         ]);
         $table->addColumn('created_by', 'string', [
             'default' => null,
