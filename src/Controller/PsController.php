@@ -161,6 +161,18 @@ class PsController extends AppController
 //        print_r($this->request);
 //        echo "</pre>";
         $date = $this->request->getQuery('date');
+        $urlToSales = 'http://salesmodule.acumenits.com/api/all-data';
+        $optionsForSales = [
+        'http' => [
+                    'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                    'method'  => 'GET'
+            ]
+        ];
+        $contextForSales  = stream_context_create($optionsForSales);
+        $resultFromSales = file_get_contents($urlToSales, false, $contextForSales);
+        if ($resultFromSales === FALSE) {
+            echo 'ERROR!!';
+        }
         $ps = $this->Ps->newEntity();
         if ($this->request->is(['post'])) {
             $ps->date = $this->request->getData('date');
@@ -189,7 +201,13 @@ class PsController extends AppController
             }
             $this->Flash->error(__('The ps could not be saved. Please, try again.'));
         }
+        $dataFromSales = json_decode($resultFromSales);
+        $this->set('sales',$dataFromSales);
         $this->set('date',$date);
+        $this->set('pic', $this->Auth->user('username'));
+        $this->set('pic_name', $this->Auth->user('name'));
+        $this->set('pic_dept', $this->Auth->user('dept'));
+        $this->set('pic_section', $this->Auth->user('section'));
     }
 
     public function monthlyScheduler(){

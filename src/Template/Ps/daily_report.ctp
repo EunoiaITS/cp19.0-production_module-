@@ -11,7 +11,7 @@ Create serial number form page
                     <div class="col-sm-6">
                         <div class="form-group">
                             <div class="col-sm-3 col-xs-6">
-                                <p class="cn-text">Date <span class="planner-fright">:</span></p>
+                                <p class="cn-text">Date<span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
                                 <p id="date" class="cn-main-text"><?= $date ?></p>
@@ -22,7 +22,7 @@ Create serial number form page
                                 <p class="cn-text">Create By <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text">Khamal</p>
+                                <p class="cn-main-text"><?= $pic?></p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -30,7 +30,7 @@ Create serial number form page
                                 <p class="cn-text">Section <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text">Planner</p>
+                                <p class="cn-main-text"><?= $pic_section?></p>
                             </div>
                         </div>
                     </div>
