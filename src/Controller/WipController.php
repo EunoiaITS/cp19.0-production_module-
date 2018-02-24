@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Model\Entity\WipSection;
 use Cake\ORM\TableRegistry;
 
 /**
@@ -27,8 +28,25 @@ class WipController extends AppController
     public function index()
     {
         $wip = $this->paginate($this->Wip);
-
-        $this->set(compact('wip'));
+        $this->loadModel('Wip');
+        $this->loadModel('SerialNumber');
+        $this->loadModel('WipSection');
+        $wip = $this->Wip->find('all');
+        foreach ($wip as $wp){
+            $sn_details = $this->SerialNumber->find('all')
+                ->Where(['id'=>$wp->serial_no]);
+            foreach ($sn_details as $snd){
+                $wp->sn_details = $snd;
+            }
+            $wip_sec = $this->WipSection->find('all')
+                ->Where(['wip_id'=>$wp->id]);
+            foreach ($wip_sec as $wips){
+                if($wips->status === 'requested'){
+                    $wp->status = 'Pending';
+                }
+            }
+        }
+        $this->set('wip', $wip);
     }
 
     /**
@@ -40,10 +58,21 @@ class WipController extends AppController
      */
     public function view($id = null)
     {
-        $wip = $this->Wip->get($id, [
-            'contain' => ['WipSection']
-        ]);
-
+        $this->loadModel('SerialNumber');
+        $this->loadModel('WipSection');
+        $wip = $this->Wip->find('all')
+            ->where(['id'=> $id]);
+        foreach ($wip as $w) {
+            $sn_details = $this->SerialNumber->find('all')
+                ->Where(['id' => $w->serial_no]);
+            foreach ($sn_details as $snd) {
+                $w->sn_details = $snd;
+            }
+            $wip_sec = $this->WipSection->find('all')
+                ->Where(['wip_id'=>$id]);
+                $w->wip_sec = $wip_sec;
+        }
+        $this->set('pic', $this->Auth->user('username'));
         $this->set('wip', $wip);
     }
 
@@ -104,15 +133,17 @@ class WipController extends AppController
      */
     public function edit($id = null)
     {
-        $wip = $this->Wip->get($id, [
+        $this->loadModel('WipSection');
+        $wip = $this->WipSection->get($id, [
             'contain' => []
         ]);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $wip = $this->Wip->patchEntity($wip, $this->request->getData());
-            if ($this->Wip->save($wip)) {
+            $wip = $this->WipSection->patchEntity($wip, $this->request->getData());
+            if ($this->WipSection->save($wip)) {
                 $this->Flash->success(__('The wip has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view',$wip->wip_id]);
             }
             $this->Flash->error(__('The wip could not be saved. Please, try again.'));
         }
@@ -137,5 +168,22 @@ class WipController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+    public function report(){
+        $wip = $this->paginate($this->Wip);
+        $this->loadModel('SerialNumber');
+        $this->loadModel('WipSection');
+        $wip = $this->Wip->find('all');
+        foreach ($wip as $wp){
+            $sn_details = $this->SerialNumber->find('all')
+                ->Where(['id'=>$wp->serial_no]);
+            foreach ($sn_details as $snd){
+                $wp->sn_details = $snd;
+            }
+            $wip_sec = $this->WipSection->find('all')
+                ->Where(['wip_id'=>$wp->id]);
+            $wp->wip_sec= $wip_sec;
+        }
+        $this->set('wip', $wip);
     }
 }
