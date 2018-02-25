@@ -26,9 +26,22 @@ class PsController extends AppController
      */
     public function index()
     {
-        $ps = $this->paginate($this->Ps);
+        $this->loadModel('PsMonthly');
+        if($this->Auth->user('role') == 'verifier'){
+            $ps = $this->PsMonthly->find('all')
+                ->where(['status' => 'requested']);
+        }elseif($this->Auth->user('role') == 'approve-1'){
+            $ps = $this->PsMonthly->find('all')
+                ->where(['status' => 'approval_1']);
+        }elseif($this->Auth->user('role') == 'approve-2'){
+            $ps = $this->PsMonthly->find('all')
+                ->where(['status' => 'approval_2']);
+        }else{
+            $ps = $this->PsMonthly->find('all')
+                ->where(['status' => 'requested', 'status' => 'rejected']);
+        }
 
-        $this->set(compact('ps'));
+        $this->set('ps', $ps);
     }
 
     /**
@@ -40,11 +53,45 @@ class PsController extends AppController
      */
     public function view($id = null)
     {
-        $ps = $this->Ps->get($id, [
+        $this->loadModel('PsMonthly');
+        $ps = $this->PsMonthly->get($id, [
             'contain' => []
         ]);
 
+        $reqData = [
+            'month' => $ps->month,
+            'year' => $ps->year
+        ];
+        $urlToSales = 'http://salesmodule.acumenits.com/api/month-data';
+
+        $optionsForSales = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'POST',
+                'content' => $reqData
+            ]
+        ];
+        $contextForSales  = stream_context_create($optionsForSales);
+        $resultFromSales = file_get_contents($urlToSales, false, $contextForSales);
+        if ($resultFromSales === FALSE) {
+            $this->Flash->error(__('No data found for the selected month. Please try again!'));
+        }
+        $dataFromSales = json_decode($resultFromSales);
+        $this->loadModel('Fgtt');
+        foreach($dataFromSales as $sn_match){
+            $fgtts = $this->Fgtt->find('all')
+                ->where(['so_no' => $sn_match->salesorder_no]);
+            foreach($fgtts as $fgtt){
+                $sn_match->fgtt = $fgtt;
+            }
+        }
+
         $this->set('ps', $ps);
+        $this->set('sales', $dataFromSales);
+        $this->set('pic', $this->Auth->user('username'));
+        $this->set('pic_name', $this->Auth->user('name'));
+        $this->set('pic_dept', $this->Auth->user('dept'));
+        $this->set('pic_section', $this->Auth->user('section'));
     }
 
     /**
@@ -76,17 +123,18 @@ class PsController extends AppController
      */
     public function edit($id = null)
     {
-        $ps = $this->Ps->get($id, [
+        $this->loadModel('PsMonthly');
+        $ps = $this->PsMonthly->get($id, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $ps = $this->Ps->patchEntity($ps, $this->request->getData());
-            if ($this->Ps->save($ps)) {
-                $this->Flash->success(__('The p has been saved.'));
+            $ps = $this->PsMonthly->patchEntity($ps, $this->request->getData());
+            if ($this->PsMonthly->save($ps)) {
+                $this->Flash->success(__('The ps has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The p could not be saved. Please, try again.'));
+            $this->Flash->error(__('The ps could not be saved. Please, try again.'));
         }
         $this->set(compact('ps'));
     }
@@ -268,9 +316,19 @@ class PsController extends AppController
         $this->set('sn_no', (isset($count->id) ? ($count->id + 1) : 1));
     }
 
+    public function approvalStatus(){
+        $this->loadModel('PsMonthly');
+        $ps = $this->paginate($this->PsMonthly);
+        $this->set(compact('ps'));
+    }
+
+    public function report(){}
+
+    public function progressReport(){}
+
     public function isAuthorized($user){
         // All registered users can add articles
-        if ($this->request->getParam('action') === 'scheduler' || $this->request->getParam('action') === 'dailyReport' || $this->request->getParam('action') === 'monthlyScheduler' || $this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'verify' || $this->request->getParam('action') === 'approve' || $this->request->getParam('action') === 'main' || $this->request->getParam('action') === 'report') {
+        if ($this->request->getParam('action') === 'scheduler' || $this->request->getParam('action') === 'dailyReport' || $this->request->getParam('action') === 'monthlyScheduler' || $this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'view' || $this->request->getParam('action') === 'edit' || $this->request->getParam('action') === 'main' || $this->request->getParam('action') === 'report' || $this->request->getParam('action') === 'approvalStatus' || $this->request->getParam('action') === 'progressReport') {
             return true;
         }
 

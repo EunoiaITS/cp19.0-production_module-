@@ -25,16 +25,13 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li class="color-hsh"><a href="ps-scheduler-main.html">Production Scheduler</a></li>
-                <li class="color-hsh"><a href="ps-scheduler.html">Planner Daily Operation Scheduler</a></li>
-                <li class="color-hsh"><a href="ps-scheduler-report.html">Planner Daily Report</a></li>
-                <li class="color-hsh3"><a href="ps-monthly-form.html">Production Monthly Schedule Form(Creation)</a></li>
-                <li class="color-hsh3"><a href="ps-verification.html">Verification</a></li>
-                <li class="color-hsh3"><a href="ps-approval-1.html">Approval 1 </a></li>
-                <li class="color-hsh3"><a href="ps-approval-2.html">Approval 2 </a></li>
-                <li class="color-hsh"><a href="ps-approval-status.html">Approval Status</a></li>
-                <li class="color-hsh2"><a href="ps-report.html">PS Report</a></li>
-                <li class="color-hsh2"><a href="ps-progess-report.html">PS Progress Report</a></li>
+                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller' => 'Ps', 'action' => 'main']); ?>">Production Scheduler</a></li>
+                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller' => 'Ps', 'action' => 'scheduler']); ?>">Planner Daily Operation Scheduler</a></li>
+                <li class="color-hsh3"><a href="<?php echo $this->Url->build(['controller' => 'Ps', 'action' => 'monthlyScheduler']); ?>">Production Monthly Schedule Form(Creation)</a></li>
+                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller' => 'Ps', 'action' => 'index']); ?>">Planner Requests</a></li>
+                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller' => 'Ps', 'action' => 'approvalStatus']); ?>">Approval Status</a></li>
+                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller' => 'Ps', 'action' => 'report']); ?>">PS Report</a></li>
+                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller' => 'Ps', 'action' => 'progressReport']); ?>">PS Progress Report</a></li>
             </ul>
         </div>
 

@@ -1,55 +1,51 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Ps[]|\Cake\Collection\CollectionInterface $ps
- */
-?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New P'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="ps index large-9 medium-8 columns content">
-    <h3><?= __('Ps') ?></h3>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-            <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('date') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('created_by') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('total') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('status') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('remark') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($ps as $p): ?>
-            <tr>
-                <td><?= $this->Number->format($p->id) ?></td>
-                <td><?= h($p->date) ?></td>
-                <td><?= h($p->created_by) ?></td>
-                <td><?= h($p->total) ?></td>
-                <td><?= h($p->status) ?></td>
-                <td><?= h($p->remark) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $p->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $p->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $p->id], ['confirm' => __('Are you sure you want to delete # {0}?', $p->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+<!--=========
+      Production Planner page
+      ==============-->
+
+<div class="planner-from">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="part-title-planner text-uppercase text-center"><b>PRODUCTION PLANNER MONTHLY SCHEDULER</b></div>
+            </div><!-- end mit title -->
+        </div>
+
+        <div class="clearfix"></div>
+
+        <!--============== Add drawing table area ===================-->
+
+        <div class="planner-table table-responsive clearfix">
+            <div class="col-sm-12">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th rowspan="2">No</th>
+                        <th rowspan="2">Date</th>
+                        <th rowspan="2">Location</th>
+                        <th rowspan="2">Year</th>
+                        <th rowspan="2">Month</th>
+                        <th rowspan="2">Total Items</th>
+                        <th rowspan="2">Create By</th>
+                        <th rowspan="2"><?php $action = ''; if($role == 'verifier'){$action = 'verify';echo 'Verify';}elseif($role == 'approve_1'){$action = 'approve1';echo 'Approve';}elseif($role == 'approve_2'){$action = 'approve2';echo 'Approve';}else{$action = 'view';echo 'View';} ?></th>
+                    </tr>
+                    </thead>
+                    <tbody class="csn-text-up">
+                    <?php foreach($ps as $p): ?>
+                        <tr>
+                            <td><?= $p->id ?></td>
+                            <td><?= $p->date ?></td>
+                            <td><?= $p->location ?></td>
+                            <td><?= $p->year ?></td>
+                            <td><?= $p->month ?></td>
+                            <td><?= $p->total_items ?></td>
+                            <td><?= $p->created_by ?></td>
+                            <td><a href="<?php echo $this->url->build(['controller' => 'Ps', 'action' => 'view', $p->id]); ?>"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve_1'){echo 'Approve';}elseif($role == 'approve_2'){echo 'Approve';}else{echo 'View';} ?></a></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
     </div>
 </div>
