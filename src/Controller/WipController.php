@@ -338,4 +338,470 @@ class WipController extends AppController
         }
         $this->set('wip', $wip);
     }
+    public function statReport(){
+        $model1 = new \stdClass();
+        $model2 = new \stdClass();
+        $model3 = new \stdClass();
+        $model4 = new \stdClass();
+        $model5 = new \stdClass();
+        $var11 = $var12 = $var13 = $var14 = $var15 = $var16 = $var17 = $var18 = $var19 = 0;
+        $a11 = $a12 = $a13 = $a14 = $a15 = $a16 = $a17 = $a18 = $a19 = 0;
+        $this->loadModel('SerialNumber');
+        $this->loadModel('WipSection');
+        $sn_model1 = $this->SerialNumber->find('all')
+            ->Where(['model'=> 'RMU INS 24']);
+        foreach ($sn_model1 as $snm){
+            $wip = $this->Wip->find('all')
+                ->Where(['serial_no'=> $snm->id]);
+            foreach ($wip as $wp){
+                $wips = $this->WipSection->find('all')
+                    ->Where(['wip_id' => $wp->id]);
+                foreach ($wips as $wps){
+                    if($wps->section == 'Welding 1'){
+                        $var11++;
+                        if($wps->status == 'acknowledged'){
+                            $a11++;
+                        }
+                    }
+                    if($wps->section == 'Main link Tank'){
+                        $var12++;
+                        if($wps->status == 'acknowledged'){
+                            $a12++;
+                        }
+                    }
+                    if($wps->section == 'Drive Mechanism'){
+                        $var13++;
+                        if($wps->status == 'acknowledged'){
+                            $a13++;
+                        }
+                    }
+                    if($wps->section == 'Vacuum Chamber'){
+                        $var14++;
+                        if($wps->status == 'acknowledged'){
+                            $a14++;
+                        }
+                    }
+                    if($wps->section == 'Welding 2'){
+                        $var15++;
+                        if($wps->status == 'acknowledged'){
+                            $a15++;
+                        }
+                    }
+                    if($wps->section == 'Bta'){
+                        $var16++;
+                        if($wps->status == 'acknowledged'){
+                            $a16++;
+                        }
+                    }
+                    if($wps->section == 'Metal Clad'){
+                        $var17++;
+                        if($wps->status == 'acknowledged'){
+                            $a17++;
+                        }
+                    }
+                    if($wps->section == 'Wiring'){
+                        $var18++;
+                        if($wps->status == 'acknowledged'){
+                            $a19++;
+                        }
+                    }
+                    if($wps->section == 'Testing'){
+                        $var19++;
+                        if($wps->status == 'acknowledged'){
+                            $a19++;
+                        }
+                    }
+                }
+            }
+        }
+        $model1->name = 'RMU INS 24';
+        $model1->var11 = $var11;
+        $model1->var12 = $var12;
+        $model1->var13 = $var13;
+        $model1->var14 = $var14;
+        $model1->var15 = $var15;
+        $model1->var16 = $var16;
+        $model1->var17 = $var17;
+        $model1->var18 = $var18;
+        $model1->var19 = $var19;
+
+        $model1->a11 = $a11;
+        $model1->a12 = $a12;
+        $model1->a13 = $a13;
+        $model1->a14 = $a14;
+        $model1->a15 = $a15;
+        $model1->a16 = $a16;
+        $model1->a17 = $a17;
+        $model1->a18 = $a18;
+        $model1->a19 = $a19;
+        $this->set('model1',$model1);
+
+        $var21 = $var22 = $var23 = $var24 = $var25 = $var26 = $var27 = $var28 = $var29 = 0;
+        $a21 = $a22 = $a23 = $a24 = $a25 = $a26 = $a27 = $a28 = $a29 = 0;
+        $this->loadModel('SerialNumber');
+        $this->loadModel('WipSection');
+        $sn_model2 = $this->SerialNumber->find('all')
+            ->Where(['model'=> 'RMU INS 24(VIOTORZEI)']);
+        foreach ($sn_model2 as $snm){
+            $wip = $this->Wip->find('all')
+                ->Where(['serial_no'=> $snm->id]);
+            foreach ($wip as $wp){
+                $wips = $this->WipSection->find('all')
+                    ->Where(['wip_id' => $wp->id]);
+                foreach ($wips as $wps){
+                    if($wps->section == 'Welding 1'){
+                        $var21++;
+                        if($wps->status == 'acknowledged'){
+                            $a21++;
+                        }
+                    }
+                    if($wps->section == 'Main link Tank'){
+                        $var22++;
+                        if($wps->status == 'acknowledged'){
+                            $a22++;
+                        }
+                    }
+                    if($wps->section == 'Drive Mechanism'){
+                        $var23++;
+                        if($wps->status == 'acknowledged'){
+                            $a23++;
+                        }
+                    }
+                    if($wps->section == 'Vacuum Chamber'){
+                        $var24++;
+                        if($wps->status == 'acknowledged'){
+                            $a24++;
+                        }
+                    }
+                    if($wps->section == 'Welding 2'){
+                        $var25++;
+                        if($wps->status == 'acknowledged'){
+                            $a25++;
+                        }
+                    }
+                    if($wps->section == 'Bta'){
+                        $var26++;
+                        if($wps->status == 'acknowledged'){
+                            $a26++;
+                        }
+                    }
+                    if($wps->section == 'Metal Clad'){
+                        $var27++;
+                        if($wps->status == 'acknowledged'){
+                            $a27++;
+                        }
+                    }
+                    if($wps->section == 'Wiring'){
+                        $var28++;
+                        if($wps->status == 'acknowledged'){
+                            $a28++;
+                        }
+                    }
+                    if($wps->section == 'Testing'){
+                        $var29++;
+                        if($wps->status == 'acknowledged'){
+                            $a29++;
+                        }
+                    }
+                }
+            }
+        }
+        $model2->name = 'RMU INS 24(VIOTORZEI)';
+        $model2->var21 = $var21;
+        $model2->var22 = $var22;
+        $model2->var23 = $var23;
+        $model2->var24 = $var24;
+        $model2->var25 = $var25;
+        $model2->var26 = $var26;
+        $model2->var27 = $var27;
+        $model2->var28 = $var28;
+        $model2->var29 = $var29;
+
+        $model2->a21 = $a21;
+        $model2->a22 = $a22;
+        $model2->a23 = $a23;
+        $model2->a24 = $a24;
+        $model2->a25 = $a25;
+        $model2->a26 = $a26;
+        $model2->a27 = $a27;
+        $model2->a28 = $a28;
+        $model2->a29 = $a29;
+        $this->set('model2',$model2);
+
+        $var31 = $var32 = $var33 = $var34 = $var35 = $var36 = $var37 = $var38 = $var39 = 0;
+        $a31 = $a32 = $a33 = $a34 = $a35 = $a36 = $a37 = $a38 = $a39 = 0;
+        $this->loadModel('SerialNumber');
+        $this->loadModel('WipSection');
+        $sn_model3 = $this->SerialNumber->find('all')
+            ->Where(['model'=> 'CSU']);
+        foreach ($sn_model3 as $snm){
+            $wip = $this->Wip->find('all')
+                ->Where(['serial_no'=> $snm->id]);
+            foreach ($wip as $wp){
+                $wips = $this->WipSection->find('all')
+                    ->Where(['wip_id' => $wp->id]);
+                foreach ($wips as $wps){
+                    if($wps->section == 'Welding 1'){
+                        $var31++;
+                        if($wps->status == 'acknowledged'){
+                            $a31++;
+                        }
+                    }
+                    if($wps->section == 'Main link Tank'){
+                        $var32++;
+                        if($wps->status == 'acknowledged'){
+                            $a32++;
+                        }
+                    }
+                    if($wps->section == 'Drive Mechanism'){
+                        $var33++;
+                        if($wps->status == 'acknowledged'){
+                            $a33++;
+                        }
+                    }
+                    if($wps->section == 'Vacuum Chamber'){
+                        $var34++;
+                        if($wps->status == 'acknowledged'){
+                            $a34++;
+                        }
+                    }
+                    if($wps->section == 'Welding 2'){
+                        $var35++;
+                        if($wps->status == 'acknowledged'){
+                            $a35++;
+                        }
+                    }
+                    if($wps->section == 'Bta'){
+                        $var36++;
+                        if($wps->status == 'acknowledged'){
+                            $a36++;
+                        }
+                    }
+                    if($wps->section == 'Metal Clad'){
+                        $var37++;
+                        if($wps->status == 'acknowledged'){
+                            $a37++;
+                        }
+                    }
+                    if($wps->section == 'Wiring'){
+                        $var38++;
+                        if($wps->status == 'acknowledged'){
+                            $a38++;
+                        }
+                    }
+                    if($wps->section == 'Testing'){
+                        $var39++;
+                        if($wps->status == 'acknowledged'){
+                            $a39++;
+                        }
+                    }
+                }
+            }
+        }
+        $model3->name = 'CSU';
+        $model3->var31 = $var31;
+        $model3->var32 = $var32;
+        $model3->var33 = $var33;
+        $model3->var34 = $var34;
+        $model3->var35 = $var35;
+        $model3->var36 = $var36;
+        $model3->var37 = $var37;
+        $model3->var38 = $var38;
+        $model3->var39 = $var39;
+
+        $model3->a31 = $a31;
+        $model3->a32 = $a32;
+        $model3->a33 = $a33;
+        $model3->a34 = $a34;
+        $model3->a35 = $a35;
+        $model3->a36 = $a36;
+        $model3->a37 = $a37;
+        $model3->a38 = $a38;
+        $model3->a39 = $a39;
+        $this->set('model3',$model3);
+
+        $var41 = $var42 = $var43 = $var44 = $var45 = $var46 = $var47 = $var48 = $var49 = 0;
+        $a41 = $a42 = $a43 = $a44 = $a45 = $a46 = $a47 = $a48 = $a49 = 0;
+        $this->loadModel('SerialNumber');
+        $this->loadModel('WipSection');
+        $sn_model4 = $this->SerialNumber->find('all')
+            ->Where(['model'=> 'JMW']);
+        foreach ($sn_model4 as $snm){
+            $wip = $this->Wip->find('all')
+                ->Where(['serial_no'=> $snm->id]);
+            foreach ($wip as $wp){
+                $wips = $this->WipSection->find('all')
+                    ->Where(['wip_id' => $wp->id]);
+                foreach ($wips as $wps){
+                    if($wps->section == 'Welding 1'){
+                        $var41++;
+                        if($wps->status == 'acknowledged'){
+                            $a41++;
+                        }
+                    }
+                    if($wps->section == 'Main link Tank'){
+                        $var42++;
+                        if($wps->status == 'acknowledged'){
+                            $a42++;
+                        }
+                    }
+                    if($wps->section == 'Drive Mechanism'){
+                        $var43++;
+                        if($wps->status == 'acknowledged'){
+                            $a43++;
+                        }
+                    }
+                    if($wps->section == 'Vacuum Chamber'){
+                        $var44++;
+                        if($wps->status == 'acknowledged'){
+                            $a44++;
+                        }
+                    }
+                    if($wps->section == 'Welding 2'){
+                        $var45++;
+                        if($wps->status == 'acknowledged'){
+                            $a45++;
+                        }
+                    }
+                    if($wps->section == 'Bta'){
+                        $var46++;
+                        if($wps->status == 'acknowledged'){
+                            $a46++;
+                        }
+                    }
+                    if($wps->section == 'Metal Clad'){
+                        $var47++;
+                        if($wps->status == 'acknowledged'){
+                            $a47++;
+                        }
+                    }
+                    if($wps->section == 'Wiring'){
+                        $var48++;
+                        if($wps->status == 'acknowledged'){
+                            $a48++;
+                        }
+                    }
+                    if($wps->section == 'Testing'){
+                        $var49++;
+                        if($wps->status == 'acknowledged'){
+                            $a49++;
+                        }
+                    }
+                }
+            }
+        }
+        $model4->name = 'JMW';
+        $model4->var41 = $var41;
+        $model4->var42 = $var42;
+        $model4->var43 = $var43;
+        $model4->var44 = $var44;
+        $model4->var45 = $var45;
+        $model4->var46 = $var46;
+        $model4->var47 = $var47;
+        $model4->var48 = $var48;
+        $model4->var49 = $var49;
+
+        $model4->a41 = $a41;
+        $model4->a42 = $a42;
+        $model4->a43 = $a43;
+        $model4->a44 = $a44;
+        $model4->a45 = $a45;
+        $model4->a46 = $a46;
+        $model4->a47 = $a47;
+        $model4->a48 = $a48;
+        $model4->a49 = $a49;
+        $this->set('model4',$model4);
+
+        $var51 = $var52 = $var53 = $var54 = $var55 = $var56 = $var57 = $var58 = $var59 = 0;
+        $a51 = $a52 = $a53 = $a54 = $a55 = $a56 = $a57 = $a58 = $a59 = 0;
+        $this->loadModel('SerialNumber');
+        $this->loadModel('WipSection');
+        $sn_model5 = $this->SerialNumber->find('all')
+            ->Where(['model'=> 'JMW - ARAB']);
+        foreach ($sn_model5 as $snm){
+            $wip = $this->Wip->find('all')
+                ->Where(['serial_no'=> $snm->id]);
+            foreach ($wip as $wp){
+                $wips = $this->WipSection->find('all')
+                    ->Where(['wip_id' => $wp->id]);
+                foreach ($wips as $wps){
+                    if($wps->section == 'Welding 1'){
+                        $var51++;
+                        if($wps->status == 'acknowledged'){
+                            $a51++;
+                        }
+                    }
+                    if($wps->section == 'Main link Tank'){
+                        $var52++;
+                        if($wps->status == 'acknowledged'){
+                            $a52++;
+                        }
+                    }
+                    if($wps->section == 'Drive Mechanism'){
+                        $var53++;
+                        if($wps->status == 'acknowledged'){
+                            $a53++;
+                        }
+                    }
+                    if($wps->section == 'Vacuum Chamber'){
+                        $var54++;
+                        if($wps->status == 'acknowledged'){
+                            $a54++;
+                        }
+                    }
+                    if($wps->section == 'Welding 2'){
+                        $var55++;
+                        if($wps->status == 'acknowledged'){
+                            $a55++;
+                        }
+                    }
+                    if($wps->section == 'Bta'){
+                        $var56++;
+                        if($wps->status == 'acknowledged'){
+                            $a56++;
+                        }
+                    }
+                    if($wps->section == 'Metal Clad'){
+                        $var57++;
+                        if($wps->status == 'acknowledged'){
+                            $a57++;
+                        }
+                    }
+                    if($wps->section == 'Wiring'){
+                        $var58++;
+                        if($wps->status == 'acknowledged'){
+                            $a58++;
+                        }
+                    }
+                    if($wps->section == 'Testing'){
+                        $var59++;
+                        if($wps->status == 'acknowledged'){
+                            $a59++;
+                        }
+                    }
+                }
+            }
+        }
+        $model5->name = 'JMW - ARAB';
+        $model5->var51 = $var51;
+        $model5->var52 = $var52;
+        $model5->var53 = $var53;
+        $model5->var54 = $var54;
+        $model5->var55 = $var55;
+        $model5->var56 = $var56;
+        $model5->var57 = $var57;
+        $model5->var58 = $var58;
+        $model5->var59 = $var59;
+
+        $model5->a51 = $a51;
+        $model5->a52 = $a52;
+        $model5->a53 = $a53;
+        $model5->a54 = $a54;
+        $model5->a55 = $a55;
+        $model5->a56 = $a56;
+        $model5->a57 = $a57;
+        $model5->a58 = $a58;
+        $model5->a59 = $a59;
+        $this->set('model5',$model5);
+    }
 }

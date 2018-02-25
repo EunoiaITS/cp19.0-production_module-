@@ -36,20 +36,7 @@ class SerialNumber extends Entity
      * @var array
      */
     protected $_accessible = [
-        'date' => true,
-        'model' => true,
-        'version' => true,
-        'type1' => true,
-        'type2' => true,
-        'quantity' => true,
-        'created_by' => true,
-        'model_code' => true,
-        'reject_remark' => true,
-        'remark' => true,
-        'status' => true,
-        'verified_by' => true,
-        'approved_by' => true,
-        'created' => true,
-        'modified' => true
+        '*' => true,
+        'id' =>false
     ];
 }
