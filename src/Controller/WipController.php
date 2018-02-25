@@ -170,7 +170,6 @@ class WipController extends AppController
         return $this->redirect(['action' => 'index']);
     }
     public function report(){
-        $wip = $this->paginate($this->Wip);
         $this->loadModel('SerialNumber');
         $this->loadModel('WipSection');
         $wip = $this->Wip->find('all');
@@ -182,6 +181,159 @@ class WipController extends AppController
             }
             $wip_sec = $this->WipSection->find('all')
                 ->Where(['wip_id'=>$wp->id]);
+            $wp->wip_sec= $wip_sec;
+        }
+        $this->set('wip', $wip);
+    }
+    public function welding1(){
+        $this->loadModel('SerialNumber');
+        $this->loadModel('WipSection');
+        $wip = $this->Wip->find('all');
+        foreach ($wip as $wp){
+            $sn_details = $this->SerialNumber->find('all')
+                ->Where(['id'=>$wp->serial_no]);
+            foreach ($sn_details as $snd){
+                $wp->sn_details = $snd;
+            }
+            $wip_sec = $this->WipSection->find('all')
+                ->Where(['wip_id'=>$wp->id])
+                ->Where(['section'=> 'Welding 1']);
+            $wp->wip_sec= $wip_sec;
+        }
+        $this->set('wip', $wip);
+    }
+    public function mlt(){
+        $this->loadModel('SerialNumber');
+        $this->loadModel('WipSection');
+        $wip = $this->Wip->find('all');
+        foreach ($wip as $wp){
+            $sn_details = $this->SerialNumber->find('all')
+                ->Where(['id'=>$wp->serial_no]);
+            foreach ($sn_details as $snd){
+                $wp->sn_details = $snd;
+            }
+            $wip_sec = $this->WipSection->find('all')
+                ->Where(['wip_id'=>$wp->id])
+                ->Where(['section'=> 'Main link Tank']);
+            $wp->wip_sec= $wip_sec;
+        }
+        $this->set('wip', $wip);
+    }
+    public function dm(){
+        $this->loadModel('SerialNumber');
+        $this->loadModel('WipSection');
+        $wip = $this->Wip->find('all');
+        foreach ($wip as $wp){
+            $sn_details = $this->SerialNumber->find('all')
+                ->Where(['id'=>$wp->serial_no]);
+            foreach ($sn_details as $snd){
+                $wp->sn_details = $snd;
+            }
+            $wip_sec = $this->WipSection->find('all')
+                ->Where(['wip_id'=>$wp->id])
+                ->Where(['section'=> 'Drive Mechanism']);
+            $wp->wip_sec= $wip_sec;
+        }
+        $this->set('wip', $wip);
+    }
+    public function bta(){
+        $this->loadModel('SerialNumber');
+        $this->loadModel('WipSection');
+        $wip = $this->Wip->find('all');
+        foreach ($wip as $wp){
+            $sn_details = $this->SerialNumber->find('all')
+                ->Where(['id'=>$wp->serial_no]);
+            foreach ($sn_details as $snd){
+                $wp->sn_details = $snd;
+            }
+            $wip_sec = $this->WipSection->find('all')
+                ->Where(['wip_id'=>$wp->id])
+                ->Where(['section'=> 'bta']);
+            $wp->wip_sec= $wip_sec;
+        }
+        $this->set('wip', $wip);
+    }
+    public function vc(){
+        $this->loadModel('SerialNumber');
+        $this->loadModel('WipSection');
+        $wip = $this->Wip->find('all');
+        foreach ($wip as $wp){
+            $sn_details = $this->SerialNumber->find('all')
+                ->Where(['id'=>$wp->serial_no]);
+            foreach ($sn_details as $snd){
+                $wp->sn_details = $snd;
+            }
+            $wip_sec = $this->WipSection->find('all')
+                ->Where(['wip_id'=>$wp->id])
+                ->Where(['section'=> 'Vacuum Chamber']);
+            $wp->wip_sec= $wip_sec;
+        }
+        $this->set('wip', $wip);
+    }
+    public function Welding2(){
+        $this->loadModel('SerialNumber');
+        $this->loadModel('WipSection');
+        $wip = $this->Wip->find('all');
+        foreach ($wip as $wp){
+            $sn_details = $this->SerialNumber->find('all')
+                ->Where(['id'=>$wp->serial_no]);
+            foreach ($sn_details as $snd){
+                $wp->sn_details = $snd;
+            }
+            $wip_sec = $this->WipSection->find('all')
+                ->Where(['wip_id'=>$wp->id])
+                ->Where(['section'=> 'Welding 2']);
+            $wp->wip_sec= $wip_sec;
+        }
+        $this->set('wip', $wip);
+    }
+    public function mc(){
+        $this->loadModel('SerialNumber');
+        $this->loadModel('WipSection');
+        $wip = $this->Wip->find('all');
+        foreach ($wip as $wp){
+            $sn_details = $this->SerialNumber->find('all')
+                ->Where(['id'=>$wp->serial_no]);
+            foreach ($sn_details as $snd){
+                $wp->sn_details = $snd;
+            }
+            $wip_sec = $this->WipSection->find('all')
+                ->Where(['wip_id'=>$wp->id])
+                ->Where(['section'=> 'Metal Clad']);
+            $wp->wip_sec= $wip_sec;
+        }
+        $this->set('wip', $wip);
+    }
+    public function wiring(){
+        $this->loadModel('SerialNumber');
+        $this->loadModel('WipSection');
+        $wip = $this->Wip->find('all');
+        foreach ($wip as $wp){
+            $sn_details = $this->SerialNumber->find('all')
+                ->Where(['id'=>$wp->serial_no]);
+            foreach ($sn_details as $snd){
+                $wp->sn_details = $snd;
+            }
+            $wip_sec = $this->WipSection->find('all')
+                ->Where(['wip_id'=>$wp->id])
+                ->Where(['section'=> 'Wiring']);
+            $wp->wip_sec= $wip_sec;
+        }
+        $this->set('wip', $wip);
+    }
+    public function testing(){
+        $this->loadModel('SerialNumber');
+        $this->loadModel('WipSection');
+        $wip = $this->Wip->find('all');
+        foreach ($wip as $wp){
+            $sn_details = $this->SerialNumber->find('all')
+                ->Where(['id'=>$wp->serial_no]);
+            foreach ($sn_details as $snd){
+                $wp->sn_details = $snd;
+            }
+            $wip_sec = $this->WipSection->find('all')
+                ->Where(['wip_id'=>$wp->id])
+                ->Where(['section'=> 'Testing']);
             $wp->wip_sec= $wip_sec;
         }
         $this->set('wip', $wip);
