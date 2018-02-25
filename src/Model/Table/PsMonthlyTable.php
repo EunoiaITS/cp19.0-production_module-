@@ -83,6 +83,11 @@ class PsMonthlyTable extends Table
             ->allowEmpty('created_by');
 
         $validator
+            ->scalar('verified_by')
+            ->maxLength('verified_by', 255)
+            ->allowEmpty('verified_by');
+
+        $validator
             ->scalar('approval1_by')
             ->maxLength('approval1_by', 255)
             ->allowEmpty('approval1_by');
