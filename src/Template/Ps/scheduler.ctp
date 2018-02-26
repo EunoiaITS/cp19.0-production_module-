@@ -24,6 +24,8 @@ Create serial number form page
                 </div>
             </div>
         </div>
+    </div>
+</div>
         <script>
             $( document ).ready(function() {
                 $('#submit').on('click', function(){
