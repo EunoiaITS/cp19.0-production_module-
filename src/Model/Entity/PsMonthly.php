@@ -31,15 +31,7 @@ class PsMonthly extends Entity
      * @var array
      */
     protected $_accessible = [
-        'date' => true,
-        'location' => true,
-        'year' => true,
-        'month' => true,
-        'total_items' => true,
-        'created_by' => true,
-        'approval1_by' => true,
-        'approval2_by' => true,
-        'status' => true,
-        'remark' => true
+        '*' => true,
+        'id'=> false
     ];
 }

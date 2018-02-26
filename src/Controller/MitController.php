@@ -26,9 +26,21 @@ class MitController extends AppController
      */
     public function index()
     {
-        $mit = $this->paginate($this->Mit);
+        $urlToSales = 'http://salesmodule.acumenits.com/api/all-data';
 
-        $this->set(compact('mit'));
+        $optionsForSales = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'GET'
+            ]
+        ];
+        $contextForSales  = stream_context_create($optionsForSales);
+        $resultFromSales = file_get_contents($urlToSales, false, $contextForSales);
+        if ($resultFromSales === FALSE) {
+            echo 'ERROR!!';
+        }
+        $dataFromSales = json_decode($resultFromSales);
+        $this->set('sales',$dataFromSales);
     }
 
     /**

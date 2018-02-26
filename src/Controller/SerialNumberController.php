@@ -19,6 +19,7 @@ class SerialNumberController extends AppController
         $this->viewBuilder()->setLayout('mainframe');
     }
     public function dashboard(){
+
     }
     /**
      * Index method

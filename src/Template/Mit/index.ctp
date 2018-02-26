@@ -1,79 +1,59 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Mit[]|\Cake\Collection\CollectionInterface $mit
- */
-?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Mit'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="mit index large-9 medium-8 columns content">
-    <h3><?= __('Mit') ?></h3>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-            <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('po_no') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('sales_order_no') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('date') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('location') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('part_no') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('description') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('used_quantity') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('requested_quantity') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('stock_quantity') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('availability') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('status') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('verified_by') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('approved_by') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('acknowledged_by') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('remark') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('created') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($mit as $mit): ?>
-            <tr>
-                <td><?= $this->Number->format($mit->id) ?></td>
-                <td><?= h($mit->po_no) ?></td>
-                <td><?= h($mit->sales_order_no) ?></td>
-                <td><?= h($mit->date) ?></td>
-                <td><?= h($mit->location) ?></td>
-                <td><?= h($mit->part_no) ?></td>
-                <td><?= h($mit->description) ?></td>
-                <td><?= h($mit->used_quantity) ?></td>
-                <td><?= h($mit->requested_quantity) ?></td>
-                <td><?= h($mit->stock_quantity) ?></td>
-                <td><?= h($mit->availability) ?></td>
-                <td><?= h($mit->status) ?></td>
-                <td><?= h($mit->verified_by) ?></td>
-                <td><?= h($mit->approved_by) ?></td>
-                <td><?= h($mit->acknowledged_by) ?></td>
-                <td><?= h($mit->remark) ?></td>
-                <td><?= h($mit->created) ?></td>
-                <td><?= h($mit->modified) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $mit->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $mit->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $mit->id], ['confirm' => __('Are you sure you want to delete # {0}?', $mit->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+<!--=========
+Production Planner page
+==============-->
+<div class="planner-from">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="part-title-planner text-uppercase text-center"><b>Material Issue Ticket Request List</b></div>
+                <div class="clearfix"></div>
+
+                <!--============== Add drawing table area ===================-->
+
+                <div class="planner-table table-responsive clearfix">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>NO.</th>
+                                <th>Po No</th>
+                                <th>So No</th>
+                                <th>Customer Code</th>
+                                <th>Customer Name</th>
+                                <th>Date Completion</th>
+                                <th>Delivery Date</th>
+                                <th>Model</th>
+                                <th>Version</th>
+                                <th>Type 1</th>
+                                <th>Type 2</th>
+                                <th>Qty</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody class="csn-text-up">
+                            <?php $i=0;foreach ($sales as $s){?>
+                                <?php foreach ($s->soi as $item){?>
+                                    <?php $i ++;?>
+                                    <tr>
+                                        <td><?php echo $i;?></td>
+                                        <td><?= $s->poNo;?></td>
+                                        <td><?= $s->salesorder_no;?></td>
+                                        <td><?php foreach ($s->cus as $c){echo $c->name;} ?></td>
+                                        <td><?php foreach ($s->cus as $c){echo $c->customerID;} ?></td>
+                                        <td><?=  date('d/m/Y', strtotime($s->date));?></td>
+                                        <td><?= date('d/m/Y', strtotime($s->delivery_date));?></td>
+                                        <td><?= $item->model;?></td>
+                                        <td><?= $item->version;?></td>
+                                        <td>Type 1</td>
+                                        <td>Motorized</td>
+                                        <td><?= $item->quantity;?></td>
+                                        <td><a href="<?php echo $this->Url->build(['controller'=>'mit','action'=>'add',$item->id])?>">Select</a></td>
+                                    </tr>
+                                <?php }}?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>

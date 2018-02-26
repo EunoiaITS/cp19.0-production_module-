@@ -1,18 +1,3 @@
 <div class="container-fluid">
-    <table class="table table-bordered table-responsive">
-        <thead>
-        <tr>
-            <th>Part No</th>
-            <th>Part Name</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php foreach($data as $d): ?>
-            <tr>
-                <td><?= $d->partNo ?></td>
-                <td><?= $d->partName ?></td>
-            </tr>
-        <?php endforeach; ?>
-        </tbody>
-    </table>
+    <h1 style="font-size: 65px !important;color: #006699;text-align: center;line-height: 350px;font-weight: 900;">Welcome To Production Module</h1>
 </div>

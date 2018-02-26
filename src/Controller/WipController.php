@@ -804,4 +804,7 @@ class WipController extends AppController
         $model5->a59 = $a59;
         $this->set('model5',$model5);
     }
+    public function monthlyProgress(){
+
+    }
 }
