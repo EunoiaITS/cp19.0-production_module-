@@ -73,7 +73,7 @@
 
                 <li class="color-hsh3"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'statReport'])?>">WIP Statistic Report</a></li>
                 <li class="color-hsh3"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'monthlyProgress'])?>">WIP Staff Progress Report-monthly 1</a></li>
-                <li class="color-hsh3"><a href="wip-sp-report-2.html">WIP Staff Progress Report-monthly 2</a></li>
+                <li class="color-hsh3"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'monthlyProgress2'])?>">WIP Staff Progress Report-monthly 2</a></li>
             </ul>
         </div>
         <div class="btn-group-vertical" role="group" class="dropdown">
