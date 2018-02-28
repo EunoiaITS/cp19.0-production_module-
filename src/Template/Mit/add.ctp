@@ -1,11 +1,9 @@
 <!--=========
 MiT form page
 ==============-->
-<?php //echo "<pre>";
-//foreach ($inv as $i){
-//    print_r($i);
-//}
-//echo "</pre>";?>
+<?php echo "<pre>";
+print_r($eng);
+echo "</pre>";?>
 <div class="planner-from">
     <form action="<?php echo $this->Url->build(['controller'=>'mit','action'=>'add',$sales->id])?>" method="post" class="planner-relative">
     <div class="container-fluid">
@@ -150,7 +148,7 @@ MiT form page
                             <td><?= $en->partName?></td>
                             <td><?= $en->quality?></td>
                             <td><?= ($sales->quantity * $en->quality)?></td>
-                            <td></td>
+                            <td><?php foreach($inv as $i){echo $i->current_quantity;}?></td>
                             <td></td>
                         </tr>
                         <?php endforeach;?>

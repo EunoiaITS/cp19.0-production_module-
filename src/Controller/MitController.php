@@ -108,9 +108,11 @@ class MitController extends AppController
         }
         $dataFromEng = json_decode($resultFromEng);
         $this->loadModel('Inventory');
-//        $inv = $this->Inventory->find('all')
-//            ->Where(['part_no'=> $dataFromEng->partNo])
-//            ->Where(['part_name'=> $dataFromEng->partName]);
+        foreach ($dataFromEng as $data){
+            $inv = $this->Inventory->find('all')
+                ->Where(['part_no'=> $data->partNo])
+                ->Where(['part_name'=> $data->partName]);
+        }
         $mit = $this->Mit->newEntity();
         if ($this->request->is('post')) {
             $mit = $this->Mit->patchEntity($mit, $this->request->getData());
@@ -124,7 +126,7 @@ class MitController extends AppController
         $this->set(compact('mit'));
         $this->set('eng',$dataFromEng);
         $this->set('sales',$dataFromSales);
-//        $this->set('inv',$inv);
+        $this->set('inv',$inv);
     }
 
     /**

@@ -35,19 +35,7 @@ class Inventory extends Entity
      * @var array
      */
     protected $_accessible = [
-        'part_no' => true,
-        'part_name' => true,
-        'drawing_no' => true,
-        'section' => true,
-        'uom' => true,
-        'current_quantity' => true,
-        'zon' => true,
-        'rack_no' => true,
-        'bin_no' => true,
-        'level' => true,
-        'min_stock' => true,
-        'max_stock' => true,
-        'created' => true,
-        'modified' => true
+        '*' => true,
+        'id' =>false
     ];
 }
