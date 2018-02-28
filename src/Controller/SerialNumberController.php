@@ -30,7 +30,8 @@ class SerialNumberController extends AppController
     {
         if($this->Auth->user('role') == 'requester'){
             $serialNumber = $this->SerialNumber->find('all')
-                ->where(['status' => 'requested']);
+                ->where(['status' => 'requested'])
+                ->orWhere(['status' => 'rejected']);
         }
 
         if($this->Auth->user('role') == 'verifier'){
@@ -199,15 +200,33 @@ class SerialNumberController extends AppController
         $this->set('sn', $sn);
     }
 
-//    public function beforeFilter(Event $event)
-//    {
-//        $this->Auth->allow(['index', 'add', 'edit', 'view', 'delete', 'approve', 'verify', 'report', 'statusReport']);
-//    }
+    public function statusReport(){
+        $sn = $this->SerialNumber->find('all');
+        $this->set('sn', $sn);
+    }
 
     public function isAuthorized($user){
         // All registered users can add articles
-        if ($this->request->getParam('action') === 'add' || $this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'monthlyReport' || $this->request->getParam('action') === 'report') {
+        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'monthlyReport' || $this->request->getParam('action') === 'report' || $this->request->getParam('action') === 'statusReport') {
             return true;
+        }
+
+        if(isset($user['role']) && $user['role'] === 'requester'){
+            if(in_array($this->request->action, ['add'])){
+                return true;
+            }
+        }
+
+        if(isset($user['role']) && $user['role'] === 'verifier'){
+            if(in_array($this->request->action, ['verify', 'edit'])){
+                return true;
+            }
+        }
+
+        if(isset($user['role']) && $user['role'] === 'approve-1'){
+            if(in_array($this->request->action, ['approve', 'edit'])){
+                return true;
+            }
         }
 
         return parent::isAuthorized($user);

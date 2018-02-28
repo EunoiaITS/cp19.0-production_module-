@@ -4,14 +4,14 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="part-title-planner text-uppercase text-center"><b>Store Credit Note Form</b></div>
-            </div><!-- end mit title -->
+                <!-- </div>end mit title -->
                 <div class="col-md-5 col-sm-6">
                     <div class="form-group left-from-group">
                         <div class="col-sm-3 col-xs-6">
                             <label for="scn-date" class="planner-year mit-label-item">Date <span class="planner-fright">:</span></label>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <input name="date" type="text" class="form-control datepicker" id="scn-date">
+                            <input name="date" type="text" class="form-control datepicker" id="scn-date" value="<?php echo date('m/d/Y'); ?>">
                         </div>
                     </div>
 
@@ -20,7 +20,7 @@
                             <p class="cn-text">Scn No <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text text-uppercase">SCN12345</p>
+                            <p class="cn-main-text text-uppercase">SCN<?= $sn_no ?></p>
                         </div>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
                     </tr>
                     </tbody>
                 </table>
-                <button class="btn btn-info" id="add-part">Add Part</button>
+                <button type="button" class="btn btn-info" id="add-part">Add Part</button>
             </div>
         </div>
 
@@ -108,6 +108,7 @@
             <input type="hidden" name="status" value="requested">
             <button type="submit" class="button btn btn-info btn-submit">Create</button>
         </div>
+            </div>
     </div>
     </form>
 </div>

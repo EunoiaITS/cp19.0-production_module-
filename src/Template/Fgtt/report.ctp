@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <div class="part-title-planner text-uppercase text-center"><b>Store Credit Note Report</b></div>
+                <div class="part-title-planner text-uppercase text-center"><b>Finish Good Transfer Ticket Report</b></div>
             </div><!-- end mit title -->
         </div>
 
@@ -20,15 +20,17 @@
                     <thead>
                     <tr>
                         <th rowspan="2">No</th>
-                        <th rowspan="2">Date</th>
-                        <th rowspan="2">Part No</th>
-                        <th rowspan="2">Part Name</th>
-                        <th rowspan="2">Reason Code</th>
+                        <th rowspan="2">Tender No</th>
+                        <th rowspan="2">So No</th>
+                        <th rowspan="2">Model</th>
+                        <th rowspan="2">Version</th>
+                        <th rowspan="2">Type 1</th>
+                        <th rowspan="2">Type 2</th>
                         <th rowspan="2">QTY</th>
                         <th rowspan="2">Create By</th>
                         <th rowspan="2">Department</th>
                         <th rowspan="2">Section</th>
-                        <th colspan="3">Store</th>
+                        <th colspan="3">Testing</th>
                         <th rowspan="2">Document</th>
                         <th rowspan="2">Remark</th>
                     </tr>
@@ -39,25 +41,25 @@
                     </tr>
                     </thead>
                     <tbody class="csn-text-up">
-                    <?php foreach($scn as $s): ?>
-                    <?php $count = 0; foreach($s->items as $item): $count++; ?>
+                    <?php $count = 0; foreach($fgtt as $f): $count++; ?>
                     <tr>
                         <td><?= $count ?></td>
-                        <td><?= $s->date ?></td>
-                        <td><?= $item->part_no ?></td>
-                        <td><?= $item->part_desc ?></td>
-                        <td><?= $item->reason ?></td>
-                        <td><?= $item->quantity ?></td>
-                        <td><?= $s->created_by ?></td>
+                        <td>N/A</td>
+                        <td><?= $f->so_no ?></td>
+                        <td><?= $f->details->model ?></td>
+                        <td><?= $f->details->version ?></td>
+                        <td><?= $f->details->type1 ?></td>
+                        <td><?= $f->details->type2 ?></td>
+                        <td><?= $f->quantity ?></td>
+                        <td><?= $f->created_by ?></td>
                         <td>Production</td>
-                        <td>Welding</td>
-                        <td>5/11/2017</td>
-                        <td class="colored-csn">Verified</td>
-                        <td>Osman</td>
+                        <td>Wiring</td>
+                        <td><?= $f->date ?></td>
+                        <td class="colored-csn">Ack</td>
+                        <td><?= $f->approved_by ?></td>
                         <td><a href="#">View</a></td>
-                        <td><?= $s->remark ?></td>
+                        <td><?= $f->remark ?></td>
                     </tr>
-                        <?php endforeach; ?>
                     <?php endforeach; ?>
                     </tbody>
                 </table>

@@ -193,14 +193,50 @@ class MaterialRequestController extends AppController
     }
 
     public function report(){
+        $this->loadModel('MrItems');
+        $mr = $this->MaterialRequest->find('all')
+            ->where(['status' => 'approved']);
+        foreach($mr as $m){
+            $items = $this->MrItems->find('all')
+                ->where(['mr_id' => $m->id]);
+            $m->items = $items;
+        }
+        $this->set('mr', $mr);
+    }
+
+    public function statusReport(){
+        $this->loadModel('MrItems');
         $mr = $this->MaterialRequest->find('all');
+        foreach($mr as $m){
+            $items = $this->MrItems->find('all')
+                ->where(['mr_id' => $m->id]);
+            $m->items = $items;
+        }
         $this->set('mr', $mr);
     }
 
     public function isAuthorized($user){
         // All registered users can add articles
-        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'view' || $this->request->getParam('action') === 'add' || $this->request->getParam('action') === 'edit' || $this->request->getParam('action') === 'verify' || $this->request->getParam('action') === 'approve' || $this->request->getParam('action') === 'statusReport' || $this->request->getParam('action') === 'report') {
+        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'statusReport' || $this->request->getParam('action') === 'report') {
             return true;
+        }
+
+        if(isset($user['role']) && $user['role'] === 'requester'){
+            if(in_array($this->request->action, ['add'])){
+                return true;
+            }
+        }
+
+        if(isset($user['role']) && $user['role'] === 'verifier'){
+            if(in_array($this->request->action, ['verify', 'edit'])){
+                return true;
+            }
+        }
+
+        if(isset($user['role']) && $user['role'] === 'approve-1'){
+            if(in_array($this->request->action, ['approve', 'edit'])){
+                return true;
+            }
         }
 
         return parent::isAuthorized($user);

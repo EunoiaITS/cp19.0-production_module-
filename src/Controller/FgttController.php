@@ -168,6 +168,7 @@ class FgttController extends AppController
         }
         $this->set('fgtt', $fgtt);
         $this->set('items', $allItems);
+        $this->set('pic', $this->Auth->user('username'));
     }
 
     public function approve($id = null){
@@ -189,17 +190,60 @@ class FgttController extends AppController
         }
         $this->set('fgtt', $fgtt);
         $this->set('items', $allItems);
+        $this->set('pic', $this->Auth->user('username'));
     }
 
     public function report(){
+        $this->loadModel('SerialNumber');
+        $this->loadModel('SerialNumberChild');
+        $fgtt = $this->Fgtt->find('all')
+            ->where(['status' => 'approved']);
+        foreach($fgtt as $fg){
+            $fgtt_details = $this->SerialNumber->find('all')
+                ->where(['so_no' => $fg->so_no]);
+            foreach($fgtt_details as $det){
+                $fg->details = $det;
+            }
+        }
+        $this->set('fgtt', $fgtt);
+    }
+
+    public function statusReport(){
+        $this->loadModel('SerialNumber');
+        $this->loadModel('SerialNumberChild');
         $fgtt = $this->Fgtt->find('all');
+        foreach($fgtt as $fg){
+            $fgtt_details = $this->SerialNumber->find('all')
+                ->where(['so_no' => $fg->so_no]);
+            foreach($fgtt_details as $det){
+                $fg->details = $det;
+            }
+        }
         $this->set('fgtt', $fgtt);
     }
 
     public function isAuthorized($user){
         // All registered users can add articles
-        if ($this->request->getParam('action') === 'add' || $this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'view' || $this->request->getParam('action') === 'add' || $this->request->getParam('action') === 'edit' || $this->request->getParam('action') === 'verify' || $this->request->getParam('action') === 'approve' || $this->request->getParam('action') === 'statusReport' || $this->request->getParam('action') === 'report') {
+        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'statusReport' || $this->request->getParam('action') === 'report') {
             return true;
+        }
+
+        if(isset($user['role']) && $user['role'] === 'requester'){
+            if(in_array($this->request->action, ['add'])){
+                return true;
+            }
+        }
+
+        if(isset($user['role']) && $user['role'] === 'verifier'){
+            if(in_array($this->request->action, ['verify', 'edit'])){
+                return true;
+            }
+        }
+
+        if(isset($user['role']) && $user['role'] === 'approve-1'){
+            if(in_array($this->request->action, ['approve', 'edit'])){
+                return true;
+            }
         }
 
         return parent::isAuthorized($user);
