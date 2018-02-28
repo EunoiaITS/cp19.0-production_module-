@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <div class="part-title-planner text-uppercase text-center"><b>Finish Good Transfer Ticket Report</b></div>
+                <div class="part-title-planner text-uppercase text-center"><b>Non Billing Delivery Order Report</b></div>
             </div><!-- end mit title -->
         </div>
 
@@ -20,17 +20,16 @@
                     <thead>
                     <tr>
                         <th rowspan="2">No</th>
-                        <th rowspan="2">Tender No</th>
-                        <th rowspan="2">So No</th>
-                        <th rowspan="2">Model</th>
-                        <th rowspan="2">Version</th>
-                        <th rowspan="2">Type 1</th>
-                        <th rowspan="2">Type 2</th>
+                        <th rowspan="2">Date</th>
+                        <th rowspan="2">Nbdo No</th>
+                        <th rowspan="2">Customer Name</th>
+                        <th rowspan="2">Part No</th>
+                        <th rowspan="2">Part Name</th>
                         <th rowspan="2">QTY</th>
                         <th rowspan="2">Create By</th>
                         <th rowspan="2">Department</th>
                         <th rowspan="2">Section</th>
-                        <th colspan="3">Testing</th>
+                        <th colspan="3">Store</th>
                         <th rowspan="2">Document</th>
                         <th rowspan="2">Remark</th>
                     </tr>
@@ -41,25 +40,26 @@
                     </tr>
                     </thead>
                     <tbody class="csn-text-up">
-                    <?php $count = 0; foreach($fgtt as $f): $count++; ?>
+                    <?php $count = 0; foreach($nbdo as $n): ?>
+                    <?php foreach($n->items as $item): $count++; ?>
                     <tr>
                         <td><?= $count ?></td>
-                        <td>N/A</td>
-                        <td><?= $f->so_no ?></td>
-                        <td><?= $f->details->model ?></td>
-                        <td><?= $f->details->version ?></td>
-                        <td><?= $f->details->type1 ?></td>
-                        <td><?= $f->details->type2 ?></td>
-                        <td><?= $f->details->quantity ?></td>
-                        <td><?= $f->created_by ?></td>
+                        <td><?= $n->date ?></td>
+                        <td>NBDO<?= $n->id ?></td>
+                        <td><?= $n->cust_name ?></td>
+                        <td><?= $item->part_no ?></td>
+                        <td><?= $item->part_desc ?></td>
+                        <td><?= $item->quantity ?></td>
+                        <td><?= $n->created_by ?></td>
                         <td>Production</td>
-                        <td>Wiring</td>
-                        <td><?= $f->date ?></td>
+                        <td>Busbar</td>
+                        <td>11-03-17</td>
                         <td class="colored-csn">Ack</td>
-                        <td><?= $f->approved_by ?></td>
+                        <td>Amira</td>
                         <td><a href="#">View</a></td>
-                        <td><?= $f->remark ?></td>
+                        <td><?= $n->remark ?></td>
                     </tr>
+                        <?php endforeach; ?>
                     <?php endforeach; ?>
                     </tbody>
                 </table>
