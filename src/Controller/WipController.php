@@ -805,6 +805,246 @@ class WipController extends AppController
         $this->set('model5',$model5);
     }
     public function monthlyProgress(){
+        $month = $this->request->getQuery('month');
+        $year = $this->request->getQuery('year');
+        $section = $this->request->getQuery('section');
+        if($month == null){
+            $month = date('m');
+        }
+        if($year == null){
+            $year = date('Y');
+        }
+        $this->loadModel('SerialNumber');
+        $this->loadModel('WipSection');
+        $operator = [];
+        $all_op = [];
+        $wip = $this->Wip->find('all');
+        foreach ($wip as $w){
+            if( date('m/Y',strtotime($w->date) ) == $month.'/'.$year){
+                $op = $this->WipSection->find('all')
+                    ->Where(['wip_id'=>$w->id]);
+                $w->selected = 'yes';
+                foreach ($op as $p){
+                    $operator[] = $p->operator_name;
+                }
+            }
+        }
+        foreach (array_unique($operator) as $op_name){
+            $all_op[] = $op_name;
+        }
+        $op_count = new \stdClass();
+        for( $i=0;$i < sizeof($all_op);$i++ ){
+            $ack1 = $ack2 = $ack3 = $ack4 = $ack5 = 0;
+            $rej1 = $rej2 = $rej3 = $rej4 = $rej5 = 0;
+            foreach ($wip as $wp){
+                if($wp->selected == 'yes'){
+                    $sn_details = $this->SerialNumber->find('all')
+                        ->Where(['id'=>$wp->serial_no]);
+                    foreach ($sn_details as $snd){
+                        if($snd->model == 'RMU INS 24'){
+                            $wips_ack = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'acknowledged'])
+                                ->Where(['section'=> trim($section,'%20')]);
+                            foreach ($wips_ack as $wps){
+                                $ack1 ++;
+                            }
+                            $wips_rej = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'rejected'])
+                                ->Where(['section'=> trim($section,'%20')]);
+                            foreach ($wips_rej as $wps){
+                                $rej1 ++;
+                            }
+                        }
+                        if($snd->model == 'RMU INS 24(VIOTORZEI)'){
+                            $wips_ack = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'acknowledged'])
+                                ->Where(['section'=> trim($section,'%20')]);
+                            foreach ($wips_ack as $wps){
+                                $ack2 ++;
+                            }
+                            $wips_rej = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'rejected'])
+                                ->Where(['section'=> trim($section,'%20')]);
+                            foreach ($wips_rej as $wps){
+                                $rej2 ++;
+                            }
+                        }
+                        if($snd->model == 'CSU'){
+                            $wips_ack = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'acknowledged'])
+                                ->Where(['section'=> trim($section,'%20')]);
+                            foreach ($wips_ack as $wps){
+                                $ack3 ++;
+                            }
+                            $wips_rej = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'rejected'])
+                                ->Where(['section'=> trim($section,'%20')]);
+                            foreach ($wips_rej as $wps){
+                                $rej3 ++;
+                            }
+                        }
+                        if($snd->model == 'JMW'){
+                            $wips_ack = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'acknowledged'])
+                                ->Where(['section'=> trim($section,'%20')]);
+                            foreach ($wips_ack as $wps){
+                                $ack4 ++;
+                            }
+                            $wips_rej = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'rejected'])
+                                ->Where(['section'=> trim($section,'%20')]);
+                            foreach ($wips_rej as $wps){
+                                $rej4 ++;
+                            }
+                        }
+                        if($snd->model == 'JMW - ARAB'){
+                            $wips_ack = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'acknowledged'])
+                                ->Where(['section'=> trim($section,'%20')]);
+                            foreach ($wips_ack as $wps){
+                                $ack5 ++;
+                            }
+                            $wips_rej = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'rejected'])
+                                ->Where(['section'=> trim($section,'%20')]);
+                            foreach ($wips_rej as $wps){
+                                $rej5 ++;
+                            }
+                        }
+                    }
+                    $sec_ack1 = 'ack1'.$i;
+                    $sec_rej1 = 'rej1'.$i;
+                    $sec_ack2 = 'ack2'.$i;
+                    $sec_rej2 = 'rej2'.$i;
+                    $sec_ack3 = 'ack3'.$i;
+                    $sec_rej3 = 'rej3'.$i;
+                    $sec_ack4 = 'ack4'.$i;
+                    $sec_rej4 = 'rej4'.$i;
+                    $sec_ack5 = 'ack5'.$i;
+                    $sec_rej5 = 'rej5'.$i;
+                    $op_count->$sec_ack1 = $ack1;
+                    $op_count->$sec_rej1= $rej1;
+                    $op_count->$sec_ack2 = $ack2;
+                    $op_count->$sec_rej2= $rej2;
+                    $op_count->$sec_ack3 = $ack3;
+                    $op_count->$sec_rej3= $rej3;
+                    $op_count->$sec_ack4 = $ack4;
+                    $op_count->$sec_rej4= $rej4;
+                    $op_count->$sec_ack5 = $ack5;
+                    $op_count->$sec_rej5= $rej5;
+                }
+            }
+        }
+        $ack_count = $rej_count =  0;
 
+        $this->set('month', $month);
+        $this->set('year', $year);
+        $this->set('wip', $wip);
+        $this->set('operators', $all_op);
+        $this->set('op_count', $op_count);
+    }
+    public function monthlyProgress2(){
+        $this->loadModel('WipSection');
+        $this->loadModel('SerialNumber');
+        $month = $this->request->getQuery('month');
+        $year = $this->request->getQuery('year');
+        $section = $this->request->getQuery('section');
+        $name = $this->request->getQuery('op_name');
+        if($month == null){
+            $month = date('m');
+        }
+        if($year == null){
+            $year = date('Y');
+        }
+        $operator = [];
+        $all_op = '';
+        $wip = $this->Wip->find('all');
+        foreach ($wip as $w){
+            if( date('m/Y',strtotime($w->date) ) == $month.'/'.$year){
+                $op = $this->WipSection->find('all')
+                    ->Where(['wip_id'=>$w->id]);
+                $w->selected = 'yes';
+                foreach ($op as $p){
+                    $operator[] = $p->operator_name;
+                }
+            }
+        }
+        $opn = [];
+        foreach (array_unique($operator) as $op_name){
+                $opn[] = $op_name;
+            foreach ($wip as $wp){
+                $section_names = [];
+                if($wp->selected == 'yes'){
+                    $wips = $this->WipSection->find('all')
+                        ->Where(['operator_name'=>$op_name]);
+                    foreach ($wips as $wps){
+                        $section_names[] = $wps->section;
+                    }
+                }
+            }
+            $sec_names = [];
+            if($section == null){
+                $section = $section_names[0];
+            }
+            foreach (array_unique($section_names) as $s){
+                $sec_names[] = $s;
+            }
+            $all_op .= '{label:"'.$op_name.'"';
+            $count = 0;
+            $s_names = null;
+            foreach($sec_names as $item){
+                $s_names .= '"'.$item.'",';
+                $count++;
+            }
+            $s_names = rtrim($s_names, ',');
+            $all_op .= ',section:['.$s_names.']},';
+        }
+        $all_op = rtrim($all_op,',');
+
+        if($name == null){
+            $name= $opn[0];
+        }
+        $final = $this->WipSection->find('all')
+            ->Where(['operator_name'=>$name])
+            ->Where(['section'=>$section]);
+        foreach ($final as $fn){
+            $sec_wip = $this->Wip->get($fn->wip_id, [
+                'contain' => []
+            ]);
+            $fn->sec_wip = $sec_wip;
+            $sec_sn = $this->SerialNumber->get($sec_wip->serial_no, [
+                'contain' => []
+            ]);
+            $fn->sec_sn = $sec_sn;
+        }
+
+
+        $this->set('year',$year);
+        $this->set('month',$month);
+        $this->set('all_op',$all_op);
+        $this->set('final',$final);
+        $this->set('s',$section);
+        $this->set('n',$name);
+        $this->set('operators',array_unique($operator));
     }
 }
