@@ -102,7 +102,9 @@ MiT form page
                             <th>Status</th>
                             <th>Document</th>
                             <th>Remark</th>
-                            <th>Action</th>
+                            <?php if($role == 'verifier'){?>
+                                <th>Action</th>
+                            <?php }?>
                         </tr>
                         </thead>
                         <tbody class="csn-text-up">
@@ -115,11 +117,11 @@ MiT form page
                             <td>ack</td>
                             <td><a href="#">View</a></td>
                             <td></td>
-                            <?php if($sec->status == 'requested'){?>
+                            <?php if($sec->status == 'requested' && $role == 'verifier'){?>
                             <td>
                                 <form action="<?php echo $this->Url->build(['controller'=>'wip','action'=>'edit',$sec->id])?>" method="post">
                                     <button type="button" class="btn btn-info btn-reject" id="reject" rel="<?=$sec->id?>"  data-toggle="modal" data-target="#myModal">Reject</button>
-                                    <button type="submit" class="button btn btn-info">Acknowladge</button>
+                                    <button type="submit" class="button btn btn-info">Acknowledge</button>
                                     <input type="hidden" name="status" value="acknowledged">
                                     <input type="hidden" name="acknowledged_by" value="<?= $pic?>">
                                 </form>
