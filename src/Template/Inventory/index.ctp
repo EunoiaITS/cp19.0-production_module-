@@ -40,7 +40,7 @@
                             <td><?= $inv->part_no ?></td>
                             <td><?= $inv->part_name ?></td>
                             <td><?= $inv->drawing_no ?></td>
-                            <td><?= $inv->section ?>></td>
+                            <td><?= $inv->section ?></td>
                             <td><?= $inv->uom ?></td>
                             <td><?= $inv->current_quantity ?></td>
                             <td><?= $inv->zon ?></td>
