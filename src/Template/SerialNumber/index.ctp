@@ -26,9 +26,10 @@
                         </tr>
                         </thead>
                         <tbody class="csn-text-up">
-                        <?php foreach($serialNumber as $sn): ?>
+                        <?php $count = 0; foreach($serialNumber as $sn): ?>
+                            <?php $count++; ?>
                             <tr>
-                                <td><?= $sn->id ?></td>
+                                <td><?= $count ?></td>
                                 <td><?= $sn->date ?></td>
                                 <td><?= $sn->model ?></td>
                                 <td><?= $sn->version ?></td>

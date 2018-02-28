@@ -328,8 +328,32 @@ class PsController extends AppController
 
     public function isAuthorized($user){
         // All registered users can add articles
-        if ($this->request->getParam('action') === 'scheduler' || $this->request->getParam('action') === 'dailyReport' || $this->request->getParam('action') === 'monthlyScheduler' || $this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'view' || $this->request->getParam('action') === 'edit' || $this->request->getParam('action') === 'main' || $this->request->getParam('action') === 'report' || $this->request->getParam('action') === 'approvalStatus' || $this->request->getParam('action') === 'progressReport') {
+        if ($this->request->getParam('action') === 'main' || $this->request->getParam('action') === 'report' || $this->request->getParam('action') === 'approvalStatus' || $this->request->getParam('action') === 'progressReport') {
             return true;
+        }
+
+        if(isset($user['role']) && $user['role'] === 'requester'){
+            if(in_array($this->request->action, ['scheduler', 'dailyReport', 'monthlyScheduler'])){
+                return true;
+            }
+        }
+
+        if(isset($user['role']) && $user['role'] === 'verifier'){
+            if(in_array($this->request->action, ['edit', 'index', 'view', 'edit'])){
+                return true;
+            }
+        }
+
+        if(isset($user['role']) && $user['role'] === 'approve-1'){
+            if(in_array($this->request->action, ['edit', 'index', 'view', 'edit'])){
+                return true;
+            }
+        }
+
+        if(isset($user['role']) && $user['role'] === 'approve-2'){
+            if(in_array($this->request->action, ['edit', 'index', 'view', 'edit'])){
+                return true;
+            }
         }
 
         return parent::isAuthorized($user);

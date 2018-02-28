@@ -129,7 +129,7 @@
             <div class="col-sm-offset-8 col-sm-4 col-xs-12">
                 <div class="prepareted-by-csn">
                     <form method="post" action="<?php echo $this->url->build(['controller' => 'Fgtt', 'action' => 'edit', $fgtt->id]); ?>">
-                        <input type="hidden" name="verified_by" value="manager">
+                        <input type="hidden" name="verified_by" value="<?= $pic ?>">
                         <input type="hidden" name="status" value="verified">
                         <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>
                         <button type="submit" class="button btn btn-info">Verify</button>

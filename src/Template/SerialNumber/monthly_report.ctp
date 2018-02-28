@@ -28,9 +28,10 @@
                         </tr>
                         </thead>
                         <tbody class="csn-text-up">
-                        <?php foreach($sn as $s): ?>
+                        <?php $count = 0; foreach($sn as $s): ?>
+                            <?php $count++; ?>
                             <tr>
-                                <td><?= $s->id ?></td>
+                                <td><?= $count ?></td>
                                 <td><?= $s->model ?></td>
                                 <td><?= $s->version ?></td>
                                 <td><?= $s->type1 ?></td>

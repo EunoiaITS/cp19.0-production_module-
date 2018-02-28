@@ -113,6 +113,7 @@ class ScnController extends AppController
             }
             $this->Flash->error(__('The scn could not be saved. Please, try again.'));
         }
+        $count = $this->Scn->find('all')->last();
         $this->set(compact('scn'));
         $this->set('part_no', $part_no);
         $this->set('part_name', $part_name);
@@ -120,6 +121,7 @@ class ScnController extends AppController
         $this->set('pic_name', $this->Auth->user('name'));
         $this->set('pic_dept', $this->Auth->user('dept'));
         $this->set('pic_section', $this->Auth->user('section'));
+        $this->set('sn_no', (isset($count->id) ? ($count->id + 1) : 1));
     }
 
     /**
@@ -174,6 +176,7 @@ class ScnController extends AppController
             ->where(['scn_id' => $scn->id]);
         $this->set('scn', $scn);
         $this->set('items', $scn_items);
+        $this->set('pic', $this->Auth->user('username'));
     }
     public function approve($id = null){
         $scn = $this->Scn->get($id, [
@@ -184,6 +187,7 @@ class ScnController extends AppController
             ->where(['scn_id' => $scn->id]);
         $this->set('scn', $scn);
         $this->set('items', $scn_items);
+        $this->set('pic', $this->Auth->user('username'));
     }
     public function approval($id = null){
         $scn = $this->Scn->get($id, [
@@ -197,14 +201,50 @@ class ScnController extends AppController
     }
 
     public function report(){
+        $this->loadModel('ScnItems');
+        $scn = $this->Scn->find('all')
+            ->where(['status' => 'approved']);
+        foreach($scn as $s){
+            $items = $this->ScnItems->find('all')
+                ->where(['scn_id' => $s->id]);
+            $s->items = $items;
+        }
+        $this->set('scn', $scn);
+    }
+
+    public function statusReport(){
+        $this->loadModel('ScnItems');
         $scn = $this->Scn->find('all');
+        foreach($scn as $s){
+            $items = $this->ScnItems->find('all')
+                ->where(['scn_id' => $s->id]);
+            $s->items = $items;
+        }
         $this->set('scn', $scn);
     }
 
     public function isAuthorized($user){
         // All registered users can add articles
-        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'view' || $this->request->getParam('action') === 'add' || $this->request->getParam('action') === 'edit' || $this->request->getParam('action') === 'verify' || $this->request->getParam('action') === 'approve' || $this->request->getParam('action') === 'statusReport' || $this->request->getParam('action') === 'report') {
+        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'statusReport' || $this->request->getParam('action') === 'report') {
             return true;
+        }
+
+        if(isset($user['role']) && $user['role'] === 'requester'){
+            if(in_array($this->request->action, ['add'])){
+                return true;
+            }
+        }
+
+        if(isset($user['role']) && $user['role'] === 'verifier'){
+            if(in_array($this->request->action, ['verify', 'edit'])){
+                return true;
+            }
+        }
+
+        if(isset($user['role']) && $user['role'] === 'approve-1'){
+            if(in_array($this->request->action, ['approve', 'edit'])){
+                return true;
+            }
         }
 
         return parent::isAuthorized($user);

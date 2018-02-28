@@ -123,8 +123,9 @@
         <div class="col-sm-offset-8 col-sm-4 col-xs-12">
             <div class="prepareted-by-csn">
                 <form method="post" action="<?php echo $this->url->build(['controller' => 'Scn', 'action' => 'edit', $scn->id]); ?>">
-                    <input type="hidden" name="approved_by" value="director">
-                    <button class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>
+                    <input type="hidden" name="approved_by" value="<?= $pic ?>">
+                    <input type="hidden" name="status" value="approved">
+                    <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>
                     <button type="submit" class="button btn btn-info">Approve</button>
                 </form>
             </div>
@@ -143,14 +144,15 @@ Remark popup module
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title text-center" id="myModalLabel">Please Key In Remarks Here </h4>
             </div>
+            <form method="post" action="<?php echo $this->url->build(['controller' => 'Scn', 'action' => 'edit', $scn->id]); ?>">
             <div class="modal-body">
-                <form action="#">
-                    <textarea name="" id="" class="popup-textarea" cols="20" rows="8"></textarea>
-                </form>
+                <textarea name="remark" id="" class="popup-textarea" cols="20" rows="8"></textarea>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Okay</button>
+                <input type="hidden" name="status" value="rejected">
+                <button type="submit" class="btn btn-primary">Okay</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
