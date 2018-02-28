@@ -357,15 +357,67 @@ class MitController extends AppController
         $dataFromSales = json_decode($resultFromSales);
         $this->set('sales',$dataFromSales);
     }
+    public function request(){
+        if($this->Auth->user('role') == 'requester'){
+            $mit = $this->Mit->find('all')
+                ->where(['status' => 'requested']);
+        }
+        if($this->Auth->user('role') == 'verifier'){
+            $mit = $this->Mit->find('all')
+                ->where(['status' => 'requested']);
+        }
+
+        if($this->Auth->user('role') == 'approve_1'){
+            $mit = $this->Mit->find('all')
+                ->where(['status' => 'verified']);
+        }
+        if($this->Auth->user('role') == 'approve_2'){
+            $mit = $this->Mit->find('all')
+                ->where(['status' => 'approved']);
+        }
+        if($this->Auth->user('role') == 'approve_3'){
+            $mit = $this->Mit->find('all')
+                ->where(['status' => 'acknowledged']);
+        }
+        $this->set(compact('mit'));
+    }
 
     public function isAuthorized($user){
-        // All registered users can add articles
-        if ($this->request->getParam('action') === 'view' || $this->request->getParam('action') === 'edit' || $this->request->getParam('action') === 'add' || $this->request->getParam('action') === 'edit' || $this->request->getParam('action') === 'verify' || $this->request->getParam('action') === 'approve' || $this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'report') {
+        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'report' || $this->request->getParam('action') === 'request' || $this->request->getParam('action') === 'request') {
             return true;
+        }
+
+        if(isset($user['role']) && $user['role'] === 'requester'){
+            if(in_array($this->request->action, ['add'])){
+                return true;
+            }
+        }
+
+        if(isset($user['role']) && $user['role'] === 'verifier'){
+            if(in_array($this->request->action, ['verify', 'edit'])){
+                return true;
+            }
+        }
+        if(isset($user['role']) && $user['role'] === 'approve-1'){
+            if(in_array($this->request->action, ['approve', 'edit'])){
+                return true;
+            }
+        }
+
+        if(isset($user['role']) && $user['role'] === 'approve-2'){
+            if(in_array($this->request->action, ['acknowledge', 'edit'])){
+                return true;
+            }
+        }
+        if(isset($user['role']) && $user['role'] === 'approve-3'){
+            if(in_array($this->request->action, ['acknowledgeVerify', 'edit'])){
+                return true;
+            }
         }
 
         return parent::isAuthorized($user);
 
     }
+
 
 }

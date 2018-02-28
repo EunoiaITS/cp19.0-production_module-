@@ -1047,4 +1047,22 @@ class WipController extends AppController
         $this->set('n',$name);
         $this->set('operators',array_unique($operator));
     }
+    public function isAuthorized($user){
+        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'report' ||  $this->request->getParam('action') === 'view' || $this->request->getParam('action') === 'bta' || $this->request->getParam('action') === 'dm' || $this->request->getParam('action') === 'mc' || $this->request->getParam('action') === 'mlt' || $this->request->getParam('action') === 'monthlyProgress' || $this->request->getParam('action') === 'monthlyProgress2' || $this->request->getParam('action') === 'statReport' || $this->request->getParam('action') === 'testing' || $this->request->getParam('action') === 'vc' || $this->request->getParam('action') === 'welding1' || $this->request->getParam('action') === 'welding2' || $this->request->getParam('action') === 'wiring') {
+            return true;
+        }
+
+        if(isset($user['role']) && $user['role'] === 'requester'){
+            if(in_array($this->request->action, ['add'])){
+                return true;
+            }
+        }
+        if(isset($user['role']) && $user['role'] === 'verifier'){
+            if(in_array($this->request->action, ['edit'])){
+                return true;
+            }
+        }
+        return parent::isAuthorized($user);
+
+    }
 }
