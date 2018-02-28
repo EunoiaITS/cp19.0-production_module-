@@ -42,7 +42,7 @@
                             <td><?= $f->details->version ?></td>
                             <td><?= $f->details->type1 ?></td>
                             <td><?= $f->details->type2 ?></td>
-                            <td><?= $f->quantity ?></td>
+                            <td><?= $f->details->quantity ?></td>
                             <td><?= $f->created_by ?></td>
                             <td>Production</td>
                             <td>Wiring</td>

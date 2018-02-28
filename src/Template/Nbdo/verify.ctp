@@ -96,7 +96,7 @@
                                 <p class="cn-text">Verify <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text">Rusli</p>
+                                <p class="cn-main-text"><?= $pic ?></p>
                             </div>
                         </div>
                     </div>
@@ -161,7 +161,7 @@
             <div class="col-sm-offset-8 col-sm-4 col-xs-12">
                 <div class="prepareted-by-csn">
                     <form method="post" action="<?php echo $this->url->build(['controller' => 'Nbdo', 'action' => 'edit', $nbdo->id]); ?>">
-                        <input type="hidden" name="verified_by" value="manager">
+                        <input type="hidden" name="verified_by" value="<?= $pic ?>">
                         <input type="hidden" name="status" value="verified">
                         <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>
                         <button type="submit" class="button btn btn-info">Verify</button>

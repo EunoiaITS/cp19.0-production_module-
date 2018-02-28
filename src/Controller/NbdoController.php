@@ -216,6 +216,7 @@ class NbdoController extends AppController
             ->where(['nbdo_id' => $nbdo->id]);
         $this->set('nbdo', $nbdo);
         $this->set('items', $nbdo_items);
+        $this->set('pic', $this->Auth->user('username'));
     }
 
     public function approve($id = null){
@@ -227,11 +228,30 @@ class NbdoController extends AppController
             ->where(['nbdo_id' => $nbdo->id]);
         $this->set('nbdo', $nbdo);
         $this->set('items', $nbdo_items);
+        $this->set('pic', $this->Auth->user('username'));
     }
 
     public function report(){
-        $mr = $this->Nbdo->find('all');
-        $this->set('mr', $mr);
+        $this->loadModel('NbdoItems');
+        $nbdo = $this->Nbdo->find('all')
+            ->where(['status' => 'approved']);
+        foreach($nbdo as $n){
+            $items = $this->NbdoItems->find('all')
+                ->where(['nbdo_id' => $n->id]);
+            $n->items = $items;
+        }
+        $this->set('nbdo', $nbdo);
+    }
+
+    public function statusReport(){
+        $this->loadModel('NbdoItems');
+        $nbdo = $this->Nbdo->find('all');
+        foreach($nbdo as $n){
+            $items = $this->NbdoItems->find('all')
+                ->where(['nbdo_id' => $n->id]);
+            $n->items = $items;
+        }
+        $this->set('nbdo', $nbdo);
     }
 
     public function isAuthorized($user){
