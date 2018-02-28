@@ -255,18 +255,73 @@ class PrnfController extends AppController
 
     }
     public function report(){
-        $prnf = $this->Prnf->find('all');
-        $this->set('prnf', $prnf);
+        if($this->Auth->user('role') == 'requester'){
+            $prnf = $this->Prnf->find('all')
+                ->where(['status' => 'requested'])
+                ->orWhere(['status' => 'rejected']);
+        }
+        if($this->Auth->user('role') == 'verifier'){
+            $prnf = $this->Prnf->find('all')
+                ->where(['status' => 'requested']);
+        }
+
+        if($this->Auth->user('role') == 'approve_1'){
+            $prnf = $this->Prnf->find('all')
+                ->where(['status' => 'verified']);
+        }
+        if($this->Auth->user('role') == 'approve_2'){
+            $prnf = $this->Prnf->find('all')
+                ->where(['status' => 'approved']);
+        }
+        if($this->Auth->user('role') == 'approve_3'){
+            $prnf = $this->Prnf->find('all')
+                ->where(['status' => 'approved1']);
+        }
+        if($this->Auth->user('role') == 'approve_4'){
+            $prnf = $this->Prnf->find('all')
+                ->where(['status' => 'approved2']);
+        }
+
+        $this->set(compact('prnf'));
     }
 
     public function isAuthorized($user){
-        // All registered users can add articles
-        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'view' || $this->request->getParam('action') === 'add' || $this->request->getParam('action') === 'edit' || $this->request->getParam('action') === 'verify' || $this->request->getParam('action') === 'approve' || $this->request->getParam('action') === 'statusReport' || $this->request->getParam('action') === 'report') {
+        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'report' || $this->request->getParam('action') === 'view') {
             return true;
         }
 
-        return parent::isAuthorized($user);
+        if(isset($user['role']) && $user['role'] === 'requester'){
+            if(in_array($this->request->action, ['add'])){
+                return true;
+            }
+        }
+        if(isset($user['role']) && $user['role'] === 'verifier'){
+            if(in_array($this->request->action, ['verify', 'edit'])){
+                return true;
+            }
+        }
 
+        if(isset($user['role']) && $user['role'] === 'approve-1'){
+            if(in_array($this->request->action, ['approval1', 'edit'])){
+                return true;
+            }
+        }
+        if(isset($user['role']) && $user['role'] === 'approve-2'){
+            if(in_array($this->request->action, ['approval2', 'edit'])){
+                return true;
+            }
+        }
+        if(isset($user['role']) && $user['role'] === 'approve-3'){
+            if(in_array($this->request->action, ['approval3', 'edit'])){
+                return true;
+            }
+        }
+        if(isset($user['role']) && $user['role'] === 'approve-4'){
+            if(in_array($this->request->action, ['approval4', 'edit'])){
+                return true;
+            }
+        }
+        return parent::isAuthorized($user);
     }
 
 }

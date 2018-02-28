@@ -145,6 +145,7 @@ prn page
             <div class="prepareted-by-csn">
                 <form method="post" action="<?php echo $this->url->build(['controller' => 'Prnf', 'action' => 'edit', $prnf->id]); ?>">
                     <input type="hidden" name="approved_by" value="User 1">
+                    <input type="hidden" name="status" value="approved">
                     <button class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>
                     <button type="submit" class="button btn btn-info">Approve</button>
                 </form>
