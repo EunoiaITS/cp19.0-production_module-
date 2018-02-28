@@ -139,6 +139,7 @@
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                 <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'inventory','action'=>'add']);?>">Inventory Create</a></li>
                 <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'inventory','action'=>'index']);?>">Inventory Report</a></li>
+            </ul>
         </div>
     </ul>
 </div>
