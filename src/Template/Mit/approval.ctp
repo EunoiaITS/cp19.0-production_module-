@@ -130,7 +130,7 @@ MiT form page
                             <p class="cn-text">Approve <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text">Tarmimi</p>
+                            <p class="cn-main-text"><?= $pic?></p>
                         </div>
                     </div>
                 </div>
@@ -174,7 +174,7 @@ MiT form page
             <div class="col-sm-offset-8 col-sm-4 col-xs-12">
                 <div class="prepareted-by-csn">
                     <form action="<?php echo $this->Url->build(['controller'=>'mit','action'=>'edit',$sales->id])?>" method="post">
-                        <input type="hidden" name="approved_by" value="requester">
+                        <input type="hidden" name="approved_by" value="<?= $pic?>">
                         <input type="hidden" name="status" value="approved">
                         <input type="hidden" name="so_item_id" value="<?= $sales->id ?>">
                         <button class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>

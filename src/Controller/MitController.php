@@ -127,6 +127,7 @@ class MitController extends AppController
         $this->set('eng',$dataFromEng);
         $this->set('sales',$dataFromSales);
         $this->set('inv',$inv);
+        $this->set('pic', $this->Auth->user('username'));
     }
 
     /**
@@ -220,6 +221,7 @@ class MitController extends AppController
         $this->set(compact('mit'));
         $this->set('eng',$dataFromEng);
         $this->set('sales',$dataFromSales);
+        $this->set('pic', $this->Auth->user('username'));
     }
 
     public function approval($id = null){
@@ -267,6 +269,7 @@ class MitController extends AppController
         $this->set(compact('mit'));
         $this->set('eng',$dataFromEng);
         $this->set('sales',$dataFromSales);
+        $this->set('pic', $this->Auth->user('username'));
     }
 
     public function acknowledge($id = null){
@@ -289,6 +292,7 @@ class MitController extends AppController
             ->Where(['so_item_id' => $id]);
         $this->set('sales',$dataFromSales);
         $this->set('status',$status);
+        $this->set('pic', $this->Auth->user('username'));
     }
 
     public function acknowledgeVerify($id=null){
@@ -338,8 +342,8 @@ class MitController extends AppController
         $this->set(compact('mit'));
         $this->set('eng',$dataFromEng);
         $this->set('sales',$dataFromSales);
+        $this->set('pic', $this->Auth->user('username'));
     }
-
     public function report(){
         $urlToSales = 'http://salesmodule.acumenits.com/api/all-data';
 
@@ -383,16 +387,14 @@ class MitController extends AppController
     }
 
     public function isAuthorized($user){
-        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'report' || $this->request->getParam('action') === 'request' || $this->request->getParam('action') === 'request') {
+        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'report' || $this->request->getParam('action') === 'request' || $this->request->getParam('action') === 'view') {
             return true;
         }
-
         if(isset($user['role']) && $user['role'] === 'requester'){
             if(in_array($this->request->action, ['add'])){
                 return true;
             }
         }
-
         if(isset($user['role']) && $user['role'] === 'verifier'){
             if(in_array($this->request->action, ['verify', 'edit'])){
                 return true;
@@ -403,7 +405,6 @@ class MitController extends AppController
                 return true;
             }
         }
-
         if(isset($user['role']) && $user['role'] === 'approve-2'){
             if(in_array($this->request->action, ['acknowledge', 'edit'])){
                 return true;
@@ -414,10 +415,6 @@ class MitController extends AppController
                 return true;
             }
         }
-
         return parent::isAuthorized($user);
-
     }
-
-
 }

@@ -1,9 +1,6 @@
 <!--=========
 Production Planner page
 ==============-->
-<?php echo "<pre>";
-print_r($sales);
-echo "</pre>";?>
 <div class="planner-from">
     <div class="container-fluid">
         <div class="row">

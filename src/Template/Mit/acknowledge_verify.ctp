@@ -180,9 +180,9 @@ MiT form page
                     </div>
                 </div>
                 <form action="<?php echo $this->Url->build(['controller'=>'mit','action'=>'acknowledgeVerify',$sales->id])?>" method="post" class="planner-relative">
-                <input type="hidden" name="status" value="acknowledged">
-                <input type="hidden" name="acknowledged_by" value="requester">
-                <input type="hidden" name="so_item_id" value="<?= $sales->id ?>">
+                    <input type="hidden" name="status" value="acknowledged-verify">
+                    <input type="hidden" name="acknowledged_by" value="<?= $pic?>">
+                    <input type="hidden" name="so_item_id" value="<?= $sales->id ?>">
                 <div class="clearfix"></div>
                 <div class="col-sm-offset-8 col-sm-4 col-xs-12">
                     <div class="prepareted-by-csn">
@@ -190,8 +190,8 @@ MiT form page
                         <button type="submit" class="button btn btn-info">Acknowledge</button>
                     </div>
                 </div>
+                </form>
             </div>
-    </form>
 </div>
 <!--========================
 Remark popup module

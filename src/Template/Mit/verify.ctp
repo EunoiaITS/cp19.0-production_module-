@@ -87,7 +87,7 @@ MiT form page
                                 <p class="cn-text">Create By <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text">Malik</p>
+                                <p class="cn-main-text"><?= $pic?></p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -166,7 +166,7 @@ MiT form page
             <div class="col-sm-offset-8 col-sm-4 col-xs-12">
                 <div class="prepareted-by-csn">
                     <form action="<?php echo $this->Url->build(['controller'=>'mit','action'=>'verify',$sales->id])?>" method="post">
-                        <input type="hidden" name="verified_by" value="requester">
+                        <input type="hidden" name="verified_by" value="<?= $pic?>">
                         <input type="hidden" name="status" value="verified">
                         <input type="hidden" name="so_item_id" value="<?= $sales->id ?>">
                         <button class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>

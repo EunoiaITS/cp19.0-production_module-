@@ -1,11 +1,6 @@
 <!--=========
 MiT form page
 ==============-->
-<?php echo "<pre>";
-foreach ($inv as $i){
-print_r($i);
-}
-echo "</pre>";?>
 <div class="planner-from">
     <form action="<?php echo $this->Url->build(['controller'=>'mit','action'=>'add',$sales->id])?>" method="post" class="planner-relative">
     <div class="container-fluid">
@@ -92,7 +87,7 @@ echo "</pre>";?>
                                 <p class="cn-text">Create By <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text">Malik</p>
+                                <p class="cn-main-text"><?= $pic?></p>
                             </div>
                         </div>
                         <div class="form-group">
