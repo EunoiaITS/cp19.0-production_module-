@@ -29,7 +29,6 @@ Production Planner page
                                 <th rowspan="2">Department</th>
                                 <th rowspan="2">Section</th>
                                 <th rowspan="2">Location</th>
-                                <th rowspan="2">Date</th>
                                 <th colspan="4">Store</th>
                                 <th rowspan="2">Ack Status</th>
                                 <th rowspan="2">Ack By</th>
@@ -44,25 +43,23 @@ Production Planner page
                             </tr>
                             </thead>
                             <tbody class="csn-text-up">
-                            <?php $i=0;foreach ($sales as $sal):?>
-                            <?php foreach ($sal->soi as $item):?>
+                            <?php $i=0;foreach ($mit as $m):?>
                                 <?php $i++;?>
                                 <tr>
                                 <td><?php echo $i;?></td>
-                                <td><?= $sal->salesorder_no?></td>
-                                <td><?php foreach ($sal->cus as $c){echo $c->name;} ?></td>
-                                <td><?=  date('d/m/Y', strtotime($sal->date));?></td>
-                                <td>MIT 12345</td>
-                                <td><?= $item->model?></td>
-                                <td><?= $item->version?></td>
+                                <td><?= $m->sales->salesorder_no?></td>
+                                <td><?= $m->cus->name?></td>
+                                <td><?= $m->date?></td>
+                                <td>MIT <?= $m->id?></td>
+                                <td><?= $m->items->model?></td>
+                                <td><?= $m->items->version?></td>
                                 <td>INDOOR</td>
                                 <td>Motorized</td>
-                                <td><?= $item->quantity;?></td>
-                                <td>MALIK</td>
+                                <td><?= $m->items->quantity;?></td>
+                                <td><?= $m->created_by?></td>
                                 <td>Production</td>
                                 <td>Welding</td>
-                                <td>Indkom 16</td>
-                                <td>13/10/2017</td>
+                                <td><?= $m->location?></td>
                                 <td class="colored-red">Pending</td>
                                 <td>Amira</td>
                                 <td>15/10/2017</td>
@@ -72,7 +69,7 @@ Production Planner page
                                 <td></td>
                                 <td></td>
                             </tr>
-                            <?php endforeach;endforeach;?>
+                            <?php endforeach;?>
                             </tbody>
                         </table>
                     </div>

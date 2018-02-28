@@ -359,7 +359,53 @@ class MitController extends AppController
             echo 'ERROR!!';
         }
         $dataFromSales = json_decode($resultFromSales);
-        $this->set('sales',$dataFromSales);
+        $mit = $this->Mit->find('all')
+            ->Where(['status'=>'acknowledged-verify']);
+        foreach ($mit as $m){
+            foreach ($dataFromSales as $sales){
+                $m->sales = $sales;
+                foreach ($sales->soi as $items){
+                    if($items->id == $m->so_item_id){
+                        $m->items = $items;
+                    }
+                }
+                foreach ($sales->cus as $cus){
+                    $m->cus = $cus;
+                }
+            }
+        }
+        $this->set('mit',$mit);
+    }
+    public function statusReport(){
+        $urlToSales = 'http://salesmodule.acumenits.com/api/all-data';
+
+        $optionsForSales = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'GET'
+            ]
+        ];
+        $contextForSales  = stream_context_create($optionsForSales);
+        $resultFromSales = file_get_contents($urlToSales, false, $contextForSales);
+        if ($resultFromSales === FALSE) {
+            echo 'ERROR!!';
+        }
+        $dataFromSales = json_decode($resultFromSales);
+        $mit = $this->Mit->find('all');
+        foreach ($mit as $m){
+            foreach ($dataFromSales as $sales){
+                $m->sales = $sales;
+                foreach ($sales->soi as $items){
+                    if($items->id == $m->so_item_id){
+                        $m->items = $items;
+                    }
+                }
+                foreach ($sales->cus as $cus){
+                    $m->cus = $cus;
+                }
+            }
+        }
+        $this->set('mit',$mit);
     }
     public function request(){
         if($this->Auth->user('role') == 'requester'){
@@ -387,7 +433,7 @@ class MitController extends AppController
     }
 
     public function isAuthorized($user){
-        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'report' || $this->request->getParam('action') === 'request' || $this->request->getParam('action') === 'view') {
+        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'report' || $this->request->getParam('action') === 'request' || $this->request->getParam('action') === 'view' || $this->request->getParam('action') === 'statusReport') {
             return true;
         }
         if(isset($user['role']) && $user['role'] === 'requester'){

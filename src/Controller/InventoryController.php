@@ -157,14 +157,8 @@ class InventoryController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function beforeFilter(Event $event)
-    {
-        $this->Auth->allow(['index', 'add', 'edit', 'view', 'delete', 'approve', 'verify', 'report', 'statusReport']);
-    }
-
     public function isAuthorized($user){
-        // All registered users can add articles
-        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'view' || $this->request->getParam('action') === 'add' || $this->request->getParam('action') === 'edit' || $this->request->getParam('action') === 'verify' || $this->request->getParam('action') === 'approve' || $this->request->getParam('action') === 'statusReport' || $this->request->getParam('action') === 'report') {
+        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'add' || $this->request->getParam('action') === 'view' ) {
             return true;
         }
 

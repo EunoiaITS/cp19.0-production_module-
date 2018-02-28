@@ -5,7 +5,7 @@
 <div id="sidebar">
     <ul>
         <li><a href="<?php echo $this->Url->build(['controller' => 'SerialNumber', 'action' => 'dashboard']); ?>" class="active">Home (Dashboard)</a></li>
-        <div class="btn-group-vertical" role="group" class="dropdown">
+        <div class="btn-group-vertical dropdown" role="group">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 SERIAL NUMBER &nbsp;
                 <span class="caret"></span>
@@ -19,7 +19,7 @@
             </ul>
         </div>
 
-        <div class="btn-group-vertical" role="group" class="dropdown">
+        <div class="btn-group-vertical dropdown" role="group">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 PRODUCTION PLANNER &nbsp;
                 <span class="caret"></span>
@@ -35,7 +35,7 @@
             </ul>
         </div>
 
-        <div class="btn-group-vertical" role="group" class="dropdown">
+        <div class="btn-group-vertical dropdown" role="group">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 MATERIAL ISSUE TICKET (MIT)
                 <span class="caret"></span>
@@ -43,23 +43,19 @@
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                 <?php if($role == 'requester'): ?><li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'mit','action'=>'index'])?>">MIT Request List</a></li><?php endif; ?>
                 <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'mit','action'=>'add'])?>">MIT Form Create</a></li>
-                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'mit','action'=>'verify'])?>">MIT Verification</a></li>
-                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'mit','action'=>'approval'])?>">MIT Approval</a></li>
-                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'mit','action'=>'acknowledge'])?>">MIT Acknowlegement</a></li>
-                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'mit','action'=>'acknowledgeVerify'])?>">MIT Acknowlegement Form</a></li>
-                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'mit','action'=>'acknowledgeVerify'])?>">MIT Approval Status</a></li>
+                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'mit','action'=>'request'])?>">MIT Request</a></li>
+                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'mit','action'=>'statusReport'])?>">MIT Status</a></li>
                 <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'mit','action'=>'report'])?>">MIT Reporting</a></li>
             </ul>
         </div>
 
-        <div class="btn-group-vertical" role="group" class="dropdown">
+        <div class="btn-group-vertical dropdown" role="group">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 WORK IN PROGRESS<span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                 <?php if($role == 'requester'): ?><li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'add'])?>">WIP Create</a></li><?php endif; ?>
                 <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'view'])?>">WIP List</a></li>
-                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'view'])?>">WIP Acknowladge</a></li>
                 <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'report'])?>">WIP Report</a></li>
                 <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'welding1'])?>">WIP Section Report Welding</a></li>
                 <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'mlt'])?>">Main Line Tank</a></li>
@@ -76,7 +72,7 @@
                 <li class="color-hsh3"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'monthlyProgress2'])?>">WIP Staff Progress Report-monthly 2</a></li>
             </ul>
         </div>
-        <div class="btn-group-vertical" role="group" class="dropdown">
+        <div class="btn-group-vertical dropdown" role="group">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 MATERIAL REQUEST<span class="caret"></span>
             </button>
@@ -88,7 +84,7 @@
             </ul>
         </div>
 
-        <div class="btn-group-vertical" role="group" class="dropdown">
+        <div class="btn-group-vertical dropdown" role="group">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 PRODUCTION REJECTION NOTE FORM<span class="caret"></span>
             </button>
@@ -100,7 +96,7 @@
             </ul>
         </div>
 
-        <div class="btn-group-vertical" role="group" class="dropdown">
+        <div class="btn-group-vertical dropdown" role="group">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 STORE CREDIT NOTE (SCN)<span class="caret"></span>
             </button>
@@ -112,7 +108,7 @@
             </ul>
         </div>
 
-        <div class="btn-group-vertical" role="group" class="dropdown">
+        <div class="btn-group-vertical dropdown" role="group">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 FINISH GOODS TRANSFER Note(FGTT)<span class="caret"></span>
             </button>
@@ -124,7 +120,7 @@
             </ul>
         </div>
 
-        <div class="btn-group-vertical" role="group" class="dropdown">
+        <div class="btn-group-vertical dropdown" role="group">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 NON BILLING DELIVERY ORDER<span class="caret"></span>
             </button>
@@ -134,6 +130,15 @@
                 <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'Nbdo','action'=>'statusReport']);?>">Approval Status</a></li>
                 <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'Nbdo','action'=>'report']);?>">Report</a></li>
             </ul>
+        </div>
+
+        <div class="btn-group-vertical dropdown" role="group">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Inventory<span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'inventory','action'=>'add']);?>">Inventory Create</a></li>
+                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'inventory','action'=>'index']);?>">Inventory Report</a></li>
         </div>
     </ul>
 </div>
