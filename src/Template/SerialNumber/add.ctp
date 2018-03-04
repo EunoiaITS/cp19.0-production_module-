@@ -31,11 +31,15 @@
                             </div>
                             <div class="col-sm-5 col-xs-6">
                                 <select name="model" class="form-control" id="model-planer" required="">
-                                    <option value="RMU INS 24">RMU INS 24</option>
-                                    <option value="RMU INS 24(VIOTORZEI)">RMU INS 24(VIOTORZEI)</option>
+                                    <option value="RMU INS24">RMU INS24</option>
+                                    <option value="RMU (Motorize)">RMU (Motorize)</option>
+                                    <option value="RMU CB 12kV">RMU CB 12kV</option>
+                                    <option value="RMU CB 17.5kV">RMU CB 17.5kV</option>
                                     <option value="CSU">CSU</option>
-                                    <option value="JMW">JMW</option>
-                                    <option value="JMW - ARAB	">JMW - ARAB	</option>
+                                    <option value="Accessories">Accessories</option>
+                                    <option value="Services">Services</option>
+                                    <option value="Feeder Pillar/Indoor LV Board">Feeder Pillar/Indoor LV Board</option>
+                                    <option value="Distribution Board">Distribution Board</option>
                                 </select>
                             </div>
                         </div>
@@ -50,13 +54,22 @@
                                     <option value="ZZZ">ZZZ</option>
                                     <option value="ZZZT">ZZZT</option>
                                     <option value="ZZZTT">ZZZTT</option>
-                                    <option value="ZTTZ">ZTTZ</option>
-                                    <option value="ZTZ">ZTZ</option>
-                                    <option value="ZZTZ">ZZTZ</option>
-                                    <option value="ZTT">ZTT</option>
-                                    <option value="ZTTT">ZTTT</option>
-                                    <option value="ZTTTT">ZTTTT</option>
-                                    <option value="ZT">ZT</option>
+                                    <option value="ZZB">ZZB</option>
+                                    <option value="ZZZB">ZZZB</option>
+                                    <option value="ZZBB">ZZBB</option>
+                                    <option value="ZZ">ZZ</option>
+                                    <option value="Z">Z</option>
+                                    <option value="B">B</option>
+                                    <option value="RMU CB 101">RMU CB 101</option>
+                                    <option value="RMU CB 111">RMU CB 111</option>
+                                    <option value="RMU CB 121">RMU CB 121</option>
+                                    <option value="RMU CB 112">RMU CB 112</option>
+                                    <option value="RMU CB 102">RMU CB 102</option>
+                                    <option value="RMU CB 122">RMU CB 122</option>
+                                    <option value="500kVA">500kVA</option>
+                                    <option value="1000kVA">1000kVA</option>
+                                    <option value="DIN TYPE 1600A">DIN TYPE 1600A</option>
+                                    <option value="Street Lighting Feeder Pillar">Street Lighting Feeder Pillar</option>
                                 </select>
                             </div>
                         </div>
@@ -160,6 +173,11 @@
             };
             $(document).on('keydown.autocomplete', so_no, function() {
                 $(this).autocomplete(options);
+            });
+            $(document).on('autocompleteselect', so_no, function (e, ui) {
+                $('#model-planer').val(ui.item.idx);
+                $('#cn-version').val(ui.item.idv);
+                $('#cn-type-qty').val(ui.item.idq);
             });
             var sequence = <?php echo $sequence; ?>;
             var seq = parseInt(sequence);

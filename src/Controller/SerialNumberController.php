@@ -89,7 +89,11 @@ class SerialNumberController extends AppController
         $dataFromSales = json_decode($resultFromSales);
         $so_no = null;
         foreach($dataFromSales as $pm){
-            $so_no .= '"'.$pm->salesorder_no.'",';
+            foreach($pm->soi as $item){
+                $version = $item->version;
+                $quantity = $item->quantity;
+            }
+            $so_no .= '{label:"'.$pm->salesorder_no.'",idx:"'.$pm->model.'",idv:"'.$version.'",idq:"'.$quantity.'"},';
         }
         $so_no = rtrim($so_no, ',');
         $this->loadModel('SerialNumberChild');
