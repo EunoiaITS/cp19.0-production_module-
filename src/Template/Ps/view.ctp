@@ -81,9 +81,29 @@
                                 <p class="cn-text">Verify <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text"><?= $ps->verified_by ?></p>
+                                <p class="cn-main-text"><?php if(isset($ps->verified_by)){echo $ps->verified_by;}else{echo $pic;}  ?></p>
                             </div>
                         </div>
+                        <?php if(isset($ps->verified_by)){?>
+                        <div class="form-group">
+                            <div class="col-sm-3 col-xs-6">
+                                <p class="cn-text">Approval 1 <span class="planner-fright">:</span></p>
+                            </div>
+                            <div class="col-sm-5 col-xs-6">
+                                <p class="cn-main-text"><?php if(isset($ps->approval1_by)){echo $ps->approval1_by;}else{echo $pic;}  ?></p>
+                            </div>
+                        </div>
+                        <?php }?>
+                        <?php if(isset($ps->approval1_by)){?>
+                            <div class="form-group">
+                                <div class="col-sm-3 col-xs-6">
+                                    <p class="cn-text">Approval 2 <span class="planner-fright">:</span></p>
+                                </div>
+                                <div class="col-sm-5 col-xs-6">
+                                    <p class="cn-main-text"><?php if(isset($ps->approval2_by)){echo $ps->approval2_by;}else{echo $pic;}  ?></p>
+                                </div>
+                            </div>
+                        <?php }?>
                     </div>
                 </form>
             </div>
@@ -152,10 +172,10 @@
             <div class="col-sm-offset-8 col-sm-4 col-xs-12">
                 <div class="prepareted-by-csn">
                     <form method="post" action="<?php echo $this->url->build(['controller' => 'Ps', 'action' => 'edit', $ps->id]); ?>">
-                        <input type="hidden" name="status" value="<?php if($role == 'verifier'){echo 'verified';}elseif($role == 'approve_1'){echo 'approval_1';}elseif($role == 'approve_2'){echo 'approval_2';}else{echo '';}?>">
-                        <input type="hidden" name="<?php if($role == 'verifier'){echo 'verified_by';}elseif($role == 'approve_1'){echo 'approval1_by';}elseif($role == 'approve_2'){echo 'approval2_by';}else{echo 'created_by';}?>" value="<?= $pic ?>">
+                        <input type="hidden" name="status" value="<?php if($role == 'verifier'){echo 'verified';}elseif($role == 'approve-1'){echo 'approval-1';}elseif($role == 'approve-2'){echo 'approval-2';}else{echo '';}?>">
+                        <input type="hidden" name="<?php if($role == 'verifier'){echo 'verified_by';}elseif($role == 'approve-1'){echo 'approval1_by';}elseif($role == 'approve-2'){echo 'approval2_by';}else{echo 'created_by';}?>" value="<?= $pic ?>">
                         <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>
-                        <button type="submit" class="button btn btn-info"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve_1'){echo 'Approve';}else{echo 'Edit';} ?></button>
+                        <button type="submit" class="button btn btn-info"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve-1'){echo 'Approve';}elseif($role == 'approve-2'){echo 'Approve';}else{echo 'Edit';} ?></button>
                     </form>
                 </div>
             </div>

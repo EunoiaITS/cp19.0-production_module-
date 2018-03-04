@@ -15,7 +15,7 @@ prn page
                             <p class="cn-text">Date <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text text-uppercase">02/01/2017</p>
+                            <p class="cn-main-text text-uppercase"><?php $d = strtotime($prnf->date);echo date('m/d/Y',$d);?></p>
                         </div>
                     </div>
 
@@ -24,7 +24,7 @@ prn page
                             <p class="cn-text">Prn No <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text text-uppercase">PRN12345</p>
+                            <p class="cn-main-text text-uppercase">PRN <?= $prnf->id?></p>
                         </div>
                     </div>
 
@@ -33,7 +33,7 @@ prn page
                             <p class="cn-text">Part No <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text text-uppercase">0256</p>
+                            <p class="cn-main-text text-uppercase"><?= $prnf->part_no?></p>
                         </div>
                     </div>
 
@@ -51,7 +51,7 @@ prn page
                             <p class="cn-text">Qty <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text text-uppercase">27</p>
+                            <p class="cn-main-text text-uppercase"><?= $prnf->quantity?></p>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@ prn page
                             <p class="cn-text">Create By <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text">Malik</p>
+                            <p class="cn-main-text"><?= $prnf->created_by?></p>
                         </div>
                     </div>
 
@@ -89,7 +89,7 @@ prn page
                             <p class="cn-text">Location <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text text-uppercase">Indkom 16</p>
+                            <p class="cn-main-text text-uppercase"><?= $prnf->location?></p>
                         </div>
                     </div>
                     <div class="form-group">
@@ -97,7 +97,7 @@ prn page
                             <p class="cn-text">Verify <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text text-uppercase">Rusli</p>
+                            <p class="cn-main-text text-uppercase"><?= $prnf->verified_by?></p>
                         </div>
                     </div>
                     <div class="form-group">
@@ -105,7 +105,7 @@ prn page
                             <p class="cn-text">Approve 1 <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text text-uppercase">Tarmimi</p>
+                            <p class="cn-main-text text-uppercase"><?= $prnf->approved1_by?></p>
                         </div>
                     </div>
                     <div class="form-group">
@@ -113,7 +113,7 @@ prn page
                             <p class="cn-text">Approve 2<span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text text-uppercase">Zainal</p>
+                            <p class="cn-main-text text-uppercase"><?= $prnf->approved2_by?></p>
                         </div>
                     </div>
                     <div class="form-group">
@@ -121,7 +121,7 @@ prn page
                             <p class="cn-text">Approve 3<span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text text-uppercase"></p>
+                            <p class="cn-main-text text-uppercase"><?= $pic?></p>
                         </div>
                     </div>
                 </div>
@@ -144,10 +144,10 @@ prn page
                     </thead>
                     <tbody class="csn-text-up">
                     <tr>
-                        <td>Spring shaft tak bole dimasukkan pada lubang socket tripping lever assy proses pertama untuk mech tgagal</td>
-                        <td>burr</td>
-                        <td><a href="#">View</a></td>
-                        <td></td>
+                        <td><?= $prnf->description?></td>
+                        <td><?= $prnf->reason?></td>
+                        <td><a href="<?= $prnf->document?>">View</a></td>
+                        <td><?= $prnf->remark?></td>
                     </tr>
                     </tbody>
                 </table>
@@ -164,10 +164,10 @@ prn page
                     </thead>
                     <tbody class="csn-text-up">
                     <tr>
-                        <td>RTVN-Rework</td>
-                        <td></td>
-                        <td><a href="#">View</a></td>
-                        <td></td>
+                        <td><?= $prnf->approved2_investigation?></td>
+                        <td><?= $prnf->approved2_reason?></td>
+                        <td><a href="<?= $prnf->approved2_document?>">View</a></td>
+                        <td><?= $prnf->approved2_remark?></td>
                     </tr>
                     </tbody>
                 </table>
@@ -200,7 +200,7 @@ prn page
         <div class="clearfix"></div>
         <div class="col-sm-offset-8 col-sm-4 col-xs-12">
             <div class="prepareted-by-csn">
-                    <input type="hidden" name="approved3_by" value="User 3">
+                    <input type="hidden" name="approved3_by" value="<?= $pic?>">
                     <input type="hidden" name="status" value="approved2">
                     <button class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>
                     <button type="submit" class="button btn btn-info">Approve</button>
