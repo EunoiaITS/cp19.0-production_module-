@@ -136,7 +136,9 @@
                 Inventory<span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'inventory','action'=>'add']);?>">Inventory Create</a></li>
+                <?php if($role == 'requester'): ?>
+                    <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'inventory','action'=>'add']);?>">Inventory Create</a></li>
+                <?php endif; ?>
                 <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'inventory','action'=>'index']);?>">Inventory Report</a></li>
             </ul>
         </div>

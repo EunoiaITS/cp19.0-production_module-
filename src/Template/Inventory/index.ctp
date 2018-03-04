@@ -32,7 +32,9 @@ Production Planner page
                         <th>Level</th>
                         <th>Min Stock Level</th>
                         <th>Max Stock Level</th>
-                        <th>Action</th>
+                        <?php if(isset($pic)){if($pic == "requester"){?>
+                            <th>Action</th>
+                        <?php }}?>
                     </tr>
                     </thead>
                     <tbody class="csn-text-up">
@@ -54,9 +56,7 @@ Production Planner page
                         <td id="min-stock<?= $inv->id; ?>"><?= $inv->min_stock; ?></td>
                         <td id="max-stock<?= $inv->id; ?>"><?= $inv->max_stock; ?></td>
                         <?php if(isset($pic)){if($pic == "requester"){?>
-                        <td><button id="modal-popup" class="btn btn-info my_button" id="view<?= $inv->id; ?>" data-toggle="modal" data-target="#myModal" rel="<?= $inv->id; ?>">Edit</button></td>
-                        <?php }else{?>
-                            <td><button class="btn btn-info my_button">View</button></td>
+                            <td><button id="modal-popup" class="btn btn-info my_button" id="view<?= $inv->id; ?>" data-toggle="modal" data-target="#myModal" rel="<?= $inv->id; ?>">Edit</button></td>
                         <?php }}?>
                     </tr>
                         <span class="hidden" id="edit-id<?= $inv->id;?>"><?= $inv->id; ?></span>
