@@ -43,7 +43,7 @@
                                     <td><?= $s->salesorder_no ?></td>
                                     <td><?php foreach($s->cus as $cus){echo $cus->customerID;} ?></td>
                                     <td><?php foreach($s->cus as $cus){echo $cus->name;} ?></td>
-                                    <td><?= $s->delivery_date ?></td>
+                                    <td><?= date('m/d/Y', strtotime($s->delivery_date)) ?></td>
                                     <td><?= (isset($s->fgtt->date) ? $s->fgtt->date : '') ?></td>
                                     <td><?= $item->model ?></td>
                                     <td><?= $item->version ?></td>
@@ -175,11 +175,13 @@ Sceduler popup module
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Confirm</button>
+                <button type="button" class="btn btn-primary" id="btn-confirm">Confirm</button>
             </div>
         </div>
     </div>
 </div>
+
+<div id="calculation"></div>
 
 <script>
     $(document).ready(function(){
@@ -190,6 +192,11 @@ Sceduler popup module
             var qty = parseInt($('#qty-'+id).text());
             var html_table = '';
             for(i = 0; i < months; i++){
+                var exVal = 0;
+                var exId = 'calc-'+id+i;
+                if($('#'+exId).length != 0){
+                    exVal = $('#'+exId).text();
+                }
                 html_table += '<tr>'+
                 '<td rowspan="2">'+$('#month-no-'+id+i).text()+'</td>'+
                 '<th>Plan</th>'+
@@ -197,10 +204,25 @@ Sceduler popup module
                 '</tr>'+
                 '<tr>'+
                 '<th>Actual</th>'+
-                '<td><input type="text" class="form-control '+$('#month-no-'+id+i).text()+'"></td>'+
+                '<td><input type="text" id="actual-'+id+i+'" class="form-control '+$('#month-no-'+id+i).text()+'" value="'+exVal+'"></td>'+
                 '</tr>';
             }
             $('#table-data').html(html_table);
+            $('#btn-confirm').on('click', function(ev){
+                ev.preventDefault();
+                for(i = 0; i < months; i++){
+                    var inVal = $('#actual-'+id+i).val();
+                    if(parseInt(inVal) > (qty/months)){
+                        inVal = qty/months;
+                    }
+                    if($('#calc-'+id+i).length == 0){
+                        var dynHtml = '<span id="calc-'+id+i+'" class="hidden calc-'+$('#month-no-'+id+i).text()+'">'+inVal+'</span>';
+                        $('#calculation').append(dynHtml);
+                    }else{
+                        $('#calc-'+id+i).text(inVal);
+                    }
+                }
+            });
         });
         $('#btn-total').on('click', function(e){
             e.preventDefault();
@@ -215,8 +237,8 @@ Sceduler popup module
             var total_table = '';
             for(j = 0; j < month_names.length; j++){
                 var total_qty = 0;
-                $('.'+month_names[j]).each(function(){
-                    total_qty += $(this).val();
+                $('.calc-'+month_names[j]).each(function(){
+                    total_qty += parseInt($(this).text());
                 });
                 total_table += '<tr>'+
                 '<td>'+month_names[j]+'</td>'+
