@@ -35,7 +35,7 @@
                             <p class="cn-text">Create By <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text"><?= $pic_name ?></p>
+                            <p class="cn-main-text"><?= $pic ?></p>
                         </div>
                     </div>
 

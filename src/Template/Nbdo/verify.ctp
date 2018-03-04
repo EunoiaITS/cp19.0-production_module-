@@ -64,7 +64,7 @@
                                 <p class="cn-text">Create By <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text text-uppercase"><?= $nbdo->created_by ?></p>
+                                <p class="cn-main-text"><?= $nbdo->created_by ?></p>
                             </div>
                         </div>
                         <div class="form-group">

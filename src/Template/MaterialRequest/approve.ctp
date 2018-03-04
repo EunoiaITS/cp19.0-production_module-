@@ -78,7 +78,7 @@
                             <p class="cn-text">Approve <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text"><?= $mr->approved_by ?></p>
+                            <p class="cn-main-text"><?= $pic ?></p>
                         </div>
                     </div>
                 </div>
