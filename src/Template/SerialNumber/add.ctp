@@ -150,7 +150,8 @@
                 '<option value="ZZZ">ZZZ</option>'+
                 '<option value="ZZZT">ZZZT</option>'+
                 '<option value="ZZZTT">ZZZTT</option>');
-            $('#model-planer').on('change',function () {
+            $('#model-planer').on('change',function (e) {
+                e.preventDefault();
                 var model = $(this).val();
                 if(model == 'RMU INS24' || model == 'RMU (Motorize)'){
                     $('#cn-version').html('<option value="ZZT">ZZT</option>'+
