@@ -40,6 +40,10 @@ class PsController extends AppController
             $ps = $this->PsMonthly->find('all')
                 ->where(['status' => 'requested', 'status' => 'rejected']);
         }
+        if($this->Auth->user('role') == 'approve-3' || $this->Auth->user('role') == 'approve-4'){
+            $this->loadModel('SerialNumber');
+            $this->redirect(array("controller" => "SerialNumber", "action" => "dashboard"));
+        }
 
         $this->set('ps', $ps);
     }

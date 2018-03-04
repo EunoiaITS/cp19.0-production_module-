@@ -1,7 +1,6 @@
 <!--=========
       Production Planner page
       ==============-->
-
 <div class="planner-from">
     <div class="container-fluid">
         <div class="row">
@@ -15,7 +14,7 @@
                             <p class="cn-text">Date <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text">01-02-2017</p>
+                            <p class="cn-main-text"><?php $d = strtotime($scn->date);echo date ('m/d/Y',$d);?></p>
                         </div>
                     </div>
                     <div class="form-group">
@@ -23,7 +22,7 @@
                             <p class="cn-text">SCN No <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text">SCN01234</p>
+                            <p class="cn-main-text">SCN <?= $scn->id?></p>
                         </div>
                     </div>
 
@@ -35,7 +34,7 @@
                             <p class="cn-text">Create By <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text">Malik</p>
+                            <p class="cn-main-text"><?= $scn->created_by?></p>
                         </div>
                     </div>
 
@@ -62,7 +61,7 @@
                             <p class="cn-text">Location <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text">Indkom 16</p>
+                            <p class="cn-main-text"><?= $scn->location?></p>
                         </div>
                     </div>
                     <div class="form-group">
@@ -70,15 +69,15 @@
                             <p class="cn-text">Verify <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text">Rusly</p>
+                            <p class="cn-main-text"><?= $scn->verified_by?></p>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-3 col-xs-6">
-                            <p class="cn-text">Approve <span class="planner-fright">:</span></p>
+                            <p class="cn-text">Approval <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text">Tarmimi</p>
+                            <p class="cn-main-text"><?= $pic ?></p>
                         </div>
                     </div>
                 </div>
@@ -104,15 +103,17 @@
                     </tr>
                     </thead>
                     <tbody  class="csn-text-up">
-                    <tr>
-                        <td>1</td>
-                        <td>0020</td>
-                        <td>Spaning Shaft Ass</td>
-                        <td>A</td>
-                        <td>25</td>
-                        <td>Old Design</td>
-                        <td></td>
-                    </tr>
+                    <?php $i=0;foreach ($items as $itm):$i++?>
+                        <tr>
+                            <td><?= $i?></td>
+                            <td><?= $itm->part_no?></td>
+                            <td><?= $itm->part_desc?></td>
+                            <td><?= $itm->reason?></td>
+                            <td><?= $itm->quantity?></td>
+                            <td><?= $itm->remark?></td>
+                            <td></td>
+                        </tr>
+                    <?php endforeach;?>
                     </tbody>
                 </table>
             </div>
@@ -145,13 +146,13 @@ Remark popup module
                 <h4 class="modal-title text-center" id="myModalLabel">Please Key In Remarks Here </h4>
             </div>
             <form method="post" action="<?php echo $this->url->build(['controller' => 'Scn', 'action' => 'edit', $scn->id]); ?>">
-            <div class="modal-body">
-                <textarea name="remark" id="" class="popup-textarea" cols="20" rows="8"></textarea>
-            </div>
-            <div class="modal-footer">
-                <input type="hidden" name="status" value="rejected">
-                <button type="submit" class="btn btn-primary">Okay</button>
-            </div>
+                <div class="modal-body">
+                    <textarea name="remark" id="" class="popup-textarea" cols="20" rows="8"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="status" value="rejected">
+                    <button type="submit" class="btn btn-primary">Okay</button>
+                </div>
             </form>
         </div>
     </div>
