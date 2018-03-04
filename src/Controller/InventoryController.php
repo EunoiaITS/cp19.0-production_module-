@@ -29,6 +29,7 @@ class InventoryController extends AppController
         $inventory = $this->paginate($this->Inventory);
 
         $this->set(compact('inventory'));
+        $this->set('pic', $this->Auth->user('role'));
     }
 
     /**
