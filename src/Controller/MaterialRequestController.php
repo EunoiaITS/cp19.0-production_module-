@@ -37,9 +37,13 @@ class MaterialRequestController extends AppController
                 ->where(['status' => 'requested']);
         }
 
-        if($this->Auth->user('role') == 'approve_1'){
+        if($this->Auth->user('role') == 'approve-1'){
             $materialRequest = $this->MaterialRequest->find('all')
                 ->where(['status' => 'verified']);
+        }
+        if($this->Auth->user('role') == 'approve-2' || $this->Auth->user('role') == 'approve-3' || $this->Auth->user('role') == 'approve-4'){
+            $this->loadModel('SerialNumber');
+            $this->redirect(array("controller" => "SerialNumber", "action" => "dashboard"));
         }
 
         $this->set(compact('materialRequest'));
@@ -179,6 +183,7 @@ class MaterialRequestController extends AppController
             ->where(['mr_id' => $mr->id]);
         $this->set('mr', $mr);
         $this->set('items', $mr_items);
+        $this->set('pic', $this->Auth->user('username'));
     }
 
     public function approve($id = null){
@@ -190,6 +195,7 @@ class MaterialRequestController extends AppController
             ->where(['mr_id' => $mr->id]);
         $this->set('mr', $mr);
         $this->set('items', $mr_items);
+        $this->set('pic', $this->Auth->user('username'));
     }
 
     public function report(){

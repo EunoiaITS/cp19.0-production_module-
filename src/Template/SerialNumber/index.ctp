@@ -22,7 +22,7 @@
                             <th>Create By</th>
                             <th>Department</th>
                             <th>Section</th>
-                            <th><?php $action = ''; if($role == 'verifier'){$action = 'verify';echo 'Verify';}elseif($role == 'approve_1'){$action = 'approve';echo 'Approve';}else{$action = 'edit';echo 'Edit';} ?></th>
+                            <th><?php $action = ''; if($role == 'verifier'){$action = 'verify';echo 'Verify';}elseif($role == 'approve-1'){$action = 'approve';echo 'Approve';}else{$action = 'edit';echo 'Edit';} ?></th>
                         </tr>
                         </thead>
                         <tbody class="csn-text-up">
@@ -38,7 +38,7 @@
                                 <td><?= $sn->created_by ?></td>
                                 <td><?= $role; ?></td>
                                 <td>Production</td>
-                                <td><a href="<?php echo $this->url->build(['controller' => 'SerialNumber', 'action' => $action, $sn->id]); ?>"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve_1'){echo 'Approve';}else{echo 'Edit';} ?></a></td>
+                                <td><a href="<?php echo $this->url->build(['controller' => 'SerialNumber', 'action' => $action, $sn->id]); ?>"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve-1'){echo 'Approve';}else{echo 'Edit';} ?></a></td>
                             </tr>
                         <?php endforeach; ?>
                         </tbody>

@@ -200,12 +200,10 @@ prn page
         <div class="clearfix"></div>
         <div class="col-sm-offset-8 col-sm-4 col-xs-12">
             <div class="prepareted-by-csn">
-                <form method="post" action="<?php echo $this->url->build(['controller' => 'Prnf', 'action' => 'approval3', $prnf->id]); ?>">
                     <input type="hidden" name="approved3_by" value="User 3">
                     <input type="hidden" name="status" value="approved2">
                     <button class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>
                     <button type="submit" class="button btn btn-info">Approve</button>
-                </form>
             </div>
         </div>
     </div>

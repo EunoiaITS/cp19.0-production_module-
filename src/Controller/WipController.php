@@ -814,6 +814,9 @@ class WipController extends AppController
         if($year == null){
             $year = date('Y');
         }
+        if($section == null){
+            $section = 'Welding 1';
+        }
         $this->loadModel('SerialNumber');
         $this->loadModel('WipSection');
         $operator = [];
@@ -959,6 +962,7 @@ class WipController extends AppController
 
         $this->set('month', $month);
         $this->set('year', $year);
+        $this->set('section', $section);
         $this->set('wip', $wip);
         $this->set('operators', $all_op);
         $this->set('op_count', $op_count);

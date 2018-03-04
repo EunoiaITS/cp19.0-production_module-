@@ -42,7 +42,6 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                 <?php if($role == 'requester'): ?><li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'mit','action'=>'index'])?>">MIT Request List</a></li><?php endif; ?>
-                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'mit','action'=>'add'])?>">MIT Form Create</a></li>
                 <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'mit','action'=>'request'])?>">MIT Request</a></li>
                 <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'mit','action'=>'statusReport'])?>">MIT Status</a></li>
                 <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'mit','action'=>'report'])?>">MIT Reporting</a></li>
@@ -55,7 +54,7 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                 <?php if($role == 'requester'): ?><li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'add'])?>">WIP Create</a></li><?php endif; ?>
-                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'view'])?>">WIP List</a></li>
+                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'index'])?>">WIP List</a></li>
                 <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'report'])?>">WIP Report</a></li>
                 <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'welding1'])?>">WIP Section Report Welding</a></li>
                 <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'mlt'])?>">Main Line Tank</a></li>
@@ -64,7 +63,7 @@
                 <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'welding2'])?>">Welding</a></li>
                 <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'bta'])?>">BTA</a></li>
                 <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'mc'])?>">Metal Clad</a></li>
-                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'writing'])?>">Wiring</a></li>
+                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'wiring'])?>">Wiring</a></li>
                 <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'testing'])?>">Testing</a></li>
 
                 <li class="color-hsh3"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'statReport'])?>">WIP Statistic Report</a></li>

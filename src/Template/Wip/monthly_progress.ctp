@@ -17,15 +17,15 @@ Create serial number form page
                             </div>
                             <div class="col-sm-5 col-xs-6">
                                 <select class="form-control" name="section" id="wip-section">
-                                    <option value="Welding 1">Welding</option>
-                                    <option value="Main Line Tank">Main Line Tank</option>
-                                    <option value="Drive Mechanism">Drive Mechanism</option>
-                                    <option value="Vacuum Chamber">Vacuum Chamber</option>
-                                    <option value="Welding 2">Welding</option>
-                                    <option value="Bta">BTA</option>
-                                    <option value="Metal Clad">Metal Clad</option>
-                                    <option value="Wiring">Wiring</option>
-                                    <option value="Testing">Testing</option>
+                                    <option value="Welding 1" <?php if($section == 'Welding 1'){echo 'selected';} ?>>Welding</option>
+                                    <option value="Main Line Tank" <?php if($section == 'Main Line Tank'){echo 'selected';} ?>>Main Line Tank</option>
+                                    <option value="Drive Mechanism" <?php if($section == 'Drive Mechanism'){echo 'selected';} ?>>Drive Mechanism</option>
+                                    <option value="Vacuum Chamber" <?php if($section == 'Vacuum Chamber'){echo 'selected';} ?>>Vacuum Chamber</option>
+                                    <option value="Welding 2" <?php if($section == 'Welding 2'){echo 'selected';} ?>>Welding</option>
+                                    <option value="Bta" <?php if($section == 'Bta'){echo 'selected';} ?>>BTA</option>
+                                    <option value="Metal Clad" <?php if($section == 'Metal Clad'){echo 'selected';} ?>>Metal Clad</option>
+                                    <option value="Wiring" <?php if($section == 'Wiring'){echo 'selected';} ?>>Wiring</option>
+                                    <option value="Testing" <?php if($section == 'Testing'){echo 'selected';} ?>>Testing</option>
                                 </select>
                             </div>
                         </div>

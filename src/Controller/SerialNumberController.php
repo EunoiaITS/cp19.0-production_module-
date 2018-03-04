@@ -39,9 +39,12 @@ class SerialNumberController extends AppController
                 ->where(['status' => 'requested']);
         }
 
-        if($this->Auth->user('role') == 'approve_1'){
+        if($this->Auth->user('role') == 'approve-1'){
             $serialNumber = $this->SerialNumber->find('all')
                 ->where(['status' => 'verified']);
+        }
+        if($this->Auth->user('role') == 'approve-2' || $this->Auth->user('role') == 'approve-3' || $this->Auth->user('role') == 'approve-4'){
+            $this->redirect(array("controller" => "SerialNumber", "action" => "dashboard"));
         }
 
         $this->set(compact('serialNumber'));
@@ -110,7 +113,7 @@ class SerialNumberController extends AppController
                 }
                 $this->Flash->success(__('The serial number has been saved.'));
 
-                return $this->redirect(['action' => 'add']);
+                return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The serial number could not be saved. Please, try again.'));
         }
@@ -176,6 +179,7 @@ class SerialNumberController extends AppController
             ->where(['serial_number_id' => $sn->id]);
         $this->set('sn', $sn);
         $this->set('items', $sn_items);
+        $this->set('pic', $this->Auth->user('username'));
     }
 
     public function approve($id = null){
@@ -187,10 +191,18 @@ class SerialNumberController extends AppController
             ->where(['serial_number_id' => $sn->id]);
         $this->set('sn', $sn);
         $this->set('items', $sn_items);
+        $this->set('pic', $this->Auth->user('username'));
     }
 
     public function report(){
-        $sn = $this->SerialNumber->find('all');
+        $this->loadModel('SerialNumberChild');
+        $sn = $this->SerialNumber->find('all')
+            ->where(['status' => 'approved']);
+        foreach($sn as $s){
+            $items = $this->SerialNumberChild->find('all')
+                ->where(['serial_number_id' => $s->id]);
+            $s->items = $items;
+        }
         $this->set('sn', $sn);
     }
 
@@ -201,13 +213,19 @@ class SerialNumberController extends AppController
     }
 
     public function statusReport(){
+        $this->loadModel('SerialNumberChild');
         $sn = $this->SerialNumber->find('all');
+        foreach($sn as $s){
+            $items = $this->SerialNumberChild->find('all')
+                ->where(['serial_number_id' => $s->id]);
+            $s->items = $items;
+        }
         $this->set('sn', $sn);
     }
 
     public function isAuthorized($user){
         // All registered users can add articles
-        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'monthlyReport' || $this->request->getParam('action') === 'report' || $this->request->getParam('action') === 'statusReport') {
+        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'monthlyReport' || $this->request->getParam('action') === 'report' || $this->request->getParam('action') === 'statusReport' || $this->request->getParam('action') === 'dashboard') {
             return true;
         }
 

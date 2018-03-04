@@ -39,8 +39,14 @@ class MitController extends AppController
         if ($resultFromSales === FALSE) {
             echo 'ERROR!!';
         }
+        $mit_ids =[];
+        $mit = $this->Mit->find('all');
+        foreach($mit as $m){
+            $mit_ids[] = $m->so_item_id;
+        }
         $dataFromSales = json_decode($resultFromSales);
         $this->set('sales',$dataFromSales);
+        $this->set('mit',$mit_ids);
     }
 
     /**
@@ -108,10 +114,15 @@ class MitController extends AppController
         }
         $dataFromEng = json_decode($resultFromEng);
         $this->loadModel('Inventory');
-        foreach ($dataFromEng as $data){
+        if($dataFromEng != null ){
+            foreach ($dataFromEng as $data){
             $inv = $this->Inventory->find('all')
                 ->Where(['part_no'=> $data->partNo])
                 ->Where(['part_name'=> $data->partName]);
+                foreach($inv as $in){
+                    $data->inv = $in;   
+                }
+            }
         }
         $mit = $this->Mit->newEntity();
         if ($this->request->is('post')) {
@@ -123,10 +134,11 @@ class MitController extends AppController
             }
             $this->Flash->error(__('The mit could not be saved. Please, try again.'));
         }
+        $count = $this->Mit->find('all')->last();
+        $this->set('mit_no', (isset($count->id) ? ($count->id + 1) : 1));
         $this->set(compact('mit'));
         $this->set('eng',$dataFromEng);
         $this->set('sales',$dataFromSales);
-        $this->set('inv',$inv);
         $this->set('pic', $this->Auth->user('username'));
     }
 
@@ -214,10 +226,24 @@ class MitController extends AppController
             if ($this->Mit->save($mit)) {
                 $this->Flash->success(__('The mit has been saved.'));
 
-                return $this->redirect(['action' => 'verify',$id]);
+                return $this->redirect(['action' => 'request']);
             }
             $this->Flash->error(__('The mit could not be saved. Please, try again.'));
         }
+        $this->loadModel('Inventory');
+        if($dataFromEng != null ){
+            foreach ($dataFromEng as $data){
+            $inv = $this->Inventory->find('all')
+                ->Where(['part_no'=> $data->partNo])
+                ->Where(['part_name'=> $data->partName]);
+                foreach($inv as $in){
+                    $data->inv = $in;   
+                }
+            }
+        }
+        $mit = $this->Mit->find('all')
+            ->Where(['id'=>$id]);
+        $this->set('mit',$mit);
         $this->set(compact('mit'));
         $this->set('eng',$dataFromEng);
         $this->set('sales',$dataFromSales);
@@ -262,40 +288,29 @@ class MitController extends AppController
             if ($this->Mit->save($mit)) {
                 $this->Flash->success(__('The mit has been saved.'));
 
-                return $this->redirect(['action' => 'add',$id]);
+                return $this->redirect(['action' => 'request']);
             }
             $this->Flash->error(__('The mit could not be saved. Please, try again.'));
         }
-        $this->set(compact('mit'));
+        $this->loadModel('Inventory');
+        if($dataFromEng != null ){
+            foreach ($dataFromEng as $data){
+            $inv = $this->Inventory->find('all')
+                ->Where(['part_no'=> $data->partNo])
+                ->Where(['part_name'=> $data->partName]);
+                foreach($inv as $in){
+                    $data->inv = $in;   
+                }
+            }
+        }
+        $mit = $this->Mit->find('all')
+            ->Where(['id'=>$id]);
+        $this->set('mit',$mit);
         $this->set('eng',$dataFromEng);
         $this->set('sales',$dataFromSales);
         $this->set('pic', $this->Auth->user('username'));
     }
-
-    public function acknowledge($id = null){
-        $this->loadModel('Mit');
-        $urlToSales = 'http://salesmodule.acumenits.com/api/all-data';
-
-        $optionsForSales = [
-            'http' => [
-                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-                'method'  => 'GET'
-            ]
-        ];
-        $contextForSales  = stream_context_create($optionsForSales);
-        $resultFromSales = file_get_contents($urlToSales, false, $contextForSales);
-        if ($resultFromSales === FALSE) {
-            echo 'ERROR!!';
-        }
-        $dataFromSales = json_decode($resultFromSales);
-        $status = $this->Mit->find('all')
-            ->Where(['so_item_id' => $id]);
-        $this->set('sales',$dataFromSales);
-        $this->set('status',$status);
-        $this->set('pic', $this->Auth->user('username'));
-    }
-
-    public function acknowledgeVerify($id=null){
+    public function acknowledge($id=null){
         $urlToSales = 'http://salesmodule.acumenits.com/api/item-details/'.$id;
 
         $optionsForSales = [
@@ -335,11 +350,24 @@ class MitController extends AppController
             if ($this->Mit->save($mit)) {
                 $this->Flash->success(__('The mit has been saved.'));
 
-                return $this->redirect(['action' => 'acknowledge',$id]);
+                return $this->redirect(['action' => 'request']);
             }
             $this->Flash->error(__('The mit could not be saved. Please, try again.'));
         }
-        $this->set(compact('mit'));
+        $this->loadModel('Inventory');
+        if($dataFromEng != null ){
+            foreach ($dataFromEng as $data){
+            $inv = $this->Inventory->find('all')
+                ->Where(['part_no'=> $data->partNo])
+                ->Where(['part_name'=> $data->partName]);
+                foreach($inv as $in){
+                    $data->inv = $in;   
+                }
+            }
+        }
+        $mit = $this->Mit->find('all')
+            ->Where(['id'=>$id]);
+        $this->set('mit',$mit);
         $this->set('eng',$dataFromEng);
         $this->set('sales',$dataFromSales);
         $this->set('pic', $this->Auth->user('username'));
@@ -360,7 +388,7 @@ class MitController extends AppController
         }
         $dataFromSales = json_decode($resultFromSales);
         $mit = $this->Mit->find('all')
-            ->Where(['status'=>'acknowledged-verify']);
+            ->Where(['status'=>'acknowledged']);
         foreach ($mit as $m){
             foreach ($dataFromSales as $sales){
                 $m->sales = $sales;
@@ -417,17 +445,17 @@ class MitController extends AppController
                 ->where(['status' => 'requested']);
         }
 
-        if($this->Auth->user('role') == 'approve_1'){
+        if($this->Auth->user('role') == 'approve-1'){
             $mit = $this->Mit->find('all')
                 ->where(['status' => 'verified']);
         }
-        if($this->Auth->user('role') == 'approve_2'){
+        if($this->Auth->user('role') == 'approve-2'){
             $mit = $this->Mit->find('all')
                 ->where(['status' => 'approved']);
         }
-        if($this->Auth->user('role') == 'approve_3'){
-            $mit = $this->Mit->find('all')
-                ->where(['status' => 'acknowledged']);
+        if($this->Auth->user('role') == 'approve-3' || $this->Auth->user('role') == 'approve-4'){
+            $this->loadModel('SerialNumber');
+            $this->redirect(array("controller" => "SerialNumber", "action" => "dashboard"));
         }
         $this->set(compact('mit'));
     }
@@ -447,17 +475,12 @@ class MitController extends AppController
             }
         }
         if(isset($user['role']) && $user['role'] === 'approve-1'){
-            if(in_array($this->request->action, ['approve', 'edit'])){
+            if(in_array($this->request->action, ['approval', 'edit'])){
                 return true;
             }
         }
         if(isset($user['role']) && $user['role'] === 'approve-2'){
             if(in_array($this->request->action, ['acknowledge', 'edit'])){
-                return true;
-            }
-        }
-        if(isset($user['role']) && $user['role'] === 'approve-3'){
-            if(in_array($this->request->action, ['acknowledgeVerify', 'edit'])){
                 return true;
             }
         }

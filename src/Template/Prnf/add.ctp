@@ -15,7 +15,7 @@ prn page
                             <label for="mr-date" class="planner-year mit-label-item">Date <span class="planner-fright">:</span></label>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <input type="text" name="date" class="form-control datepicker" id="mr-date">
+                            <input type="text" name="date" class="form-control datepicker" id="mr-date" value="<?php echo date('m/d/Y'); ?>">
                         </div>
                     </div>
 

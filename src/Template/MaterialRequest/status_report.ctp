@@ -46,7 +46,7 @@
                         <td><?= $item->part_no ?></td>
                         <td><?= $item->part_desc ?></td>
                         <td>N/A</td>
-                        <td>N/A</td>
+                        <td><?= $item->quantity ?></td>
                         <td><a href="#">View</a></td>
                         <td><?= $m->created_by ?></td>
                         <td>Production</td>

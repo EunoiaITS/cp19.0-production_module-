@@ -45,33 +45,7 @@ class Prnf extends Entity
      * @var array
      */
     protected $_accessible = [
-        'date' => true,
-        'part_no' => true,
-        'quantity' => true,
-        'description' => true,
-        'reason' => true,
-        'document' => true,
-        'created_by' => true,
-        'status' => true,
-        'verified_by' => true,
-        'remark' => true,
-        'approved1_by' => true,
-        'approved2_by' => true,
-        'approved3_by' => true,
-        'approved4_by' => true,
-        'approved2_investigation' => true,
-        'approved2_reason' => true,
-        'approved2_document' => true,
-        'approved2_remark' => true,
-        'approved3_correction' => true,
-        'approved3_reason' => true,
-        'approved3_document' => true,
-        'approved3_remark' => true,
-        'approved4_conclusion' => true,
-        'approved4_reason' => true,
-        'approved4_document' => true,
-        'approved4_remark' => true,
-        'created' => true,
-        'modified' => true
+        '*' => true,
+        'id' => false,
     ];
 }

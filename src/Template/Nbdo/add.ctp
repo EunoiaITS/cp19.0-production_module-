@@ -14,7 +14,7 @@
                                 <label for="fgtt-form" class="cn-text">Date <span class="planner-fright">:</span></label>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <input name="date" type="text" class="form-control datepicker" id="fgtt-form">
+                                <input name="date" type="text" class="form-control datepicker" id="fgtt-form" value="<?php echo date('m/d/Y'); ?>">
                             </div>
                         </div>
                         <div class="form-group">

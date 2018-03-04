@@ -10,6 +10,14 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <div class="col-sm-3 col-xs-6">
+                                <p class="cn-text">SO No <span class="planner-fright">:</span></p>
+                            </div>
+                            <div class="col-sm-5 col-xs-6">
+                                <p class="cn-main-text"><?= $sn->so_no ?></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3 col-xs-6">
                                 <p class="cn-text">Model <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
@@ -55,7 +63,7 @@
                                 <p class="cn-text">Create By <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text">Khamal</p>
+                                <p class="cn-main-text"><?= $sn->created_by ?></p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -79,7 +87,7 @@
                                 <p class="cn-text">Verify <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text">Tamiri</p>
+                                <p class="cn-main-text"><?= $pic ?></p>
                             </div>
                         </div>
                     </div>
@@ -129,7 +137,7 @@
                 <div class="prepareted-by-csn">
                     <form method="post" action="<?php echo $this->url->build(['controller' => 'SerialNumber', 'action' => 'edit', $sn->id]); ?>">
                         <input type="hidden" name="status" value="verified">
-                        <input type="hidden" name="verified_by" value="manager">
+                        <input type="hidden" name="verified_by" value="<?= $pic ?>">
                         <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>
                         <button type="submit" class="button btn btn-info">Verify</button>
                     </form>

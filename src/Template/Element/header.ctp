@@ -12,7 +12,7 @@
                     <p class="menu-i">menu</p>
                 </div>
                 <div class="home-icon">
-                    <h2><a href="<?php echo $this->url->build(['controller' => 'SerialNumber', 'action' => 'dashboard']); ?>">Indkom Sdn Bhd.</a><h2>
+                    <h2><a href="<?php echo $this->Url->build(['controller' => 'SerialNumber', 'action' => 'dashboard']); ?>">Indkom Sdn Bhd.</a><h2>
                 </div>
             </div>
             <div class="col-sm-5 col-md-6 col-md-offset-1 col-sm-offset-0 col-lg-offset-2 col-lg-5 col-xs-12">
@@ -25,7 +25,7 @@
                         <li><a href="#"><img class="img-icon" src="<?php echo $this->request->webroot.'assets/img/file-1.png'; ?>" alt=""></a></li>
                         <li><a href="#"><img class="img-icon" src="<?php echo $this->request->webroot.'assets/img/file-2.png'; ?>" alt=""></a></li>
                         <li><a href="#" onclick="jQuery.print('#ele3')"><i class="fa fa-print fa-2x"></i></a></li>
-                        <li><a href="<?php echo $this->url->build(['controller' => 'Users', 'action' => 'logout']); ?>"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+                        <li><a href="<?php echo $this->Url->build(['controller' => 'Users', 'action' => 'logout']); ?>"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
                     </ul>
                 </div>
             </div>

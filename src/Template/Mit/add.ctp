@@ -13,7 +13,7 @@ MiT form page
                                 <p class="cn-text">Date <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text">01/01/2018</p>
+                                <p class="cn-main-text"><?php $d = strtotime($sales->so->date);echo date('m/d/Y',$d)?></p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -79,7 +79,7 @@ MiT form page
                                 <p class="cn-text text-uppercase">MIT NO <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text text-uppercase">MIT 12345</p>
+                                <p class="cn-main-text text-uppercase">MIT <?= $mit_no?></p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -145,15 +145,17 @@ MiT form page
                             <td><?= $en->partName?></td>
                             <td><?= $en->quality?></td>
                             <td><?= ($sales->quantity * $en->quality)?></td>
-                            <td><?php foreach($inv as $i){echo $i->current_quantity;}?></td>
-                            <td></td>
+                            <td><?php if(isset($en->inv->current_quantity)){
+                            echo $en->inv->current_quantity; } ?></td>
+                            <td><?php if(isset($en->inv->current_quantity)){
+                            echo (($sales->quantity * $en->quality)-$en->inv->current_quantity);}?></td>
                         </tr>
                         <?php endforeach;?>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <input type="hidden" name="date" value="01/01/2018">
+            <input type="hidden" name="date" value="<?php $d = strtotime($sales->so->date);echo date('m/d/Y',$d)?>">
             <input type="hidden" name="so_item_id" value="<?= $sales->id ?>">
             <input type="hidden" name="status" value="requested">
             <input type="hidden" name="created_by" value="requester">

@@ -36,13 +36,13 @@
                                 <td><?= $s->version ?></td>
                                 <td><?= $s->type1 ?></td>
                                 <td><?= $s->type2 ?></td>
-                                <td><?php if(date("M-y", strtotime("-3 month")) == date('M-y', strtotime($s->modified))){ echo $s->quantity; } ?></td>
-                                <td><?php if(date("M-y", strtotime("-2 month")) == date('M-y', strtotime($s->modified))){ echo $s->quantity; } ?></td>
-                                <td><?php if(date("M-y", strtotime("-1 month")) == date('M-y', strtotime($s->modified))){ echo $s->quantity; } ?></td>
-                                <td><?php if(date("M-y", strtotime("0 month")) == date('M-y', strtotime($s->modified))){ echo $s->quantity; } ?></td>
-                                <td><?php if(date("M-y", strtotime("1 month")) == date('M-y', strtotime($s->modified))){ echo $s->quantity; } ?></td>
-                                <td><?php if(date("M-y", strtotime("2 month")) == date('M-y', strtotime($s->modified))){ echo $s->quantity; } ?></td>
-                                <td><?php if(date("M-y", strtotime("3 month")) == date('M-y', strtotime($s->modified))){ echo $s->quantity; } ?></td>
+                                <td><?php if(date("M-y", strtotime("-3 month")) == date('M-y', strtotime($s->modified))){ echo $s->quantity; }else{echo '0';} ?></td>
+                                <td><?php if(date("M-y", strtotime("-2 month")) == date('M-y', strtotime($s->modified))){ echo $s->quantity; }else{echo '0';} ?></td>
+                                <td><?php if(date("M-y", strtotime("-1 month")) == date('M-y', strtotime($s->modified))){ echo $s->quantity; }else{echo '0';} ?></td>
+                                <td><?php if(date("M-y", strtotime("0 month")) == date('M-y', strtotime($s->modified))){ echo $s->quantity; }else{echo '0';} ?></td>
+                                <td><?php if(date("M-y", strtotime("1 month")) == date('M-y', strtotime($s->modified))){ echo $s->quantity; }else{echo '0';} ?></td>
+                                <td><?php if(date("M-y", strtotime("2 month")) == date('M-y', strtotime($s->modified))){ echo $s->quantity; }else{echo '0';} ?></td>
+                                <td><?php if(date("M-y", strtotime("3 month")) == date('M-y', strtotime($s->modified))){ echo $s->quantity; }else{echo '0';} ?></td>
                             </tr>
                         <?php endforeach; ?>
                         </tbody>

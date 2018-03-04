@@ -25,7 +25,32 @@ class PrnfController extends AppController
      */
     public function index()
     {
-        $prnf = $this->paginate($this->Prnf);
+        if($this->Auth->user('role') == 'requester'){
+            $prnf = $this->Prnf->find('all')
+                ->where(['status' => 'requested'])
+                ->orWhere(['status' => 'rejected']);
+        }
+        if($this->Auth->user('role') == 'verifier'){
+            $prnf = $this->Prnf->find('all')
+                ->where(['status' => 'requested']);
+        }
+
+        if($this->Auth->user('role') == 'approve-1'){
+            $prnf = $this->Prnf->find('all')
+                ->where(['status' => 'verified']);
+        }
+        if($this->Auth->user('role') == 'approve-2'){
+            $prnf = $this->Prnf->find('all')
+                ->where(['status' => 'approved']);
+        }
+        if($this->Auth->user('role') == 'approve-3'){
+            $prnf = $this->Prnf->find('all')
+                ->where(['status' => 'approved1']);
+        }
+        if($this->Auth->user('role') == 'approve-4'){
+            $prnf = $this->Prnf->find('all')
+                ->where(['status' => 'approved2']);
+        }
 
         $this->set(compact('prnf'));
     }
@@ -254,39 +279,15 @@ class PrnfController extends AppController
         $this->set(compact('prnf'));
 
     }
+    public function statusReport(){
+        
+    }
     public function report(){
-        if($this->Auth->user('role') == 'requester'){
-            $prnf = $this->Prnf->find('all')
-                ->where(['status' => 'requested'])
-                ->orWhere(['status' => 'rejected']);
-        }
-        if($this->Auth->user('role') == 'verifier'){
-            $prnf = $this->Prnf->find('all')
-                ->where(['status' => 'requested']);
-        }
-
-        if($this->Auth->user('role') == 'approve_1'){
-            $prnf = $this->Prnf->find('all')
-                ->where(['status' => 'verified']);
-        }
-        if($this->Auth->user('role') == 'approve_2'){
-            $prnf = $this->Prnf->find('all')
-                ->where(['status' => 'approved']);
-        }
-        if($this->Auth->user('role') == 'approve_3'){
-            $prnf = $this->Prnf->find('all')
-                ->where(['status' => 'approved1']);
-        }
-        if($this->Auth->user('role') == 'approve_4'){
-            $prnf = $this->Prnf->find('all')
-                ->where(['status' => 'approved2']);
-        }
-
-        $this->set(compact('prnf'));
+        
     }
 
     public function isAuthorized($user){
-        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'report' || $this->request->getParam('action') === 'view') {
+        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'statusReport' || $this->request->getParam('action') === 'view' || $this->request->getParam('action') === 'report') {
             return true;
         }
 

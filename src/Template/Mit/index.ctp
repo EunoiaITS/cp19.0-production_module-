@@ -33,7 +33,9 @@ Production Planner page
                             <tbody class="csn-text-up">
                             <?php $i=0;foreach ($sales as $s){?>
                                 <?php foreach ($s->soi as $item){?>
-                                    <?php $i ++;?>
+                                    <?php
+                                    if(!in_array($item->id,$mit)){
+                                        $i ++;?>
                                     <tr>
                                         <td><?php echo $i;?></td>
                                         <td><?= $s->poNo;?></td>
@@ -49,7 +51,7 @@ Production Planner page
                                         <td><?= $item->quantity;?></td>
                                         <td><a href="<?php echo $this->Url->build(['controller'=>'mit','action'=>'add',$item->id])?>">Select</a></td>
                                     </tr>
-                                <?php }}?>
+                                <?php }}}?>
                             </tbody>
                         </table>
                     </div>

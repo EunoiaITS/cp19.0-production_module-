@@ -34,9 +34,13 @@ class ScnController extends AppController
                 ->where(['status' => 'requested']);
         }
 
-        if($this->Auth->user('role') == 'approve_1'){
+        if($this->Auth->user('role') == 'approve-1'){
             $scn = $this->Scn->find('all')
                 ->where(['status' => 'verified']);
+        }
+        if($this->Auth->user('role') == 'approve-2' || $this->Auth->user('role') == 'approve-3' || $this->Auth->user('role') == 'approve-4'){
+            $this->loadModel('SerialNumber');
+            $this->redirect(array("controller" => "SerialNumber", "action" => "dashboard"));
         }
 
         $this->set(compact('scn'));

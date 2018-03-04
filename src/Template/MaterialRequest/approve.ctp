@@ -124,7 +124,7 @@
                     <input type="hidden" name="approved_by" value="<?= $pic ?>">
                     <input type="hidden" name="status" value="approved">
                     <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>
-                    <button type="submit" class="button btn btn-info">Verify</button>
+                    <button type="submit" class="button btn btn-info">Approve</button>
                 </form>
             </div>
         </div>

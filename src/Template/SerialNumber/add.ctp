@@ -14,7 +14,7 @@
                                 <label for="cn-type-date" class="planner-year">Date <span class="planner-fright">:</span></label>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <input name="date" type="text" class="form-control datepicker" id="cn-type-date" required="">
+                                <input name="date" type="text" class="form-control datepicker" value="<?php echo date('m/d/Y')?>" id="cn-type-date" required="">
                             </div>
                         </div>
                         <div class="form-group">
@@ -30,7 +30,13 @@
                                 <label for="model-planer" class="planner-year">Model <span class="planner-fright">:</span></label>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <input name="model" type="text" class="form-control" id="model-planer" required="">
+                                <select name="model" class="form-control" id="model-planer" required="">
+                                    <option value="RMU INS 24">RMU INS 24</option>
+                                    <option value="RMU INS 24(VIOTORZEI)">RMU INS 24(VIOTORZEI)</option>
+                                    <option value="CSU">CSU</option>
+                                    <option value="JMW">JMW</option>
+                                    <option value="JMW - ARAB	">JMW - ARAB	</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -38,7 +44,20 @@
                                 <label for="cn-version" class="planner-year">Version <span class="planner-fright">:</span></label>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <input name="version" type="text" class="form-control" id="cn-version" required="">
+                                <select name="version" class="form-control" id="cn-version" required="">
+                                    <option value="ZZT">ZZT</option>
+                                    <option value="ZZTT">ZZTT</option>
+                                    <option value="ZZZ">ZZZ</option>
+                                    <option value="ZZZT">ZZZT</option>
+                                    <option value="ZZZTT">ZZZTT</option>
+                                    <option value="ZTTZ">ZTTZ</option>
+                                    <option value="ZTZ">ZTZ</option>
+                                    <option value="ZZTZ">ZZTZ</option>
+                                    <option value="ZTT">ZTT</option>
+                                    <option value="ZTTT">ZTTT</option>
+                                    <option value="ZTTTT">ZTTTT</option>
+                                    <option value="ZT">ZT</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -46,7 +65,7 @@
                                 <label for="cn-type-1" class="planner-year">Type 1 <span class="planner-fright">:</span></label>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <input name="type1" type="text" class="form-control" id="cn-type-1" required="">
+                                <input name="type1" type="text" class="form-control" id="cn-type-1">
                             </div>
                         </div>
                         <div class="form-group">
@@ -54,7 +73,7 @@
                                 <label for="cn-type-2" class="planner-year">Type 2 <span class="planner-fright">:</span></label>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <input name="type2" type="text" class="form-control" id="cn-type-2" required="">
+                                <input name="type2" type="text" class="form-control" id="cn-type-2">
                             </div>
                         </div>
                         <div class="form-group">
@@ -72,7 +91,7 @@
                                 <p class="cn-text">Create By <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text"><?= $pic_name ?></p>
+                                <p class="cn-main-text"><?= $pic ?></p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -146,6 +165,35 @@
             var seq = parseInt(sequence);
             $('#create-table').on('click', function(e){
                 e.preventDefault();
+                var version = $('#cn-version').val();
+                var model_no = '';
+                if(version === 'ZZT'){
+                    model_no = '21';
+                }else if(version === 'ZZTT'){
+                    model_no = '22';
+                }else if(version === 'ZZZ'){
+                    model_no = '30';
+                }else if(version === 'ZZZT'){
+                    model_no = '31';
+                }else if(version === 'ZZZTT'){
+                    model_no = '32';
+                }else if(version === 'ZTTZ'){
+                    model_no = 'S22';
+                }else if(version === 'ZTZ'){
+                    model_no = 'S21';
+                }else if(version === 'ZZTZ'){
+                    model_no = 'S31';
+                }else if(version === 'ZTT'){
+                    model_no = 'W11';
+                }else if(version === 'ZTTT'){
+                    model_no = 'W12';
+                }else if(version === 'ZTTTT'){
+                    model_no = 'W22';
+                }else if(version === 'ZT'){
+                    model_no = 'W01';
+                }else{
+                    model_no = '';
+                }
                 var formDate = $('#cn-type-date').val();
                 var formModel = $('#model-planer').val();
                 var formVersion = $('#cn-version').val();
@@ -162,9 +210,9 @@
                     '<td>'+formVersion+'</td>'+
                     '<td>'+formType1+'</td>'+
                     '<td>'+formType2+'</td>'+
-                    '<td><input name="year'+i+'" type="text" class="form-control" required=""></td>'+
-                    '<td><input name="month'+i+'" type="text" class="form-control" required=""></td>'+
-                    '<td></td>'+
+                    '<td><input name="year'+i+'" type="text" class="form-control" value="<?php echo date('Y');?>" required=""></td>'+
+                    '<td><input name="month'+i+'" type="text" class="form-control" value="<?php echo date('m');?>" required=""></td>'+
+                    '<td>'+model_no+'</td>'+
                     '<td>'+seq+'</td>'+
                     '</tr>';
                 }

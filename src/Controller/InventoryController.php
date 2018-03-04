@@ -100,7 +100,7 @@ class InventoryController extends AppController
                     }
                     $this->Flash->success(__('The inventory has been saved.'));
 
-                    return $this->redirect(['action' => 'view']);
+                    return $this->redirect(['action' => 'index']);
                 }
             $this->Flash->error(__('The inventory could not be saved. Please, try again.'));
         }
@@ -131,7 +131,7 @@ class InventoryController extends AppController
             if ($this->Inventory->save($inv_id)) {
                 $this->Flash->success(__('The inventory has been saved.'));
 
-                return $this->redirect(['action' => 'view']);
+                return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The inventory could not be saved. Please, try again.'));
     }
@@ -158,7 +158,7 @@ class InventoryController extends AppController
     }
 
     public function isAuthorized($user){
-        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'add' || $this->request->getParam('action') === 'view' ) {
+        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'add' || $this->request->getParam('action') === 'view' || $this->request->getParam('action') === 'edit') {
             return true;
         }
 

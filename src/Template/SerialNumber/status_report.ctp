@@ -15,6 +15,7 @@
                         <tr>
                             <th>No</th>
                             <th>Date</th>
+                            <th>SO No</th>
                             <th>Model</th>
                             <th>Version</th>
                             <th>Type 1</th>
@@ -32,15 +33,17 @@
                         </thead>
                         <tbody class="csn-text-up">
                         <?php $count = 0; foreach($sn as $s): ?>
+                        <?php foreach($s->items as $item): ?>
                             <?php $count++; ?>
                         <tr>
                             <td><?php echo $count; ?></td>
                             <td><?= $s->date ?></td>
+                            <td><?= $s->so_no ?></td>
                             <td><?= $s->model ?></td>
                             <td><?= $s->version ?></td>
                             <td><?= $s->type1 ?></td>
                             <td><?= $s->type2 ?></td>
-                            <td><?= $s->quantity ?></td>
+                            <td><?= $item->id ?></td>
                             <td><?= $s->created_by ?></td>
                             <td>Production</td>
                             <td>Planner</td>
@@ -50,7 +53,7 @@
                             <td><?= $s->approved_by ?></td>
                             <td><?= $s->remark ?></td>
                         </tr>
-                        <?php endforeach; ?>
+                        <?php endforeach; endforeach; ?>
                         </tbody>
                     </table>
                 </div>

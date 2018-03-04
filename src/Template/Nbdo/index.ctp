@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <div class="part-title-planner text-uppercase text-center"><b>Material Request Report</b></div>
+                <div class="part-title-planner text-uppercase text-center"><b>NON BILLING DELIVERY ORDER</b></div>
             </div><!-- end mit title -->
         </div>
 

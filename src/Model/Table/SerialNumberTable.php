@@ -54,49 +54,41 @@ class SerialNumberTable extends Table
         $validator
             ->scalar('date')
             ->maxLength('date', 255)
-            ->requirePresence('date', 'create')
             ->notEmpty('date');
 
         $validator
             ->scalar('so_no')
             ->maxLength('so_no', 255)
-            ->requirePresence('so_no', 'create')
             ->notEmpty('so_no');
 
         $validator
             ->scalar('model')
             ->maxLength('model', 255)
-            ->requirePresence('model', 'create')
             ->notEmpty('model');
 
         $validator
             ->scalar('version')
             ->maxLength('version', 255)
-            ->requirePresence('version', 'create')
             ->notEmpty('version');
 
         $validator
             ->scalar('type1')
             ->maxLength('type1', 255)
-            ->requirePresence('type1', 'create')
-            ->notEmpty('type1');
+            ->allowEmpty('type1');
 
         $validator
             ->scalar('type2')
             ->maxLength('type2', 255)
-            ->requirePresence('type2', 'create')
-            ->notEmpty('type2');
+            ->allowEmpty('type2');
 
         $validator
             ->scalar('quantity')
             ->maxLength('quantity', 255)
-            ->requirePresence('quantity', 'create')
             ->notEmpty('quantity');
 
         $validator
             ->scalar('created_by')
             ->maxLength('created_by', 255)
-            ->requirePresence('created_by', 'create')
             ->notEmpty('created_by');
 
         $validator

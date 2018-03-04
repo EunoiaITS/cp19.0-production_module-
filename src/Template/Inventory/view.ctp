@@ -6,7 +6,7 @@ Production Planner page
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <div class="part-title-planner text-uppercase text-center"><b>Inventory Create</b></div>
+                <div class="part-title-planner text-uppercase text-center"><b>Inventory Report</b></div>
             </div><!-- end mit title -->
         </div>
 

@@ -13,7 +13,7 @@ MiT form page
                                 <p class="cn-text">Date <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text">01/01/2018</p>
+                                <p class="cn-main-text"><?php $d = strtotime($sales->so->date);echo date('m/d/Y',$d)?></p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -29,7 +29,7 @@ MiT form page
                                 <p class="cn-text">Customer Name <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text text-uppercase"><?= $sales->cus->name?></p>
+                                <p class="cn-main-text text-uppercase"><?= $sales->cus->name ?></p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -79,7 +79,7 @@ MiT form page
                                 <p class="cn-text text-uppercase">MIT NO <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text text-uppercase">MIT 12345</p>
+                                <p class="cn-main-text text-uppercase">MIT <?php foreach($mit as $m){echo $m->id;}?></p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -87,7 +87,7 @@ MiT form page
                                 <p class="cn-text">Create By <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text"><?= $pic?></p>
+                                <p class="cn-main-text"><?php foreach($mit as $m){echo $m->created_by;}?></p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -111,10 +111,7 @@ MiT form page
                                 <label class="cn-text" for="mit-form">Location <span class="planner-fright">:</span></label>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <select name="location" class="form-control" id="mit-form">
-                                    <option value="indkom_16">INDKOM 16</option>
-                                    <option value="indkom_24">INDKOM 24</option>
-                                </select>
+                                <p class="cn-main-text"><?php foreach($mit as $m){echo $m->location;}?></p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -122,7 +119,7 @@ MiT form page
                                 <p class="cn-text">Verify <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text">Rusly</p>
+                                <p class="cn-main-text"><?= $pic ?></p>
                             </div>
                         </div>
                     </div>
@@ -153,8 +150,10 @@ MiT form page
                                     <td><?= $en->partName?></td>
                                     <td><?= $en->quality?></td>
                                     <td><?= ($sales->quantity * $en->quality)?></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td><?php if(isset($en->inv->current_quantity)){
+                            echo $en->inv->current_quantity; } ?></td>
+                            <td><?php if(isset($en->inv->current_quantity)){
+                            echo (($sales->quantity * $en->quality)-$en->inv->current_quantity);}?></td>
                                 </tr>
                             <?php endforeach;?>
                             </tbody>

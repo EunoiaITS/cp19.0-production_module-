@@ -6,7 +6,7 @@ Production Planner page
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <div class="part-title-planner text-uppercase text-center"><b>Production Reject Note Approval Status</b></div>
+                <div class="part-title-planner text-uppercase text-center"><b>Production Reject Request</b></div>
             </div><!-- end mit title -->
         </div>
 
@@ -21,54 +21,31 @@ Production Planner page
                     <tr>
                         <th rowspan="2">No</th>
                         <th rowspan="2">Date</th>
-                        <th rowspan="2">Prn No</th>
                         <th rowspan="2">Part No</th>
-                        <th rowspan="2">Part Name</th>
-                        <th rowspan="2" >Description</th>
-                        <th rowspan="2">QTY</th>
+                        <th rowspan="2">Quantity</th>
+                        <th rowspan="2">Location</th>
+                        <th rowspan="2">Description</th>
                         <th rowspan="2">Document</th>
                         <th rowspan="2">Create By</th>
-                        <th rowspan="2">Section</th>
-                        <th colspan="4">Production</th>
-                        <th colspan="2">Technical</th>
-                        <th colspan="4">Quality Assurance</th>
-                    </tr>
-                    <tr class="table-cell">
-                        <th>Status</th>
-                        <th>Verify By</th>
-                        <th>Status</th>
-                        <th>Approve</th>
-                        <th>Status</th>
-                        <th>Approve 2</th>
-                        <th>Status</th>
-                        <th>Approve 3</th>
-                        <th>Status</th>
-                        <th>Approve 4</th>
+                        <th rowspan="2">
+                            <?php $action = ''; if($role == 'verifier'){$action = 'verify';echo 'Verify';}elseif($role == 'approve-1'){$action = 'approval1';echo 'Approve';}elseif($role == 'approve-2'){$action = 'approval2';echo 'Approve';}elseif($role == 'approve-3'){$action = 'approval3';echo 'Approve';}elseif($role == 'approve-4'){$action = 'approval4';echo 'Approve';}else{$action = 'edit';echo 'Edit';} ?>
+                            </th>
                     </tr>
                     </thead>
                     <tbody class="csn-text-up">
+                    <?php $i=0;foreach($prnf as $pr):$i++?>
                     <tr>
-                        <td>1</td>
-                        <td>15/10/2017</td>
-                        <td>MR12345</td>
-                        <td>0264</td>
-                        <td>Spring Shaft Assy</td>
-                        <td>SPRING SHAFT TAK BOLE DIMASUKKAN PADA LUBANG SOCKET TRIPPING LEVER ASSY PROSES PERTAMA UNTUK MECH TGAGAL</td>
-                        <td>27</td>
-                        <td><a href="#">View</a></td>
-                        <td>Malik</td>
-                        <td>Sub Assy Ins</td>
-                        <td class="colored-csn">Verified</td>
-                        <td>Rusli</td>
-                        <td class="colored-csn">Approved</td>
-                        <td>Tarmimi</td>
-                        <td  class="colored-csn">Approved</td>
-                        <td>Zainal</td>
-                        <td  class="colored-csn">Approved</td>
-                        <td>Zul-khairi</td>
-                        <td></td>
-                        <td></td>
+                            <td><?= $i?></td>
+                            <td><?= $pr->date?></td>
+                            <td><?= $pr->part_no?></td>
+                            <td><?= $pr->quantity?></td>
+                            <td><?= $pr->location?></td>
+                            <td><?= $pr->description?></td>
+                            <td><a href="<?= $pr->document?>"><?php if(isset($pr->document)){ echo "View";}else{echo '';}?></td>
+                            <td><?= $pr->created_by?></td>
+                            <td><a href="<?php echo $this->url->build(['controller' => 'Prnf', 'action' => $action, $pr->id]); ?>"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve-1'){echo 'Approve';}elseif($role == 'approve-2'){echo 'Approve';}elseif($role == 'approve-3'){echo 'Approve';}elseif($role == 'approve-4'){echo 'Approve';}else{echo 'Edit';} ?></a></td>
                     </tr>
+                    <?php endforeach;?>
                     </tbody>
                 </table>
             </div>
