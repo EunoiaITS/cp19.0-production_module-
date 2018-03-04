@@ -14,10 +14,16 @@
                         <thead>
                         <tr>
                             <th>No</th>
-                            <th>Date</th>
-                            <th>Location</th>
-                            <th>Month</th>
-                            <th>Year</th>
+                            <th>Tender No</th>
+                            <th>So No</th>
+                            <th>Customer Code</th>
+                            <th>Customer Name</th>
+                            <th>Date Completion</th>
+                            <th>Delivery Date</th>
+                            <th>Model</th>
+                            <th>Version</th>
+                            <th>Type 1</th>
+                            <th>Type 2</th>
                             <th>QTY</th>
                             <th>Create By</th>
                             <th>Status</th>
@@ -29,14 +35,22 @@
                         </tr>
                         </thead>
                         <tbody class="csn-text-up">
-                        <?php foreach($ps as $p): ?>
+                        <?php $count = 0; foreach($ps as $p): ?>
+                            <?php foreach($sales->{$p->id} as $s): ?>
+                                <?php foreach($s->soi as $item): $count ++; ?>
                         <tr>
-                            <td><?= $p->id ?></td>
-                            <td><?= $p->date ?></td>
-                            <td><?= $p->location ?></td>
-                            <td><?= $p->month ?></td>
-                            <td><?= $p->year ?></td>
-                            <td><?= $p->total_items ?></td>
+                            <td><?= $count ?></td>
+                            <td><?= $s->tenderNo ?></td>
+                            <td><?= $s->salesorder_no ?></td>
+                            <td><?php foreach($s->cus as $cus){echo $cus->customerID;} ?></td>
+                            <td><?php foreach($s->cus as $cus){echo $cus->name;} ?></td>
+                            <td><?= $s->delivery_date ?></td>
+                            <td><?= (isset($s->fgtt->date) ? $s->fgtt->date : '') ?></td>
+                            <td><?= $item->model ?></td>
+                            <td><?= $item->version ?></td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td><?= $item->quantity ?></td>
                             <td><?= $p->created_by ?></td>
                             <td class="<?php if($p->status == 'verified'){echo 'colored-csn';}else{echo 'colored-red';} ?>"><?php if($p->status == 'verified'){echo 'Verified';}else{echo 'Pending';} ?></td>
                             <td><?= $p->verified_by ?></td>
@@ -45,7 +59,7 @@
                             <td class="<?php if($p->status == 'approval_2'){echo 'colored-csn';}else{echo 'colored-red';} ?>"><?php if($p->status == 'approval_2'){echo 'Approved';}else{echo 'Pending';} ?></td>
                             <td><?= $p->approval2_by ?></td>
                         </tr>
-                        <?php endforeach; ?>
+                        <?php endforeach; endforeach; endforeach; ?>
                         </tbody>
                     </table>
                 </div>

@@ -318,8 +318,39 @@ class PsController extends AppController
 
     public function approvalStatus(){
         $this->loadModel('PsMonthly');
+        $this->loadModel('Fgtt');
         $ps = $this->paginate($this->PsMonthly);
+        $dataFromSales = new \stdClass();
+        foreach($ps as $p){
+            $reqData = [
+                'year' => $p->year,
+                'month' => $p->month
+            ];
+            $urlToSales = 'http://salesmodule.acumenits.com/api/month-data';
+
+            $optionsForSales = [
+                'http' => [
+                    'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                    'method'  => 'POST',
+                    'content' => $reqData
+                ]
+            ];
+            $contextForSales  = stream_context_create($optionsForSales);
+            $resultFromSales = file_get_contents($urlToSales, false, $contextForSales);
+            if ($resultFromSales === FALSE) {
+                $this->Flash->error(__('No data found for the selected month. Please try again!'));
+            }
+            $dataFromSales->{$p->id} = json_decode($resultFromSales);
+            foreach($dataFromSales->{$p->id} as $sn_match){
+                $fgtts = $this->Fgtt->find('all')
+                    ->where(['so_no' => $sn_match->salesorder_no]);
+                foreach($fgtts as $fgtt){
+                    $sn_match->fgtt = $fgtt;
+                }
+            }
+        }
         $this->set(compact('ps'));
+        $this->set('sales', $dataFromSales);
     }
 
     public function report(){}

@@ -68,7 +68,7 @@ class NbdoController extends AppController
      */
     public function add()
     {
-        $urlTosSales = 'http://localhost/salesmodule/customer/all-cust';
+        $urlTosSales = 'http://salesmodule.acumenits.com/customer/all-cust';
 
         $optionsForSales = [
             'http' => [
@@ -88,7 +88,7 @@ class NbdoController extends AppController
         }
         $cust_details = rtrim($cust_details, ',');
 
-        $urlToEng = 'http://localhost/engmodule/api/all-parts';
+        $urlToEng = 'http://engmodule.acumenits.com/api/all-parts';
 
         $optionsForEng = [
             'http' => [
