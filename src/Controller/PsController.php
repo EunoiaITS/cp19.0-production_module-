@@ -192,7 +192,7 @@ class PsController extends AppController
                 $sn_match->fgtt = $fgtt;
             }
             $start    = (new \DateTime($sn_match->date))->modify('first day of this month');
-            $end      = (new \DateTime('2018-09-26'))->modify('first day of next month');
+            $end      = (new \DateTime($sn_match->delivery_date))->modify('first day of next month');
             $interval = \DateInterval::createFromDateString('1 month');
             $period   = new \DatePeriod($start, $interval, $end);
 
