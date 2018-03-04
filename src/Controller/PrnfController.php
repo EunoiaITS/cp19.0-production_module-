@@ -27,8 +27,7 @@ class PrnfController extends AppController
     {
         if($this->Auth->user('role') == 'requester'){
             $prnf = $this->Prnf->find('all')
-                ->where(['status' => 'requested'])
-                ->orWhere(['status' => 'rejected']);
+                ->where(['status' => 'requested']);
         }
         if($this->Auth->user('role') == 'verifier'){
             $prnf = $this->Prnf->find('all')
@@ -167,7 +166,7 @@ class PrnfController extends AppController
         $prnf = $this->Prnf->get($id, [
             'contain' => []
         ]);
-
+        $this->set('pic', $this->Auth->user('username'));
         $this->set('prnf', $prnf);
     }
     public function approval1($id = null)
@@ -175,7 +174,7 @@ class PrnfController extends AppController
         $prnf = $this->Prnf->get($id, [
             'contain' => []
         ]);
-
+        $this->set('pic', $this->Auth->user('username'));
         $this->set('prnf', $prnf);
     }
     public function approval2($id = null)
@@ -210,6 +209,7 @@ class PrnfController extends AppController
             $this->Flash->error(__('Approval could not be saved. Please, try again.'));
         }
         $this->set(compact('prnf'));
+        $this->set('pic', $this->Auth->user('username'));
 
     }
     public function approval3($id = null)
@@ -244,6 +244,7 @@ class PrnfController extends AppController
             $this->Flash->error(__('Approval could not be saved. Please, try again.'));
         }
         $this->set(compact('prnf'));
+        $this->set('pic', $this->Auth->user('username'));
     }
     public function approval4($id = null)
     {
@@ -277,6 +278,7 @@ class PrnfController extends AppController
             $this->Flash->error(__('Approval could not be saved. Please, try again.'));
         }
         $this->set(compact('prnf'));
+        $this->set('pic', $this->Auth->user('username'));
 
     }
     public function statusReport(){
