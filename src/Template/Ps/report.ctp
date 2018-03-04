@@ -13,7 +13,7 @@
                             <p class="cn-text">Month <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text">Nov-17</p>
+                            <p class="cn-main-text"><?php echo date('M-Y'); ?></p>
                         </div>
                     </div>
                     <div class="form-group">
@@ -54,82 +54,28 @@
                         </tr>
                         </thead>
                         <tbody class="csn-text-up">
+                        <?php $count = 0; foreach($ps as $p): ?>
+                        <?php foreach($sales->{$p->id} as $s): ?>
+                        <?php foreach($s->soi as $item): $count ++; ?>
                         <tr>
-                            <td>1</td>
-                            <td>PO 12345</td>
-                            <td>TNB 380/2017</td>
-                            <td>SO 12345</td>
-                            <td>TNB0010</td>
-                            <td>TNB Rawing</td>
-                            <td>21/01/2018</td>
-                            <td>30/01/2018</td>
-                            <td>RAMU INS2</td>
-                            <td>ZZT</td>
-                            <td>INDOOR</td>
-                            <td>Motorized</td>
-                            <td>15</td>
+                            <td><?= $count ?></td>
+                            <td><?= $s->tenderNo ?></td>
+                            <td><?= $s->salesorder_no ?></td>
+                            <td><?php foreach($s->cus as $cus){echo $cus->customerID;} ?></td>
+                            <td><?php foreach($s->cus as $cus){echo $cus->name;} ?></td>
+                            <td><?= $s->delivery_date ?></td>
+                            <td><?= (isset($s->fgtt->date) ? $s->fgtt->date : '') ?></td>
+                            <td><?= $item->model ?></td>
+                            <td><?= $item->version ?></td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td><?= $item->quantity ?></td>
                             <td>10</td>
                             <td>1</td>
                             <td>4</td>
                             <td></td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>PO 12345</td>
-                            <td>TNB 380/2017</td>
-                            <td>SO 12345</td>
-                            <td>TNB0010</td>
-                            <td>TNB Rawing</td>
-                            <td>21/01/2018</td>
-                            <td>30/01/2018</td>
-                            <td>RAMU INS2</td>
-                            <td>ZZT</td>
-                            <td>INDOOR</td>
-                            <td>Motorized</td>
-                            <td>15</td>
-                            <td>10</td>
-                            <td>1</td>
-                            <td>4</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>PO 12345</td>
-                            <td>TNB 380/2017</td>
-                            <td>SO 12345</td>
-                            <td>TNB0010</td>
-                            <td>TNB Rawing</td>
-                            <td>21/01/2018</td>
-                            <td>30/01/2018</td>
-                            <td>RAMU INS2</td>
-                            <td>ZZT</td>
-                            <td>INDOOR</td>
-                            <td>Motorized</td>
-                            <td>15</td>
-                            <td>10</td>
-                            <td>1</td>
-                            <td>4</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                                <?php endforeach; endforeach; endforeach; ?>
                         </tbody>
                     </table>
                 </div>

@@ -42,7 +42,7 @@
                                 <td><?= $s->version ?></td>
                                 <td><?= $s->type1 ?></td>
                                 <td><?= $s->type2 ?></td>
-                                <td><?= $item->id ?></td>
+                                <td><?= date('ymd', strtotime($s->date)).$item->id ?></td>
                                 <td><?= $s->created_by ?></td>
                                 <td>Production</td>
                                 <td>Planner</td>
