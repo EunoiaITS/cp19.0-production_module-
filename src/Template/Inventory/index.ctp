@@ -53,7 +53,11 @@ Production Planner page
                         <td id="level<?= $inv->id; ?>"><?= $inv->level; ?></td>
                         <td id="min-stock<?= $inv->id; ?>"><?= $inv->min_stock; ?></td>
                         <td id="max-stock<?= $inv->id; ?>"><?= $inv->max_stock; ?></td>
+                        <?php if(isset($pic)){if($pic == "requester"){?>
                         <td><button id="modal-popup" class="btn btn-info my_button" id="view<?= $inv->id; ?>" data-toggle="modal" data-target="#myModal" rel="<?= $inv->id; ?>">Edit</button></td>
+                        <?php }else{?>
+                            <td><button class="btn btn-info my_button">View</button></td>
+                        <?php }}?>
                     </tr>
                         <span class="hidden" id="edit-id<?= $inv->id;?>"><?= $inv->id; ?></span>
                     <?php endforeach;?>
