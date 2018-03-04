@@ -32,10 +32,10 @@ class PsController extends AppController
                 ->where(['status' => 'requested']);
         }elseif($this->Auth->user('role') == 'approve-1'){
             $ps = $this->PsMonthly->find('all')
-                ->where(['status' => 'approval_1']);
+                ->where(['status' => 'verified']);
         }elseif($this->Auth->user('role') == 'approve-2'){
             $ps = $this->PsMonthly->find('all')
-                ->where(['status' => 'approval_2']);
+                ->where(['status' => 'approval-1']);
         }else{
             $ps = $this->PsMonthly->find('all')
                 ->where(['status' => 'requested', 'status' => 'rejected']);
