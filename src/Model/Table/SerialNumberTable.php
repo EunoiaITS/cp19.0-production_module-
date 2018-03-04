@@ -69,7 +69,7 @@ class SerialNumberTable extends Table
         $validator
             ->scalar('version')
             ->maxLength('version', 255)
-            ->notEmpty('version');
+            ->allowEmpty('version');
 
         $validator
             ->scalar('type1')

@@ -49,27 +49,7 @@
                             </div>
                             <div class="col-sm-5 col-xs-6">
                                 <select name="version" class="form-control" id="cn-version" required="">
-                                    <option value="ZZT">ZZT</option>
-                                    <option value="ZZTT">ZZTT</option>
-                                    <option value="ZZZ">ZZZ</option>
-                                    <option value="ZZZT">ZZZT</option>
-                                    <option value="ZZZTT">ZZZTT</option>
-                                    <option value="ZZB">ZZB</option>
-                                    <option value="ZZZB">ZZZB</option>
-                                    <option value="ZZBB">ZZBB</option>
-                                    <option value="ZZ">ZZ</option>
-                                    <option value="Z">Z</option>
-                                    <option value="B">B</option>
-                                    <option value="RMU CB 101">RMU CB 101</option>
-                                    <option value="RMU CB 111">RMU CB 111</option>
-                                    <option value="RMU CB 121">RMU CB 121</option>
-                                    <option value="RMU CB 112">RMU CB 112</option>
-                                    <option value="RMU CB 102">RMU CB 102</option>
-                                    <option value="RMU CB 122">RMU CB 122</option>
-                                    <option value="500kVA">500kVA</option>
-                                    <option value="1000kVA">1000kVA</option>
-                                    <option value="DIN TYPE 1600A">DIN TYPE 1600A</option>
-                                    <option value="Street Lighting Feeder Pillar">Street Lighting Feeder Pillar</option>
+
                                 </select>
                             </div>
                         </div>
@@ -165,6 +145,47 @@
     </div>
     <script>
         $(document).ready(function(){
+            $('#cn-version').html('<option value="ZZT">ZZT</option>'+
+                '<option value="ZZTT">ZZTT</option>'+
+                '<option value="ZZZ">ZZZ</option>'+
+                '<option value="ZZZT">ZZZT</option>'+
+                '<option value="ZZZTT">ZZZTT</option>');
+            $('#model-planer').on('change',function () {
+                var model = $(this).val();
+                if(model == 'RMU INS24' || model == 'RMU (Motorize)'){
+                    $('#cn-version').html('<option value="ZZT">ZZT</option>'+
+                                          '<option value="ZZTT">ZZTT</option>'+
+                                          '<option value="ZZZ">ZZZ</option>'+
+                                          '<option value="ZZZT">ZZZT</option>'+
+                                          '<option value="ZZZTT">ZZZTT</option>');
+                }else if(model == 'RMU CB 12kV'){
+                    $('#cn-version').html('<option value="RMU CB 101">RMU CB 101</option>'+
+                                          '<option value="RMU CB 111">RMU CB 111</option>'+
+                                          '<option value="RMU CB 121">RMU CB 121</option>'+
+                                          '<option value="RMU CB 112">RMU CB 112</option>'+
+                                          '<option value="RMU CB 102">RMU CB 102</option>'+
+                                          '<option value="RMU CB 122">RMU CB 122</option>');
+                }else if(model == 'RMU CB 17.5kV'){
+                    $('#cn-version').html('<option value="ZZB">ZZB</option>'+
+                                          '<option value="ZZZB">ZZZB</option>'+
+                                          '<option value="ZZBB">ZZBB</option>'+
+                                          '<option value="ZZ">ZZ</option>'+
+                                          '<option value="Z">Z</option>'+
+                                          '<option value="B">B</option>');
+                }else if(model == 'CSU'){
+                    $('#cn-version').html('<option value="500kVA">500kVA</option>'+
+                                          '<option value="1000kVA">1000kVA</option>');
+                }else if(model == 'Accessories' ){
+                    $('#cn-version').html('<option value="">No Version</option>');
+                }else if(model == 'Services' ){
+                    $('#cn-version').html('<option value="">No Version</option>');
+                }else if(model == 'Feeder Pillar/Indoor LV Board' ){
+                    $('#cn-version').html('<option value="DIN TYPE 1600A">DIN TYPE 1600A</option>'+
+                                          '<option value="Street Lighting Feeder Pillar">Street Lighting Feeder Pillar</option>');
+                }else if(model == 'Distribution Board'){
+                    $('#cn-version').html('<option value="">No Version</option>');
+                }
+            });
             var so_no = 'input#cn-type-so';
             var data = [<?php echo $so_no; ?>];
             var options = {
