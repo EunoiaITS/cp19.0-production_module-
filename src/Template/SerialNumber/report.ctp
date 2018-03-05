@@ -23,7 +23,6 @@
                             <th>SN</th>
                             <th>Create By</th>
                             <th>Department</th>
-                            <th>Section</th>
                             <th>Current Section</th>
                             <th>Operator Name</th>
                             <th>Status</th>
@@ -45,7 +44,6 @@
                                 <td><?= date('ymd', strtotime($s->date)).$item->id ?></td>
                                 <td><?= $s->created_by ?></td>
                                 <td>Production</td>
-                                <td>Planner</td>
                                 <td>Store</td>
                                 <td>Meget</td>
                                 <td><?= $s->status ?></td>

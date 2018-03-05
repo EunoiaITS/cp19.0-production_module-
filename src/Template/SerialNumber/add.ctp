@@ -48,7 +48,7 @@
                                 <label for="cn-version" class="planner-year">Version <span class="planner-fright">:</span></label>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <select name="version" class="form-control" id="cn-version" required="">
+                                <select name="version" class="form-control" id="cn-version">
 
                                 </select>
                             </div>
@@ -93,14 +93,6 @@
                             </div>
                             <div class="col-sm-5 col-xs-6">
                                 <p class="cn-main-text"><?= $pic_dept ?></p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-3 col-xs-6">
-                                <p class="cn-text">Section <span class="planner-fright">:</span></p>
-                            </div>
-                            <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text"><?= $pic_section ?></p>
                             </div>
                         </div>
                         <button type="button" id="create-table" class="btn btn-info btn-csn">Create</button>
