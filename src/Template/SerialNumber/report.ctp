@@ -46,7 +46,23 @@
                                     <td>Production</td>
                                     <td><?php if(isset($s->wips->section)){echo $s->wips->section;}?></td>
                                     <td><?php if(isset($s->wips->operator_name)){echo $s->wips->operator_name;}?></td>
-                                    <td><?php if(isset($s->wips->status)){echo $s->wips->status;}?></td>
+                                    <td class="<?php if(isset($s->wips->status)){
+                                        if($s->wips->status== 'requested'){
+                                            echo "colored-red";
+                                        }elseif ($s->wips->status == 'rejected'){
+                                            echo "colored-red";
+                                        }else{
+                                            echo "colored-csn";
+                                        }
+                                    }?>"><?php if(isset($s->wips->status)){
+                                        if($s->wips->status== 'requested'){
+                                            echo "Pending";
+                                        }elseif ($s->wips->status== 'rejected'){
+                                            echo "Reject";
+                                        }else{
+                                            echo "Ack";
+                                        }
+                                        }?></td>
                                     <td><?= $s->remark ?></td>
                                 </tr>
                             <?php endforeach; endforeach;?>

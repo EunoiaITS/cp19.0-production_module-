@@ -5,7 +5,7 @@ Create serial number form page
 <div class="planner-from">
     <div class="container-fluid">
         <div class="row">
-            <div class="part-title-planner text-uppercase text-center"><b>Work In Progress Section Report Welding</b></div>
+            <div class="part-title-planner text-uppercase text-center"><b>Work In Progress Section Report MAIN LINK TANK</b></div>
             <div class="clearfix"></div>
             <!--============== Add drawing table area ===================-->
             <div class="planner-table table-responsive clearfix">

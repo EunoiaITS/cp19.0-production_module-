@@ -284,8 +284,7 @@ class SerialNumberController extends AppController
 
     public function statusReport(){
         $this->loadModel('SerialNumberChild');
-        $sn = $this->SerialNumber->find('all')
-            ->where(['status' => 'approved']);
+        $sn = $this->SerialNumber->find('all');
         foreach($sn as $s){
             $items = $this->SerialNumberChild->find('all')
                 ->where(['serial_number_id' => $s->id]);

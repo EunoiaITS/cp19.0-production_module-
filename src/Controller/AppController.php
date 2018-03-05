@@ -83,6 +83,7 @@ class AppController extends Controller
             $this->set('_serialize', true);
         }
         $this->set('role', $this->Auth->user('role'));
+        $this->set('user_pic', $this->Auth->user('username'));
     }
 
     public function beforeFilter(Event $event)

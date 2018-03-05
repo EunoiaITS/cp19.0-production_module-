@@ -50,10 +50,13 @@ Create serial number form page
                             <td><?= $w->so_no?></td>
                             <td><?= $w->serial_no?></td>
                             <td><?= $w->id?></td>
-                            <td><?= $w->sn_details->model?></td>
-                            <td><?= $w->sn_details->version?></td>
-                            <td><?= $w->sn_details->type1?></td>
-                            <td><?= $w->sn_details->type2?></td>
+                            <td><?php if(isset($w->sn_details->model)){echo $w->sn_details->model;}?></td>
+                            <td><?php if(isset($w->sn_details->version)){
+                            echo $w->sn_details->version;}?></td>
+                            <td><?php if(isset($w->sn_details->type1)){
+                            echo $w->sn_details->type1;}?></td>
+                            <td><?php if(isset($w->sn_details->type2)){
+                            echo $w->sn_details->type2;} ?></td>
                             <td><a href="#">View</a></td>
                             <td><?php foreach ($w->wip_sec as $sec){
                                 if($sec->section == 'Welding 1'){
