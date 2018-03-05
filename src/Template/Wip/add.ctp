@@ -102,7 +102,7 @@ MiT form page
                             <td><input name="supervisor_name_1" type="text" class="form-control"></td>
                             <td></td>
                             <td></td>
-                            <td><input id="cb1" name="cb_1" type="checkbox" value="1"></td>
+                            <td><input id="cb1" name="cb_1" class="cb-class" type="checkbox" value="1"></td>
                                 <input id="sec1" type="hidden" name="section1" value="Welding 1">
                         </tr>
                         <tr>
@@ -112,7 +112,7 @@ MiT form page
                             <td><input name="supervisor_name_2" type="text" class="form-control"></td>
                             <td></td>
                             <td></td>
-                            <td><input id="cb2" name="cb_2" type="checkbox" value="2"></td>
+                            <td><input id="cb2" name="cb_2" class="cb-class" type="checkbox" value="2"></td>
                             <input id="sec1" type="hidden" name="section2" value="Main link Tank">
                         </tr>
                         <tr>
@@ -122,7 +122,7 @@ MiT form page
                             <td><input name="supervisor_name_3" type="text" class="form-control"></td>
                             <td></td>
                             <td></td>
-                            <td><input id="cb3" name="cb_3" type="checkbox" value="3"></td>
+                            <td><input id="cb3" name="cb_3" class="cb-class" type="checkbox" value="3"></td>
                             <input id="sec1" type="hidden" name="section3" value="Drive Mechanism">
                         </tr>
                         <tr>
@@ -132,7 +132,7 @@ MiT form page
                             <td><input name="supervisor_name_4" type="text" class="form-control"></td>
                             <td></td>
                             <td></td>
-                            <td><input id="cb4" name="cb_4" type="checkbox" value="4"></td>
+                            <td><input id="cb4" name="cb_4" class="cb-class" type="checkbox" value="4"></td>
                             <input id="sec1" type="hidden" name="section4" value="Vacuum Chamber">
                         </tr>
                         <tr>
@@ -142,7 +142,7 @@ MiT form page
                             <td><input name="supervisor_name_5" type="text" class="form-control"></td>
                             <td></td>
                             <td></td>
-                            <td><input id="cb5" name="cb_5" type="checkbox" value="5"></td>
+                            <td><input id="cb5" name="cb_5" class="cb-class" type="checkbox" value="5"></td>
                             <input id="sec1" type="hidden" name="section5" value="Welding 2">
                         </tr>
                         <tr>
@@ -152,7 +152,7 @@ MiT form page
                             <td><input name="supervisor_name_6" type="text" class="form-control"></td>
                             <td></td>
                             <td></td>
-                            <td><input id="cb6" name="cb_6" type="checkbox" value="6"></td>
+                            <td><input id="cb6" name="cb_6" class="cb-class" type="checkbox" value="6"></td>
                             <input id="sec1" type="hidden" name="section6" value="Bta">
                         </tr>
                         <tr>
@@ -162,7 +162,7 @@ MiT form page
                             <td><input name="supervisor_name_7" type="text" class="form-control"></td>
                             <td></td>
                             <td></td>
-                            <td><input id="cb7" name="cb_7" type="checkbox" value="7"></td>
+                            <td><input id="cb7" name="cb_7" class="cb-class" type="checkbox" value="7"></td>
                             <input id="sec1" type="hidden" name="section7" value="Metal Clad">
                         </tr>
                         <tr>
@@ -172,7 +172,7 @@ MiT form page
                             <td><input name="supervisor_name_8" type="text" class="form-control"></td>
                             <td></td>
                             <td></td>
-                            <td><input id="cb8" name="cb_8" type="checkbox" value="8"></td>
+                            <td><input id="cb8" name="cb_8" class="cb-class" type="checkbox" value="8"></td>
                             <input id="sec1" type="hidden" name="section8" value="Wiring">
                         </tr>
                         <tr>
@@ -182,7 +182,7 @@ MiT form page
                             <td><input name="supervisor_name_9" type="text" class="form-control"></td>
                             <td></td>
                             <td></td>
-                            <td><input id="cb9" name="cb_9" type="checkbox" value="9"></td>
+                            <td><input id="cb9" name="cb_9" class="cb-class" type="checkbox" value="9"></td>
                             <input id="sec1" type="hidden" name="section9" value="Testing">
                         </tr>
 
@@ -206,6 +206,10 @@ MiT form page
     </div>
     <script>
         $(document).ready(function() {
+            $('.cb-class').on('change',function (e) {
+                e.preventDefault();
+                $('.cb-class').not(this).prop('checked',false);
+            });
             var date = "<?php echo date('m/d/Y');?>";
             $('#date-id').val(date);
             var wip = "<?= "WIP".' '.sprintf('%04d', $wp_no) ?>";

@@ -36,8 +36,8 @@
                                 <td><?= $sn->type1 ?></td>
                                 <td><?= $sn->type2 ?></td>
                                 <td><?= $sn->created_by ?></td>
-                                <td><?= $role; ?></td>
                                 <td>Production</td>
+                                <td></td>
                                 <td><a href="<?php echo $this->url->build(['controller' => 'SerialNumber', 'action' => $action, $sn->id]); ?>"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve-1'){echo 'Approve';}else{echo 'Edit';} ?></a></td>
                             </tr>
                         <?php endforeach; ?>
