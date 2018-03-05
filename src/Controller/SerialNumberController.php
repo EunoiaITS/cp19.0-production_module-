@@ -247,25 +247,25 @@ class SerialNumberController extends AppController
                 ->where(['status' => 'approved']);
             foreach($csn as $count){
                 if(date("M-y", strtotime("-3 month")) == date("M-y", strtotime($count->modified))){
-                    $m1++;
+                    $m1 += $count->quantity;
                 }
                 if(date("M-y", strtotime("-2 month")) == date("M-y", strtotime($count->modified))){
-                    $m2++;
+                    $m2 += $count->quantity;
                 }
                 if(date("M-y", strtotime("-1 month")) == date("M-y", strtotime($count->modified))){
-                    $m3++;
+                    $m3 += $count->quantity;
                 }
                 if(date("M-y", strtotime("0 month")) == date("M-y", strtotime($count->modified))){
-                    $m4++;
+                    $m4 += $count->quantity;
                 }
                 if(date("M-y", strtotime("1 month")) == date("M-y", strtotime($count->modified))){
-                    $m5++;
+                    $m5 += $count->quantity;
                 }
                 if(date("M-y", strtotime("2 month")) == date("M-y", strtotime($count->modified))){
-                    $m6++;
+                    $m6 += $count->quantity;
                 }
                 if(date("M-y", strtotime("3 month")) == date("M-y", strtotime($count->modified))){
-                    $m7++;
+                    $m7 += $count->quantity;
                 }
             }
             $mvCalc->{'m1'} = $m1;
