@@ -48,7 +48,7 @@
                                 <label for="cn-version" class="planner-year">Version <span class="planner-fright">:</span></label>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <select name="version" class="form-control" id="cn-version" required="">
+                                <select name="version" class="form-control" id="cn-version">
 
                                 </select>
                             </div>
