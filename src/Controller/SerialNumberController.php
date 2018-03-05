@@ -226,12 +226,66 @@ class SerialNumberController extends AppController
     public function monthlyReport(){
         $sn = $this->SerialNumber->find('all')
             ->where(['status' => 'approved']);
+        $modelVersions = [];
+        $mvs = [];
+        $mvTatal = new \stdClass();
+        foreach($sn as $s){
+            $modelVersions[] = $s->model.'>'.$s->version;
+        }
+        foreach(array_unique($modelVersions) as $mv){
+            $mvs[] = $mv;
+        }
+        foreach($mvs as $key => $calc){
+            $m1 = $m2 = $m3 = $m4 = $m5 = $m6 = $m7 = 0;
+            $keys = explode('>', $calc);
+            $mvCalc = new \stdClass();
+            $mvCalc->model = $keys[0];
+            $mvCalc->version = $keys[1];
+            $csn = $this->SerialNumber->find('all')
+                ->where(['model' => $keys[0]])
+                ->where(['version' => $keys[1]])
+                ->where(['status' => 'approved']);
+            foreach($csn as $count){
+                if(date("M-y", strtotime("-3 month")) == date("M-y", strtotime($count->modified))){
+                    $m1++;
+                }
+                if(date("M-y", strtotime("-2 month")) == date("M-y", strtotime($count->modified))){
+                    $m2++;
+                }
+                if(date("M-y", strtotime("-1 month")) == date("M-y", strtotime($count->modified))){
+                    $m3++;
+                }
+                if(date("M-y", strtotime("0 month")) == date("M-y", strtotime($count->modified))){
+                    $m4++;
+                }
+                if(date("M-y", strtotime("1 month")) == date("M-y", strtotime($count->modified))){
+                    $m5++;
+                }
+                if(date("M-y", strtotime("2 month")) == date("M-y", strtotime($count->modified))){
+                    $m6++;
+                }
+                if(date("M-y", strtotime("3 month")) == date("M-y", strtotime($count->modified))){
+                    $m7++;
+                }
+            }
+            $mvCalc->{'m1'} = $m1;
+            $mvCalc->{'m2'} = $m2;
+            $mvCalc->{'m3'} = $m3;
+            $mvCalc->{'m4'} = $m4;
+            $mvCalc->{'m5'} = $m5;
+            $mvCalc->{'m6'} = $m6;
+            $mvCalc->{'m7'} = $m7;
+            $mvTatal->$key = $mvCalc;
+        }
+        $this->set('mv', $mvs);
+        $this->set('mvCalc', $mvTatal);
         $this->set('sn', $sn);
     }
 
     public function statusReport(){
         $this->loadModel('SerialNumberChild');
-        $sn = $this->SerialNumber->find('all');
+        $sn = $this->SerialNumber->find('all')
+            ->where(['status' => 'approved']);
         foreach($sn as $s){
             $items = $this->SerialNumberChild->find('all')
                 ->where(['serial_number_id' => $s->id]);
