@@ -31,25 +31,25 @@
                         </thead>
                         <tbody class="csn-text-up">
                         <?php $count = 0; foreach($sn as $s): ?>
-                        <?php foreach($s->items as $item): ?>
-                            <?php $count++; ?>
-                            <tr>
-                                <td><?= $count ?></td>
-                                <td><?= $s->date ?></td>
-                                <td><?= $s->so_no ?></td>
-                                <td><?= $s->model ?></td>
-                                <td><?= $s->version ?></td>
-                                <td><?= $s->type1 ?></td>
-                                <td><?= $s->type2 ?></td>
-                                <td><?= date('ymd', strtotime($s->date)).$item->id ?></td>
-                                <td><?= $s->created_by ?></td>
-                                <td>Production</td>
-                                <td>Store</td>
-                                <td>Meget</td>
-                                <td><?= $s->status ?></td>
-                                <td><?= $s->remark ?></td>
-                            </tr>
-                        <?php endforeach; endforeach; ?>
+                            <?php foreach($s->items as $item): ?>
+                                <?php $count++; ?>
+                                <tr>
+                                    <td><?= $count ?></td>
+                                    <td><?= $s->date ?></td>
+                                    <td><?= $s->so_no ?></td>
+                                    <td><?= $s->model ?></td>
+                                    <td><?= $s->version ?></td>
+                                    <td><?= $s->type1 ?></td>
+                                    <td><?= $s->type2 ?></td>
+                                    <td><?= date('ymd', strtotime($s->date)).$item->id ?></td>
+                                    <td><?= $s->created_by ?></td>
+                                    <td>Production</td>
+                                    <td><?php if(isset($s->wips->section)){echo $s->wips->section;}?></td>
+                                    <td><?php if(isset($s->wips->operator_name)){echo $s->wips->operator_name;}?></td>
+                                    <td><?php if(isset($s->wips->status)){echo $s->wips->status;}?></td>
+                                    <td><?= $s->remark ?></td>
+                                </tr>
+                            <?php endforeach; endforeach;?>
                         </tbody>
                     </table>
                 </div>

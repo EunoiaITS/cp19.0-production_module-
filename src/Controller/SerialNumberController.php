@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Model\Entity\Wip;
 use Cake\ORM\TableRegistry;
 use Cake\Event\Event;
 
@@ -199,6 +200,8 @@ class SerialNumberController extends AppController
     }
 
     public function report(){
+        $this->loadModel('Wip');
+        $this->loadModel('WipSection');
         $this->loadModel('SerialNumberChild');
         $sn = $this->SerialNumber->find('all')
             ->where(['status' => 'approved']);
@@ -206,6 +209,16 @@ class SerialNumberController extends AppController
             $items = $this->SerialNumberChild->find('all')
                 ->where(['serial_number_id' => $s->id]);
             $s->items = $items;
+                $wip = $this->Wip->find('all')
+                    ->Where(['serial_no'=>$s->id]);
+                foreach ($wip as $w){
+                    $wips = $this->WipSection->find('all')
+                        ->Where(['wip_id'=>$w->id]);
+                    foreach ($wips as $wp){
+                        $s->wips = $wp;
+                    }
+                    $s->wip = $w;
+                }
         }
         $this->set('sn', $sn);
     }
