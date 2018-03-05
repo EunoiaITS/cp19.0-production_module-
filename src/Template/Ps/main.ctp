@@ -140,7 +140,7 @@ Sceduler popup module
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="btn-confirm">Confirm</button>
+                <button type="button" class="btn btn-primary" id="btn-confirm" class="close" data-dismiss="modal" aria-label="Close">Confirm</button>
             </div>
         </div>
     </div>
@@ -173,9 +173,6 @@ Sceduler popup module
                     </tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="btn-confirm">Confirm</button>
             </div>
         </div>
     </div>

@@ -4,6 +4,26 @@
 
 <div id="sidebar">
     <ul>
+        <!-- about user section -->
+        <li class="div-userid">
+            <div class="col-sm-3 col-xs-3 padding-zero">
+                <div class="user-image">
+                    <img src="<?php echo $this->request->webroot.'assets/img/user-png.png'; ?>" alt="">
+                </div>
+            </div>
+            <div class="col-sm-9 col-xs-9 padding-zero">
+                <div class="user-details text-uppercase">
+                    <div class="user-name">
+                        <span class="user-label"><b>User Name</b> :</span>
+                        <span class="user-label-no"><?php echo $user_pic; ?></span>
+                    </div>
+                    <div class="user-name">
+                        <span class="user-label"><b>Department</b> :</span>
+                        <span class="user-label-no">Production</span>
+                    </div>
+                </div>
+            </div>
+        </li>
         <li><a href="<?php echo $this->Url->build(['controller' => 'SerialNumber', 'action' => 'dashboard']); ?>" class="active">Home (Dashboard)</a></li>
         <div class="btn-group-vertical dropdown" role="group">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

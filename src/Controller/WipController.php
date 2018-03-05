@@ -1026,7 +1026,9 @@ class WipController extends AppController
         $all_op = rtrim($all_op,',');
 
         if($name == null){
-            $name= $opn[0];
+            if(isset($opn[0])){
+                $name = $opn[0];
+            }
         }
         $final = $this->WipSection->find('all')
             ->Where(['operator_name'=>$name])

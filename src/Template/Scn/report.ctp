@@ -50,10 +50,10 @@
                         <td><?= $item->quantity ?></td>
                         <td><?= $s->created_by ?></td>
                         <td>Production</td>
-                        <td>Welding</td>
-                        <td>5/11/2017</td>
-                        <td class="colored-csn">Verified</td>
-                        <td>Osman</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                         <td><a href="#">View</a></td>
                         <td><?= $s->remark ?></td>
                     </tr>
