@@ -1211,19 +1211,19 @@ class WipController extends AppController
         }
         $op_count = new \stdClass();
         for( $i=0;$i < sizeof($all_op);$i++ ){
-            $ack1 = $ack2 = $ack3 = $ack4 = $ack5 = 0;
-            $rej1 = $rej2 = $rej3 = $rej4 = $rej5 = 0;
+            $ack1 = $ack2 = $ack3 = $ack4 = $ack5 = $ack6 = $ack7 = $ack8 = $ack9 = 0;
+            $rej1 = $rej2 = $rej3 = $rej4 = $rej5 = $rej6 = $rej7 = $rej8 = $rej9 =0;
             foreach ($wip as $wp){
                 if($wp->selected == 'yes'){
                     $sn_details = $this->SerialNumber->find('all')
                         ->Where(['id'=>$wp->serial_no]);
                     foreach ($sn_details as $snd){
-                        if($snd->model == 'RMU INS 24'){
+                        if($snd->model == 'RMU INS24'){
                             $wips_ack = $this->WipSection->find('all')
                                 ->Where(['wip_id'=>$wp->id])
                                 ->Where(['operator_name' => $all_op[$i]])
                                 ->Where(['status'=> 'acknowledged'])
-                                ->Where(['section'=> trim($section,'%20')]);
+                                ->Where(['section'=> $section]);
                             foreach ($wips_ack as $wps){
                                 $ack1 ++;
                             }
@@ -1231,17 +1231,18 @@ class WipController extends AppController
                                 ->Where(['wip_id'=>$wp->id])
                                 ->Where(['operator_name' => $all_op[$i]])
                                 ->Where(['status'=> 'rejected'])
-                                ->Where(['section'=> trim($section,'%20')]);
+                                ->Where(['section'=> $section]);
                             foreach ($wips_rej as $wps){
                                 $rej1 ++;
                             }
                         }
-                        if($snd->model == 'RMU INS 24(VIOTORZEI)'){
+
+                        if($snd->model == 'RMU (Motorize)'){
                             $wips_ack = $this->WipSection->find('all')
                                 ->Where(['wip_id'=>$wp->id])
                                 ->Where(['operator_name' => $all_op[$i]])
                                 ->Where(['status'=> 'acknowledged'])
-                                ->Where(['section'=> trim($section,'%20')]);
+                                ->Where(['section'=> $section]);
                             foreach ($wips_ack as $wps){
                                 $ack2 ++;
                             }
@@ -1249,17 +1250,17 @@ class WipController extends AppController
                                 ->Where(['wip_id'=>$wp->id])
                                 ->Where(['operator_name' => $all_op[$i]])
                                 ->Where(['status'=> 'rejected'])
-                                ->Where(['section'=> trim($section,'%20')]);
+                                ->Where(['section'=> $section]);
                             foreach ($wips_rej as $wps){
                                 $rej2 ++;
                             }
                         }
-                        if($snd->model == 'CSU'){
+                        if($snd->model == 'RMU CB 12kV'){
                             $wips_ack = $this->WipSection->find('all')
                                 ->Where(['wip_id'=>$wp->id])
                                 ->Where(['operator_name' => $all_op[$i]])
                                 ->Where(['status'=> 'acknowledged'])
-                                ->Where(['section'=> trim($section,'%20')]);
+                                ->Where(['section'=> $section]);
                             foreach ($wips_ack as $wps){
                                 $ack3 ++;
                             }
@@ -1267,17 +1268,17 @@ class WipController extends AppController
                                 ->Where(['wip_id'=>$wp->id])
                                 ->Where(['operator_name' => $all_op[$i]])
                                 ->Where(['status'=> 'rejected'])
-                                ->Where(['section'=> trim($section,'%20')]);
+                                ->Where(['section'=> $section]);
                             foreach ($wips_rej as $wps){
                                 $rej3 ++;
                             }
                         }
-                        if($snd->model == 'JMW'){
+                        if($snd->model == 'RMU CB 17.5kV'){
                             $wips_ack = $this->WipSection->find('all')
                                 ->Where(['wip_id'=>$wp->id])
                                 ->Where(['operator_name' => $all_op[$i]])
                                 ->Where(['status'=> 'acknowledged'])
-                                ->Where(['section'=> trim($section,'%20')]);
+                                ->Where(['section'=> $section]);
                             foreach ($wips_ack as $wps){
                                 $ack4 ++;
                             }
@@ -1285,17 +1286,17 @@ class WipController extends AppController
                                 ->Where(['wip_id'=>$wp->id])
                                 ->Where(['operator_name' => $all_op[$i]])
                                 ->Where(['status'=> 'rejected'])
-                                ->Where(['section'=> trim($section,'%20')]);
+                                ->Where(['section'=> $section]);
                             foreach ($wips_rej as $wps){
                                 $rej4 ++;
                             }
                         }
-                        if($snd->model == 'JMW - ARAB'){
+                        if($snd->model == 'CSU'){
                             $wips_ack = $this->WipSection->find('all')
                                 ->Where(['wip_id'=>$wp->id])
                                 ->Where(['operator_name' => $all_op[$i]])
                                 ->Where(['status'=> 'acknowledged'])
-                                ->Where(['section'=> trim($section,'%20')]);
+                                ->Where(['section'=> $section]);
                             foreach ($wips_ack as $wps){
                                 $ack5 ++;
                             }
@@ -1306,6 +1307,82 @@ class WipController extends AppController
                                 ->Where(['section'=> trim($section,'%20')]);
                             foreach ($wips_rej as $wps){
                                 $rej5 ++;
+                            }
+                        }
+
+                        if($snd->model == 'Accessories'){
+                            $wips_ack = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'acknowledged'])
+                                ->Where(['section'=> $section]);
+                            foreach ($wips_ack as $wps){
+                                $ack6 ++;
+                            }
+                            $wips_rej = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'rejected'])
+                                ->Where(['section'=> $section]);
+                            foreach ($wips_rej as $wps){
+                                $rej6 ++;
+                            }
+                        }
+
+                        if($snd->model == 'Services'){
+                            $wips_ack = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'acknowledged'])
+                                ->Where(['section'=> $section]);
+                            foreach ($wips_ack as $wps){
+                                $ack7 ++;
+                            }
+                            $wips_rej = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'rejected'])
+                                ->Where(['section'=> $section]);
+                            foreach ($wips_rej as $wps){
+                                $rej7 ++;
+                            }
+                        }
+
+                        if($snd->model == 'Feeder Pillar/Indoor LV Board'){
+                            $wips_ack = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'acknowledged'])
+                                ->Where(['section'=> $section]);
+                            foreach ($wips_ack as $wps){
+                                $ack8 ++;
+                            }
+                            $wips_rej = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'rejected'])
+                                ->Where(['section'=> $section]);
+                            foreach ($wips_rej as $wps){
+                                $rej8 ++;
+                            }
+                        }
+
+                        if($snd->model == 'Distribution Board'){
+                            $wips_ack = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'acknowledged'])
+                                ->Where(['section'=> $section]);
+                            foreach ($wips_ack as $wps){
+                                $ack9 ++;
+                            }
+                            $wips_rej = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'rejected'])
+                                ->Where(['section'=> $section]);
+                            foreach ($wips_rej as $wps){
+                                $rej9 ++;
                             }
                         }
                     }
@@ -1319,6 +1396,14 @@ class WipController extends AppController
                     $sec_rej4 = 'rej4'.$i;
                     $sec_ack5 = 'ack5'.$i;
                     $sec_rej5 = 'rej5'.$i;
+                    $sec_ack6 = 'ack6'.$i;
+                    $sec_rej6 = 'rej6'.$i;
+                    $sec_ack7 = 'ack7'.$i;
+                    $sec_rej7 = 'rej7'.$i;
+                    $sec_ack8 = 'ack8'.$i;
+                    $sec_rej8 = 'rej8'.$i;
+                    $sec_ack9 = 'ack9'.$i;
+                    $sec_rej9 = 'rej9'.$i;
                     $op_count->$sec_ack1 = $ack1;
                     $op_count->$sec_rej1= $rej1;
                     $op_count->$sec_ack2 = $ack2;
@@ -1329,6 +1414,14 @@ class WipController extends AppController
                     $op_count->$sec_rej4= $rej4;
                     $op_count->$sec_ack5 = $ack5;
                     $op_count->$sec_rej5= $rej5;
+                    $op_count->$sec_ack6 = $ack6;
+                    $op_count->$sec_rej6= $rej6;
+                    $op_count->$sec_ack7 = $ack7;
+                    $op_count->$sec_rej7= $rej7;
+                    $op_count->$sec_ack8 = $ack8;
+                    $op_count->$sec_rej8= $rej8;
+                    $op_count->$sec_ack9 = $ack9;
+                    $op_count->$sec_rej9= $rej9;
                 }
             }
         }
