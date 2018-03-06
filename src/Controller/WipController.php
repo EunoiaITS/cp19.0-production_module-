@@ -1510,8 +1510,6 @@ class WipController extends AppController
             ]);
             $fn->sec_sn = $sec_sn;
         }
-
-
         $this->set('year',$year);
         $this->set('month',$month);
         $this->set('all_op',$all_op);
@@ -1524,7 +1522,6 @@ class WipController extends AppController
         if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'report' ||  $this->request->getParam('action') === 'view' || $this->request->getParam('action') === 'bta' || $this->request->getParam('action') === 'dm' || $this->request->getParam('action') === 'mc' || $this->request->getParam('action') === 'mlt' || $this->request->getParam('action') === 'monthlyProgress' || $this->request->getParam('action') === 'monthlyProgress2' || $this->request->getParam('action') === 'statReport' || $this->request->getParam('action') === 'testing' || $this->request->getParam('action') === 'vc' || $this->request->getParam('action') === 'welding1' || $this->request->getParam('action') === 'welding2' || $this->request->getParam('action') === 'wiring') {
             return true;
         }
-
         if(isset($user['role']) && $user['role'] === 'requester'){
             if(in_array($this->request->action, ['add'])){
                 return true;
@@ -1536,6 +1533,5 @@ class WipController extends AppController
             }
         }
         return parent::isAuthorized($user);
-
     }
 }
