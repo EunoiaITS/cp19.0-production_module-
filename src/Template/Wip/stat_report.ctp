@@ -49,8 +49,8 @@ Production Planner page
                         <tbody>
                         <tr>
                             <td>1</td>
-                            <td>RMU Ins 24</td>
-                            <td>18</td>
+                            <td>RMU INS24</td>
+                            <td></td>
                             <td><?= $model1->var11 ?></td>
                             <td><?= $model1->a11 ?></td>
                             <td><?= $model1->var12 ?></td>
@@ -72,8 +72,8 @@ Production Planner page
                         </tr>
                         <tr>
                             <td>2</td>
-                            <td>RMU Ins 24( VIOTORZEI )</td>
-                            <td>12</td>
+                            <td>RMU (Motorize)</td>
+                            <td></td>
                             <td><?= $model2->var21 ?></td>
                             <td><?= $model2->a21 ?></td>
                             <td><?= $model2->var22 ?></td>
@@ -95,8 +95,8 @@ Production Planner page
                         </tr>
                         <tr>
                             <td>3</td>
-                            <td>CSU</td>
-                            <td>2</td>
+                            <td>RMU CB 12kV</td>
+                            <td></td>
                             <td><?= $model3->var31 ?></td>
                             <td><?= $model3->a31 ?></td>
                             <td><?= $model3->var32 ?></td>
@@ -118,8 +118,8 @@ Production Planner page
                         </tr>
                         <tr>
                             <td>4</td>
-                            <td>JMW</td>
-                            <td>4</td>
+                            <td>RMU CB 17.5kV</td>
+                            <td></td>
                             <td><?= $model4->var41 ?></td>
                             <td><?= $model4->a41 ?></td>
                             <td><?= $model4->var42 ?></td>
@@ -141,8 +141,8 @@ Production Planner page
                         </tr>
                         <tr>
                             <td>5</td>
-                            <td>JMW - ARAB</td>
-                            <td>2</td>
+                            <td>CSU</td>
+                            <td></td>
                             <td><?= $model5->var51 ?></td>
                             <td><?= $model5->a51 ?></td>
                             <td><?= $model5->var52 ?></td>
@@ -162,7 +162,98 @@ Production Planner page
                             <td><?= $model5->var59 ?></td>
                             <td><?= $model5->a59 ?></td>
                         </tr>
-
+                        <tr>
+                            <td>6</td>
+                            <td>Accessories</td>
+                            <td></td>
+                            <td><?= $model6->var61 ?></td>
+                            <td><?= $model6->a61 ?></td>
+                            <td><?= $model6->var62 ?></td>
+                            <td><?= $model6->a62 ?></td>
+                            <td><?= $model6->var63 ?></td>
+                            <td><?= $model6->a63 ?></td>
+                            <td><?= $model6->var64 ?></td>
+                            <td><?= $model6->a64 ?></td>
+                            <td><?= $model6->var65 ?></td>
+                            <td><?= $model6->a65 ?></td>
+                            <td><?= $model6->var66 ?></td>
+                            <td><?= $model6->a66 ?></td>
+                            <td><?= $model6->var67 ?></td>
+                            <td><?= $model6->a67 ?></td>
+                            <td><?= $model6->var68 ?></td>
+                            <td><?= $model6->a68 ?></td>
+                            <td><?= $model6->var69 ?></td>
+                            <td><?= $model6->a69 ?></td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Services</td>
+                            <td></td>
+                            <td><?= $model7->var71 ?></td>
+                            <td><?= $model7->a71 ?></td>
+                            <td><?= $model7->var72 ?></td>
+                            <td><?= $model7->a72 ?></td>
+                            <td><?= $model7->var73 ?></td>
+                            <td><?= $model7->a73 ?></td>
+                            <td><?= $model7->var74 ?></td>
+                            <td><?= $model7->a74 ?></td>
+                            <td><?= $model7->var75 ?></td>
+                            <td><?= $model7->a75 ?></td>
+                            <td><?= $model7->var76 ?></td>
+                            <td><?= $model7->a76 ?></td>
+                            <td><?= $model7->var77 ?></td>
+                            <td><?= $model7->a77 ?></td>
+                            <td><?= $model7->var78 ?></td>
+                            <td><?= $model7->a78 ?></td>
+                            <td><?= $model7->var79 ?></td>
+                            <td><?= $model7->a79 ?></td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Feeder Pillar/Indoor LV Board</td>
+                            <td></td>
+                            <td><?= $model8->var81 ?></td>
+                            <td><?= $model8->a81 ?></td>
+                            <td><?= $model8->var82 ?></td>
+                            <td><?= $model8->a82 ?></td>
+                            <td><?= $model8->var83 ?></td>
+                            <td><?= $model8->a83 ?></td>
+                            <td><?= $model8->var84 ?></td>
+                            <td><?= $model8->a84 ?></td>
+                            <td><?= $model8->var85 ?></td>
+                            <td><?= $model8->a85 ?></td>
+                            <td><?= $model8->var86 ?></td>
+                            <td><?= $model8->a86 ?></td>
+                            <td><?= $model8->var87 ?></td>
+                            <td><?= $model8->a87 ?></td>
+                            <td><?= $model8->var88 ?></td>
+                            <td><?= $model8->a88 ?></td>
+                            <td><?= $model8->var89 ?></td>
+                            <td><?= $model8->a89 ?></td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>Distribution Board</td>
+                            <td></td>
+                            <td><?= $model9->var91 ?></td>
+                            <td><?= $model9->a91 ?></td>
+                            <td><?= $model9->var92 ?></td>
+                            <td><?= $model9->a92 ?></td>
+                            <td><?= $model9->var93 ?></td>
+                            <td><?= $model9->a93 ?></td>
+                            <td><?= $model9->var94 ?></td>
+                            <td><?= $model9->a94 ?></td>
+                            <td><?= $model9->var95 ?></td>
+                            <td><?= $model9->a95 ?></td>
+                            <td><?= $model9->var96 ?></td>
+                            <td><?= $model9->a96 ?></td>
+                            <td><?= $model9->var97 ?></td>
+                            <td><?= $model9->a97 ?></td>
+                            <td><?= $model9->var98 ?></td>
+                            <td><?= $model9->a98 ?></td>
+                            <td><?= $model9->var99 ?></td>
+                            <td><?= $model9->a99 ?></td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
