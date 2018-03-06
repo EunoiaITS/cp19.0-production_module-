@@ -54,8 +54,11 @@
                                     <td><?= (($item->quantity) - (isset($s->production_sn->quantity) ? $s->production_sn->quantity : 0)) ?></td>
                                     <td><button rel="<?php echo $count; ?>" class="btn btn-info btn-submit btn-popup"  data-toggle="modal" data-target="#myModal">Create</button></td>
                                 </tr>
+                                <span id="item-id-<?php echo $count; ?>" class="hidden"><?= $item->id ?></span>
+                                <span id="action-<?php echo $count; ?>" class="hidden"><?= $item->action ?></span>
                                 <span id="total-month-<?php echo $count; ?>" class="hidden"><?php echo count($s->months); ?></span>
                                 <?php foreach($s->months as $key => $month): ?>
+                                    <span id="calc-<?php echo $count.$key; ?>" class="hidden calc-<?php echo $month; ?>"><?php if(isset($item->{'actual'.$key})){echo $item->{'actual'.$key};}else{echo 0;} ?></span>
                                     <span id="month-no-<?php echo $count.$key; ?>" class="hidden month-names"><?php echo $month; ?></span>
                                     <?php endforeach; ?>
                             <?php endforeach; ?>
@@ -82,6 +85,7 @@ Sceduler popup module
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
+            <form method="post" action="<?php echo $this->Url->build(['controller' => 'Ps', 'action' => 'main']); ?>">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title text-center text-uppercase" id="myModalLabel">CREATE SERIAL NUMBER Scheduler  </h4>
@@ -140,8 +144,9 @@ Sceduler popup module
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="btn-confirm" class="close" data-dismiss="modal" aria-label="Close">Confirm</button>
+                <button type="submit" class="btn btn-primary">Confirm</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -185,6 +190,8 @@ Sceduler popup module
         $('.btn-popup').on('click', function(e){
             e.preventDefault();
             var id = $(this).attr('rel');
+            var itemId = $('#item-id-'+id).text();
+            var act = $('#action-'+id).text();
             var months = parseInt($('#total-month-'+id).text());
             var qty = parseInt($('#qty-'+id).text());
             var html_table = '';
@@ -200,26 +207,11 @@ Sceduler popup module
                 '<td>'+(qty/months)+'</td>'+
                 '</tr>'+
                 '<tr>'+
-                '<th>Actual</th>'+
-                '<td><input type="text" id="actual-'+id+i+'" class="form-control '+$('#month-no-'+id+i).text()+'" value="'+exVal+'"></td>'+
+                '<th>Actual<input type="hidden" name="total" value="'+months+'"><input type="hidden" name="plan" value="'+(qty/months)+'"><input type="hidden" name="month-year-'+i+'" value="'+$('#month-no-'+id+i).text()+'"><input type="hidden" name="item-id" value="'+itemId+'"><input type="hidden" name="action" value="'+act+'"></th>'+
+                '<td><input type="text" name="'+$('#month-no-'+id+i).text()+'" id="actual-'+id+i+'" class="form-control '+$('#month-no-'+id+i).text()+'" value="'+exVal+'"></td>'+
                 '</tr>';
             }
             $('#table-data').html(html_table);
-            $('#btn-confirm').on('click', function(ev){
-                ev.preventDefault();
-                for(i = 0; i < months; i++){
-                    var inVal = $('#actual-'+id+i).val();
-                    if(parseInt(inVal) > (qty/months)){
-                        inVal = qty/months;
-                    }
-                    if($('#calc-'+id+i).length == 0){
-                        var dynHtml = '<span id="calc-'+id+i+'" class="hidden calc-'+$('#month-no-'+id+i).text()+'">'+inVal+'</span>';
-                        $('#calculation').append(dynHtml);
-                    }else{
-                        $('#calc-'+id+i).text(inVal);
-                    }
-                }
-            });
         });
         $('#btn-total').on('click', function(e){
             e.preventDefault();

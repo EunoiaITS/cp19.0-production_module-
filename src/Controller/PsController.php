@@ -180,11 +180,27 @@ class PsController extends AppController
         $dataFromSales = json_decode($resultFromSales);
         $this->loadModel('SerialNumber');
         $this->loadModel('Fgtt');
+        $this->loadModel('PsScheduler');
         foreach($dataFromSales as $sn_match){
             $matches = $this->SerialNumber->find('all')
                 ->where(['so_no' => $sn_match->salesorder_no]);
             foreach($matches as $match){
                 $sn_match->production_sn = $match;
+            }
+            foreach($sn_match->soi as $item){
+                $schedulerCheck = $this->PsScheduler->find('all')
+                    ->where(['so_item_id' => $item->id]);
+                $count = 0;
+                foreach($schedulerCheck as $checker){
+                    $count++;
+                    $obName = 'actual'.($count-1);
+                    $item->{$obName} = $checker->actual_plan;
+                }
+                if($count > 0){
+                    $item->action = 'edit';
+                }else{
+                    $item->action = 'add';
+                }
             }
             $fgtts = $this->Fgtt->find('all')
                 ->where(['so_no' => $sn_match->salesorder_no]);
@@ -203,6 +219,45 @@ class PsController extends AppController
             $sn_match->months = $months;
         }
         $this->set('sales',$dataFromSales);
+        if($this->request->is('post')){
+            if($this->request->getData('action') == 'add'){
+                for($i = 0; $i < $this->request->getData('total'); $i++){
+                    $ps = $this->PsScheduler->newEntity();
+                    $monthName = $this->request->getData('month-year-'.$i);
+                    $ps->month_year = $monthName;
+                    $ps->so_item_id = $this->request->getData('item-id');
+                    if($this->request->getData($monthName) > $this->request->getData('plan')){
+                        $ps->actual_plan = (int) $this->request->getData('plan');
+                    }else{
+                        $ps->actual_plan = $this->request->getData($monthName);
+                    }
+                    $this->PsScheduler->save($ps);
+                }
+            }else{
+                for($i = 0; $i < $this->request->getData('total'); $i++){
+                    $monthName = $this->request->getData('month-year-'.$i);
+                    $ps_id = $this->PsScheduler->find('all')
+                        ->where(['so_item_id' => $this->request->getData('item-id')])
+                        ->where(['month_year' => $monthName]);
+                    $id = null;
+                    foreach($ps_id as $find){
+                        $id = $find->id;
+                    }
+                    $ps = $this->PsScheduler->get($id, [
+                        'contain' => []
+                    ]);
+                    if($this->request->getData($monthName) > $this->request->getData('plan')){
+                        $ps->actual_plan = (int) $this->request->getData('plan');
+                    }else{
+                        $ps->actual_plan = $this->request->getData($monthName);
+                    }
+                    $this->PsScheduler->save($ps);
+                }
+            }
+            $this->Flash->success(__('The PS Scheduler has been saved.'));
+
+            return $this->redirect(['action' => 'main']);
+        }
     }
     public function scheduler(){
 
