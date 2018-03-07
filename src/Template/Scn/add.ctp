@@ -94,6 +94,7 @@
                         <td><input type="text"  class="form-control" name="scnQty1"></td>
                         <td><input type="text" class="form-control" name="scnRemark1"></td>
                         <td></td>
+                        <input type="hidden" name="count" value="1">
                     </tr>
                     </tbody>
                 </table>
