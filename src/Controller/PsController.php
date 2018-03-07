@@ -269,10 +269,6 @@ class PsController extends AppController
 
     }
     public function dailyReport(){
-//        $this->autoRender = false;
-//        echo "<pre>";
-//        print_r($this->request);
-//        echo "</pre>";
         $date = $this->request->getQuery('date');
         $urlToSales = 'http://salesmodule.acumenits.com/api/all-data';
         $optionsForSales = [
@@ -384,7 +380,7 @@ class PsController extends AppController
     public function approvalStatus(){
         $this->loadModel('PsMonthly');
         $this->loadModel('Fgtt');
-        $ps = $this->paginate($this->PsMonthly);
+        $ps = $this->paginate($this->PsMonthly->find('all'));
         $dataFromSales = new \stdClass();
         foreach($ps as $p){
             $reqData = [

@@ -60,20 +60,17 @@ class ScnTable extends Table
         $validator
             ->scalar('date')
             ->maxLength('date', 255)
-            ->requirePresence('date', 'create')
             ->notEmpty('date');
 
         $validator
             ->scalar('location')
             ->maxLength('location', 255)
-            ->requirePresence('location', 'create')
             ->notEmpty('location');
 
         $validator
             ->scalar('created_by')
             ->maxLength('created_by', 255)
-            ->requirePresence('created_by', 'create')
-            ->notEmpty('created_by');
+            ->allowEmpty('created_by');
 
         $validator
             ->scalar('remark')

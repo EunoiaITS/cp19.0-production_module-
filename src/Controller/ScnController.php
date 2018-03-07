@@ -98,6 +98,10 @@ class ScnController extends AppController
         $part_name = rtrim($part_name, ',');
         $scn = $this->Scn->newEntity();
         if ($this->request->is('post')) {
+//            $this->autoRender= false;
+//            echo "<pre>";
+//            print_r($this->request);
+//            echo "</pre>";
             $scn = $this->Scn->patchEntity($scn, $this->request->getData());
             if ($this->Scn->save($scn)) {
                 $scn_no = $this->Scn->find('all', ['fields' => 'id'])->last();

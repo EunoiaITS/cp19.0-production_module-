@@ -32,15 +32,7 @@ class Scn extends Entity
      * @var array
      */
     protected $_accessible = [
-        'date' => true,
-        'location' => true,
-        'created_by' => true,
-        'remark' => true,
-        'status' => true,
-        'verified_by' => true,
-        'approved_by' => true,
-        'created' => true,
-        'modified' => true,
-        'scn_items' => true
+        '*' => true,
+        'id' =>false
     ];
 }

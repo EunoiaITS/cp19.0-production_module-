@@ -31,14 +31,7 @@ class ScnItems extends Entity
      * @var array
      */
     protected $_accessible = [
-        'scn_id' => true,
-        'part_no' => true,
-        'part_desc' => true,
-        'quantity' => true,
-        'reason' => true,
-        'remark' => true,
-        'created' => true,
-        'modified' => true,
-        'scn' => true
+        '*' => true,
+        'id' =>false
     ];
 }

@@ -45,7 +45,7 @@ class MitController extends AppController
             echo 'ERROR!!';
         }
         $mit_ids =[];
-        $mit = $this->Mit->find('all');
+        $mit = $this->paginate($this->Mit->find('all'));
         foreach($mit as $m){
             $mit_ids[] = $m->so_item_id;
         }
@@ -392,8 +392,8 @@ class MitController extends AppController
             echo 'ERROR!!';
         }
         $dataFromSales = json_decode($resultFromSales);
-        $mit = $this->Mit->find('all')
-            ->Where(['status'=>'acknowledged']);
+        $mit = $this->paginate($this->Mit->find('all')
+            ->Where(['status'=>'acknowledged']));
         foreach ($mit as $m){
             foreach ($dataFromSales as $sales){
                 $m->sales = $sales;

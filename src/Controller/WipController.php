@@ -33,11 +33,10 @@ class WipController extends AppController
      */
     public function index()
     {
-        $wip = $this->paginate($this->Wip);
         $this->loadModel('Wip');
         $this->loadModel('SerialNumber');
         $this->loadModel('WipSection');
-        $wip = $this->Wip->find('all');
+        $wip = $this->paginate($this->Wip->find('all'));
         foreach ($wip as $wp){
             $sn_details = $this->SerialNumber->find('all')
                 ->Where(['id'=>$wp->serial_no]);
@@ -52,7 +51,7 @@ class WipController extends AppController
                 }
             }
         }
-        $this->set('wip', $wip);
+        $this->set('wip',$wip);
     }
 
     /**
