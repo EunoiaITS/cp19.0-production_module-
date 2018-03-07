@@ -283,6 +283,12 @@ class PsController extends AppController
             echo 'ERROR!!';
         }
         $ps = $this->Ps->newEntity();
+        $dataFromSales = json_decode($resultFromSales);
+        foreach ($dataFromSales as $d){
+            $data = $this->Ps->find('all')
+                ->Where(['date'=>$date]);
+            $d->data = $data;
+        }
         if ($this->request->is(['post'])) {
             $ps->date = $this->request->getData('date');
             $ps->total = $this->request->getData('total');
@@ -310,7 +316,6 @@ class PsController extends AppController
             }
             $this->Flash->error(__('The ps could not be saved. Please, try again.'));
         }
-        $dataFromSales = json_decode($resultFromSales);
         $this->set('sales',$dataFromSales);
         $this->set('date',$date);
         $this->set('pic', $this->Auth->user('username'));
