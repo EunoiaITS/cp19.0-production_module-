@@ -63,7 +63,7 @@
                             <td><?= $s->salesorder_no ?></td>
                             <td><?php foreach($s->cus as $cus){echo $cus->customerID;} ?></td>
                             <td><?php foreach($s->cus as $cus){echo $cus->name;} ?></td>
-                            <td><?= $s->delivery_date ?></td>
+                            <td><?= date('m/d/Y', strtotime($s->delivery_date)) ?></td>
                             <td><?= (isset($s->fgtt->date) ? $s->fgtt->date : '') ?></td>
                             <td><?= $item->model ?></td>
                             <td><?= $item->version ?></td>

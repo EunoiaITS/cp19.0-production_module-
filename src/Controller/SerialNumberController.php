@@ -15,6 +15,12 @@ use Cake\Event\Event;
  */
 class SerialNumberController extends AppController
 {
+
+    public $paginate = [
+        // Other keys here.
+        'maxLimit' => 10
+    ];
+
     public function initialize(){
         parent::initialize();
         $this->viewBuilder()->setLayout('mainframe');
@@ -30,19 +36,19 @@ class SerialNumberController extends AppController
     public function index()
     {
         if($this->Auth->user('role') == 'requester'){
-            $serialNumber = $this->SerialNumber->find('all')
+            $serialNumber = $this->paginate($this->SerialNumber->find('all')
                 ->where(['status' => 'requested'])
-                ->orWhere(['status' => 'rejected']);
+                ->orWhere(['status' => 'rejected']));
         }
 
         if($this->Auth->user('role') == 'verifier'){
-            $serialNumber = $this->SerialNumber->find('all')
-                ->where(['status' => 'requested']);
+            $serialNumber = $this->paginate($this->SerialNumber->find('all')
+                ->where(['status' => 'requested']));
         }
 
         if($this->Auth->user('role') == 'approve-1'){
-            $serialNumber = $this->SerialNumber->find('all')
-                ->where(['status' => 'verified']);
+            $serialNumber = $this->paginate($this->SerialNumber->find('all')
+                ->where(['status' => 'verified']));
         }
         if($this->Auth->user('role') == 'approve-2' || $this->Auth->user('role') == 'approve-3' || $this->Auth->user('role') == 'approve-4'){
             $this->redirect(array("controller" => "SerialNumber", "action" => "dashboard"));
@@ -203,8 +209,8 @@ class SerialNumberController extends AppController
         $this->loadModel('Wip');
         $this->loadModel('WipSection');
         $this->loadModel('SerialNumberChild');
-        $sn = $this->SerialNumber->find('all')
-            ->where(['status' => 'approved']);
+        $sn = $this->paginate($this->SerialNumber->find('all')
+            ->where(['status' => 'approved']));
         foreach($sn as $s){
             $items = $this->SerialNumberChild->find('all')
                 ->where(['serial_number_id' => $s->id]);
@@ -284,7 +290,7 @@ class SerialNumberController extends AppController
 
     public function statusReport(){
         $this->loadModel('SerialNumberChild');
-        $sn = $this->SerialNumber->find('all');
+        $sn = $this->paginate($this->SerialNumber->find('all'));
         foreach($sn as $s){
             $items = $this->SerialNumberChild->find('all')
                 ->where(['serial_number_id' => $s->id]);

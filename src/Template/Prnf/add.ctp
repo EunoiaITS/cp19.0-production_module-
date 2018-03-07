@@ -24,7 +24,7 @@ prn page
                             <p class="cn-text">Prn No <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text text-uppercase">PRN12345</p>
+                            <p class="cn-main-text text-uppercase">PRN<?= $sn_no ?></p>
                         </div>
                     </div>
 
@@ -90,8 +90,8 @@ prn page
                         </div>
                         <div class="col-sm-5 col-xs-6">
                             <select class="form-control" name="location" id="prn-lo-form">
-                                <option value="indkom_16">INDKOM 16</option>
-                                <option value="indkom_24">INDKOM 24</option>
+                                <option value="INDKOM 16">INDKOM 16</option>
+                                <option value="INDKOM 24">INDKOM 24</option>
                             </select>
                         </div>
                     </div>

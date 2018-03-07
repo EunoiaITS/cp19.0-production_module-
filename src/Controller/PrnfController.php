@@ -77,6 +77,7 @@ class PrnfController extends AppController
      */
     public function add()
     {
+        $count = $this->Prnf->find('all')->last();
         $prnf = $this->Prnf->newEntity();
         if ($this->request->is('post')) {
 //            $this->autoRender =false;
@@ -113,6 +114,7 @@ class PrnfController extends AppController
         $this->set('pic_name', $this->Auth->user('name'));
         $this->set('pic_dept', $this->Auth->user('dept'));
         $this->set('pic_section', $this->Auth->user('section'));
+        $this->set('sn_no', (isset($count->id) ? ($count->id + 1) : 1));
     }
 
     /**
