@@ -1,10 +1,6 @@
 <!--=========
 Create serial number form page
 ==============-->
-<?php
-//echo "<pre>";
-//print_r($op_count);
-//echo "</pre>"?>
 <div class="planner-from">
     <div class="container-fluid">
         <div class="row">
@@ -85,14 +81,26 @@ Create serial number form page
                         <tr>
                             <th rowspan="2">No</th>
                             <th rowspan="2">Operator Name</th>
-                            <th colspan="2">RMU INS 24</th>
-                            <th colspan="2">RMU INS 24(VIOTORZEI)</th>
+                            <th colspan="2">RMU INS24</th>
+                            <th colspan="2">RMU (Motorize)</th>
+                            <th colspan="2">RMU CB 12kV</th>
+                            <th colspan="2">RMU CB 17.5kV</th>
                             <th colspan="2">CSU</th>
-                            <th colspan="2">JMW</th>
-                            <th colspan="2">JMW - ARAB</th>
+                            <th colspan="2">Accessories</th>
+                            <th colspan="2">Services</th>
+                            <th colspan="2">Feeder Pillar/Indoor LV Board</th>
+                            <th colspan="2">Distribution Board</th>
                             <th rowspan="2">Remark</th>
                         </tr>
                         <tr class="table-cells">
+                            <td>Act</td>
+                            <td>Reject</td>
+                            <td>Act</td>
+                            <td>Reject</td>
+                            <td>Act</td>
+                            <td>Reject</td>
+                            <td>Act</td>
+                            <td>Reject</td>
                             <td>Act</td>
                             <td>Reject</td>
                             <td>Act</td>
@@ -120,6 +128,14 @@ Create serial number form page
                             <td><?php $rej4 = 'rej4'.$i; echo $op_count->$rej4;?></td>
                             <td><?php $ack5 = 'ack5'.$i; echo $op_count->$ack5;?></td>
                             <td><?php $rej5 = 'rej5'.$i; echo $op_count->$rej5;?></td>
+                            <td><?php $ack6 = 'ack6'.$i; echo $op_count->$ack6;?></td>
+                            <td><?php $rej6 = 'rej6'.$i; echo $op_count->$rej6;?></td>
+                            <td><?php $ack7 = 'ack7'.$i; echo $op_count->$ack7;?></td>
+                            <td><?php $rej7 = 'rej7'.$i; echo $op_count->$rej7;?></td>
+                            <td><?php $ack8 = 'ack8'.$i; echo $op_count->$ack8;?></td>
+                            <td><?php $rej8 = 'rej8'.$i; echo $op_count->$rej8;?></td>
+                            <td><?php $ack9 = 'ack9'.$i; echo $op_count->$ack9;?></td>
+                            <td><?php $rej9 = 'rej9'.$i; echo $op_count->$rej9;?></td>
                             <td></td>
                         </tr>
                         <?php }?>

@@ -344,12 +344,16 @@ class WipController extends AppController
         $model3 = new \stdClass();
         $model4 = new \stdClass();
         $model5 = new \stdClass();
+        $model6 = new \stdClass();
+        $model7 = new \stdClass();
+        $model8 = new \stdClass();
+        $model9 = new \stdClass();
         $var11 = $var12 = $var13 = $var14 = $var15 = $var16 = $var17 = $var18 = $var19 = 0;
         $a11 = $a12 = $a13 = $a14 = $a15 = $a16 = $a17 = $a18 = $a19 = 0;
         $this->loadModel('SerialNumber');
         $this->loadModel('WipSection');
         $sn_model1 = $this->SerialNumber->find('all')
-            ->Where(['model'=> 'RMU INS 24']);
+            ->Where(['model'=> 'RMU INS24']);
         foreach ($sn_model1 as $snm){
             $wip = $this->Wip->find('all')
                 ->Where(['serial_no'=> $snm->id]);
@@ -414,7 +418,7 @@ class WipController extends AppController
                 }
             }
         }
-        $model1->name = 'RMU INS 24';
+        $model1->name = 'RMU INS24';
         $model1->var11 = $var11;
         $model1->var12 = $var12;
         $model1->var13 = $var13;
@@ -441,7 +445,7 @@ class WipController extends AppController
         $this->loadModel('SerialNumber');
         $this->loadModel('WipSection');
         $sn_model2 = $this->SerialNumber->find('all')
-            ->Where(['model'=> 'RMU INS 24(VIOTORZEI)']);
+            ->Where(['model'=> 'RMU (Motorize)']);
         foreach ($sn_model2 as $snm){
             $wip = $this->Wip->find('all')
                 ->Where(['serial_no'=> $snm->id]);
@@ -506,7 +510,7 @@ class WipController extends AppController
                 }
             }
         }
-        $model2->name = 'RMU INS 24(VIOTORZEI)';
+        $model2->name = 'RMU (Motorize)';
         $model2->var21 = $var21;
         $model2->var22 = $var22;
         $model2->var23 = $var23;
@@ -533,7 +537,7 @@ class WipController extends AppController
         $this->loadModel('SerialNumber');
         $this->loadModel('WipSection');
         $sn_model3 = $this->SerialNumber->find('all')
-            ->Where(['model'=> 'CSU']);
+            ->Where(['model'=> 'RMU CB 12kV']);
         foreach ($sn_model3 as $snm){
             $wip = $this->Wip->find('all')
                 ->Where(['serial_no'=> $snm->id]);
@@ -598,7 +602,7 @@ class WipController extends AppController
                 }
             }
         }
-        $model3->name = 'CSU';
+        $model3->name = 'RMU CB 12kV';
         $model3->var31 = $var31;
         $model3->var32 = $var32;
         $model3->var33 = $var33;
@@ -625,7 +629,7 @@ class WipController extends AppController
         $this->loadModel('SerialNumber');
         $this->loadModel('WipSection');
         $sn_model4 = $this->SerialNumber->find('all')
-            ->Where(['model'=> 'JMW']);
+            ->Where(['model'=> 'RMU CB 17.5kV']);
         foreach ($sn_model4 as $snm){
             $wip = $this->Wip->find('all')
                 ->Where(['serial_no'=> $snm->id]);
@@ -690,7 +694,7 @@ class WipController extends AppController
                 }
             }
         }
-        $model4->name = 'JMW';
+        $model4->name = 'RMU CB 17.5kV';
         $model4->var41 = $var41;
         $model4->var42 = $var42;
         $model4->var43 = $var43;
@@ -717,7 +721,7 @@ class WipController extends AppController
         $this->loadModel('SerialNumber');
         $this->loadModel('WipSection');
         $sn_model5 = $this->SerialNumber->find('all')
-            ->Where(['model'=> 'JMW - ARAB']);
+            ->Where(['model'=> 'CSU']);
         foreach ($sn_model5 as $snm){
             $wip = $this->Wip->find('all')
                 ->Where(['serial_no'=> $snm->id]);
@@ -782,7 +786,7 @@ class WipController extends AppController
                 }
             }
         }
-        $model5->name = 'JMW - ARAB';
+        $model5->name = 'CSU';
         $model5->var51 = $var51;
         $model5->var52 = $var52;
         $model5->var53 = $var53;
@@ -803,6 +807,376 @@ class WipController extends AppController
         $model5->a58 = $a58;
         $model5->a59 = $a59;
         $this->set('model5',$model5);
+
+        $var61 = $var62 = $var63 = $var64 = $var65 = $var66 = $var67 = $var68 = $var69 = 0;
+        $a61 = $a62 = $a63 = $a64 = $a65 = $a66 = $a67 = $a68 = $a69 = 0;
+        $this->loadModel('SerialNumber');
+        $this->loadModel('WipSection');
+        $sn_model6 = $this->SerialNumber->find('all')
+            ->Where(['model'=> 'Accessories']);
+        foreach ($sn_model6 as $snm){
+            $wip = $this->Wip->find('all')
+                ->Where(['serial_no'=> $snm->id]);
+            foreach ($wip as $wp){
+                $wips = $this->WipSection->find('all')
+                    ->Where(['wip_id' => $wp->id]);
+                foreach ($wips as $wps){
+                    if($wps->section == 'Welding 1'){
+                        $var61++;
+                        if($wps->status == 'acknowledged'){
+                            $a61++;
+                        }
+                    }
+                    if($wps->section == 'Main link Tank'){
+                        $var62++;
+                        if($wps->status == 'acknowledged'){
+                            $a62++;
+                        }
+                    }
+                    if($wps->section == 'Drive Mechanism'){
+                        $var63++;
+                        if($wps->status == 'acknowledged'){
+                            $a63++;
+                        }
+                    }
+                    if($wps->section == 'Vacuum Chamber'){
+                        $var64++;
+                        if($wps->status == 'acknowledged'){
+                            $a64++;
+                        }
+                    }
+                    if($wps->section == 'Welding 2'){
+                        $var65++;
+                        if($wps->status == 'acknowledged'){
+                            $a65++;
+                        }
+                    }
+                    if($wps->section == 'Bta'){
+                        $var66++;
+                        if($wps->status == 'acknowledged'){
+                            $a66++;
+                        }
+                    }
+                    if($wps->section == 'Metal Clad'){
+                        $var67++;
+                        if($wps->status == 'acknowledged'){
+                            $a67++;
+                        }
+                    }
+                    if($wps->section == 'Wiring'){
+                        $var68++;
+                        if($wps->status == 'acknowledged'){
+                            $a68++;
+                        }
+                    }
+                    if($wps->section == 'Testing'){
+                        $var69++;
+                        if($wps->status == 'acknowledged'){
+                            $a69++;
+                        }
+                    }
+                }
+            }
+        }
+        $model6->name = 'Accessories';
+        $model6->var61 = $var61;
+        $model6->var62 = $var62;
+        $model6->var63 = $var63;
+        $model6->var64 = $var64;
+        $model6->var65 = $var65;
+        $model6->var66 = $var66;
+        $model6->var67 = $var67;
+        $model6->var68 = $var68;
+        $model6->var69 = $var69;
+
+        $model6->a61 = $a61;
+        $model6->a62 = $a62;
+        $model6->a63 = $a63;
+        $model6->a64 = $a64;
+        $model6->a65 = $a65;
+        $model6->a66 = $a66;
+        $model6->a67 = $a67;
+        $model6->a68 = $a68;
+        $model6->a69 = $a69;
+        $this->set('model6',$model6);
+
+
+        $var71 = $var72 = $var73 = $var74 = $var75 = $var76 = $var77 = $var78 = $var79 = 0;
+        $a71 = $a72 = $a73 = $a74 = $a75 = $a76 = $a77 = $a78 = $a79 = 0;
+        $this->loadModel('SerialNumber');
+        $this->loadModel('WipSection');
+        $sn_model7 = $this->SerialNumber->find('all')
+            ->Where(['model'=> 'Services']);
+        foreach ($sn_model7 as $snm){
+            $wip = $this->Wip->find('all')
+                ->Where(['serial_no'=> $snm->id]);
+            foreach ($wip as $wp){
+                $wips = $this->WipSection->find('all')
+                    ->Where(['wip_id' => $wp->id]);
+                foreach ($wips as $wps){
+                    if($wps->section == 'Welding 1'){
+                        $var71++;
+                        if($wps->status == 'acknowledged'){
+                            $a71++;
+                        }
+                    }
+                    if($wps->section == 'Main link Tank'){
+                        $var72++;
+                        if($wps->status == 'acknowledged'){
+                            $a72++;
+                        }
+                    }
+                    if($wps->section == 'Drive Mechanism'){
+                        $var73++;
+                        if($wps->status == 'acknowledged'){
+                            $a73++;
+                        }
+                    }
+                    if($wps->section == 'Vacuum Chamber'){
+                        $var74++;
+                        if($wps->status == 'acknowledged'){
+                            $a74++;
+                        }
+                    }
+                    if($wps->section == 'Welding 2'){
+                        $var75++;
+                        if($wps->status == 'acknowledged'){
+                            $a75++;
+                        }
+                    }
+                    if($wps->section == 'Bta'){
+                        $var76++;
+                        if($wps->status == 'acknowledged'){
+                            $a76++;
+                        }
+                    }
+                    if($wps->section == 'Metal Clad'){
+                        $var77++;
+                        if($wps->status == 'acknowledged'){
+                            $a77++;
+                        }
+                    }
+                    if($wps->section == 'Wiring'){
+                        $var78++;
+                        if($wps->status == 'acknowledged'){
+                            $a78++;
+                        }
+                    }
+                    if($wps->section == 'Testing'){
+                        $var79++;
+                        if($wps->status == 'acknowledged'){
+                            $a79++;
+                        }
+                    }
+                }
+            }
+        }
+        $model7->name = 'Services';
+        $model7->var71 = $var71;
+        $model7->var72 = $var72;
+        $model7->var73 = $var73;
+        $model7->var74 = $var74;
+        $model7->var75 = $var75;
+        $model7->var76 = $var76;
+        $model7->var77 = $var77;
+        $model7->var78 = $var78;
+        $model7->var79 = $var79;
+
+        $model7->a71 = $a71;
+        $model7->a72 = $a72;
+        $model7->a73 = $a73;
+        $model7->a74 = $a74;
+        $model7->a75 = $a75;
+        $model7->a76 = $a76;
+        $model7->a77 = $a77;
+        $model7->a78 = $a78;
+        $model7->a79 = $a79;
+        $this->set('model7',$model7);
+
+
+        $var81 = $var82 = $var83 = $var84 = $var85 = $var86 = $var87 = $var88 = $var89 = 0;
+        $a81 = $a82 = $a83 = $a84 = $a85 = $a86 = $a87 = $a88 = $a89 = 0;
+        $this->loadModel('SerialNumber');
+        $this->loadModel('WipSection');
+        $sn_model8 = $this->SerialNumber->find('all')
+            ->Where(['model'=> 'Feeder Pillar/Indoor LV Board']);
+        foreach ($sn_model8 as $snm){
+            $wip = $this->Wip->find('all')
+                ->Where(['serial_no'=> $snm->id]);
+            foreach ($wip as $wp){
+                $wips = $this->WipSection->find('all')
+                    ->Where(['wip_id' => $wp->id]);
+                foreach ($wips as $wps){
+                    if($wps->section == 'Welding 1'){
+                        $var81++;
+                        if($wps->status == 'acknowledged'){
+                            $a81++;
+                        }
+                    }
+                    if($wps->section == 'Main link Tank'){
+                        $var82++;
+                        if($wps->status == 'acknowledged'){
+                            $a82++;
+                        }
+                    }
+                    if($wps->section == 'Drive Mechanism'){
+                        $var83++;
+                        if($wps->status == 'acknowledged'){
+                            $a83++;
+                        }
+                    }
+                    if($wps->section == 'Vacuum Chamber'){
+                        $var84++;
+                        if($wps->status == 'acknowledged'){
+                            $a84++;
+                        }
+                    }
+                    if($wps->section == 'Welding 2'){
+                        $var85++;
+                        if($wps->status == 'acknowledged'){
+                            $a85++;
+                        }
+                    }
+                    if($wps->section == 'Bta'){
+                        $var86++;
+                        if($wps->status == 'acknowledged'){
+                            $a86++;
+                        }
+                    }
+                    if($wps->section == 'Metal Clad'){
+                        $var87++;
+                        if($wps->status == 'acknowledged'){
+                            $a87++;
+                        }
+                    }
+                    if($wps->section == 'Wiring'){
+                        $var88++;
+                        if($wps->status == 'acknowledged'){
+                            $a88++;
+                        }
+                    }
+                    if($wps->section == 'Testing'){
+                        $var89++;
+                        if($wps->status == 'acknowledged'){
+                            $a89++;
+                        }
+                    }
+                }
+            }
+        }
+        $model8->name = 'Feeder Pillar/Indoor LV Board';
+        $model8->var81 = $var81;
+        $model8->var82 = $var82;
+        $model8->var83 = $var83;
+        $model8->var84 = $var84;
+        $model8->var85 = $var85;
+        $model8->var86 = $var86;
+        $model8->var87 = $var87;
+        $model8->var88 = $var88;
+        $model8->var89 = $var89;
+
+        $model8->a81 = $a81;
+        $model8->a82 = $a82;
+        $model8->a83 = $a83;
+        $model8->a84 = $a84;
+        $model8->a85 = $a85;
+        $model8->a86 = $a86;
+        $model8->a87 = $a87;
+        $model8->a88 = $a88;
+        $model8->a89 = $a89;
+        $this->set('model8',$model8);
+
+        $var91 = $var92 = $var93 = $var94 = $var95 = $var96 = $var97 = $var98 = $var99 = 0;
+        $a91 = $a92 = $a93 = $a94 = $a95 = $a96 = $a97 = $a98 = $a99 = 0;
+        $this->loadModel('SerialNumber');
+        $this->loadModel('WipSection');
+        $sn_model9 = $this->SerialNumber->find('all')
+            ->Where(['model'=> 'Distribution Board']);
+        foreach ($sn_model9 as $snm){
+            $wip = $this->Wip->find('all')
+                ->Where(['serial_no'=> $snm->id]);
+            foreach ($wip as $wp){
+                $wips = $this->WipSection->find('all')
+                    ->Where(['wip_id' => $wp->id]);
+                foreach ($wips as $wps){
+                    if($wps->section == 'Welding 1'){
+                        $var91++;
+                        if($wps->status == 'acknowledged'){
+                            $a91++;
+                        }
+                    }
+                    if($wps->section == 'Main link Tank'){
+                        $var92++;
+                        if($wps->status == 'acknowledged'){
+                            $a92++;
+                        }
+                    }
+                    if($wps->section == 'Drive Mechanism'){
+                        $var93++;
+                        if($wps->status == 'acknowledged'){
+                            $a93++;
+                        }
+                    }
+                    if($wps->section == 'Vacuum Chamber'){
+                        $var94++;
+                        if($wps->status == 'acknowledged'){
+                            $a94++;
+                        }
+                    }
+                    if($wps->section == 'Welding 2'){
+                        $var95++;
+                        if($wps->status == 'acknowledged'){
+                            $a95++;
+                        }
+                    }
+                    if($wps->section == 'Bta'){
+                        $var96++;
+                        if($wps->status == 'acknowledged'){
+                            $a96++;
+                        }
+                    }
+                    if($wps->section == 'Metal Clad'){
+                        $var97++;
+                        if($wps->status == 'acknowledged'){
+                            $a97++;
+                        }
+                    }
+                    if($wps->section == 'Wiring'){
+                        $var98++;
+                        if($wps->status == 'acknowledged'){
+                            $a98++;
+                        }
+                    }
+                    if($wps->section == 'Testing'){
+                        $var99++;
+                        if($wps->status == 'acknowledged'){
+                            $a99++;
+                        }
+                    }
+                }
+            }
+        }
+        $model9->name = 'Services';
+        $model9->var91 = $var91;
+        $model9->var92 = $var92;
+        $model9->var93 = $var93;
+        $model9->var94 = $var94;
+        $model9->var95 = $var95;
+        $model9->var96 = $var96;
+        $model9->var97 = $var97;
+        $model9->var98 = $var98;
+        $model9->var99 = $var99;
+
+        $model9->a91 = $a91;
+        $model9->a92 = $a92;
+        $model9->a93 = $a93;
+        $model9->a94 = $a94;
+        $model9->a95 = $a95;
+        $model9->a96 = $a96;
+        $model9->a97 = $a97;
+        $model9->a98 = $a98;
+        $model9->a99 = $a99;
+        $this->set('model9',$model9);
     }
     public function monthlyProgress(){
         $month = $this->request->getQuery('month');
@@ -837,19 +1211,19 @@ class WipController extends AppController
         }
         $op_count = new \stdClass();
         for( $i=0;$i < sizeof($all_op);$i++ ){
-            $ack1 = $ack2 = $ack3 = $ack4 = $ack5 = 0;
-            $rej1 = $rej2 = $rej3 = $rej4 = $rej5 = 0;
+            $ack1 = $ack2 = $ack3 = $ack4 = $ack5 = $ack6 = $ack7 = $ack8 = $ack9 = 0;
+            $rej1 = $rej2 = $rej3 = $rej4 = $rej5 = $rej6 = $rej7 = $rej8 = $rej9 =0;
             foreach ($wip as $wp){
                 if($wp->selected == 'yes'){
                     $sn_details = $this->SerialNumber->find('all')
                         ->Where(['id'=>$wp->serial_no]);
                     foreach ($sn_details as $snd){
-                        if($snd->model == 'RMU INS 24'){
+                        if($snd->model == 'RMU INS24'){
                             $wips_ack = $this->WipSection->find('all')
                                 ->Where(['wip_id'=>$wp->id])
                                 ->Where(['operator_name' => $all_op[$i]])
                                 ->Where(['status'=> 'acknowledged'])
-                                ->Where(['section'=> trim($section,'%20')]);
+                                ->Where(['section'=> $section]);
                             foreach ($wips_ack as $wps){
                                 $ack1 ++;
                             }
@@ -857,17 +1231,18 @@ class WipController extends AppController
                                 ->Where(['wip_id'=>$wp->id])
                                 ->Where(['operator_name' => $all_op[$i]])
                                 ->Where(['status'=> 'rejected'])
-                                ->Where(['section'=> trim($section,'%20')]);
+                                ->Where(['section'=> $section]);
                             foreach ($wips_rej as $wps){
                                 $rej1 ++;
                             }
                         }
-                        if($snd->model == 'RMU INS 24(VIOTORZEI)'){
+
+                        if($snd->model == 'RMU (Motorize)'){
                             $wips_ack = $this->WipSection->find('all')
                                 ->Where(['wip_id'=>$wp->id])
                                 ->Where(['operator_name' => $all_op[$i]])
                                 ->Where(['status'=> 'acknowledged'])
-                                ->Where(['section'=> trim($section,'%20')]);
+                                ->Where(['section'=> $section]);
                             foreach ($wips_ack as $wps){
                                 $ack2 ++;
                             }
@@ -875,17 +1250,17 @@ class WipController extends AppController
                                 ->Where(['wip_id'=>$wp->id])
                                 ->Where(['operator_name' => $all_op[$i]])
                                 ->Where(['status'=> 'rejected'])
-                                ->Where(['section'=> trim($section,'%20')]);
+                                ->Where(['section'=> $section]);
                             foreach ($wips_rej as $wps){
                                 $rej2 ++;
                             }
                         }
-                        if($snd->model == 'CSU'){
+                        if($snd->model == 'RMU CB 12kV'){
                             $wips_ack = $this->WipSection->find('all')
                                 ->Where(['wip_id'=>$wp->id])
                                 ->Where(['operator_name' => $all_op[$i]])
                                 ->Where(['status'=> 'acknowledged'])
-                                ->Where(['section'=> trim($section,'%20')]);
+                                ->Where(['section'=> $section]);
                             foreach ($wips_ack as $wps){
                                 $ack3 ++;
                             }
@@ -893,17 +1268,17 @@ class WipController extends AppController
                                 ->Where(['wip_id'=>$wp->id])
                                 ->Where(['operator_name' => $all_op[$i]])
                                 ->Where(['status'=> 'rejected'])
-                                ->Where(['section'=> trim($section,'%20')]);
+                                ->Where(['section'=> $section]);
                             foreach ($wips_rej as $wps){
                                 $rej3 ++;
                             }
                         }
-                        if($snd->model == 'JMW'){
+                        if($snd->model == 'RMU CB 17.5kV'){
                             $wips_ack = $this->WipSection->find('all')
                                 ->Where(['wip_id'=>$wp->id])
                                 ->Where(['operator_name' => $all_op[$i]])
                                 ->Where(['status'=> 'acknowledged'])
-                                ->Where(['section'=> trim($section,'%20')]);
+                                ->Where(['section'=> $section]);
                             foreach ($wips_ack as $wps){
                                 $ack4 ++;
                             }
@@ -911,17 +1286,17 @@ class WipController extends AppController
                                 ->Where(['wip_id'=>$wp->id])
                                 ->Where(['operator_name' => $all_op[$i]])
                                 ->Where(['status'=> 'rejected'])
-                                ->Where(['section'=> trim($section,'%20')]);
+                                ->Where(['section'=> $section]);
                             foreach ($wips_rej as $wps){
                                 $rej4 ++;
                             }
                         }
-                        if($snd->model == 'JMW - ARAB'){
+                        if($snd->model == 'CSU'){
                             $wips_ack = $this->WipSection->find('all')
                                 ->Where(['wip_id'=>$wp->id])
                                 ->Where(['operator_name' => $all_op[$i]])
                                 ->Where(['status'=> 'acknowledged'])
-                                ->Where(['section'=> trim($section,'%20')]);
+                                ->Where(['section'=> $section]);
                             foreach ($wips_ack as $wps){
                                 $ack5 ++;
                             }
@@ -932,6 +1307,82 @@ class WipController extends AppController
                                 ->Where(['section'=> trim($section,'%20')]);
                             foreach ($wips_rej as $wps){
                                 $rej5 ++;
+                            }
+                        }
+
+                        if($snd->model == 'Accessories'){
+                            $wips_ack = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'acknowledged'])
+                                ->Where(['section'=> $section]);
+                            foreach ($wips_ack as $wps){
+                                $ack6 ++;
+                            }
+                            $wips_rej = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'rejected'])
+                                ->Where(['section'=> $section]);
+                            foreach ($wips_rej as $wps){
+                                $rej6 ++;
+                            }
+                        }
+
+                        if($snd->model == 'Services'){
+                            $wips_ack = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'acknowledged'])
+                                ->Where(['section'=> $section]);
+                            foreach ($wips_ack as $wps){
+                                $ack7 ++;
+                            }
+                            $wips_rej = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'rejected'])
+                                ->Where(['section'=> $section]);
+                            foreach ($wips_rej as $wps){
+                                $rej7 ++;
+                            }
+                        }
+
+                        if($snd->model == 'Feeder Pillar/Indoor LV Board'){
+                            $wips_ack = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'acknowledged'])
+                                ->Where(['section'=> $section]);
+                            foreach ($wips_ack as $wps){
+                                $ack8 ++;
+                            }
+                            $wips_rej = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'rejected'])
+                                ->Where(['section'=> $section]);
+                            foreach ($wips_rej as $wps){
+                                $rej8 ++;
+                            }
+                        }
+
+                        if($snd->model == 'Distribution Board'){
+                            $wips_ack = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'acknowledged'])
+                                ->Where(['section'=> $section]);
+                            foreach ($wips_ack as $wps){
+                                $ack9 ++;
+                            }
+                            $wips_rej = $this->WipSection->find('all')
+                                ->Where(['wip_id'=>$wp->id])
+                                ->Where(['operator_name' => $all_op[$i]])
+                                ->Where(['status'=> 'rejected'])
+                                ->Where(['section'=> $section]);
+                            foreach ($wips_rej as $wps){
+                                $rej9 ++;
                             }
                         }
                     }
@@ -945,6 +1396,14 @@ class WipController extends AppController
                     $sec_rej4 = 'rej4'.$i;
                     $sec_ack5 = 'ack5'.$i;
                     $sec_rej5 = 'rej5'.$i;
+                    $sec_ack6 = 'ack6'.$i;
+                    $sec_rej6 = 'rej6'.$i;
+                    $sec_ack7 = 'ack7'.$i;
+                    $sec_rej7 = 'rej7'.$i;
+                    $sec_ack8 = 'ack8'.$i;
+                    $sec_rej8 = 'rej8'.$i;
+                    $sec_ack9 = 'ack9'.$i;
+                    $sec_rej9 = 'rej9'.$i;
                     $op_count->$sec_ack1 = $ack1;
                     $op_count->$sec_rej1= $rej1;
                     $op_count->$sec_ack2 = $ack2;
@@ -955,6 +1414,14 @@ class WipController extends AppController
                     $op_count->$sec_rej4= $rej4;
                     $op_count->$sec_ack5 = $ack5;
                     $op_count->$sec_rej5= $rej5;
+                    $op_count->$sec_ack6 = $ack6;
+                    $op_count->$sec_rej6= $rej6;
+                    $op_count->$sec_ack7 = $ack7;
+                    $op_count->$sec_rej7= $rej7;
+                    $op_count->$sec_ack8 = $ack8;
+                    $op_count->$sec_rej8= $rej8;
+                    $op_count->$sec_ack9 = $ack9;
+                    $op_count->$sec_rej9= $rej9;
                 }
             }
         }
@@ -1043,8 +1510,6 @@ class WipController extends AppController
             ]);
             $fn->sec_sn = $sec_sn;
         }
-
-
         $this->set('year',$year);
         $this->set('month',$month);
         $this->set('all_op',$all_op);
@@ -1057,7 +1522,6 @@ class WipController extends AppController
         if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'report' ||  $this->request->getParam('action') === 'view' || $this->request->getParam('action') === 'bta' || $this->request->getParam('action') === 'dm' || $this->request->getParam('action') === 'mc' || $this->request->getParam('action') === 'mlt' || $this->request->getParam('action') === 'monthlyProgress' || $this->request->getParam('action') === 'monthlyProgress2' || $this->request->getParam('action') === 'statReport' || $this->request->getParam('action') === 'testing' || $this->request->getParam('action') === 'vc' || $this->request->getParam('action') === 'welding1' || $this->request->getParam('action') === 'welding2' || $this->request->getParam('action') === 'wiring') {
             return true;
         }
-
         if(isset($user['role']) && $user['role'] === 'requester'){
             if(in_array($this->request->action, ['add'])){
                 return true;
@@ -1069,6 +1533,5 @@ class WipController extends AppController
             }
         }
         return parent::isAuthorized($user);
-
     }
 }
