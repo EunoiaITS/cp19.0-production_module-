@@ -60,12 +60,12 @@ Production Planner page
                                 <td>Production</td>
                                 <td>Welding</td>
                                 <td><?= $m->location?></td>
-                                <td class="colored-red">Pending</td>
-                                <td>Amira</td>
-                                <td>15/10/2017</td>
-                                <td  class="colored-csn">Complete</td>
-                                <td  class="colored-csn">Ack</td>
-                                <td>Joned</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                             </tr>

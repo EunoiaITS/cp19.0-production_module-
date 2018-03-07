@@ -54,9 +54,9 @@
                         <td><?= $f->created_by ?></td>
                         <td>Production</td>
                         <td>Wiring</td>
-                        <td><?= $f->date ?></td>
-                        <td class="colored-csn">Ack</td>
-                        <td><?= $f->approved_by ?></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                         <td><a href="#">View</a></td>
                         <td><?= $f->remark ?></td>
                     </tr>

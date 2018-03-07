@@ -58,12 +58,12 @@
                         <td><?= $m->created_by ?></td>
                         <td>Production</td>
                         <td>13/10/2017</td>
-                        <td class="colored-csn">Ack</td>
-                        <td>Amira</td>
-                        <td>15/10/2017</td>
-                        <td>10</td>
-                        <td>Complete</td>
-                        <td  class="colored-csn">Ack</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                         <td><?= $m->approved_by ?></td>
                         <td></td>
                     </tr>
@@ -71,7 +71,6 @@
                     <?php endforeach; ?>
                     </tbody>
                 </table>
-
             </div>
         </div>
         <div class="col-sm-12">

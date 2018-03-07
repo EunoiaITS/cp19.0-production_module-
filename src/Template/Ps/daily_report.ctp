@@ -1,6 +1,9 @@
 <!--=========
 Create serial number form page
 ==============-->
+<?php //echo "<pre>";
+//print_r($sales);
+//echo "</pre>";?>
 <div class="planner-from">
     <form id="ps-form" action="<?php echo $this->Url->build(['controller'=>'ps','action'=>'dailyReport'])?>" method="post" class="planner-relative">
     <div class="container-fluid">
@@ -64,7 +67,7 @@ Create serial number form page
                             <td><?= $items->version?></td>
                             <td>INDoor</td>
                             <td>Motorized</td>
-                            <td><input name="quantity<?= $count?>" id="quantity-id<?= $count?>" type="text" class="form-control quantity" value="<?php foreach ($s->data as $d){if(isset($d->total)){echo $d->total;}}?>"></td>
+                            <td><input name="quantity<?= $count?>" id="quantity-id<?= $count?>" type="text" class="form-control quantity" value="<?php if(isset($items->dr_quantity)){echo $items->dr_quantity;}?>"></td>
                             <td></td>
                         </tr>
                             <div id="add-item-table">

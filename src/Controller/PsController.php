@@ -270,6 +270,7 @@ class PsController extends AppController
     }
     public function dailyReport(){
         $date = $this->request->getQuery('date');
+        $this->loadModel('Dr');
         $urlToSales = 'http://salesmodule.acumenits.com/api/all-data';
         $optionsForSales = [
         'http' => [
@@ -284,10 +285,29 @@ class PsController extends AppController
         }
         $ps = $this->Ps->newEntity();
         $dataFromSales = json_decode($resultFromSales);
-        foreach ($dataFromSales as $d){
-            $data = $this->Ps->find('all')
-                ->Where(['date'=>$date]);
-            $d->data = $data;
+        $ps_data = $this->Ps->find('all')
+            ->Where(['date'=>$date]);
+        $count = 0;
+        foreach ($ps_data as $dt){
+            $count++;
+        }
+        foreach ($dataFromSales as $dts){
+            foreach ($ps_data as $psd){
+
+            }
+            $dts->ps_data = $ps_data;
+            if($count > 0){
+                $dts->action = 'edit';
+                foreach ($dts->soi as $items){
+                    $dr = $this->Dr->find('all')
+                        ->Where(['item_no'=>$items->id]);
+                    foreach ($dr as $dq){
+                        $items->dr_quantity = $dq->quantity;
+                    }
+                }
+            }else{
+                $dts->action = 'add';
+            }
         }
         if ($this->request->is(['post'])) {
             $ps->date = $this->request->getData('date');

@@ -58,24 +58,24 @@
                           <td>PRN12345</td>
                           <td>0264</td>
                           <td>Spring Shaft Assy</td>
-                          <td>SPRING SHAFT TAK BOLE DIMASUKKAN PADA LUBANG SOCKET TRIPPING LEVER ASSY PROSES PERTAMA UNTUK MECH TGAGAL</td>
+                          <td>TGAGAL</td>
                           <td>27</td>
                           <td><a href="#">View</a></td>
                           <td>Malik</td>
                           <td>Sub Assy Ins</td>
                           <td></td>
-                          <td class="colored-csn">Ack</td>
-                          <td>Zahirin</td>
-                          <td class="colored-csn">MDR1234</td>
                           <td></td>
-                          <td  class="colored-csn">Ack</td>
-                          <td>Amira</td>
-                          <td>17/10/2017</td>
-                          <td>27</td>
-                          <td>Complete</td>
-                          <td>17/10/2017</td>
-                          <td class="colored-csn">Ack</td>
-                          <td>Kamal</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
                           <td></td>
                         </tr>
                     </tbody>

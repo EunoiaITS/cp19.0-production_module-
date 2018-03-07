@@ -52,10 +52,10 @@
                         <td><?= $item->quantity ?></td>
                         <td><?= $n->created_by ?></td>
                         <td>Production</td>
-                        <td>Busbar</td>
-                        <td>11-03-17</td>
-                        <td class="colored-csn">Ack</td>
-                        <td>Amira</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                         <td><a href="#">View</a></td>
                         <td><?= $n->remark ?></td>
                     </tr>
