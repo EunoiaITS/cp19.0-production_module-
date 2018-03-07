@@ -14,6 +14,12 @@ use Cake\ORM\TableRegistry;
  */
 class WipController extends AppController
 {
+
+    public $paginate = [
+        // Other keys here.
+        'maxLimit' => 10
+    ];
+
     public function initialize()
     {
         parent::initialize();
@@ -172,7 +178,7 @@ class WipController extends AppController
     public function report(){
         $this->loadModel('SerialNumber');
         $this->loadModel('WipSection');
-        $wip = $this->Wip->find('all');
+        $wip = $this->paginate($this->Wip->find('all'));
         foreach ($wip as $wp){
             $sn_details = $this->SerialNumber->find('all')
                 ->Where(['id'=>$wp->serial_no]);
@@ -188,7 +194,7 @@ class WipController extends AppController
     public function welding1(){
         $this->loadModel('SerialNumber');
         $this->loadModel('WipSection');
-        $wip = $this->Wip->find('all');
+        $wip = $this->paginate($this->Wip->find('all'));
         foreach ($wip as $wp){
             $sn_details = $this->SerialNumber->find('all')
                 ->Where(['id'=>$wp->serial_no]);
@@ -205,7 +211,7 @@ class WipController extends AppController
     public function mlt(){
         $this->loadModel('SerialNumber');
         $this->loadModel('WipSection');
-        $wip = $this->Wip->find('all');
+        $wip = $this->paginate($this->Wip->find('all'));
         foreach ($wip as $wp){
             $sn_details = $this->SerialNumber->find('all')
                 ->Where(['id'=>$wp->serial_no]);
@@ -222,7 +228,7 @@ class WipController extends AppController
     public function dm(){
         $this->loadModel('SerialNumber');
         $this->loadModel('WipSection');
-        $wip = $this->Wip->find('all');
+        $wip = $this->paginate($this->Wip->find('all'));
         foreach ($wip as $wp){
             $sn_details = $this->SerialNumber->find('all')
                 ->Where(['id'=>$wp->serial_no]);
@@ -239,7 +245,7 @@ class WipController extends AppController
     public function bta(){
         $this->loadModel('SerialNumber');
         $this->loadModel('WipSection');
-        $wip = $this->Wip->find('all');
+        $wip = $this->paginate($this->Wip->find('all'));
         foreach ($wip as $wp){
             $sn_details = $this->SerialNumber->find('all')
                 ->Where(['id'=>$wp->serial_no]);
@@ -256,7 +262,7 @@ class WipController extends AppController
     public function vc(){
         $this->loadModel('SerialNumber');
         $this->loadModel('WipSection');
-        $wip = $this->Wip->find('all');
+        $wip = $this->paginate($this->Wip->find('all'));
         foreach ($wip as $wp){
             $sn_details = $this->SerialNumber->find('all')
                 ->Where(['id'=>$wp->serial_no]);
@@ -273,7 +279,7 @@ class WipController extends AppController
     public function Welding2(){
         $this->loadModel('SerialNumber');
         $this->loadModel('WipSection');
-        $wip = $this->Wip->find('all');
+        $wip = $this->paginate($this->Wip->find('all'));
         foreach ($wip as $wp){
             $sn_details = $this->SerialNumber->find('all')
                 ->Where(['id'=>$wp->serial_no]);
@@ -290,7 +296,7 @@ class WipController extends AppController
     public function mc(){
         $this->loadModel('SerialNumber');
         $this->loadModel('WipSection');
-        $wip = $this->Wip->find('all');
+        $wip = $this->paginate($this->Wip->find('all'));
         foreach ($wip as $wp){
             $sn_details = $this->SerialNumber->find('all')
                 ->Where(['id'=>$wp->serial_no]);
@@ -307,7 +313,7 @@ class WipController extends AppController
     public function wiring(){
         $this->loadModel('SerialNumber');
         $this->loadModel('WipSection');
-        $wip = $this->Wip->find('all');
+        $wip = $this->paginate($this->Wip->find('all'));
         foreach ($wip as $wp){
             $sn_details = $this->SerialNumber->find('all')
                 ->Where(['id'=>$wp->serial_no]);
@@ -324,7 +330,7 @@ class WipController extends AppController
     public function testing(){
         $this->loadModel('SerialNumber');
         $this->loadModel('WipSection');
-        $wip = $this->Wip->find('all');
+        $wip = $this->paginate($this->Wip->find('all'));
         foreach ($wip as $wp){
             $sn_details = $this->SerialNumber->find('all')
                 ->Where(['id'=>$wp->serial_no]);

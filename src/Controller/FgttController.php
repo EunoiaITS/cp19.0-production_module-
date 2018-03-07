@@ -14,6 +14,11 @@ use Cake\Event\Event;
 class FgttController extends AppController
 {
 
+    public $paginate = [
+        // Other keys here.
+        'maxLimit' => 10
+    ];
+
     public function initialize(){
         parent::initialize();
         $this->viewBuilder()->setLayout('mainframe');
@@ -27,18 +32,18 @@ class FgttController extends AppController
     public function index()
     {
         if($this->Auth->user('role') == 'requester'){
-            $fgtt = $this->Fgtt->find('all')
-                ->where(['status' => 'requested']);
+            $fgtt = $this->paginate($this->Fgtt->find('all')
+                ->where(['status' => 'requested']));
         }
 
         if($this->Auth->user('role') == 'verifier'){
-            $fgtt = $this->Fgtt->find('all')
-                ->where(['status' => 'requested']);
+            $fgtt = $this->paginate($this->Fgtt->find('all')
+                ->where(['status' => 'requested']));
         }
 
         if($this->Auth->user('role') == 'approve-1'){
-            $fgtt = $this->Fgtt->find('all')
-                ->where(['status' => 'verified']);
+            $fgtt = $this->paginate($this->Fgtt->find('all')
+                ->where(['status' => 'verified']));
         }
         if($this->Auth->user('role') == 'approve-2' || $this->Auth->user('role') == 'approve-3' || $this->Auth->user('role') == 'approve-4'){
             $this->loadModel('SerialNumber');
@@ -199,8 +204,8 @@ class FgttController extends AppController
     public function report(){
         $this->loadModel('SerialNumber');
         $this->loadModel('SerialNumberChild');
-        $fgtt = $this->Fgtt->find('all')
-            ->where(['status' => 'approved']);
+        $fgtt = $this->paginate($this->Fgtt->find('all')
+            ->where(['status' => 'approved']));
         foreach($fgtt as $fg){
             $fgtt_details = $this->SerialNumber->find('all')
                 ->where(['so_no' => $fg->so_no]);
@@ -214,7 +219,7 @@ class FgttController extends AppController
     public function statusReport(){
         $this->loadModel('SerialNumber');
         $this->loadModel('SerialNumberChild');
-        $fgtt = $this->Fgtt->find('all');
+        $fgtt = $this->paginate($this->Fgtt->find('all'));
         foreach($fgtt as $fg){
             $fgtt_details = $this->SerialNumber->find('all')
                 ->where(['so_no' => $fg->so_no]);

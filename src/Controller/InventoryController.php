@@ -13,6 +13,12 @@ use Cake\Event\Event;
  */
 class InventoryController extends AppController
 {
+
+    public $paginate = [
+        // Other keys here.
+        'maxLimit' => 10
+    ];
+
     public function initialize()
     {
         parent::initialize();

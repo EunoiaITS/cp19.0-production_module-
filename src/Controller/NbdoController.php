@@ -15,6 +15,11 @@ use Cake\Event\Event;
 class NbdoController extends AppController
 {
 
+    public $paginate = [
+        // Other keys here.
+        'maxLimit' => 10
+    ];
+
     public function initialize(){
         parent::initialize();
         $this->viewBuilder()->setLayout('mainframe');
@@ -28,18 +33,18 @@ class NbdoController extends AppController
     public function index()
     {
         if($this->Auth->user('role') == 'requester'){
-            $nbdo = $this->Nbdo->find('all')
-                ->where(['status' => 'requested']);
+            $nbdo = $this->paginate($this->Nbdo->find('all')
+                ->where(['status' => 'requested']));
         }
 
         if($this->Auth->user('role') == 'verifier'){
-            $nbdo = $this->Nbdo->find('all')
-                ->where(['status' => 'requested']);
+            $nbdo = $this->paginate($this->Nbdo->find('all')
+                ->where(['status' => 'requested']));
         }
 
         if($this->Auth->user('role') == 'approve-1'){
-            $nbdo = $this->Nbdo->find('all')
-                ->where(['status' => 'verified']);
+            $nbdo = $this->paginate($this->Nbdo->find('all')
+                ->where(['status' => 'verified']));
         }
         if($this->Auth->user('role') == 'approve-2' || $this->Auth->user('role') == 'approve-3' || $this->Auth->user('role') == 'approve-4'){
             $this->loadModel('SerialNumber');
@@ -237,8 +242,8 @@ class NbdoController extends AppController
 
     public function report(){
         $this->loadModel('NbdoItems');
-        $nbdo = $this->Nbdo->find('all')
-            ->where(['status' => 'approved']);
+        $nbdo = $this->paginate($this->Nbdo->find('all')
+            ->where(['status' => 'approved']));
         foreach($nbdo as $n){
             $items = $this->NbdoItems->find('all')
                 ->where(['nbdo_id' => $n->id]);
@@ -249,7 +254,7 @@ class NbdoController extends AppController
 
     public function statusReport(){
         $this->loadModel('NbdoItems');
-        $nbdo = $this->Nbdo->find('all');
+        $nbdo = $this->paginate($this->Nbdo->find('all'));
         foreach($nbdo as $n){
             $items = $this->NbdoItems->find('all')
                 ->where(['nbdo_id' => $n->id]);
