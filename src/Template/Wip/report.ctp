@@ -64,173 +64,171 @@ Create serial number form page
                                 }
                                 } ?>
                             </td>
-                            <?php foreach ($w->wip_sec as $sec){
-                                    if($sec->section == 'Welding 1'){
-                                        if($sec->status == 'acknowledged'){
-                                            echo '<td class="colored-csn">Ack</td>';
-                                        }elseif($sec->status == 'requested'){
-                                            echo '<td class="colored-red">Pending</td>';
-                                        }elseif($sec->status == 'rejected'){
-                                            echo '<td class="colored-red">Reject</td>';
-                                        }else{
-                                            echo '<td></td>';
-                                        }
-                                    }
-                                } ?>
+                            <td class="<?php foreach ($w->wip_sec as $sec){
+                                if($sec->section == 'Welding 1'){
+                                    if($sec->status == 'acknowledged'){echo "colored-csn";}
+                                    elseif($sec->status == 'requested'){echo "colored-red";}
+                                    elseif($sec->status == 'rejected'){echo "colored-red";}
+                                    else{echo "";}
+                            }}?>"><?php foreach ($w->wip_sec as $sec){
+                                if($sec->section == 'Welding 1'){
+                                    if($sec->status == 'acknowledged'){echo "Ack";}
+                                    elseif($sec->status == 'requested'){echo "Pending";}
+                                    elseif($sec->status == 'rejected'){echo "Reject";}
+                                    else{echo "";}
+                            }}?></td>
                             <td><?php foreach ($w->wip_sec as $sec){
                                     if($sec->section == 'Main link Tank'){
                                         echo $sec->operator_name;
                                     }
                                 } ?>
                             </td>
-                            <?php foreach ($w->wip_sec as $sec){
+                            <td class="<?php foreach ($w->wip_sec as $sec){
                                 if($sec->section == 'Main link Tank'){
-                                    if($sec->status == 'acknowledged'){
-                                        echo '<td class="colored-csn">Ack</td>';
-                                    }elseif($sec->status == 'requested'){
-                                        echo '<td class="colored-red">Pending</td>';
-                                    }elseif($sec->status == 'rejected'){
-                                        echo '<td class="colored-red">Reject</td>';
-                                    }else{
-                                        echo '<td></td>';
-                                    }
-                                }
-                            } ?>
+                                    if($sec->status == 'acknowledged'){echo "colored-csn";}
+                                    elseif($sec->status == 'requested'){echo "colored-red";}
+                                    elseif($sec->status == 'rejected'){echo "colored-red";}
+                                    else{echo "";}
+                                }}?>"><?php foreach ($w->wip_sec as $sec){
+                                    if($sec->section == 'Main link Tank'){
+                                        if($sec->status == 'acknowledged'){echo "Ack";}
+                                        elseif($sec->status == 'requested'){echo "Pending";}
+                                        elseif($sec->status == 'rejected'){echo "Reject";}
+                                        else{echo "";}
+                                    }}?></td>
                             <td><?php foreach ($w->wip_sec as $sec){
                                     if($sec->section == 'Drive Mechanism'){
                                         echo $sec->operator_name;
                                     }
                                 } ?>
                             </td>
-                            <?php foreach ($w->wip_sec as $sec){
+                            <td class="<?php foreach ($w->wip_sec as $sec){
                                 if($sec->section == 'Drive Mechanism'){
-                                    if($sec->status == 'acknowledged'){
-                                        echo '<td class="colored-csn">Ack</td>';
-                                    }elseif($sec->status == 'requested'){
-                                        echo '<td class="colored-red">Pending</td>';
-                                    }elseif($sec->status == 'rejected'){
-                                        echo '<td class="colored-red">Reject</td>';
-                                    }else{
-                                        echo '<td></td>';
-                                    }
-                                }
-                            } ?>
+                                    if($sec->status == 'acknowledged'){echo "colored-csn";}
+                                    elseif($sec->status == 'requested'){echo "colored-red";}
+                                    elseif($sec->status == 'rejected'){echo "colored-red";}
+                                    else{echo "";}
+                                }}?>"><?php foreach ($w->wip_sec as $sec){
+                                    if($sec->section == 'Drive Mechanism'){
+                                        if($sec->status == 'acknowledged'){echo "Ack";}
+                                        elseif($sec->status == 'requested'){echo "Pending";}
+                                        elseif($sec->status == 'rejected'){echo "Reject";}
+                                        else{echo "";}
+                                    }}?></td>
                             <td><?php foreach ($w->wip_sec as $sec){
                                     if($sec->section == 'Vacuum Chamber'){
                                         echo $sec->operator_name;
                                     }
                                 } ?>
                             </td>
-                            <?php foreach ($w->wip_sec as $sec){
+                            <td class="<?php foreach ($w->wip_sec as $sec){
                                 if($sec->section == 'Vacuum Chamber'){
-                                    if($sec->status == 'acknowledged'){
-                                        echo '<td class="colored-csn">Ack</td>';
-                                    }elseif($sec->status == 'requested'){
-                                        echo '<td class="colored-red">Pending</td>';
-                                    }elseif($sec->status == 'rejected'){
-                                        echo '<td class="colored-red">Reject</td>';
-                                    }else{
-                                        echo '<td></td>';
-                                    }
-                                }
-                            } ?>
+                                    if($sec->status == 'acknowledged'){echo "colored-csn";}
+                                    elseif($sec->status == 'requested'){echo "colored-red";}
+                                    elseif($sec->status == 'rejected'){echo "colored-red";}
+                                    else{echo "";}
+                                }}?>"><?php foreach ($w->wip_sec as $sec){
+                                    if($sec->section == 'Vacuum Chamber'){
+                                        if($sec->status == 'acknowledged'){echo "Ack";}
+                                        elseif($sec->status == 'requested'){echo "Pending";}
+                                        elseif($sec->status == 'rejected'){echo "Reject";}
+                                        else{echo "";}
+                                    }}?></td>
                             <td><?php foreach ($w->wip_sec as $sec){
                                     if($sec->section == 'Welding 2'){
                                         echo $sec->operator_name;
                                     }
                                 } ?>
                             </td>
-                            <?php foreach ($w->wip_sec as $sec){
+                            <td class="<?php foreach ($w->wip_sec as $sec){
                                 if($sec->section == 'Welding 2'){
-                                    if($sec->status == 'acknowledged'){
-                                        echo '<td class="colored-csn">Ack</td>';
-                                    }elseif($sec->status == 'requested'){
-                                        echo '<td class="colored-red">Pending</td>';
-                                    }elseif($sec->status == 'rejected'){
-                                        echo '<td class="colored-red">Reject</td>';
-                                    }else{
-                                        echo '<td></td>';
-                                    }
-                                }
-                            } ?>
+                                    if($sec->status == 'acknowledged'){echo "colored-csn";}
+                                    elseif($sec->status == 'requested'){echo "colored-red";}
+                                    elseif($sec->status == 'rejected'){echo "colored-red";}
+                                    else{echo "";}
+                                }}?>"><?php foreach ($w->wip_sec as $sec){
+                                    if($sec->section == 'Welding 2'){
+                                        if($sec->status == 'acknowledged'){echo "Ack";}
+                                        elseif($sec->status == 'requested'){echo "Pending";}
+                                        elseif($sec->status == 'rejected'){echo "Reject";}
+                                        else{echo "";}
+                                    }}?></td>
                             <td><?php foreach ($w->wip_sec as $sec){
                                     if($sec->section == 'Bta'){
                                         echo $sec->operator_name;
                                     }
                                 } ?>
                             </td>
-                            <?php foreach ($w->wip_sec as $sec){
+                            <td class="<?php foreach ($w->wip_sec as $sec){
                                 if($sec->section == 'Bta'){
-                                    if($sec->status == 'acknowledged'){
-                                        echo '<td class="colored-csn">Ack</td>';
-                                    }elseif($sec->status == 'requested'){
-                                        echo '<td class="colored-red">Pending</td>';
-                                    }elseif($sec->status == 'rejected'){
-                                        echo '<td class="colored-red">Reject</td>';
-                                    }else{
-                                        echo '<td></td>';
-                                    }
-                                }
-                            } ?>
+                                    if($sec->status == 'acknowledged'){echo "colored-csn";}
+                                    elseif($sec->status == 'requested'){echo "colored-red";}
+                                    elseif($sec->status == 'rejected'){echo "colored-red";}
+                                    else{echo "";}
+                                }}?>"><?php foreach ($w->wip_sec as $sec){
+                                    if($sec->section == 'Bta'){
+                                        if($sec->status == 'acknowledged'){echo "Ack";}
+                                        elseif($sec->status == 'requested'){echo "Pending";}
+                                        elseif($sec->status == 'rejected'){echo "Reject";}
+                                        else{echo "";}
+                                    }}?></td>
                             <td><?php foreach ($w->wip_sec as $sec){
                                     if($sec->section == 'Metal Clad'){
                                         echo $sec->operator_name;
                                     }
                                 } ?>
                             </td>
-                            <?php foreach ($w->wip_sec as $sec){
+                            <td class="<?php foreach ($w->wip_sec as $sec){
                                 if($sec->section == 'Metal Clad'){
-                                    if($sec->status == 'acknowledged'){
-                                        echo '<td class="colored-csn">Ack</td>';
-                                    }elseif($sec->status == 'requested'){
-                                        echo '<td class="colored-red">Pending</td>';
-                                    }elseif($sec->status == 'rejected'){
-                                        echo '<td class="colored-red">Reject</td>';
-                                    }else{
-                                        echo '<td></td>';
-                                    }
-                                }
-                            } ?>
+                                    if($sec->status == 'acknowledged'){echo "colored-csn";}
+                                    elseif($sec->status == 'requested'){echo "colored-red";}
+                                    elseif($sec->status == 'rejected'){echo "colored-red";}
+                                    else{echo "";}
+                                }}?>"><?php foreach ($w->wip_sec as $sec){
+                                    if($sec->section == 'Metal Clad'){
+                                        if($sec->status == 'acknowledged'){echo "Ack";}
+                                        elseif($sec->status == 'requested'){echo "Pending";}
+                                        elseif($sec->status == 'rejected'){echo "Reject";}
+                                        else{echo "";}
+                                    }}?></td>
                             <td><?php foreach ($w->wip_sec as $sec){
                                     if($sec->section == 'Wiring'){
                                         echo $sec->operator_name;
                                     }
                                 } ?>
                             </td>
-                            <?php foreach ($w->wip_sec as $sec){
+                            <td class="<?php foreach ($w->wip_sec as $sec){
                                 if($sec->section == 'Wiring'){
-                                    if($sec->status == 'acknowledged'){
-                                        echo '<td class="colored-csn">Ack</td>';
-                                    }elseif($sec->status == 'requested'){
-                                        echo '<td class="colored-red">Pending</td>';
-                                    }elseif($sec->status == 'rejected'){
-                                        echo '<td class="colored-red">Reject</td>';
-                                    }else{
-                                        echo '<td></td>';
-                                    }
-                                }
-                            } ?>
+                                    if($sec->status == 'acknowledged'){echo "colored-csn";}
+                                    elseif($sec->status == 'requested'){echo "colored-red";}
+                                    elseif($sec->status == 'rejected'){echo "colored-red";}
+                                    else{echo "";}
+                                }}?>"><?php foreach ($w->wip_sec as $sec){
+                                    if($sec->section == 'Wiring'){
+                                        if($sec->status == 'acknowledged'){echo "Ack";}
+                                        elseif($sec->status == 'requested'){echo "Pending";}
+                                        elseif($sec->status == 'rejected'){echo "Reject";}
+                                        else{echo "";}
+                                    }}?></td>
                             <td><?php foreach ($w->wip_sec as $sec){
                                     if($sec->section == 'Testing'){
                                         echo $sec->operator_name;
                                     }
                                 } ?>
                             </td>
-                            <td id="testing-id">
-                            <?php foreach ($w->wip_sec as $sec){
+                            <td class="<?php foreach ($w->wip_sec as $sec){
                                 if($sec->section == 'Testing'){
-                                    if($sec->status == 'acknowledged'){
-                                        echo '<td class="colored-csn">Ack</td>';
-                                    }elseif($sec->status == 'requested'){
-                                        echo '<td class="colored-red">Pending</td>';
-                                    }elseif($sec->status == 'rejected'){
-                                        echo '<td class="colored-red">Reject</td>';
-                                    }else{
-                                        echo '<td></td>';
-                                    }
-                                }
-                            } ?>
-                            </td>
+                                    if($sec->status == 'acknowledged'){echo "colored-csn";}
+                                    elseif($sec->status == 'requested'){echo "colored-red";}
+                                    elseif($sec->status == 'rejected'){echo "colored-red";}
+                                    else{echo "";}
+                                }}?>"><?php foreach ($w->wip_sec as $sec){
+                                    if($sec->section == 'Testing'){
+                                        if($sec->status == 'acknowledged'){echo "Ack";}
+                                        elseif($sec->status == 'requested'){echo "Pending";}
+                                        elseif($sec->status == 'rejected'){echo "Reject";}
+                                        else{echo "";}
+                                    }}?></td>
 
                             <?php endforeach;?>
                         </tbody>
@@ -240,7 +238,4 @@ Create serial number form page
         </div>
     </div>
 <script>
-    $(document).ready(function () {
-        $('.class').
-    });
 </script>
