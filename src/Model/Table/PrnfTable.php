@@ -57,9 +57,13 @@ class PrnfTable extends Table
             ->notEmpty('date');
 
         $validator
-            ->scalar('part_no')
-            ->maxLength('part_no', 255)
-            ->notEmpty('part_no');
+        ->scalar('part_no')
+        ->maxLength('part_no', 255)
+        ->notEmpty('part_no');
+        $validator
+            ->scalar('part_name')
+            ->maxLength('part_name', 255)
+            ->notEmpty('part_name');
             
         $validator
             ->scalar('location')

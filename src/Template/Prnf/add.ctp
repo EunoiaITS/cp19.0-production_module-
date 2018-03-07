@@ -33,7 +33,7 @@ prn page
                             <label class="cn-text" for="prn-form">Part No <span class="planner-fright">:</span></label>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <input type="text" name="part_no" class="form-control" id="prn-form">
+                            <input type="text" name="part_no" id="part-no" rel="part-name" class="form-control part-no" id="prn-form">
                         </div>
                     </div>
 
@@ -42,7 +42,7 @@ prn page
                             <p class="cn-text">Part Name <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text text-uppercase">Spring shaft Assy</p>
+                            <input type="text" name="part_name" id="part-name" rel="part-no" class="form-control part-name" id="prn-form">
                         </div>
                     </div>
 
@@ -137,3 +137,22 @@ prn page
     </div>
     </form>
 </div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var part_no = 'input.part-no';
+        var part_name = 'input.part-name';
+        var data_no = [<?php echo $part_no; ?>];
+        var options_no = {
+            source: data_no,
+            minLength: 0
+        };
+        var targetName = null;
+        $(document).on('keydown.autocomplete', part_no, function () {
+            $(this).autocomplete(options_no);
+        });
+        $(document).on('autocompleteselect', part_no, function (e, ui) {
+            targetName = $(this).attr('rel');
+            $('#' + targetName).val(ui.item.idx);
+        });
+    });
+</script>

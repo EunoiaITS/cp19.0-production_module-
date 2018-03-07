@@ -47,9 +47,9 @@ class PrnfController extends AppController
                 ->where(['status' => 'approved1']);
         }
         if($this->Auth->user('role') == 'approve-4'){
-            $prnf = $this->Prnf->find('all')
-                ->where(['status' => 'approved2']);
-        }
+        $prnf = $this->Prnf->find('all')
+            ->where(['status' => 'approved2']);
+    }
 
         $this->set(compact('prnf'));
     }
@@ -77,6 +77,29 @@ class PrnfController extends AppController
      */
     public function add()
     {
+        $urlToEng = 'http://engmodule.acumenits.com/api/all-parts';
+
+        $optionsForEng = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'GET'
+            ]
+        ];
+        $contextForEng  = stream_context_create($optionsForEng);
+        $resultFromEng = file_get_contents($urlToEng, false, $contextForEng);
+        if ($resultFromEng === FALSE) {
+            echo 'ERROR!!';
+        }
+        $dataFromEng = json_decode($resultFromEng);
+        $part_no = $part_name = null;
+        foreach($dataFromEng as $pm){
+            $part_no .= '{label:"'.$pm->partNo.'",idx:"'.$pm->partName.'"},';
+            $part_name .= '{label:"'.$pm->partName.'",idx:"'.$pm->partNo.'"},';
+        }
+        $part_no = rtrim($part_no, ',');
+        $part_name = rtrim($part_name, ',');
+
+
         $count = $this->Prnf->find('all')->last();
         $prnf = $this->Prnf->newEntity();
         if ($this->request->is('post')) {
@@ -110,6 +133,8 @@ class PrnfController extends AppController
             $this->Flash->error(__('The prnf could not be saved. Please, try again.'));
         }
         $this->set(compact('prnf'));
+        $this->set('part_no', $part_no);
+        $this->set('part_name', $part_name);
         $this->set('pic', $this->Auth->user('username'));
         $this->set('pic_name', $this->Auth->user('name'));
         $this->set('pic_dept', $this->Auth->user('dept'));
