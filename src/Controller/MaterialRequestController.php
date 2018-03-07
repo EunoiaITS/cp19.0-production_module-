@@ -15,6 +15,11 @@ use Cake\Event\Event;
 class MaterialRequestController extends AppController
 {
 
+    public $paginate = [
+        // Other keys here.
+        'maxLimit' => 10
+    ];
+
     public function initialize(){
         parent::initialize();
         $this->viewBuilder()->setLayout('mainframe');
@@ -28,18 +33,18 @@ class MaterialRequestController extends AppController
     public function index()
     {
         if($this->Auth->user('role') == 'requester'){
-            $materialRequest = $this->MaterialRequest->find('all')
-                ->where(['status' => 'requested']);
+            $materialRequest = $this->paginate($this->MaterialRequest->find('all')
+                ->where(['status' => 'requested']));
         }
 
         if($this->Auth->user('role') == 'verifier'){
-            $materialRequest = $this->MaterialRequest->find('all')
-                ->where(['status' => 'requested']);
+            $materialRequest = $this->paginate($this->MaterialRequest->find('all')
+                ->where(['status' => 'requested']));
         }
 
         if($this->Auth->user('role') == 'approve-1'){
-            $materialRequest = $this->MaterialRequest->find('all')
-                ->where(['status' => 'verified']);
+            $materialRequest = $this->paginate($this->MaterialRequest->find('all')
+                ->where(['status' => 'verified']));
         }
         if($this->Auth->user('role') == 'approve-2' || $this->Auth->user('role') == 'approve-3' || $this->Auth->user('role') == 'approve-4'){
             $this->loadModel('SerialNumber');
@@ -200,8 +205,8 @@ class MaterialRequestController extends AppController
 
     public function report(){
         $this->loadModel('MrItems');
-        $mr = $this->MaterialRequest->find('all')
-            ->where(['status' => 'approved']);
+        $mr = $this->paginate($this->MaterialRequest->find('all')
+            ->where(['status' => 'approved']));
         foreach($mr as $m){
             $items = $this->MrItems->find('all')
                 ->where(['mr_id' => $m->id]);
@@ -212,7 +217,7 @@ class MaterialRequestController extends AppController
 
     public function statusReport(){
         $this->loadModel('MrItems');
-        $mr = $this->MaterialRequest->find('all');
+        $mr = $this->paginate($this->MaterialRequest->find('all'));
         foreach($mr as $m){
             $items = $this->MrItems->find('all')
                 ->where(['mr_id' => $m->id]);

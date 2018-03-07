@@ -13,6 +13,12 @@ use Cake\Event\Event;
  */
 class ScnController extends AppController
 {
+
+    public $paginate = [
+        // Other keys here.
+        'maxLimit' => 10
+    ];
+
     public function initialize(){
         parent::initialize();
         $this->viewBuilder()->setLayout('mainframe');
@@ -25,18 +31,18 @@ class ScnController extends AppController
     public function index()
     {
         if($this->Auth->user('role') == 'requester'){
-            $scn = $this->Scn->find('all')
-                ->where(['status' => 'requested']);
+            $scn = $this->paginate($this->Scn->find('all')
+                ->where(['status' => 'requested']));
         }
 
         if($this->Auth->user('role') == 'verifier'){
-            $scn = $this->Scn->find('all')
-                ->where(['status' => 'requested']);
+            $scn = $this->paginate($this->Scn->find('all')
+                ->where(['status' => 'requested']));
         }
 
         if($this->Auth->user('role') == 'approve-1'){
-            $scn = $this->Scn->find('all')
-                ->where(['status' => 'verified']);
+            $scn = $this->paginate($this->Scn->find('all')
+                ->where(['status' => 'verified']));
         }
         if($this->Auth->user('role') == 'approve-2' || $this->Auth->user('role') == 'approve-3' || $this->Auth->user('role') == 'approve-4'){
             $this->loadModel('SerialNumber');
@@ -206,8 +212,8 @@ class ScnController extends AppController
 
     public function report(){
         $this->loadModel('ScnItems');
-        $scn = $this->Scn->find('all')
-            ->where(['status' => 'approved']);
+        $scn = $this->paginate($this->Scn->find('all')
+            ->where(['status' => 'approved']));
         foreach($scn as $s){
             $items = $this->ScnItems->find('all')
                 ->where(['scn_id' => $s->id]);
@@ -218,7 +224,7 @@ class ScnController extends AppController
 
     public function statusReport(){
         $this->loadModel('ScnItems');
-        $scn = $this->Scn->find('all');
+        $scn = $this->paginate($this->Scn->find('all'));
         foreach($scn as $s){
             $items = $this->ScnItems->find('all')
                 ->where(['scn_id' => $s->id]);

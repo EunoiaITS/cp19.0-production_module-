@@ -13,6 +13,12 @@ use Cake\ORM\TableRegistry;
  */
 class PsController extends AppController
 {
+
+    public $paginate = [
+        // Other keys here.
+        'maxLimit' => 10
+    ];
+
     public function initialize()
     {
         parent::initialize();
@@ -28,17 +34,17 @@ class PsController extends AppController
     {
         $this->loadModel('PsMonthly');
         if($this->Auth->user('role') == 'verifier'){
-            $ps = $this->PsMonthly->find('all')
-                ->where(['status' => 'requested']);
+            $ps = $this->paginate($this->PsMonthly->find('all')
+                ->where(['status' => 'requested']));
         }elseif($this->Auth->user('role') == 'approve-1'){
-            $ps = $this->PsMonthly->find('all')
-                ->where(['status' => 'verified']);
+            $ps = $this->paginate($this->PsMonthly->find('all')
+                ->where(['status' => 'verified']));
         }elseif($this->Auth->user('role') == 'approve-2'){
-            $ps = $this->PsMonthly->find('all')
-                ->where(['status' => 'approval-1']);
+            $ps = $this->paginate($this->PsMonthly->find('all')
+                ->where(['status' => 'approval-1']));
         }else{
-            $ps = $this->PsMonthly->find('all')
-                ->where(['status' => 'requested', 'status' => 'rejected']);
+            $ps = $this->paginate($this->PsMonthly->find('all')
+                ->where(['status' => 'requested', 'status' => 'rejected']));
         }
         if($this->Auth->user('role') == 'approve-3' || $this->Auth->user('role') == 'approve-4'){
             $this->loadModel('SerialNumber');
@@ -415,8 +421,8 @@ class PsController extends AppController
     public function report(){
         $this->loadModel('PsMonthly');
         $this->loadModel('Fgtt');
-        $ps = $this->PsMonthly->find('all')
-            ->where(['status' => 'approve_2']);
+        $ps = $this->paginate($this->PsMonthly->find('all')
+            ->where(['status' => 'approve_2']));
         $dataFromSales = new \stdClass();
         foreach($ps as $p){
             $reqData = [

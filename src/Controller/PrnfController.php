@@ -14,6 +14,12 @@ use Cake\Event\Event;
  */
 class PrnfController extends AppController
 {
+
+    public $paginate = [
+        // Other keys here.
+        'maxLimit' => 10
+    ];
+
     public function initialize(){
         parent::initialize();
         $this->viewBuilder()->setLayout('mainframe');
@@ -26,29 +32,29 @@ class PrnfController extends AppController
     public function index()
     {
         if($this->Auth->user('role') == 'requester'){
-            $prnf = $this->Prnf->find('all')
-                ->where(['status' => 'requested']);
+            $prnf = $this->paginate($this->Prnf->find('all')
+                ->where(['status' => 'requested']));
         }
         if($this->Auth->user('role') == 'verifier'){
-            $prnf = $this->Prnf->find('all')
-                ->where(['status' => 'requested']);
+            $prnf = $this->paginate($this->Prnf->find('all')
+                ->where(['status' => 'requested']));
         }
 
         if($this->Auth->user('role') == 'approve-1'){
-            $prnf = $this->Prnf->find('all')
-                ->where(['status' => 'verified']);
+            $prnf = $this->paginate($this->Prnf->find('all')
+                ->where(['status' => 'verified']));
         }
         if($this->Auth->user('role') == 'approve-2'){
-            $prnf = $this->Prnf->find('all')
-                ->where(['status' => 'approved']);
+            $prnf = $this->paginate($this->Prnf->find('all')
+                ->where(['status' => 'approved']));
         }
         if($this->Auth->user('role') == 'approve-3'){
-            $prnf = $this->Prnf->find('all')
-                ->where(['status' => 'approved1']);
+            $prnf = $this->paginate($this->Prnf->find('all')
+                ->where(['status' => 'approved1']));
         }
         if($this->Auth->user('role') == 'approve-4'){
-        $prnf = $this->Prnf->find('all')
-            ->where(['status' => 'approved2']);
+            $prnf = $this->paginate($this->Prnf->find('all')
+                ->where(['status' => 'approved2']));
     }
 
         $this->set(compact('prnf'));

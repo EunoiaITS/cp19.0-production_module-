@@ -13,6 +13,11 @@ use App\Controller\AppController;
 class MitController extends AppController
 {
 
+    public $paginate = [
+        // Other keys here.
+        'maxLimit' => 10
+    ];
+
     public function initialize()
     {
         parent::initialize();
@@ -419,7 +424,7 @@ class MitController extends AppController
             echo 'ERROR!!';
         }
         $dataFromSales = json_decode($resultFromSales);
-        $mit = $this->Mit->find('all');
+        $mit = $this->paginate($this->Mit->find('all'));
         foreach ($mit as $m){
             foreach ($dataFromSales as $sales){
                 $m->sales = $sales;
@@ -437,21 +442,21 @@ class MitController extends AppController
     }
     public function request(){
         if($this->Auth->user('role') == 'requester'){
-            $mit = $this->Mit->find('all')
-                ->where(['status' => 'requested']);
+            $mit = $this->paginate($this->Mit->find('all')
+                ->where(['status' => 'requested']));
         }
         if($this->Auth->user('role') == 'verifier'){
-            $mit = $this->Mit->find('all')
-                ->where(['status' => 'requested']);
+            $mit = $this->paginate($this->Mit->find('all')
+                ->where(['status' => 'requested']));
         }
 
         if($this->Auth->user('role') == 'approve-1'){
-            $mit = $this->Mit->find('all')
-                ->where(['status' => 'verified']);
+            $mit = $this->paginate($this->Mit->find('all')
+                ->where(['status' => 'verified']));
         }
         if($this->Auth->user('role') == 'approve-2'){
-            $mit = $this->Mit->find('all')
-                ->where(['status' => 'approved']);
+            $mit = $this->paginate($this->Mit->find('all')
+                ->where(['status' => 'approved']));
         }
         if($this->Auth->user('role') == 'approve-3' || $this->Auth->user('role') == 'approve-4'){
             $this->loadModel('SerialNumber');
