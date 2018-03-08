@@ -146,7 +146,7 @@ prn page
                 <form method="post" action="<?php echo $this->url->build(['controller' => 'Prnf', 'action' => 'edit', $prnf->id]); ?>">
                     <input type="hidden" name="approved1_by" value="<?= $pic?>">
                     <input type="hidden" name="status" value="approved">
-                    <button class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>
+                    <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>
                     <button type="submit" class="button btn btn-info">Approve</button>
                 </form>
             </div>
@@ -165,14 +165,15 @@ Remark popup module
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title text-center" id="myModalLabel">Please Key In Remarks Here </h4>
             </div>
-            <div class="modal-body">
-                <form action="#">
-                    <textarea name="" id="" class="popup-textarea" cols="20" rows="8"></textarea>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Okay</button>
-            </div>
+            <form method="post" action="<?php echo $this->url->build(['controller' => 'Prnf', 'action' => 'edit', $prnf->id]); ?>">
+                <div class="modal-body">
+                    <textarea name="remark" id="" class="popup-textarea" cols="20" rows="8"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="status" value="rejected">
+                    <button type="submit" class="btn btn-primary">Okay</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
