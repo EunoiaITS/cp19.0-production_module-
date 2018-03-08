@@ -62,6 +62,7 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                 <?php if($role == 'requester'): ?><li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'mit','action'=>'index'])?>">MIT Request List</a></li><?php endif; ?>
+                <?php if($role == 'requester'): ?><li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'mit','action'=>'ackList'])?>">MIT Acknowledgement</a></li><?php endif; ?>
                 <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'mit','action'=>'request'])?>">MIT Request</a></li>
                 <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'mit','action'=>'statusReport'])?>">MIT Status</a></li>
                 <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'mit','action'=>'report'])?>">MIT Reporting</a></li>

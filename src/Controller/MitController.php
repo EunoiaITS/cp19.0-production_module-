@@ -355,7 +355,7 @@ class MitController extends AppController
             if ($this->Mit->save($mit)) {
                 $this->Flash->success(__('The mit has been saved.'));
 
-                return $this->redirect(['action' => 'request']);
+                return $this->redirect(['action' => 'ackList']);
             }
             $this->Flash->error(__('The mit could not be saved. Please, try again.'));
         }
@@ -393,7 +393,7 @@ class MitController extends AppController
         }
         $dataFromSales = json_decode($resultFromSales);
         $mit = $this->paginate($this->Mit->find('all')
-            ->Where(['status'=>'acknowledged']));
+            ->Where(['status'=>'approved']));
         foreach ($mit as $m){
             foreach ($dataFromSales as $sales){
                 $m->sales = $sales;
@@ -449,20 +449,48 @@ class MitController extends AppController
             $mit = $this->paginate($this->Mit->find('all')
                 ->where(['status' => 'requested']));
         }
-
         if($this->Auth->user('role') == 'approve-1'){
             $mit = $this->paginate($this->Mit->find('all')
                 ->where(['status' => 'verified']));
         }
-        if($this->Auth->user('role') == 'approve-2'){
-            $mit = $this->paginate($this->Mit->find('all')
-                ->where(['status' => 'approved']));
-        }
-        if($this->Auth->user('role') == 'approve-3' || $this->Auth->user('role') == 'approve-4'){
+        if($this->Auth->user('role') == 'approve-2' || $this->Auth->user('role') == 'approve-3' || $this->Auth->user('role') == 'approve-4'){
             $this->loadModel('SerialNumber');
             $this->redirect(array("controller" => "SerialNumber", "action" => "dashboard"));
         }
         $this->set(compact('mit'));
+    }
+    public function ackList(){
+        $urlToSales = 'http://salesmodule.acumenits.com/api/all-data';
+
+        $optionsForSales = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'GET'
+            ]
+        ];
+        $contextForSales  = stream_context_create($optionsForSales);
+        $resultFromSales = file_get_contents($urlToSales, false, $contextForSales);
+        if ($resultFromSales === FALSE) {
+            echo 'ERROR!!';
+        }
+        $dataFromSales = json_decode($resultFromSales);
+        $mit = $this->Mit->find('all')
+            ->Where(['status'=>'approved']);
+        foreach ($mit as $m){
+            foreach ($dataFromSales as $sales){
+                $m->sales = $sales;
+                foreach ($sales->soi as $items){
+                    if($items->id == $m->so_item_id){
+                        $m->items = $items;
+                    }
+                }
+                foreach ($sales->cus as $cus){
+                    $m->cus = $cus;
+                }
+            }
+        }
+
+        $this->set('mit',$mit);
     }
 
     public function isAuthorized($user){
@@ -470,7 +498,7 @@ class MitController extends AppController
             return true;
         }
         if(isset($user['role']) && $user['role'] === 'requester'){
-            if(in_array($this->request->action, ['add'])){
+            if(in_array($this->request->action, ['add','ackList','acknowledge','edit'])){
                 return true;
             }
         }
