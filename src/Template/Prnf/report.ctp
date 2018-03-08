@@ -52,17 +52,17 @@
                       </tr>
                     </thead>
                     <tbody class="csn-text-up">
+                    <?php $i=0;foreach ($prnf as $p):$i++;?>
                         <tr>
-                          <td>1</td>
-                          <td>15/10/2017</td>
-                          <td>PRN12345</td>
-                          <td>0264</td>
-                          <td>Spring Shaft Assy</td>
-                          <td>TGAGAL</td>
-                          <td>27</td>
-                          <td><a href="#">View</a></td>
-                          <td>Malik</td>
-                          <td>Sub Assy Ins</td>
+                          <td><?= $i ?></td>
+                          <td><?= $p->date ?></td>
+                          <td>PRN <?= $p->id ?></td>
+                          <td><?= $p->part_no ?></td>
+                          <td><?= $p->part_name ?></td>
+                          <td><?= $p->description ?></td>
+                          <td><?= $p->quantity ?></td>
+                          <td><a href="<?php echo "../". $p->document ?>"><?php if(isset($p->document)){echo "View";}else{echo "";}?></a></td>
+                          <td><?= $p->created_by ?></td>
                           <td></td>
                           <td></td>
                           <td></td>
@@ -74,10 +74,12 @@
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td></td>
-                          <td></td>
+                          <td><?= $p->date?></td>
+                          <td class="colored-csn">Ack</td>
+                          <td><?= $p->approved4_by ?></td>
                           <td></td>
                         </tr>
+                    <?php endforeach;?>
                     </tbody>
                   </table>
 
