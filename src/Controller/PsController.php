@@ -291,11 +291,12 @@ class PsController extends AppController
         foreach ($ps_data as $dt){
             $count++;
         }
+        if($count > 0){
+            $ps_data->action = 'edit';
+        }else{
+            $ps_data->action = 'add';
+        }
         foreach ($dataFromSales as $dts){
-            foreach ($ps_data as $psd){
-
-            }
-            $dts->ps_data = $ps_data;
             if($count > 0){
                 $dts->action = 'edit';
                 foreach ($dts->soi as $items){
@@ -303,6 +304,7 @@ class PsController extends AppController
                         ->Where(['item_no'=>$items->id]);
                     foreach ($dr as $dq){
                         $items->dr_quantity = $dq->quantity;
+                        $items->dr_id = $dq->id;
                     }
                 }
             }else{
@@ -310,32 +312,46 @@ class PsController extends AppController
             }
         }
         if ($this->request->is(['post'])) {
-            $ps->date = $this->request->getData('date');
-            $ps->total = $this->request->getData('total');
-            $ps->created_by = 'requester';
-            $ps->status = 'requested';
-            if ($this->Ps->save($ps)) {
-                $ps_no = $this->Ps->find('all', ['fields' => 'id'])->last();
-                if($this->request->getData('count') != null){
-                    $dr = TableRegistry::get('dr');
-                    $drData = array();
-                    for($i = 0; $i <= $this->request->getData('count'); $i++){
-                        $drData[$i]['ps_id'] = $ps_no['id'];
-                        $drData[$i]['so_no'] = $this->request->getData('so_no'.$i);
-                        $drData[$i]['item_no'] = $this->request->getData('item_no'.$i);
-                        $drData[$i]['quantity'] = $this->request->getData('quantity'.$i);
+            if($this->request->getData('action') == 'add'){
+                $ps->date = $this->request->getData('date');
+                $ps->total = $this->request->getData('total');
+                $ps->created_by = $this->Auth->user('username');
+                $ps->status = 'requested';
+                if ($this->Ps->save($ps)) {
+                    $ps_no = $this->Ps->find('all', ['fields' => 'id'])->last();
+                    if($this->request->getData('count') != null){
+                        $dr = TableRegistry::get('dr');
+                        $drData = array();
+                        for($i = 0; $i <= $this->request->getData('count'); $i++){
+                            $drData[$i]['ps_id'] = $ps_no['id'];
+                            $drData[$i]['so_no'] = $this->request->getData('so_no'.$i);
+                            $drData[$i]['item_no'] = $this->request->getData('item_no'.$i);
+                            $drData[$i]['quantity'] = $this->request->getData('quantity'.$i);
+                        }
+                        $pss = $dr->newEntities($drData);
+                        foreach($pss as $ps){
+                            $dr->save($ps);
+                        }
                     }
-                    $pss = $dr->newEntities($drData);
-                    foreach($pss as $ps){
-                        $dr->save($ps);
-                    }
+                    $this->Flash->success(__('The PS daily scheduler has been saved.'));
+
+                    return $this->redirect(['action' => 'scheduler']);
                 }
-                $this->Flash->success(__('The scn has been saved.'));
+                $this->Flash->error(__('The ps could not be saved. Please, try again.'));
+            }else{
+                for($i = 0; $i <= $this->request->getData('count'); $i++){
+                    $ps_item = $this->Dr->get($this->request->getData('dr_id'.$i), [
+                        'contain' => []
+                    ]);
+                    $ps_item->quantity = $this->request->getData('quantity'.$i);
+                    $this->Dr->save($ps_item);
+                }
+                $this->Flash->success(__('The PS daily scheduler has been saved.'));
 
                 return $this->redirect(['action' => 'scheduler']);
             }
-            $this->Flash->error(__('The ps could not be saved. Please, try again.'));
         }
+        $this->set('ps_data', $ps_data);
         $this->set('sales',$dataFromSales);
         $this->set('date',$date);
         $this->set('pic', $this->Auth->user('username'));
