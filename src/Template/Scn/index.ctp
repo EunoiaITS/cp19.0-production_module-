@@ -23,9 +23,9 @@
                         </tr>
                         </thead>
                         <tbody class="csn-text-up">
-                        <?php foreach($scn as $sn): ?>
+                        <?php $count = 0; foreach($scn as $sn): $count++ ?>
                             <tr>
-                                <td><?= $sn->id ?></td>
+                                <td><?= $count ?></td>
                                 <td><?= $sn->date ?></td>
                                 <td><?= $sn->location ?></td>
                                 <td><?= $sn->created_by ?></td>

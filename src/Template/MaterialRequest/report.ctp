@@ -44,8 +44,8 @@
                     </tr>
                     </thead>
                     <tbody class="csn-text-up">
-                    <?php foreach($mr as $m): ?>
-                    <?php $count = 0; foreach($m->items as $item): $count++; ?>
+                    <?php $count = 0; foreach($mr as $m): ?>
+                    <?php foreach($m->items as $item): $count++; ?>
                     <tr>
                         <td><?= $count ?></td>
                         <td><?= $m->date ?></td>

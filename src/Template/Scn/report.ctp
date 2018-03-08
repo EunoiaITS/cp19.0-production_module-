@@ -39,8 +39,8 @@
                     </tr>
                     </thead>
                     <tbody class="csn-text-up">
-                    <?php foreach($scn as $s): ?>
-                    <?php $count = 0; foreach($s->items as $item): $count++; ?>
+                    <?php $count = 0; foreach($scn as $s): ?>
+                    <?php foreach($s->items as $item): $count++; ?>
                     <tr>
                         <td><?= $count ?></td>
                         <td><?= $s->date ?></td>

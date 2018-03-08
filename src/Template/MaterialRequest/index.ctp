@@ -27,9 +27,9 @@
                     </tr>
                     </thead>
                     <tbody class="csn-text-up">
-                    <?php foreach($materialRequest as $mr): ?>
+                    <?php $count = 0; foreach($materialRequest as $mr): $count++; ?>
                         <tr>
-                            <td><?= $mr->id ?></td>
+                            <td><?= $count ?></td>
                             <td><?= $mr->date ?></td>
                             <td><?= $mr->location ?></td>
                             <td><?= $mr->created_by ?></td>

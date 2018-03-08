@@ -94,9 +94,9 @@
                     </tr>
                     </thead>
                     <tbody  class="csn-text-up">
-                    <?php foreach($items as $item): ?>
+                    <?php $count = 0; foreach($items as $item): $count++; ?>
                     <tr>
-                        <td><?= $item->id ?></td>
+                        <td><?= $count ?></td>
                         <td><?= $item->part_no ?></td>
                         <td><?= $item->part_desc ?></td>
                         <td><?= $item->quantity ?></td>
