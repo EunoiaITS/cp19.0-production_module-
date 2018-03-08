@@ -19,7 +19,7 @@
                             <th>Create By</th>
                             <th>Department</th>
                             <th>Section</th>
-                            <th><?php $action = ''; if($role == 'verifier'){$action = 'verify';echo 'Verify';}elseif($role == 'approve-1'){$action = 'approval';echo 'Approve';}elseif($role == 'approve-2'){$action = 'acknowledge';echo 'Acknowledge';}else{$action = 'edit';echo 'Edit';} ?></th>
+                            <th><?php $action = ''; if($role == 'verifier'){$action = 'verify';echo 'Verify';}elseif($role == 'approve-1'){$action = 'approval';echo 'Approve';}else{$action = 'edit';echo 'Edit';} ?></th>
                         </tr>
                         </thead>
                         <tbody class="csn-text-up">
@@ -32,7 +32,7 @@
                                 <td><?= $m->created_by ?></td>
                                 <td><?= $role; ?></td>
                                 <td>Production</td>
-                                <td><a href="<?php echo $this->Url->build(['controller' => 'Mit', 'action' => $action, $m->id]); ?>"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve-1'){echo 'Approve';}elseif($role == 'approve-2'){echo 'Ack';}else{echo 'Edit';} ?></a></td>
+                                <td><a href="<?php echo $this->Url->build(['controller' => 'Mit', 'action' => $action, $m->id]); ?>"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve-1'){echo 'Approve';}else{echo 'Edit';} ?></a></td>
                             </tr>
                         <?php endforeach; ?>
                         </tbody>
