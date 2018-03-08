@@ -65,7 +65,7 @@ Production Planner page
                                 <td></td>
                                 <td></td>
                                 <td class="<?php if(isset($m->status)){if($m->status == 'acknowledged'){echo "colored-csn";}else{echo "colored-red";}}?>"><?php if(isset($m->status)){if($m->status == 'acknowledged'){echo "Ack";}else{echo "Pending";}}?></td>
-                                <td><?= $m->acknowledged_by?></td>
+                                <td><?php if(isset($m->acknowledged_by)){echo $m->acknowledged_by;}?></td>
                                 <td></td>
                                 <td></td>
                             </tr>

@@ -315,7 +315,8 @@ class PrnfController extends AppController
 
     }
     public function statusReport(){
-        
+        $prnf = $this->Prnf->find('all');
+        $this->set('prnf',$prnf);
     }
     public function report(){
         

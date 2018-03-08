@@ -47,28 +47,30 @@
                       </tr>
                     </thead>
                     <tbody class="csn-text-up">
+                    <?php $i=0;foreach ($prnf as $p): $i++;?>
                         <tr>
-                          <td>1</td>
-                          <td>15/10/2017</td>
-                          <td>MR12345</td>
-                          <td>0264</td>
-                          <td>Spring Shaft Assy</td>
-                          <td>SPRING SHAFT TAK BOLE DIMASUKKAN PADA LUBANG SOCKET TRIPPING LEVER ASSY PROSES PERTAMA UNTUK MECH TGAGAL</td>
-                          <td>27</td>
+                          <td><?= $i?></td>
+                          <td><?= $p->date ?></td>
+                          <td>PRN <?= $p->id ?></td>
+                          <td><?= $p->part_no ?></td>
+                          <td><?= $p->part_name ?></td>
+                          <td><?= $p->description ?></td>
+                          <td><?= $p->quantity ?></td>
                           <td><a href="#">View</a></td>
-                          <td>Malik</td>
-                          <td>Sub Assy Ins</td>
-                          <td class="colored-csn">Verified</td>
-                          <td>Rusli</td>
-                          <td class="colored-csn">Approved</td>
-                          <td>Tarmimi</td>
-                          <td  class="colored-csn">Approved</td>
-                          <td>Zainal</td>
-                          <td  class="colored-csn">Approved</td>
-                          <td>Zul-khairi</td>
+                          <td><?php if(isset($p->created_by)){echo $p->created_by;}?></td>
                           <td></td>
-                          <td></td>
+                          <td class="<?php if(isset($p->status)){if($p->status == "requested"){echo "colored-red";}}?>"><?php if(isset($p->status)){if($p->status == "requested"){echo "Pending";}}?></td>
+                          <td><?php if(isset($p->verified_by)){echo $p->verified_by;}?></td>
+                          <td class="<?php if(isset($p->status)){if($p->status == "verified"){echo "colored-red";}}?>"><?php if(isset($p->status)){if($p->status == "verified"){echo "Verified";}}?></td>
+                          <td><?php if(isset($p->approved1_by)){echo $p->approved1_by;}?></td>
+                          <td class="<?php if(isset($p->status)){if($p->status == "approved"){echo "colored-red";}}?>"><?php if(isset($p->status)){if($p->status == "approved"){echo "Approved 1";}}?></td>
+                          <td><?php if(isset($p->approved2_by)){echo $p->approved2_by;}?></td>
+                          <td class="<?php if(isset($p->status)){if($p->status == "approved1"){echo "colored-red";}}?>"><?php if(isset($p->status)){if($p->status == "approved1"){echo "Approved 2";}}?></td>
+                          <td><?php if(isset($p->approved3_by)){echo $p->approved3_by;}?></td>
+                          <td class="<?php if(isset($p->status)){if($p->status == "approved2"){echo "colored-red";}}?>"><?php if(isset($p->status)){if($p->status == "approved2"){echo "Approved 3";}}?></td>
+                          <td class="<?php if(isset($p->approved4_by)){echo 'colored-csn';}?>"><?php if(isset($p->approved4_by)){echo $p->approved4_by;}?></td>
                         </tr>
+                    <?php endforeach;?>
                     </tbody>
                   </table>
 
