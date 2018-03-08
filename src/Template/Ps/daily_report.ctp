@@ -1,9 +1,6 @@
 <!--=========
 Create serial number form page
 ==============-->
-<?php //echo "<pre>";
-//print_r($sales);
-//echo "</pre>";?>
 <div class="planner-from">
     <form id="ps-form" action="<?php echo $this->Url->build(['controller'=>'ps','action'=>'dailyReport'])?>" method="post" class="planner-relative">
     <div class="container-fluid">
@@ -74,6 +71,7 @@ Create serial number form page
                                 <input type="hidden" name="so_no<?= $count?>" value="<?= $s->salesorder_no?>">
                                 <input type="hidden" name="item_no<?= $count?>" value="<?= $items->id?>">
                                 <input type="hidden" name="count" value="<?= $count?>">
+                                <input type="hidden" name="dr_id<?= $count?>" value="<?php if(isset($items->dr_id)){echo $items->dr_id;}?>">
                             </div>
 
                     <?php $count++;?><?php endforeach;endforeach;?>
@@ -92,6 +90,8 @@ Create serial number form page
             <div class="clearfix"></div>
             <div class="col-sm-offset-8 col-sm-4 col-xs-12">
                     <div class="prepareted-by-csn">
+                        <input type="hidden" name="ps_id" value="<?php foreach($ps_data as $ps){if(isset($ps->id)){echo $ps->id;}} ?>">
+                        <input type="hidden" name="action" value="<?php echo $ps_data->action; ?>">
                         <button id="add-part" type="submit" class="button btn btn-info">Update</button>
                     </div>
             </div>
