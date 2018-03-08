@@ -99,6 +99,12 @@ Create serial number form page
 </div>
 <script>
     $(document).ready(function(){
+        var tot = 0;
+        $('.quantity').each(function(){
+            tot += parseInt($(this).val()) || 0;
+            $('#total').text(tot);
+
+        });
         var date = "<?php echo $date;?>";
         $('.quantity').on('change',function(){
             var total = 0;
