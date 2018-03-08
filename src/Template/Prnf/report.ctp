@@ -74,9 +74,9 @@
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td><?= $p->date?></td>
-                          <td class="colored-csn">Ack</td>
-                          <td><?= $p->approved4_by ?></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
                           <td></td>
                         </tr>
                     <?php endforeach;?>

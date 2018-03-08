@@ -138,13 +138,13 @@ Remark popup module
                 <h4 class="modal-title text-center" id="myModalLabel">Please Key In Remarks Here </h4>
             </div>
             <form method="post" action="<?php echo $this->url->build(['controller' => 'Scn', 'action' => 'edit', $scn->id]); ?>">
-            <div class="modal-body">
-                <textarea name="remark" id="" class="popup-textarea" cols="20" rows="8"></textarea>
-            </div>
-            <div class="modal-footer">
-                <input type="hidden" name="status" value="rejected">
-                <button type="submit" class="btn btn-primary">Okay</button>
-            </div>
+                <div class="modal-body">
+                    <textarea name="remark" id="" class="popup-textarea" cols="20" rows="8"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="status" value="rejected">
+                    <button type="submit" class="btn btn-primary">Okay</button>
+                </div>
             </form>
         </div>
     </div>
