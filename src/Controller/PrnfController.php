@@ -319,7 +319,9 @@ class PrnfController extends AppController
         $this->set('prnf',$prnf);
     }
     public function report(){
-        
+        $prnf = $this->Prnf->find('all')
+            ->Where(['status'=>'approved3']);
+        $this->set('prnf',$prnf);
     }
 
     public function isAuthorized($user){
