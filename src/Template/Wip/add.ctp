@@ -1,7 +1,6 @@
 <!--=========
 MiT form page
 ==============-->
-
 <div class="planner-from">
     <form action="<?php echo $this->Url->build(['controller'=>'wip','action'=>'add'])?>" method="post" enctype="multipart/form-data" class="planner-relative">
     <div class="container-fluid">
@@ -30,7 +29,8 @@ MiT form page
                                 <label  type="so-form" class="cn-text">Serial No <span class="planner-fright">:</span></label>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <input type="text" name="serial_no" class="form-control serial-no" id="serial-no">
+                                <select name="serial_no" class="form-control serial-no" id="serial-no">
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -212,7 +212,7 @@ MiT form page
             });
             var date = "<?php echo date('m/d/Y');?>";
             $('#date-id').val(date);
-            var wip = "<?= "WIP".' '.sprintf('%04d', $wp_no) ?>";
+            var wip = "<?php echo "WIP" .$wp_no; ?>";
             $('#wip-id').val(wip);
             var sn_id = 'input#wip-so-no';
             var data_no = [<?php echo $sn_id; ?>];
@@ -224,9 +224,19 @@ MiT form page
                 $(this).autocomplete(options_no);
             });
             $(document).on('autocompleteselect', sn_id, function (e, ui) {
-                $('#serial-no').val(ui.item.idx);
+                $('#serial-no').text(ui.item.item_ids);
                 $('#model').text(ui.item.idy);
                 $('#version').text(ui.item.idz);
+            });
+            $('#wip-id').on('change',function () {
+                var html = '';
+                $.each(sn_id,function (i,c) {
+                        var ids = c.item_ids;
+                        for( n = 0; n < ids.length; n++ ){
+                            html += '<option value="'+ids[n]+'">'+ids[n]+'</option>';
+                        }
+                });
+                $('#serial-no').html(html);
             });
         });
     </script>

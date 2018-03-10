@@ -89,20 +89,25 @@ class WipController extends AppController
     public function add()
     {
         $this->loadModel('SerialNumber');
+        $this->loadModel('SerialNumberChild');
         $this->loadModel('WipSection');
         $sn = $this->SerialNumber->find('all');
         $sn_id =null;
         foreach($sn as $s){
-            $sn_id .= '{label:"'.$s->so_no.'",idx:"'.$s->id.'",idy:"'.$s->model.'",idz:"'.$s->version.'"},';
+            $sn_items = $this->SerialNumberChild->find('all')
+                ->Where(['serial_number_id'=>$s->id]);
+            $sn_id .= '{label:"'.$s->so_no.'",idx:"'.$s->id.'",idy:"'.$s->model.'",idz:"'.$s->version.'",';
+            $item_ids = '';
+            foreach ($sn_items as $items){
+                $item_ids .= '"'.$items->id.'",';
+            }
+            $item_ids = rtrim($item_ids,',');
+            $sn_id .= 'item_ids:['.$item_ids.']},';
         }
         $wip = $this->Wip->newEntity();
         if ($this->request->is('post')) {
             $this->autoRender = false;
             $wip = $this->Wip->patchEntity($wip, $this->request->getData());
-//            if($this->request->getData('cb_1') == '' || $this->request->getData('cb_2') == '' || $this->request->getData('cb_3') == '' || $this->request->getData('cb_4') == '' || $this->request->getData('cb_5') == '' || $this->request->getData('cb_6') == '' || $this->request->getData('cb_7') == '' || $this->request->getData('cb_8') == '' || $this->request->getData('cb_9') == '') {
-//                $this->Flash->error(__('The wp could not be saved. Please, try again.'));
-//                return $this->redirect(['action' => 'add']);
-//            }
             if ($this->Wip->save($wip)) {
                 $wip_no = $this->Wip->find('all', ['fields' => 'id'])->last();
                 for($i =1;$i<=9;$i++){
@@ -124,7 +129,7 @@ class WipController extends AppController
         }
         $count = $this->Wip->find('all')->last();
         $this->set(compact('wip'));
-        $this->set('sn_id',$sn_id);
+        $this->set('sn_id',rtrim($sn_id,','));
         $this->set('wp_no', (isset($count->id) ? ($count->id + 1) : 1));
         $this->set('pic', $this->Auth->user('username'));
     }
@@ -1386,7 +1391,6 @@ class WipController extends AppController
                                 $total_count ++;
                             }
                         }
-
                         if($snd->model == 'Distribution Board'){
                             $wips_ack = $this->WipSection->find('all')
                                 ->Where(['wip_id'=>$wp->id])
