@@ -30,7 +30,7 @@ Create serial number form page
                                 <p class="cn-text">QTY Produce <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text">60</p>
+                                <p class="cn-main-text"><?= $total ?></p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -93,23 +93,23 @@ Create serial number form page
                             <th rowspan="2">Remark</th>
                         </tr>
                         <tr class="table-cells">
-                            <td>Act</td>
+                            <td>Ack</td>
                             <td>Reject</td>
-                            <td>Act</td>
+                            <td>Ack</td>
                             <td>Reject</td>
-                            <td>Act</td>
+                            <td>Ack</td>
                             <td>Reject</td>
-                            <td>Act</td>
+                            <td>Ack</td>
                             <td>Reject</td>
-                            <td>Act</td>
+                            <td>Ack</td>
                             <td>Reject</td>
-                            <td>Act</td>
+                            <td>Ack</td>
                             <td>Reject</td>
-                            <td>Act</td>
+                            <td>Ack</td>
                             <td>Reject</td>
-                            <td>Act</td>
+                            <td>Ack</td>
                             <td>Reject</td>
-                            <td>Act</td>
+                            <td>Ack</td>
                             <td>Reject</td>
                         </tr>
                         </thead>

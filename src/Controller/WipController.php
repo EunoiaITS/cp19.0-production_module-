@@ -1215,6 +1215,7 @@ class WipController extends AppController
             $all_op[] = $op_name;
         }
         $op_count = new \stdClass();
+        $total_count = 0;
         for( $i=0;$i < sizeof($all_op);$i++ ){
             $ack1 = $ack2 = $ack3 = $ack4 = $ack5 = $ack6 = $ack7 = $ack8 = $ack9 = 0;
             $rej1 = $rej2 = $rej3 = $rej4 = $rej5 = $rej6 = $rej7 = $rej8 = $rej9 =0;
@@ -1231,6 +1232,7 @@ class WipController extends AppController
                                 ->Where(['section'=> $section]);
                             foreach ($wips_ack as $wps){
                                 $ack1 ++;
+                                $total_count ++;
                             }
                             $wips_rej = $this->WipSection->find('all')
                                 ->Where(['wip_id'=>$wp->id])
@@ -1239,9 +1241,9 @@ class WipController extends AppController
                                 ->Where(['section'=> $section]);
                             foreach ($wips_rej as $wps){
                                 $rej1 ++;
+                                $total_count ++;
                             }
                         }
-
                         if($snd->model == 'RMU (Motorize)'){
                             $wips_ack = $this->WipSection->find('all')
                                 ->Where(['wip_id'=>$wp->id])
@@ -1250,6 +1252,7 @@ class WipController extends AppController
                                 ->Where(['section'=> $section]);
                             foreach ($wips_ack as $wps){
                                 $ack2 ++;
+                                $total_count ++;
                             }
                             $wips_rej = $this->WipSection->find('all')
                                 ->Where(['wip_id'=>$wp->id])
@@ -1258,6 +1261,7 @@ class WipController extends AppController
                                 ->Where(['section'=> $section]);
                             foreach ($wips_rej as $wps){
                                 $rej2 ++;
+                                $total_count ++;
                             }
                         }
                         if($snd->model == 'RMU CB 12kV'){
@@ -1268,6 +1272,7 @@ class WipController extends AppController
                                 ->Where(['section'=> $section]);
                             foreach ($wips_ack as $wps){
                                 $ack3 ++;
+                                $total_count ++;
                             }
                             $wips_rej = $this->WipSection->find('all')
                                 ->Where(['wip_id'=>$wp->id])
@@ -1276,6 +1281,7 @@ class WipController extends AppController
                                 ->Where(['section'=> $section]);
                             foreach ($wips_rej as $wps){
                                 $rej3 ++;
+                                $total_count ++;
                             }
                         }
                         if($snd->model == 'RMU CB 17.5kV'){
@@ -1286,6 +1292,7 @@ class WipController extends AppController
                                 ->Where(['section'=> $section]);
                             foreach ($wips_ack as $wps){
                                 $ack4 ++;
+                                $total_count ++;
                             }
                             $wips_rej = $this->WipSection->find('all')
                                 ->Where(['wip_id'=>$wp->id])
@@ -1294,6 +1301,7 @@ class WipController extends AppController
                                 ->Where(['section'=> $section]);
                             foreach ($wips_rej as $wps){
                                 $rej4 ++;
+                                $total_count ++;
                             }
                         }
                         if($snd->model == 'CSU'){
@@ -1304,6 +1312,7 @@ class WipController extends AppController
                                 ->Where(['section'=> $section]);
                             foreach ($wips_ack as $wps){
                                 $ack5 ++;
+                                $total_count ++;
                             }
                             $wips_rej = $this->WipSection->find('all')
                                 ->Where(['wip_id'=>$wp->id])
@@ -1323,6 +1332,7 @@ class WipController extends AppController
                                 ->Where(['section'=> $section]);
                             foreach ($wips_ack as $wps){
                                 $ack6 ++;
+                                $total_count ++;
                             }
                             $wips_rej = $this->WipSection->find('all')
                                 ->Where(['wip_id'=>$wp->id])
@@ -1331,6 +1341,7 @@ class WipController extends AppController
                                 ->Where(['section'=> $section]);
                             foreach ($wips_rej as $wps){
                                 $rej6 ++;
+                                $total_count ++;
                             }
                         }
 
@@ -1342,6 +1353,7 @@ class WipController extends AppController
                                 ->Where(['section'=> $section]);
                             foreach ($wips_ack as $wps){
                                 $ack7 ++;
+                                $total_count ++;
                             }
                             $wips_rej = $this->WipSection->find('all')
                                 ->Where(['wip_id'=>$wp->id])
@@ -1350,6 +1362,7 @@ class WipController extends AppController
                                 ->Where(['section'=> $section]);
                             foreach ($wips_rej as $wps){
                                 $rej7 ++;
+                                $total_count ++;
                             }
                         }
 
@@ -1361,6 +1374,7 @@ class WipController extends AppController
                                 ->Where(['section'=> $section]);
                             foreach ($wips_ack as $wps){
                                 $ack8 ++;
+                                $total_count ++;
                             }
                             $wips_rej = $this->WipSection->find('all')
                                 ->Where(['wip_id'=>$wp->id])
@@ -1369,6 +1383,7 @@ class WipController extends AppController
                                 ->Where(['section'=> $section]);
                             foreach ($wips_rej as $wps){
                                 $rej8 ++;
+                                $total_count ++;
                             }
                         }
 
@@ -1380,6 +1395,7 @@ class WipController extends AppController
                                 ->Where(['section'=> $section]);
                             foreach ($wips_ack as $wps){
                                 $ack9 ++;
+                                $total_count ++;
                             }
                             $wips_rej = $this->WipSection->find('all')
                                 ->Where(['wip_id'=>$wp->id])
@@ -1388,6 +1404,7 @@ class WipController extends AppController
                                 ->Where(['section'=> $section]);
                             foreach ($wips_rej as $wps){
                                 $rej9 ++;
+                                $total_count ++;
                             }
                         }
                     }
@@ -1430,7 +1447,6 @@ class WipController extends AppController
                 }
             }
         }
-        $ack_count = $rej_count =  0;
 
         $this->set('month', $month);
         $this->set('year', $year);
@@ -1438,6 +1454,7 @@ class WipController extends AppController
         $this->set('wip', $wip);
         $this->set('operators', $all_op);
         $this->set('op_count', $op_count);
+        $this->set('total', $total_count);
     }
     public function monthlyProgress2(){
         $this->loadModel('WipSection');

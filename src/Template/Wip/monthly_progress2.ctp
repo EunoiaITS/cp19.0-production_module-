@@ -125,9 +125,21 @@ Create serial number form page
         $( document ).ready(function() {
             var allOp = [<?php echo $all_op;?>];
             var defOp = '';
-            var defSec = allOp[0].section;
+            var currentOp = '<?php echo $n;?>';
+            var currentSec = '<?php echo $s;?>';
+            var key = 0;
+            for(i=0; i < allOp.length; i++){
+                if(allOp[i].label === currentOp){
+                    key = i;
+                }
+            }
+            var defSec = allOp[key].section;
             for(j = 0; j < defSec.length; j++){
-                defOp = '<option value="'+defSec[j]+'">'+defSec[j]+'</option>';
+                var selectedOp = '';
+                if(defSec[j] === currentSec){
+                    selectedOp = 'selected';
+                }
+                defOp += '<option value="'+defSec[j]+'" '+selectedOp+'>'+defSec[j]+'</option>';
             }
             $('#wip-section').html(defOp);
             $('#op-name').on('change',function (e) {
@@ -135,7 +147,7 @@ Create serial number form page
                 var html = '';
                 var sel = $(this).val();
                 $.each(allOp,function (i,c) {
-                    if(c.label == sel){
+                    if(c.label === sel){
                         var sections = c.section;
                         for( i = 0; i < sections.length; i++ ){
                             html += '<option value="'+sections[i]+'">'+sections[i]+'</option>';
