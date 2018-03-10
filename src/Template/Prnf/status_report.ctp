@@ -59,15 +59,15 @@
                           <td><a href="#">View</a></td>
                           <td><?php if(isset($p->created_by)){echo $p->created_by;}?></td>
                           <td></td>
-                          <td class="<?php if(isset($p->status)){if($p->status == "requested"){echo "colored-red";}}?>"><?php if(isset($p->status)){if($p->status == "requested"){echo "Pending";}}?></td>
+                          <td class="<?php if(isset($p->status)){if($p->status == "requested"){echo "colored-red";}elseif(isset($p->verified_by)){echo "colored-csn";}}?>"><?php if(isset($p->status)){if($p->status == "requested"){echo "Pending";}elseif(isset($p->verified_by)){echo "Verified";}}?></td>
                           <td><?php if(isset($p->verified_by)){echo $p->verified_by;}?></td>
-                          <td class="<?php if(isset($p->status)){if($p->status == "verified"){echo "colored-red";}}?>"><?php if(isset($p->status)){if($p->status == "verified"){echo "Verified";}}?></td>
+                          <td class="<?php if(isset($p->status)){if($p->status == "verified"){echo "colored-red";}elseif(isset($p->approved1_by)){echo "colored-csn";}}?>"><?php if(isset($p->status)){if($p->status == "verified"){echo "Pending";}elseif(isset($p->approved1_by)){echo "Approved";}}?></td>
                           <td><?php if(isset($p->approved1_by)){echo $p->approved1_by;}?></td>
-                          <td class="<?php if(isset($p->status)){if($p->status == "approved"){echo "colored-red";}}?>"><?php if(isset($p->status)){if($p->status == "approved"){echo "Approved 1";}}?></td>
+                          <td class="<?php if(isset($p->status)){if($p->status == "approved"){echo "colored-red";}elseif(isset($p->approved2_by)){echo "colored-csn";}}?>"><?php if(isset($p->status)){if($p->status == "approved"){echo "Pending";}elseif(isset($p->approved2_by)){echo "Approved";}}?></td>
                           <td><?php if(isset($p->approved2_by)){echo $p->approved2_by;}?></td>
-                          <td class="<?php if(isset($p->status)){if($p->status == "approved1"){echo "colored-red";}}?>"><?php if(isset($p->status)){if($p->status == "approved1"){echo "Approved 2";}}?></td>
+                          <td class="<?php if(isset($p->status)){if($p->status == "approved1"){echo "colored-red";}elseif(isset($p->approved3_by)){echo "colored-csn";}}?>"><?php if(isset($p->status)){if($p->status == "approved1"){echo "Pending";}elseif(isset($p->approved3_by)){echo "Approved";}}?></td>
                           <td><?php if(isset($p->approved3_by)){echo $p->approved3_by;}?></td>
-                          <td class="<?php if(isset($p->status)){if($p->status == "approved2"){echo "colored-red";}}?>"><?php if(isset($p->status)){if($p->status == "approved2"){echo "Approved 3";}}?></td>
+                          <td class="<?php if(isset($p->status)){if($p->status == "approved2"){echo "colored-red";}elseif(isset($p->approved4_by)){echo "colored-csn";}}?>"><?php if(isset($p->status)){if($p->status == "approved2"){echo "Pending";}elseif(isset($p->approved4_by)){echo "Approved";}}?></td>
                           <td class="<?php if(isset($p->approved4_by)){echo 'colored-csn';}?>"><?php if(isset($p->approved4_by)){echo $p->approved4_by;}?></td>
                         </tr>
                     <?php endforeach;?>
