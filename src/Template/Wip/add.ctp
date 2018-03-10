@@ -224,16 +224,16 @@ MiT form page
                 $(this).autocomplete(options_no);
             });
             $(document).on('autocompleteselect', sn_id, function (e, ui) {
-                $('#serial-no').text(ui.item.item_ids);
                 $('#model').text(ui.item.idy);
                 $('#version').text(ui.item.idz);
             });
-            $('#wip-id').on('change',function () {
+            $('#wip-id').on('change',function (e) {
+                e.preventDefault();
                 var html = '';
                 $.each(sn_id,function (i,c) {
                         var ids = c.item_ids;
-                        for( n = 0; n < ids.length; n++ ){
-                            html += '<option value="'+ids[n]+'">'+ids[n]+'</option>';
+                        for( i = 0; i < ids.length; i++ ){
+                            html += '<option value="'+ids[i]+'">'+ids[i]+'</option>';
                         }
                 });
                 $('#serial-no').html(html);
