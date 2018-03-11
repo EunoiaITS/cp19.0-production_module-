@@ -82,7 +82,24 @@ class FgttController extends AppController
         foreach($sos as $ss){
             $csn_items = $this->SerialNumberChild->find('all')
                 ->where(['serial_number_id' => $ss->id]);
-            $so_nos .= '{label:"'.$ss->so_no.'",idx:"'.$ss->quantity.'",model:"'.$ss->model.'",version:"'.$ss->version.'",type_1:"'.$ss->type1.'",type_2:"'.$ss->type2.'"';
+            $exF = $this->Fgtt->find('all')
+                ->where(['so_no' => $ss->so_no]);
+            $fgId = $selected = $action = $added_items = '';
+            $calc = 0;
+            foreach ($exF as $fgCheck){
+                $calc++;
+                if($calc > 0){
+                    $fgId = $fgCheck->id;
+                    $selected = 'yes';
+                    $action = 'edit';
+                    $fgItems = explode(',', $fgCheck->item_nos);
+                    foreach ($fgItems as $fIt){
+                        $added_items .= '"'.$fIt.'",';
+                    }
+                }
+            }
+            $added_items = rtrim($added_items, ',');
+            $so_nos .= '{label:"'.$ss->so_no.'",addedItems:['.$added_items.'],action:"'.$action.'",fgId:"'.$fgId.'",exCheck:"'.$selected.'",idx:"'.$ss->quantity.'",model:"'.$ss->model.'",version:"'.$ss->version.'",type_1:"'.$ss->type1.'",type_2:"'.$ss->type2.'"';
             $count = 0;
             $so_items = null;
             foreach($csn_items as $item){
@@ -95,14 +112,39 @@ class FgttController extends AppController
         $so_nos = rtrim($so_nos, ',');
         $count = $this->Fgtt->find('all')->last();
         $fgtt = $this->Fgtt->newEntity();
+        $items = '';
         if ($this->request->is('post')) {
-            $fgtt = $this->Fgtt->patchEntity($fgtt, $this->request->getData());
-            if ($this->Fgtt->save($fgtt)) {
-                $this->Flash->success(__('The fgtt has been saved.'));
+            if($this->request->getData('action') == 'edit'){
+                $fgtt = $this->Fgtt->get($this->request->getData('fgId'), [
+                    'contain' => []
+                ]);
+                if(in_array('items', array_keys($this->request->getData()))){
+                    foreach ($this->request->getData('items') as $item_ids){
+                        $items .= $item_ids.',';
+                    }
+                }
+                $fgtt->item_nos = rtrim($items, ',');
+                if ($this->Fgtt->save($fgtt)) {
+                    $this->Flash->success(__('The fgtt has been saved.'));
 
-                return $this->redirect(['action' => 'add']);
+                    return $this->redirect(['action' => 'add']);
+                }
+                $this->Flash->error(__('The fgtt could not be saved. Please, try again.'));
+            }else{
+                $fgtt = $this->Fgtt->patchEntity($fgtt, $this->request->getData());
+                if(in_array('items', array_keys($this->request->getData()))){
+                    foreach ($this->request->getData('items') as $item_ids){
+                        $items .= $item_ids.',';
+                    }
+                }
+                $fgtt->item_nos = rtrim($items, ',');
+                if ($result = $this->Fgtt->save($fgtt)) {
+                    $this->Flash->success(__('The fgtt has been saved.'));
+
+                    return $this->redirect(['action' => 'add']);
+                }
+                $this->Flash->error(__('The fgtt could not be saved. Please, try again.'));
             }
-            $this->Flash->error(__('The fgtt could not be saved. Please, try again.'));
         }
         $this->set(compact('fgtt'));
         $this->set('so_nos', $so_nos);

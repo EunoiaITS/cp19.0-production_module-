@@ -98,6 +98,7 @@
                             <th>Type 1</th>
                             <th>Type 2</th>
                             <th>Remark</th>
+                            <th>Select</th>
                         </tr>
                         </thead>
                         <tbody class="csn-text-up" id="so-data">
@@ -134,7 +135,14 @@
                 $('#fgtt-qty').val(ui.item.idx);
                 var html_table = '';
                 var items = ui.item.items;
+                var added = ui.item.addedItems;
                 for(i = 0; i < items.length; i++){
+                    var select = '';
+                    for(j = 0; j < added.length; j++){
+                        if(items[i] === added[j]){
+                            select = 'checked';
+                        }
+                    }
                     html_table += '<tr>'+
                     '<td>'+(i+1)+'</td>'+
                     '<td>TNB 380/2016</td>'+
@@ -144,8 +152,14 @@
                     '<td>'+ui.item.version+'</td>'+
                     '<td>'+ui.item.type_1+'</td>'+
                     '<td>'+ui.item.type_2+'</td>'+
-                    '<th></th>'+
+                    '<td></td>'+
+                    '<td><input type="checkbox" name="items[]" value="'+items[i]+'" '+select+'></td>'+
                     '</tr>';
+                }
+                if(ui.item.exCheck === 'yes'){
+                    html_table += '<input type="hidden" name="action" value="edit"><input type="hidden" name="fgId" value="'+ui.item.fgId+'">';
+                }else {
+                    html_table += '<input type="hidden" name="action" value="add">';
                 }
                 $('#so-data').html(html_table);
             });
