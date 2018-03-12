@@ -145,11 +145,6 @@ Create serial number form page
             </div>
 
             <div class="clearfix"></div>
-            <div class="col-sm-offset-8 col-sm-4 col-xs-12">
-                <div class="prepareted-by-csn">
-                    <div class="button btn btn-info">Create</div>
-                </div>
-            </div>
         </div>
     </div>
     <script>

@@ -229,6 +229,7 @@ Create serial number form page
                                         elseif($sec->status == 'rejected'){echo "Reject";}
                                         else{echo "";}
                                     }}?></td>
+                            <td><?php foreach ($w->wip_sec as $sec){echo $sec->remark;}?></td>
 
                             <?php endforeach;?>
                         </tbody>
