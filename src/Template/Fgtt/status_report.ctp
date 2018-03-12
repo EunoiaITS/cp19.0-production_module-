@@ -42,7 +42,7 @@
                             <td><?= $f->details->version ?></td>
                             <td><?= $f->details->type1 ?></td>
                             <td><?= $f->details->type2 ?></td>
-                            <td><?= $f->details->quantity ?></td>
+                            <td><?= $f->qty ?></td>
                             <td><?= $f->created_by ?></td>
                             <td>Production</td>
                             <td>Wiring</td>
@@ -50,7 +50,7 @@
                             <td><?= $f->verified_by ?></td>
                             <td class="<?php if($f->status == 'approved'){echo 'colored-csn';}elseif($f->status == 'requested' || $f->status == 'verified' || $f->status == 'rejected'){echo 'colored-red';}else{echo '';} ?>"><?php if($f->status == 'approved'){echo 'Approved';}elseif($f->status == 'requested' || $f->status == 'requested'){echo 'Pending';}elseif($f->status == 'rejected'){echo 'Rejected';}else{echo '';} ?></td>
                             <td><?= $f->approved_by ?></td>
-                            <td><a href="#">View</a></td>
+                            <td><a href="<?php echo $this->url->build(['controller' => 'Fgtt', 'action' => 'view', $f->id]); ?>">View</a></td>
                             <td><?= $f->remark ?></td>
                         </tr>
                         <?php endforeach; ?>
