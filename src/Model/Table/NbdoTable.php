@@ -60,13 +60,11 @@ class NbdoTable extends Table
         $validator
             ->scalar('date')
             ->maxLength('date', 255)
-            ->requirePresence('date', 'create')
             ->notEmpty('date');
 
         $validator
             ->scalar('cust_name')
             ->maxLength('cust_name', 255)
-            ->requirePresence('cust_name', 'create')
             ->notEmpty('cust_name');
 
         $validator
@@ -82,19 +80,21 @@ class NbdoTable extends Table
         $validator
             ->scalar('contact_no')
             ->maxLength('contact_no', 255)
-            ->requirePresence('contact_no', 'create')
             ->notEmpty('contact_no');
+
+        $validator
+            ->scalar('section')
+            ->maxLength('section', 255)
+            ->notEmpty('section');
 
         $validator
             ->scalar('location')
             ->maxLength('location', 255)
-            ->requirePresence('location', 'create')
             ->notEmpty('location');
 
         $validator
             ->scalar('created_by')
             ->maxLength('created_by', 255)
-            ->requirePresence('created_by', 'create')
             ->notEmpty('created_by');
 
         $validator

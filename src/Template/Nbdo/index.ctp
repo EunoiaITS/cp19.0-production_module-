@@ -25,6 +25,7 @@
                         <th rowspan="2">Address</th>
                         <th rowspan="2">Contact Person</th>
                         <th rowspan="2">Contact No</th>
+                        <th rowspan="2">Section</th>
                         <th rowspan="2">Location</th>
                         <th rowspan="2">Create By</th>
                         <th rowspan="2"><?php $action = ''; if($role == 'verifier'){$action = 'verify';echo 'Verify';}elseif($role == 'approve-1'){$action = 'approve';echo 'Approve';}else{$action = 'edit';echo 'Edit';} ?></th>
@@ -39,6 +40,7 @@
                             <td><?= $mr->address ?></td>
                             <td><?= $mr->contact_person ?></td>
                             <td><?= $mr->contact_no ?></td>
+                            <td><?= $mr->section ?></td>
                             <td><?= $mr->location ?></td>
                             <td><?= $mr->created_by ?></td>
                             <td><a href="<?php echo $this->url->build(['controller' => 'Nbdo', 'action' => $action, $mr->id]); ?>"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve-1'){echo 'Approve';}else{echo 'Edit';} ?></a></td>

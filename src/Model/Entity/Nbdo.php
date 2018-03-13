@@ -36,19 +36,7 @@ class Nbdo extends Entity
      * @var array
      */
     protected $_accessible = [
-        'date' => true,
-        'cust_name' => true,
-        'address' => true,
-        'contact_person' => true,
-        'contact_no' => true,
-        'location' => true,
-        'created_by' => true,
-        'remark' => true,
-        'status' => true,
-        'verified_by' => true,
-        'approved_by' => true,
-        'created' => true,
-        'modified' => true,
-        'nbdo_items' => true
+        '*' => true,
+        'id' => false,
     ];
 }

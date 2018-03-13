@@ -80,7 +80,17 @@
                                 <p class="cn-text">Section <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text"><?= $pic_section ?></p>
+                                <select name="section" class="form-control">
+                                    <option value="Welding 1">Welding 1</option>
+                                    <option value="Main Link Tank">Main Link Tank</option>
+                                    <option value="Drive Mechanism">Drive Mechanism</option>
+                                    <option value="Vacuum Chamber">Vacuum Chamber</option>
+                                    <option value="Welding 2">Welding 2</option>
+                                    <option value="Bta">Bta</option>
+                                    <option value="Metal Clad">Metal Clad</option>
+                                    <option value="Wiring">Wiring</option>
+                                    <option value="Testing">Testing</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
