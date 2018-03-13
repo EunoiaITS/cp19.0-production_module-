@@ -64,8 +64,28 @@ class FgttController extends AppController
         $fgtt = $this->Fgtt->get($id, [
             'contain' => []
         ]);
-
+        $this->loadModel('SerialNumber');
+        $this->loadModel('SerialNumberChild');
+        $itemIds = explode(',', $fgtt->item_nos);
+        $itemOb = new \stdClass();
+        $count = 0;
+        foreach ($itemIds as $key => $items){
+            if(!empty($items != null)){
+                $count++;
+                $csnItem = $this->SerialNumberChild->get($items, [
+                    'contain' => []
+                ]);
+                $csnDetails = $this->SerialNumber->get($csnItem->serial_number_id, [
+                    'contain' => []
+                ]);
+                $itemOb->$key = $csnItem;
+                $fgtt->csn = $csnDetails;
+            }
+        }
+        $fgtt->items = $itemOb;
+        $this->set('qty', $count);
         $this->set('fgtt', $fgtt);
+        $this->set('pic', $this->Auth->user('username'));
     }
 
     /**
@@ -205,19 +225,25 @@ class FgttController extends AppController
         ]);
         $this->loadModel('SerialNumber');
         $this->loadModel('SerialNumberChild');
-        $fgtt_details = $this->SerialNumber->find('all')
-            ->where(['so_no' => $fgtt->so_no]);
-        foreach($fgtt_details as $f){
-            $fgtt->quantity = $f->quantity;
-            $fgtt->model = $f->model;
-            $fgtt->version = $f->version;
-            $fgtt->type1 = $f->type1;
-            $fgtt->type2 = $f->type2;
-            $allItems = $this->SerialNumberChild->find('all')
-                ->where(['serial_number_id' => $f->id]);
+        $itemIds = explode(',', $fgtt->item_nos);
+        $itemOb = new \stdClass();
+        $count = 0;
+        foreach ($itemIds as $key => $items){
+            if(!empty($items != null)){
+                $count++;
+                $csnItem = $this->SerialNumberChild->get($items, [
+                    'contain' => []
+                ]);
+                $csnDetails = $this->SerialNumber->get($csnItem->serial_number_id, [
+                    'contain' => []
+                ]);
+                $itemOb->$key = $csnItem;
+                $fgtt->csn = $csnDetails;
+            }
         }
+        $fgtt->items = $itemOb;
+        $this->set('qty', $count);
         $this->set('fgtt', $fgtt);
-        $this->set('items', $allItems);
         $this->set('pic', $this->Auth->user('username'));
     }
 
@@ -227,19 +253,25 @@ class FgttController extends AppController
         ]);
         $this->loadModel('SerialNumber');
         $this->loadModel('SerialNumberChild');
-        $fgtt_details = $this->SerialNumber->find('all')
-            ->where(['so_no' => $fgtt->so_no]);
-        foreach($fgtt_details as $f){
-            $fgtt->quantity = $f->quantity;
-            $fgtt->model = $f->model;
-            $fgtt->version = $f->version;
-            $fgtt->type1 = $f->type1;
-            $fgtt->type2 = $f->type2;
-            $allItems = $this->SerialNumberChild->find('all')
-                ->where(['serial_number_id' => $f->id]);
+        $itemIds = explode(',', $fgtt->item_nos);
+        $itemOb = new \stdClass();
+        $count = 0;
+        foreach ($itemIds as $key => $items){
+            if(!empty($items != null)){
+                $count++;
+                $csnItem = $this->SerialNumberChild->get($items, [
+                    'contain' => []
+                ]);
+                $csnDetails = $this->SerialNumber->get($csnItem->serial_number_id, [
+                    'contain' => []
+                ]);
+                $itemOb->$key = $csnItem;
+                $fgtt->csn = $csnDetails;
+            }
         }
+        $fgtt->items = $itemOb;
+        $this->set('qty', $count);
         $this->set('fgtt', $fgtt);
-        $this->set('items', $allItems);
         $this->set('pic', $this->Auth->user('username'));
     }
 
@@ -263,6 +295,14 @@ class FgttController extends AppController
         $this->loadModel('SerialNumberChild');
         $fgtt = $this->paginate($this->Fgtt->find('all'));
         foreach($fgtt as $fg){
+            $count = 0;
+            $itemCount = explode(',', $fg->item_nos);
+            foreach ($itemCount as $c){
+                if($c != null){
+                    $count++;
+                }
+            }
+            $fg->qty = $count;
             $fgtt_details = $this->SerialNumber->find('all')
                 ->where(['so_no' => $fg->so_no]);
             foreach($fgtt_details as $det){
@@ -274,7 +314,7 @@ class FgttController extends AppController
 
     public function isAuthorized($user){
         // All registered users can add articles
-        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'statusReport' || $this->request->getParam('action') === 'report') {
+        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'statusReport' || $this->request->getParam('action') === 'report' || $this->request->getParam('action') === 'view') {
             return true;
         }
 

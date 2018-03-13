@@ -38,7 +38,7 @@
                                 <p class="cn-text">Qty <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text"><?= $fgtt->quantity ?></p>
+                                <p class="cn-main-text"><?= $qty ?></p>
                             </div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                                 <p class="cn-text">Location <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text">Indkom 16</p>
+                                <p class="cn-main-text"><?= $fgtt->location ?></p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -115,16 +115,16 @@
                         </tr>
                         </thead>
                         <tbody class="csn-text-up">
-                        <?php $count = 0; foreach($items as $item): $count++;?>
+                        <?php $count = 0; foreach($fgtt->items as $item): $count++; ?>
                             <tr>
                                 <td><?php echo $count; ?></td>
                                 <td>TNB 380/2016</td>
                                 <td><?= $fgtt->so_no ?></td>
-                                <td><?= $item->id ?></td>
-                                <td><?= $fgtt->model ?></td>
-                                <td><?= $fgtt->version ?></td>
-                                <td><?= $fgtt->type1 ?></td>
-                                <td><?= $fgtt->type2 ?></td>
+                                <td><?php if(isset($item->id)){echo $item->i;} ?></td>
+                                <td><?php if(isset($fgtt->csn->model)){echo $fgtt->csn->model;} ?></td>
+                                <td><?php if(isset($fgtt->csn->version)){echo $fgtt->csn->version;} ?></td>
+                                <td><?php if(isset($fgtt->csn->type1)){echo $fgtt->csn->type1;} ?></td>
+                                <td><?php if(isset($fgtt->csn->type2)){echo $fgtt->csn->type2;} ?></td>
                                 <th></th>
                             </tr>
                         <?php endforeach; ?>
