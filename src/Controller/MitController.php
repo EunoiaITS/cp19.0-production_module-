@@ -135,7 +135,7 @@ class MitController extends AppController
             if ($this->Mit->save($mit)) {
                 $this->Flash->success(__('The mit has been saved.'));
 
-                return $this->redirect(['action' => 'add',$id]);
+                return $this->redirect(['action' => 'request']);
             }
             $this->Flash->error(__('The mit could not be saved. Please, try again.'));
         }

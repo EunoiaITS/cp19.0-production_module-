@@ -147,7 +147,7 @@ class FgttController extends AppController
                 if ($this->Fgtt->save($fgtt)) {
                     $this->Flash->success(__('The fgtt has been saved.'));
 
-                    return $this->redirect(['action' => 'add']);
+                    return $this->redirect(['action' => 'index']);
                 }
                 $this->Flash->error(__('The fgtt could not be saved. Please, try again.'));
             }else{
