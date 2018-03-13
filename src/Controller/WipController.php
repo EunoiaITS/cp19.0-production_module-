@@ -94,6 +94,7 @@ class WipController extends AppController
         $sn = $this->SerialNumber->find('all');
         $sn_id =null;
         foreach($sn as $s){
+            $sn_wip = $sn_wip_sections = $action = '';
             $sn_items = $this->SerialNumberChild->find('all')
                 ->Where(['serial_number_id'=>$s->id]);
             $sn_id .= '{label:"'.$s->so_no.'",idx:"'.$s->id.'",idy:"'.$s->model.'",idz:"'.$s->version.'",';
@@ -102,18 +103,37 @@ class WipController extends AppController
                 $item_ids .= '"'.$items->id.'",';
             }
             $item_ids = rtrim($item_ids,',');
-            $sn_id .= 'item_ids:['.$item_ids.']},';
+            $sn_id .= 'item_ids:['.$item_ids.'],';
+            $exCount = 0;
+            $exWip = $this->Wip->find('all')
+                ->where(['so_no' => $s->so_no]);
+            foreach ($exWip as $ew){
+                $exCount++;
+                if($exCount > 0){
+                    $sn_wip = $ew->id;
+                    $exWipSections = $this->WipSection->find('all')
+                        ->where(['wip_id' => $ew->id]);
+                    foreach ($exWipSections as $sec){
+                        $sn_wip_sections .= '{secName:"'.$sec->section.'",opName:"'.$sec->operator_name.'",supName:"'.$sec->supervisor_name.'"},';
+                    }
+                    $action = 'edit';
+                }else{
+                    $action = 'add';
+                }
+            }
+            $sn_id .= 'wip_action:"'.$action.'",';
+            $sn_wip_sections = rtrim($sn_wip_sections, ',');
+            $sn_id .= 'wipId:"'.$sn_wip.'",';
+            $sn_id .= 'sections:['.$sn_wip_sections.']},';
         }
         $wip = $this->Wip->newEntity();
         if ($this->request->is('post')) {
-            $this->autoRender = false;
-            $wip = $this->Wip->patchEntity($wip, $this->request->getData());
-            if ($this->Wip->save($wip)) {
-                $wip_no = $this->Wip->find('all', ['fields' => 'id'])->last();
+            if($this->request->getData('action') == 'edit'){
+                $wip_no = $this->request->getData('wipId');
                 for($i =1;$i<=9;$i++){
                     if($this->request->getData('cb_'.$i) != ''){
                         $wips = $this->WipSection->newEntity();
-                        $wips->wip_id = $wip_no['id'];
+                        $wips->wip_id = $wip_no;
                         $wips->operator_name =$this->request->getData('operator_name_'.$i);
                         $wips->supervisor_name =  $this->request->getData('supervisor_name_'.$i);
                         $wips->section = $this->request->getData('section'.$i);
@@ -124,8 +144,27 @@ class WipController extends AppController
                 $this->Flash->success(__('The wp has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
+            }else{
+                $wip = $this->Wip->patchEntity($wip, $this->request->getData());
+                if ($this->Wip->save($wip)) {
+                    $wip_no = $this->Wip->find('all', ['fields' => 'id'])->last();
+                    for($i =1;$i<=9;$i++){
+                        if($this->request->getData('cb_'.$i) != ''){
+                            $wips = $this->WipSection->newEntity();
+                            $wips->wip_id = $wip_no['id'];
+                            $wips->operator_name =$this->request->getData('operator_name_'.$i);
+                            $wips->supervisor_name =  $this->request->getData('supervisor_name_'.$i);
+                            $wips->section = $this->request->getData('section'.$i);
+                            $wips->status = 'requested';
+                            $this->WipSection->save($wips);
+                        }
+                    }
+                    $this->Flash->success(__('The wp has been saved.'));
+
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('The wp could not be saved. Please, try again.'));
             }
-            $this->Flash->error(__('The wp could not be saved. Please, try again.'));
         }
         $count = $this->Wip->find('all')->last();
         $this->set(compact('wip'));
