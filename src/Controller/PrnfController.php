@@ -134,7 +134,7 @@ class PrnfController extends AppController
                 }
                 $this->Flash->success(__('The prnf has been saved.'));
 
-                return $this->redirect(['action' => 'add']);
+                return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The prnf could not be saved. Please, try again.'));
         }

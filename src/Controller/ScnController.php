@@ -123,7 +123,7 @@ class ScnController extends AppController
                 }
                 $this->Flash->success(__('The scn has been saved.'));
 
-                return $this->redirect(['action' => 'add']);
+                return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The scn could not be saved. Please, try again.'));
         }

@@ -44,7 +44,7 @@
                             <td><?= $item->quantity ?></td>
                             <td><?= $n->created_by ?></td>
                             <td>Production</td>
-                            <td>busbar</td>
+                            <td><?= $n->section?></td>
                             <td class="<?php if($n->status == 'verified' || $n->status == 'approved'){echo 'colored-csn';}elseif($n->status == 'requested' || $n->status == 'rejected'){echo 'colored-red';}else{echo '';} ?>"><?php if($n->status == 'verified' || $n->status == 'approved'){echo 'Verified';}elseif($n->status == 'requested'){echo 'Pending';}elseif($n->status == 'rejected'){echo 'Rejected';}else{echo '';} ?></td>
                             <td><?= $n->verified_by ?></td>
                             <td class="<?php if($n->status == 'approved'){echo 'colored-csn';}elseif($n->status == 'requested' || $n->status == 'verified' || $n->status == 'rejected'){echo 'colored-red';}else{echo '';} ?>"><?php if($n->status == 'approved'){echo 'Approved';}elseif($n->status == 'requested' || $n->status == 'verified'){echo 'Pending';}elseif($n->status == 'rejected'){echo 'Rejected';}else{echo '';} ?></td>

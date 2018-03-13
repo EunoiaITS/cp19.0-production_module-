@@ -52,7 +52,7 @@
                         <td><?= $item->quantity ?></td>
                         <td><?= $n->created_by ?></td>
                         <td>Production</td>
-                        <td></td>
+                        <td><?= $n->section?></td>
                         <td></td>
                         <td></td>
                         <td></td>

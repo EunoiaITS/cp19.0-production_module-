@@ -121,7 +121,7 @@ class MaterialRequestController extends AppController
 
                 $this->Flash->success(__('The material request has been saved.'));
 
-                return $this->redirect(['action' => 'add']);
+                return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The material request could not be saved. Please, try again.'));
         }

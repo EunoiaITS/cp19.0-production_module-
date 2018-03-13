@@ -157,7 +157,7 @@ class NbdoController extends AppController
 
                 $this->Flash->success(__('The nbdo has been saved.'));
 
-                return $this->redirect(['action' => 'add']);
+                return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The nbdo could not be saved. Please, try again.'));
         }
