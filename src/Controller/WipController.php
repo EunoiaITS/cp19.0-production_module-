@@ -234,9 +234,10 @@ class WipController extends AppController
         }
         $this->set('wip', $wip);
     }
-    public function welding1(){
+    public function sectionStat(){
         $this->loadModel('SerialNumber');
         $this->loadModel('WipSection');
+        $section = $this->request->getQuery('section');
         $wip = $this->paginate($this->Wip->find('all'));
         foreach ($wip as $wp){
             $sn_details = $this->SerialNumber->find('all')
@@ -246,145 +247,38 @@ class WipController extends AppController
             }
             $wip_sec = $this->WipSection->find('all')
                 ->Where(['wip_id'=>$wp->id])
-                ->Where(['section'=> 'Welding 1']);
-            $wp->wip_sec= $wip_sec;
-        }
-        $this->set('wip', $wip);
-    }
-    public function mlt(){
-        $this->loadModel('SerialNumber');
-        $this->loadModel('WipSection');
-        $wip = $this->paginate($this->Wip->find('all'));
-        foreach ($wip as $wp){
-            $sn_details = $this->SerialNumber->find('all')
-                ->Where(['id'=>$wp->serial_no]);
-            foreach ($sn_details as $snd){
-                $wp->sn_details = $snd;
+                ->Where(['section'=> $section]);
+            $nxts = '';
+            if(isset($section)){
+                if($section== 'welding 1'){
+                    $nxts = 'Main link Tank';
+                }elseif ($section == 'main link tank'){
+                    $nxts = 'Drive Mechanism';
+                }elseif ($section == 'drive mechanism'){
+                    $nxts = 'Vacuum Chamber';
+                }elseif ($section == 'vacuum chamber'){
+                    $nxts = 'Welding 2';
+                }elseif ($section == 'welding 2'){
+                    $nxts = 'Bta';
+                }elseif ($section == 'bta'){
+                    $nxts = 'Metal Clad';
+                }elseif ($section == 'metal clad'){
+                    $nxts = 'Wiring';
+                }elseif ($section == 'wiring'){
+                    $nxts = 'Testing';
+                }elseif ($section == 'testing'){
+                    $nxts = '';
+                }
             }
-            $wip_sec = $this->WipSection->find('all')
+            $nxt_sec = $this->WipSection->find('all')
                 ->Where(['wip_id'=>$wp->id])
-                ->Where(['section'=> 'Main link Tank']);
-            $wp->wip_sec= $wip_sec;
-        }
-        $this->set('wip', $wip);
-    }
-    public function dm(){
-        $this->loadModel('SerialNumber');
-        $this->loadModel('WipSection');
-        $wip = $this->paginate($this->Wip->find('all'));
-        foreach ($wip as $wp){
-            $sn_details = $this->SerialNumber->find('all')
-                ->Where(['id'=>$wp->serial_no]);
-            foreach ($sn_details as $snd){
-                $wp->sn_details = $snd;
+                ->Where(['section'=> $nxts]);
+            foreach ($nxt_sec as $nxt){
+                $wp->nxt_sec = $nxt;
             }
-            $wip_sec = $this->WipSection->find('all')
-                ->Where(['wip_id'=>$wp->id])
-                ->Where(['section'=> 'Drive Mechanism']);
             $wp->wip_sec= $wip_sec;
         }
-        $this->set('wip', $wip);
-    }
-    public function bta(){
-        $this->loadModel('SerialNumber');
-        $this->loadModel('WipSection');
-        $wip = $this->paginate($this->Wip->find('all'));
-        foreach ($wip as $wp){
-            $sn_details = $this->SerialNumber->find('all')
-                ->Where(['id'=>$wp->serial_no]);
-            foreach ($sn_details as $snd){
-                $wp->sn_details = $snd;
-            }
-            $wip_sec = $this->WipSection->find('all')
-                ->Where(['wip_id'=>$wp->id])
-                ->Where(['section'=> 'bta']);
-            $wp->wip_sec= $wip_sec;
-        }
-        $this->set('wip', $wip);
-    }
-    public function vc(){
-        $this->loadModel('SerialNumber');
-        $this->loadModel('WipSection');
-        $wip = $this->paginate($this->Wip->find('all'));
-        foreach ($wip as $wp){
-            $sn_details = $this->SerialNumber->find('all')
-                ->Where(['id'=>$wp->serial_no]);
-            foreach ($sn_details as $snd){
-                $wp->sn_details = $snd;
-            }
-            $wip_sec = $this->WipSection->find('all')
-                ->Where(['wip_id'=>$wp->id])
-                ->Where(['section'=> 'Vacuum Chamber']);
-            $wp->wip_sec= $wip_sec;
-        }
-        $this->set('wip', $wip);
-    }
-    public function Welding2(){
-        $this->loadModel('SerialNumber');
-        $this->loadModel('WipSection');
-        $wip = $this->paginate($this->Wip->find('all'));
-        foreach ($wip as $wp){
-            $sn_details = $this->SerialNumber->find('all')
-                ->Where(['id'=>$wp->serial_no]);
-            foreach ($sn_details as $snd){
-                $wp->sn_details = $snd;
-            }
-            $wip_sec = $this->WipSection->find('all')
-                ->Where(['wip_id'=>$wp->id])
-                ->Where(['section'=> 'Welding 2']);
-            $wp->wip_sec= $wip_sec;
-        }
-        $this->set('wip', $wip);
-    }
-    public function mc(){
-        $this->loadModel('SerialNumber');
-        $this->loadModel('WipSection');
-        $wip = $this->paginate($this->Wip->find('all'));
-        foreach ($wip as $wp){
-            $sn_details = $this->SerialNumber->find('all')
-                ->Where(['id'=>$wp->serial_no]);
-            foreach ($sn_details as $snd){
-                $wp->sn_details = $snd;
-            }
-            $wip_sec = $this->WipSection->find('all')
-                ->Where(['wip_id'=>$wp->id])
-                ->Where(['section'=> 'Metal Clad']);
-            $wp->wip_sec= $wip_sec;
-        }
-        $this->set('wip', $wip);
-    }
-    public function wiring(){
-        $this->loadModel('SerialNumber');
-        $this->loadModel('WipSection');
-        $wip = $this->paginate($this->Wip->find('all'));
-        foreach ($wip as $wp){
-            $sn_details = $this->SerialNumber->find('all')
-                ->Where(['id'=>$wp->serial_no]);
-            foreach ($sn_details as $snd){
-                $wp->sn_details = $snd;
-            }
-            $wip_sec = $this->WipSection->find('all')
-                ->Where(['wip_id'=>$wp->id])
-                ->Where(['section'=> 'Wiring']);
-            $wp->wip_sec= $wip_sec;
-        }
-        $this->set('wip', $wip);
-    }
-    public function testing(){
-        $this->loadModel('SerialNumber');
-        $this->loadModel('WipSection');
-        $wip = $this->paginate($this->Wip->find('all'));
-        foreach ($wip as $wp){
-            $sn_details = $this->SerialNumber->find('all')
-                ->Where(['id'=>$wp->serial_no]);
-            foreach ($sn_details as $snd){
-                $wp->sn_details = $snd;
-            }
-            $wip_sec = $this->WipSection->find('all')
-                ->Where(['wip_id'=>$wp->id])
-                ->Where(['section'=> 'Testing']);
-            $wp->wip_sec= $wip_sec;
-        }
+        $this->set('s',$section);
         $this->set('wip', $wip);
     }
     public function statReport(){
@@ -1584,7 +1478,7 @@ class WipController extends AppController
         $this->set('operators',array_unique($operator));
     }
     public function isAuthorized($user){
-        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'report' ||  $this->request->getParam('action') === 'view' || $this->request->getParam('action') === 'bta' || $this->request->getParam('action') === 'dm' || $this->request->getParam('action') === 'mc' || $this->request->getParam('action') === 'mlt' || $this->request->getParam('action') === 'monthlyProgress' || $this->request->getParam('action') === 'monthlyProgress2' || $this->request->getParam('action') === 'statReport' || $this->request->getParam('action') === 'testing' || $this->request->getParam('action') === 'vc' || $this->request->getParam('action') === 'welding1' || $this->request->getParam('action') === 'welding2' || $this->request->getParam('action') === 'wiring') {
+        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'report' ||  $this->request->getParam('action') === 'view' || $this->request->getParam('action') === 'sectionStat' || $this->request->getParam('action') === 'dm' || $this->request->getParam('action') === 'mc' || $this->request->getParam('action') === 'mlt' || $this->request->getParam('action') === 'monthlyProgress' || $this->request->getParam('action') === 'monthlyProgress2' || $this->request->getParam('action') === 'statReport' || $this->request->getParam('action') === 'testing' || $this->request->getParam('action') === 'vc' || $this->request->getParam('action') === 'welding1' || $this->request->getParam('action') === 'welding2' || $this->request->getParam('action') === 'wiring') {
             return true;
         }
         if(isset($user['role']) && $user['role'] === 'requester'){
