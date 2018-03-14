@@ -77,15 +77,15 @@
                 <?php if($role == 'requester'): ?><li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'add'])?>">WIP Create</a></li><?php endif; ?>
                 <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'index'])?>">WIP List</a></li>
                 <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'report'])?>">WIP Report</a></li>
-                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'welding1'])?>">WIP Section Report Welding</a></li>
-                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'mlt'])?>">Main Line Tank</a></li>
-                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'dm'])?>">Drive Mechanism</a></li>
-                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'vc'])?>">Vacuum Chamber</a></li>
-                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'welding2'])?>">Welding</a></li>
-                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'bta'])?>">BTA</a></li>
-                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'mc'])?>">Metal Clad</a></li>
-                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'wiring'])?>">Wiring</a></li>
-                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'testing'])?>">Testing</a></li>
+                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'sectionStat?section=Welding 1'])?>">WIP Section Report Welding</a></li>
+                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'sectionStat?section=Main Link Tank'])?>">Main Link Tank</a></li>
+                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'sectionStat?section=Drive Mechanism'])?>">Drive Mechanism</a></li>
+                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'sectionStat?section=Vacuum Chamber'])?>">Vacuum Chamber</a></li>
+                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'sectionStat?section=Welding 2'])?>">Welding</a></li>
+                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'sectionStat?section=Bta'])?>">BTA</a></li>
+                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'sectionStat?section=Metal Clad'])?>">Metal Clad</a></li>
+                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'sectionStat?section=Wiring'])?>">Wiring</a></li>
+                <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'sectionStat?section=Testing'])?>">Testing</a></li>
 
                 <li class="color-hsh3"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'statReport'])?>">WIP Statistic Report</a></li>
                 <li class="color-hsh3"><a href="<?php echo $this->Url->build(['controller'=>'wip','action'=>'monthlyProgress'])?>">WIP Staff Progress Report-monthly 1</a></li>
