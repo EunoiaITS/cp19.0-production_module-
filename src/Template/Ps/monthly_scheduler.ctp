@@ -131,9 +131,8 @@
                         <tbody class="csn-text-up">
                         <?php $count = 0; ?>
                         <?php foreach($sales as $s): ?>
-                            <?php if(date('m-Y', strtotime($s->date)) == $month.'-'.$year ): ?>
                                 <?php foreach($s->soi as $item): ?>
-                                <?php $count++; ?>
+                                <?php if(isset($item->exist) && $item->exist == 'yes'): $count++; ?>
                                     <tr>
                                         <td><?php echo $count; ?></td>
                                         <td><?= $s->tenderNo ?></td>
@@ -152,8 +151,7 @@
                                         <td><?= $item->quantity/4 ?></td>
                                         <td><?= $item->quantity/4 ?></td>
                                     </tr>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
+                                <?php endif; endforeach; ?>
                         <?php endforeach; ?>
                         </tbody>
                     </table>

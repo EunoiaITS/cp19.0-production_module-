@@ -387,11 +387,28 @@ class PsController extends AppController
         }
         $dataFromSales = json_decode($resultFromSales);
         $this->loadModel('Fgtt');
+        $this->loadModel('PsScheduler');
         foreach($dataFromSales as $sn_match){
             $fgtts = $this->Fgtt->find('all')
                 ->where(['so_no' => $sn_match->salesorder_no]);
             foreach($fgtts as $fgtt){
                 $sn_match->fgtt = $fgtt;
+            }
+            foreach ($sn_match->soi as $items){
+                $dateObj   = \DateTime::createFromFormat('!m', $month);
+                $qty = $this->PsScheduler->find('all')
+                    ->where(['so_item_id' => $items->id])
+                    ->where(['month_year' => $year.'-'.$dateObj->format('M')]);
+                $check = 0;
+                foreach ($qty as $q){
+                    $check++;
+                    if($check > 0){
+                        $items->quantity = $q->actual_plan;
+                        $items->exist = 'yes';
+                    }else{
+                        $items->exist = 'no';
+                    }
+                }
             }
         }
         if($this->request->is('post')){
