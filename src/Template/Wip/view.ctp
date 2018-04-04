@@ -48,7 +48,7 @@ MiT form page
                                 <p class="cn-text text-uppercase">Model <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text text-uppercase"><?php foreach ($wip as $w) {echo $w->sn_details->model;}?></p>
+                                <p class="cn-main-text text-uppercase"><?php foreach ($wip as $w) {if(isset($w->sn_details->model)){echo $w->sn_details->model;}}?></p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -56,7 +56,7 @@ MiT form page
                                 <p class="cn-text">Version<span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text"><?php foreach ($wip as $w) {echo $w->sn_details->version;}?></p>
+                                <p class="cn-main-text"><?php foreach ($wip as $w) {if(isset($w->sn_details->version)){echo $w->sn_details->version;}}?></p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -64,7 +64,7 @@ MiT form page
                                 <p class="cn-text">Type 1 <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text"><?php foreach ($wip as $w) {echo $w->sn_details->type1;}?></p>
+                                <p class="cn-main-text"><?php foreach ($wip as $w) {if(isset($w->sn_details->type1)){echo $w->sn_details->type1;}}?></p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -72,7 +72,7 @@ MiT form page
                                 <p class="cn-text">Type 2 <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <p class="cn-main-text"><?php foreach ($wip as $w) {echo $w->sn_details->type2;}?></p>
+                                <p class="cn-main-text"><?php foreach ($wip as $w) {if(isset($w->sn_details->type2)){echo $w->sn_details->type2;}}?></p>
                             </div>
                         </div>
                         <div class="form-group">
