@@ -208,7 +208,7 @@ Sceduler popup module
                 '</tr>'+
                 '<tr>'+
                 '<th>Actual<input type="hidden" name="total" value="'+months+'"><input type="hidden" name="plan" value="'+(qty/months)+'"><input type="hidden" name="month-year-'+i+'" value="'+$('#month-no-'+id+i).text()+'"><input type="hidden" name="item-id" value="'+itemId+'"><input type="hidden" name="action" value="'+act+'"></th>'+
-                '<td><input type="text" name="'+$('#month-no-'+id+i).text()+'" id="actual-'+id+i+'" class="form-control '+$('#month-no-'+id+i).text()+'" value="'+exVal+'"></td>'+
+                '<td><input type="number" min="0" name="'+$('#month-no-'+id+i).text()+'" id="actual-'+id+i+'" class="form-control '+$('#month-no-'+id+i).text()+'" value="'+exVal+'"></td>'+
                 '</tr>';
             }
             $('#table-data').html(html_table);

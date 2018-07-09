@@ -46,16 +46,16 @@ class AppController extends Controller
         $this->loadComponent('Auth', [
             'authorize' => ['Controller'],
             'loginRedirect' => [
-                'controller' => 'SerialNumber',
-                'action' => 'add'
+                'controller' => 'Dashboard',
+                'action' => 'index'
             ],
             'logoutRedirect' => [
                 'controller' => 'Users',
                 'action' => 'login'
             ],
             'unauthorizedRedirect' => [
-                'controller' => 'SerialNumber',
-                'action' => 'dashboard',
+                'controller' => 'Dashboard',
+                'action' => 'index',
                 'prefix' => false
             ]
         ]);
@@ -82,6 +82,98 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
+        $this->loadModel('SerialNumber');
+        $this->loadModel('PsMonthly');
+        $this->loadModel('Mit');
+        $this->loadModel('MaterialRequest');
+        $this->loadModel('Prnf');
+        $this->loadModel('Scn');
+        $this->loadModel('Fgtt');
+        $this->loadModel('Nbdo');
+        $sn_v = $this->SerialNumber->find('all')
+            ->where(['status'=>'requested'])
+            ->count();
+        $sn_a1 = $this->SerialNumber->find('all')
+            ->where(['status'=>'verified'])
+            ->count();
+        $ps_v = $this->PsMonthly->find('all')
+            ->where(['status'=>'requested'])
+            ->count();
+        $ps_a1 = $this->PsMonthly->find('all')
+            ->where(['status'=>'verified'])
+            ->count();
+        $ps_a2 = $this->PsMonthly->find('all')
+            ->where(['status'=>'approve-1'])
+            ->count();
+        $mit_v = $this->Mit->find('all')
+            ->where(['status'=>'requested'])
+            ->count();
+        $mit_a1 = $this->Mit->find('all')
+            ->where(['status'=>'verified'])
+            ->count();
+        $mr_v = $this->MaterialRequest->find('all')
+            ->where(['status'=>'requested'])
+            ->count();
+        $mr_a1 = $this->MaterialRequest->find('all')
+            ->where(['status'=>'verified'])
+            ->count();
+        $prn_v = $this->Prnf->find('all')
+            ->where(['status'=>'requested'])
+            ->count();
+        $prn_a1 = $this->Prnf->find('all')
+            ->where(['status'=>'verified'])
+            ->count();
+        $prn_a2 = $this->Prnf->find('all')
+            ->where(['status'=>'approved'])
+            ->count();
+        $prn_a3 = $this->Prnf->find('all')
+            ->where(['status'=>'approved1'])
+            ->count();
+        $prn_a4 = $this->Prnf->find('all')
+            ->where(['status'=>'approved2'])
+            ->count();
+
+        $scn_v = $this->Scn->find('all')
+            ->where(['status'=>'requested'])
+            ->count();
+        $scn_a1 = $this->Scn->find('all')
+            ->where(['status'=>'verified'])
+            ->count();
+
+        $fgtt_v = $this->Fgtt->find('all')
+            ->where(['status'=>'requested'])
+            ->count();
+        $fgtt_a1 = $this->Fgtt->find('all')
+            ->where(['status'=>'verified'])
+            ->count();
+
+        $nbdo_v = $this->Nbdo->find('all')
+            ->where(['status'=>'requested'])
+            ->count();
+        $nbdo_a1 = $this->Nbdo->find('all')
+            ->where(['status'=>'verified'])
+            ->count();
+
+        $this->set('sn_v',$sn_v);
+        $this->set('sn_a1',$sn_a1);
+        $this->set('ps_v',$ps_v);
+        $this->set('ps_a1',$ps_a1);
+        $this->set('ps_a2',$ps_a2);
+        $this->set('mit_v',$mit_v);
+        $this->set('mit_a1',$mit_a1);
+        $this->set('mr_v',$mr_v);
+        $this->set('mr_a1',$mr_a1);
+        $this->set('prn_v',$prn_v);
+        $this->set('prn_a1',$prn_a1);
+        $this->set('prn_a2',$prn_a2);
+        $this->set('prn_a3',$prn_a3);
+        $this->set('prn_a4',$prn_a4);
+        $this->set('scn_v',$scn_v);
+        $this->set('scn_a1',$scn_a1);
+        $this->set('fgtt_v',$fgtt_v);
+        $this->set('fgtt_a1',$fgtt_a1);
+        $this->set('nbdo_v',$nbdo_v);
+        $this->set('nbdo_a1',$nbdo_a1);
         $this->set('role', $this->Auth->user('role'));
         $this->set('user_pic', $this->Auth->user('username'));
     }

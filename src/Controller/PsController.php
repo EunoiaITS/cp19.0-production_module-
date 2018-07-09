@@ -47,8 +47,7 @@ class PsController extends AppController
                 ->where(['status' => 'requested', 'status' => 'rejected']));
         }
         if($this->Auth->user('role') == 'approve-3' || $this->Auth->user('role') == 'approve-4'){
-            $this->loadModel('SerialNumber');
-            $this->redirect(array("controller" => "SerialNumber", "action" => "dashboard"));
+            $this->redirect(array("controller" => "Dashboard", "action" => "index"));
         }
 
         $this->set('ps', $ps);

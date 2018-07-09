@@ -25,9 +25,7 @@ class SerialNumberController extends AppController
         parent::initialize();
         $this->viewBuilder()->setLayout('mainframe');
     }
-    public function dashboard(){
 
-    }
     /**
      * Index method
      *
@@ -51,7 +49,7 @@ class SerialNumberController extends AppController
                 ->where(['status' => 'verified']));
         }
         if($this->Auth->user('role') == 'approve-2' || $this->Auth->user('role') == 'approve-3' || $this->Auth->user('role') == 'approve-4'){
-            $this->redirect(array("controller" => "SerialNumber", "action" => "dashboard"));
+            $this->redirect(array("controller" => "Dashboard", "action" => "index"));
         }
 
         $this->set(compact('serialNumber'));
@@ -301,7 +299,7 @@ class SerialNumberController extends AppController
 
     public function isAuthorized($user){
         // All registered users can add articles
-        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'monthlyReport' || $this->request->getParam('action') === 'report' || $this->request->getParam('action') === 'statusReport' || $this->request->getParam('action') === 'dashboard') {
+        if ($this->request->getParam('action') === 'index' || $this->request->getParam('action') === 'monthlyReport' || $this->request->getParam('action') === 'report' || $this->request->getParam('action') === 'statusReport') {
             return true;
         }
 

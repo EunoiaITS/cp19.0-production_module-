@@ -45,8 +45,7 @@ class ScnController extends AppController
                 ->where(['status' => 'verified']));
         }
         if($this->Auth->user('role') == 'approve-2' || $this->Auth->user('role') == 'approve-3' || $this->Auth->user('role') == 'approve-4'){
-            $this->loadModel('SerialNumber');
-            $this->redirect(array("controller" => "SerialNumber", "action" => "dashboard"));
+            $this->redirect(array("controller" => "Dashboard", "action" => "index"));
         }
 
         $this->set(compact('scn'));
@@ -98,10 +97,6 @@ class ScnController extends AppController
         $part_name = rtrim($part_name, ',');
         $scn = $this->Scn->newEntity();
         if ($this->request->is('post')) {
-//            $this->autoRender= false;
-//            echo "<pre>";
-//            print_r($this->request);
-//            echo "</pre>";
             $scn = $this->Scn->patchEntity($scn, $this->request->getData());
             if ($this->Scn->save($scn)) {
                 $scn_no = $this->Scn->find('all', ['fields' => 'id'])->last();

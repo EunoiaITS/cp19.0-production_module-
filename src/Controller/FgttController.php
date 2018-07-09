@@ -47,7 +47,7 @@ class FgttController extends AppController
         }
         if($this->Auth->user('role') == 'approve-2' || $this->Auth->user('role') == 'approve-3' || $this->Auth->user('role') == 'approve-4'){
             $this->loadModel('SerialNumber');
-            $this->redirect(array("controller" => "SerialNumber", "action" => "dashboard"));
+            $this->redirect(array("controller" => "Dashboard", "action" => "index"));
         }
         $this->set(compact('fgtt'));
     }
