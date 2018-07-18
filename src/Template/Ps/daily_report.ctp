@@ -33,6 +33,47 @@ Create serial number form page
                             </div>
                         </div>
                     </div>
+                <div class="col-sm-4 col-sm-offset-2">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <td colspan="3">DAILY TARGET</td>
+                        </tr>
+                        <tr>
+                            <th>Model</th>
+                            <th>Type</th>
+                            <th>Mon - Fri</th>
+                        </tr>
+                        </thead>
+                        <tbody class="csn-text-up">
+                        <tr>
+                            <td>RMU INS 24</td>
+                            <td></td>
+                            <td>18</td>
+                        </tr>
+                        <tr>
+                            <td>RMU INS 24</td>
+                            <td>Motorized</td>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <td>CSU</td>
+                            <td></td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>JMW / RMU CB 12K</td>
+                            <td></td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>JMW - ARAB / RMU CB 17.5K</td>
+                            <td></td>
+                            <td>2</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="clearfix"></div>
@@ -60,11 +101,11 @@ Create serial number form page
                             <td><?= $i?></td>
                             <td><?= $s->tenderNo?></td>
                             <td><?= $s->salesorder_no?></td>
-                            <td><?= $items->model?></td>
+                            <td><p class="model-<?= $count?>" rel="<?= $items->model?>"><?= $items->model?></p></td>
                             <td><?= $items->version?></td>
-                            <td>INDoor</td>
-                            <td>Motorized</td>
-                            <td><input name="quantity<?= $count?>" id="quantity-id<?= $count?>" type="text" class="form-control quantity" value="<?php if(isset($items->dr_quantity)){echo $items->dr_quantity;}?>"></td>
+                            <td></td>
+                            <td></td>
+                            <td><input name="quantity<?= $count?>" id="quantity-id<?= $count?>" rel="<?= $count?>" type="number" min="0" class="form-control quantity" value=""></td>
                             <td></td>
                         </tr>
                             <div id="add-item-table">
@@ -74,7 +115,7 @@ Create serial number form page
                                 <input type="hidden" name="dr_id<?= $count?>" value="<?php if(isset($items->dr_id)){echo $items->dr_id;}?>">
                             </div>
 
-                    <?php $count++;?><?php endforeach;endforeach;?>
+                    <?php $count++; endforeach;endforeach;?>
                     <input id="to-id" type="hidden" name="total" value="">
                     <input id="date-id" type="hidden" name="date" value="">
                         <tr>
@@ -99,22 +140,137 @@ Create serial number form page
 </div>
 <script>
     $(document).ready(function(){
-        var tot = 0;
-        $('.quantity').each(function(){
-            tot += parseInt($(this).val()) || 0;
-            $('#total').text(tot);
+        var ri24 = 0;
+        var ri24m = 0;
+        var rc12 = 0;
+        var rc17 = 0;
+        var csu = 0;
+        var acc = 0;
+        var svc = 0;
+        var fp = 0;
+        var db = 0;
+        var total = 0;
 
-        });
         var date = "<?php echo $date;?>";
-        $('.quantity').on('change',function(){
-            var total = 0;
-            $('.quantity').each(function(){
-                total += parseInt($(this).val()) || 0;
-                //alert($(this).val());
-                $('#total').text(total);
-                $('#to-id').val(total);
-
-            });
+        $('.quantity').on('change',function() {
+            var count = $(this).attr('rel');
+            //alert($('.model-'+count).text());
+            if ($('.model-'+count).text() === 'RMU INS24') {
+                if ($('#quantity-id' + count).val() <= 18) {
+                    ri24 += parseInt($('#quantity-id' + count).val());
+                    if(ri24 > 18){
+                        alert('Value Exceed Daily limit of 18 !!');
+                        ri24 = ri24 - parseInt($('#quantity-id' + count).val());
+                        $('#quantity-id' + count).val(0);
+                    }
+                } else {
+                    alert('Value Exceed Daily limit of 18 !!');
+                    $('#quantity-id' + count).val(0);
+                }
+            }else if ($('.model-'+count).text() === 'RMU (Motorize)') {
+                if ($('#quantity-id' + count).val() <= 12) {
+                    ri24m += parseInt($('#quantity-id' + count).val());
+                    if(ri24m > 12){
+                        alert('Value Exceed Daily limit of 12 !!');
+                        ri24m = ri24m - parseInt($('#quantity-id' + count).val());
+                        $('#quantity-id' + count).val(0);
+                    }
+                } else {
+                    alert('Value Exceed Daily limit of 12 !!');
+                    $('#quantity-id' + count).val(0);
+                }
+            }else if ($('.model-'+ count).text() === 'RMU CB 12kV') {
+                if ($('#quantity-id'+count).val() <= 4) {
+                    rc12 += parseInt($('#quantity-id' + count).val());
+                    if(rc12 > 4){
+                        alert('Value Exceed Daily limit of 4 !!');
+                        rc12 = rc12 - parseInt($('#quantity-id' + count).val());
+                        $('#quantity-id' + count).val(0);
+                    }
+                } else {
+                    alert('Value Exceed Daily limit of 4 !!');
+                    $('#quantity-id' + count).val(0);
+                }
+            } else if ($('.model-'+ count).text() === 'CSU') {
+                if ($('#quantity-id'+count).val() <= 2) {
+                    csu += parseInt($('#quantity-id' + count).val());
+                    if(csu > 2){
+                        alert('Value Exceed Daily limit of 2 !!');
+                        csu = csu - parseInt($('#quantity-id' + count).val());
+                        $('#quantity-id' + count).val(0);
+                    }
+                } else {
+                    alert('Value Exceed Daily limit of 2 !!');
+                    $('#quantity-id' + count).val(0);
+                }
+            } else if ($('.model-'+ count).text() === 'RMU CB 17.5kV') {
+                if ($('#quantity-id'+count).val() <= 2) {
+                    rc17 += parseInt($('#quantity-id' + count).val());
+                    if(rc17 > 2){
+                        alert('Value Exceed Daily limit of 2 !!');
+                        rc17 = rc17 - parseInt($('#quantity-id' + count).val());
+                        $('#quantity-id' + count).val(0);
+                    }
+                } else {
+                    alert('Value Exceed Daily limit of 2 !!');
+                    $('#quantity-id' + count).val(0);
+                }
+            } else if ($('.model-'+count).text() === 'Accessories') {
+                if ($('#quantity-id' + count).val() <= 1) {
+                    acc += parseInt($('#quantity-id' + count).val());
+                    if(acc > 1){
+                        alert('Value Exceed Daily limit of 1 !!');
+                        acc = 0;
+                        $('#quantity-id' + count).val(0);
+                    }
+                } else {
+                    alert('Value Exceed Daily limit of 1 !!');
+                    acc = 0;
+                    $('#quantity-id' + count).val(0);
+                }
+            }else if ($('.model-'+count).text() === 'Services') {
+                if ($('#quantity-id' + count).val() <= 1) {
+                    svc += parseInt($('#quantity-id' + count).val());
+                    if(svc > 1){
+                        alert('Value Exceed Daily limit of 1 !!');
+                        svc = 0;
+                        $('#quantity-id' + count).val(0);
+                    }
+                } else {
+                    alert('Value Exceed Daily limit of 1 !!');
+                    svc = 0;
+                    $('#quantity-id' + count).val(0);
+                }
+            }else if ($('.model-'+count).text() === 'Feeder Pillar/Indoor LV Board') {
+                if ($('#quantity-id' + count).val() <= 1) {
+                    fp += parseInt($('#quantity-id' + count).val());
+                    if(fp > 1){
+                        alert('Value Exceed Daily limit of 1 !!');
+                        fp = 0;
+                        $('#quantity-id' + count).val(0);
+                    }
+                } else {
+                    alert('Value Exceed Daily limit of 1 !!');
+                    fp = 0;
+                    $('#quantity-id' + count).val(0);
+                }
+            }else if ($('.model-'+count).text() === 'Distribution Board') {
+                if ($('#quantity-id' + count).val() <= 1) {
+                    db += parseInt($('#quantity-id' + count).val());
+                    if(db > 1){
+                        alert('Value Exceed Daily limit of 1 !!');
+                        db = 0;
+                        $('#quantity-id' + count).val(0);
+                    }
+                } else {
+                    alert('Value Exceed Daily limit of 1 !!');
+                    db = 0;
+                    $('#quantity-id' + count).val(0);
+                }
+            }
+            total = ri24 + ri24m +rc12 +rc17 + csu + acc + svc + fp + db;
+            $('#total').text(total);
+            $('#to-id').val(total);
         });
         $('#date-id').val(date);
     });

@@ -68,6 +68,11 @@ class ScnTable extends Table
             ->notEmpty('location');
 
         $validator
+            ->scalar('section')
+            ->maxLength('section', 255)
+            ->notEmpty('section');
+
+        $validator
             ->scalar('created_by')
             ->maxLength('created_by', 255)
             ->allowEmpty('created_by');

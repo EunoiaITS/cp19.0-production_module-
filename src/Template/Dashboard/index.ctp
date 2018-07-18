@@ -28,7 +28,7 @@
                             <?php if($role == 'requester'): ?>
                                 <td></td>
                             <?php else: ?>
-                                <td><b><?php if($role == 'verifier'){ echo $sn_v;}else{echo $sn_a1;} ?></b></td>
+                                <td><b><?php if($role == 'verifier'){ echo $sn_v;}elseif($role == 'approve-1'){echo $sn_a1;}else{echo 0;} ?></b></td>
                             <?php endif; ?>
                             <td><?= $user_pic ?></td>
                             <td><?= date('Y-m-d') ?></td>
@@ -41,7 +41,7 @@
                             <?php if($role == 'requester'): ?>
                                 <td></td>
                             <?php else: ?>
-                                <td><b><?php if($role == 'verifier'){echo $ps_v;}elseif($role == 'approve-1'){echo $ps_a1;}elseif ($role == 'approver-2'){echo $ps_a2;}  ?></b></td>
+                                <td><b><?php if($role == 'verifier'){echo $ps_v;}elseif($role == 'approve-1'){echo $ps_a1;}elseif ($role == 'approve-2'){echo $ps_a2;}else{echo 0;} ?></b></td>
                             <?php endif; ?>
                             <td><?= $user_pic ?></td>
                             <td><?= date('Y-m-d') ?></td>
@@ -54,7 +54,7 @@
                             <?php if($role == 'requester'): ?>
                                 <td></td>
                             <?php else: ?>
-                                <td><b><?php if($role == 'verifier'){echo $mit_v;}else{ echo $mit_a1;} ?></b></td>
+                                <td><b><?php if($role == 'verifier'){echo $mit_v;}elseif($role == 'approve-1'){ echo $mit_a1;}else{echo 0;} ?></b></td>
                             <?php endif; ?>
                             <td><?= $user_pic ?></td>
                             <td><?= date('Y-m-d') ?></td>
@@ -67,7 +67,7 @@
                             <?php if($role == 'requester'): ?>
                                 <td></td>
                             <?php else: ?>
-                                <td><b><?php if($role == 'verifier'){echo $mr_v;}else{ echo $mr_a1;} ?></b></td>
+                                <td><b><?php if($role == 'verifier'){echo $mr_v;}elseif($role == 'approve-1'){ echo $mr_a1;}else{echo 0;} ?></b></td>
                             <?php endif; ?>
                             <td><?= $user_pic ?></td>
                             <td><?= date('Y-m-d') ?></td>
@@ -89,12 +89,12 @@
                             <?php if($role == 'requester'): ?>
                                 <td></td>
                             <?php else: ?>
-                                <td><b><?php if($role == 'verifier'){echo $scn_v;}else{ echo $scn_a1;} ?></b></td>
+                                <td><b><?php if($role == 'verifier'){echo $scn_v;}elseif($role == 'approve-1'){ echo $scn_a1;}elseif ($role == 'approve-2'){echo $scn_a2;}else{echo 0;} ?></b></td>
                             <?php endif; ?>
                             <td><?= $user_pic ?></td>
                             <td><?= date('Y-m-d') ?></td>
-                            <td><?php if($role == 'verifier'){ echo 'Requested';}elseif($role == 'approve-1'){echo 'Verified';} ?></td>
-                            <td><a href="<?php echo $this->Url->build(['controller'=>'Scn', 'action'=>'index']);?>"><?php if($role == 'verifier' || $role == 'approve-1'): ?><span class="btn btn-primary"><?php if($role == 'verifier'){ echo 'Verify';}elseif($role == 'approve-1'){echo 'Approve';} ?></span><?php endif;?></a></td>
+                            <td><?php if($role == 'verifier'){ echo 'Requested';}elseif($role == 'approve-1'){echo 'Verified';}elseif($role == 'approve-2'){echo 'Approved';} ?></td>
+                            <td><a href="<?php echo $this->Url->build(['controller'=>'Scn', 'action'=>'index']);?>"><?php if($role == 'verifier' || $role == 'approve-1' || $role == 'approve-2'): ?><span class="btn btn-primary"><?php if($role == 'verifier'){ echo 'Verify';}elseif($role == 'approve-1' || $role == 'approve-2'){echo 'Approve';} ?></span><?php endif;?></a></td>
                         </tr>
                         <tr>
                             <td>7</td>
@@ -102,7 +102,7 @@
                             <?php if($role == 'requester'): ?>
                                 <td></td>
                             <?php else: ?>
-                                <td><b><?php if($role == 'verifier'){echo $fgtt_v;}else{ echo $fgtt_a1;} ?></b></td>
+                                <td><b><?php if($role == 'verifier'){echo $fgtt_v;}elseif($role == 'approve-1'){ echo $fgtt_a1;}else{echo 0;} ?></b></td>
                             <?php endif; ?>
                             <td><?= $user_pic ?></td>
                             <td><?= date('Y-m-d') ?></td>
@@ -115,7 +115,7 @@
                             <?php if($role == 'requester'): ?>
                                 <td></td>
                             <?php else: ?>
-                                <td><b><?php if($role == 'verifier'){echo $nbdo_v;}else{ echo $nbdo_a1;} ?></b></td>
+                                <td><b><?php if($role == 'verifier'){echo $nbdo_v;}elseif($role == 'approve-1'){ echo $nbdo_a1;}else{echo 0;} ?></b></td>
                             <?php endif; ?>
                             <td><?= $user_pic ?></td>
                             <td><?= date('Y-m-d') ?></td>

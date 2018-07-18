@@ -7,21 +7,21 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * ScnItems Model
+ * PrnfItems Model
  *
- * @property \App\Model\Table\ScnsTable|\Cake\ORM\Association\BelongsTo $Scns
+ * @property \App\Model\Table\PrnfsTable|\Cake\ORM\Association\BelongsTo $Prnfs
  *
- * @method \App\Model\Entity\ScnItems get($primaryKey, $options = [])
- * @method \App\Model\Entity\ScnItems newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\ScnItems[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\ScnItems|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\ScnItems patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\ScnItems[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\ScnItems findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\PrnfItem get($primaryKey, $options = [])
+ * @method \App\Model\Entity\PrnfItem newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\PrnfItem[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\PrnfItem|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\PrnfItem patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\PrnfItem[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\PrnfItem findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class ScnItemsTable extends Table
+class PrnfItemsTable extends Table
 {
 
     /**
@@ -34,7 +34,7 @@ class ScnItemsTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('scn_items');
+        $this->setTable('prnf_items');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
@@ -55,24 +55,29 @@ class ScnItemsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->scalar('scn_id')
-            ->maxLength('scn_id', 255)
-            ->allowEmpty('scn_id');
-
-        $validator
             ->scalar('part_no')
             ->maxLength('part_no', 255)
             ->allowEmpty('part_no');
 
         $validator
-            ->scalar('part_desc')
-            ->maxLength('part_desc', 255)
-            ->allowEmpty('part_desc');
+            ->scalar('part_name')
+            ->maxLength('part_name', 255)
+            ->allowEmpty('part_name');
 
         $validator
             ->scalar('quantity')
             ->maxLength('quantity', 255)
-            ->allowEmpty('quantity');
+            ->notEmpty('quantity');
+
+        $validator
+            ->scalar('description')
+            ->maxLength('description', 255)
+            ->allowEmpty('description');
+
+        $validator
+            ->scalar('document')
+            ->maxLength('document', 255)
+            ->allowEmpty('document');
 
         $validator
             ->scalar('reason')

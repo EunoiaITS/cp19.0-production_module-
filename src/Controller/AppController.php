@@ -139,6 +139,9 @@ class AppController extends Controller
         $scn_a1 = $this->Scn->find('all')
             ->where(['status'=>'verified'])
             ->count();
+        $scn_a2 = $this->Scn->find('all')
+            ->where(['status'=>'approved-1'])
+            ->count();
 
         $fgtt_v = $this->Fgtt->find('all')
             ->where(['status'=>'requested'])
@@ -170,6 +173,7 @@ class AppController extends Controller
         $this->set('prn_a4',$prn_a4);
         $this->set('scn_v',$scn_v);
         $this->set('scn_a1',$scn_a1);
+        $this->set('scn_a2',$scn_a2);
         $this->set('fgtt_v',$fgtt_v);
         $this->set('fgtt_a1',$fgtt_a1);
         $this->set('nbdo_v',$nbdo_v);

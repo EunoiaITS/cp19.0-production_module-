@@ -4,20 +4,23 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * MaterialRequest Entity
+ * PrnfItem Entity
  *
  * @property int $id
- * @property string $date
- * @property string $location
- * @property string $created_by
+ * @property int $prnf_id
+ * @property string $part_no
+ * @property string $part_name
+ * @property string $quantity
+ * @property string $description
+ * @property string $document
+ * @property string $reason
  * @property string $remark
- * @property string $status
- * @property string $verified_by
- * @property string $approved_by
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
+ *
+ * @property \App\Model\Entity\Prnf $prnf
  */
-class MaterialRequest extends Entity
+class PrnfItem extends Entity
 {
 
     /**

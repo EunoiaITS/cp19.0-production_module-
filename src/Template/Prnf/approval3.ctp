@@ -28,32 +28,6 @@ prn page
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <div class="col-sm-3 col-xs-6">
-                            <p class="cn-text">Part No <span class="planner-fright">:</span></p>
-                        </div>
-                        <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text text-uppercase"><?= $prnf->part_no?></p>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-sm-3 col-xs-6">
-                            <p class="cn-text">Part Name <span class="planner-fright">:</span></p>
-                        </div>
-                        <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text text-uppercase">Spring shaft Assy</p>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-sm-3 col-xs-6">
-                            <p class="cn-text">Qty <span class="planner-fright">:</span></p>
-                        </div>
-                        <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text text-uppercase"><?= $prnf->quantity?></p>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="col-sm-6">
@@ -80,7 +54,7 @@ prn page
                             <p class="cn-text">Section <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text">Welding</p>
+                            <p class="cn-main-text"><?= $prnf->section ?></p>
                         </div>
                     </div>
 
@@ -136,19 +110,29 @@ prn page
                 <table class="table table-bordered">
                     <thead>
                     <tr>
+                        <th>Serial No</th>
+                        <th>Part No</th>
+                        <th>Part Name</th>
+                        <th>Quantity</th>
                         <th>Description</th>
-                        <th>Reason</th>
                         <th>Document</th>
+                        <th>Reason</th>
                         <th>Remark</th>
                     </tr>
                     </thead>
                     <tbody class="csn-text-up">
-                    <tr>
-                        <td><?= $prnf->description?></td>
-                        <td><?= $prnf->reason?></td>
-                        <td><a href="<?= $prnf->document?>">View</a></td>
-                        <td><?= $prnf->remark?></td>
-                    </tr>
+                    <?php $count=0;foreach ($items as $item): $count++;?>
+                        <tr>
+                            <td><?= $count ?></td>
+                            <td><?= $item->part_no ?></td>
+                            <td><?= $item->part_name ?></td>
+                            <td><?= $item->quantity ?></td>
+                            <td><?= $item->description ?></td>
+                            <td><a target="_blank" href="<?php if(isset($item->document)){echo $item->document;}else{ '';}?>"><span class="btn btn-primary">View</span></a></td>
+                            <td><?= $item->reason ?></td>
+                            <td></td>
+                        </tr>
+                    <?php endforeach;?>
                     </tbody>
                 </table>
             </div>

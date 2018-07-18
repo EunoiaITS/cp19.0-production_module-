@@ -125,7 +125,7 @@
             <div class="prepareted-by-csn">
                 <form method="post" action="<?php echo $this->url->build(['controller' => 'Scn', 'action' => 'edit', $scn->id]); ?>">
                     <input type="hidden" name="approved_by" value="<?= $pic ?>">
-                    <input type="hidden" name="status" value="approved">
+                    <input type="hidden" name="status" value="approved-1">
                     <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>
                     <button type="submit" class="button btn btn-info">Approve</button>
                 </form>

@@ -58,10 +58,16 @@ class MaterialRequestTable extends Table
             ->notEmpty('date');
 
         $validator
-            ->scalar('location')
-            ->maxLength('location', 255)
-            ->requirePresence('location', 'create')
-            ->notEmpty('location');
+        ->scalar('location')
+        ->maxLength('location', 255)
+        ->requirePresence('location', 'create')
+        ->notEmpty('location');
+
+        $validator
+            ->scalar('section')
+            ->maxLength('section', 255)
+            ->requirePresence('section', 'create')
+            ->notEmpty('section');
 
         $validator
             ->scalar('created_by')

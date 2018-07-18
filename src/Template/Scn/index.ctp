@@ -15,11 +15,13 @@
                         <tr>
                             <th>No</th>
                             <th>Date</th>
+                            <th>SCN No</th>
                             <th>Location</th>
+                            <th>Section</th>
                             <th>Create By</th>
                             <th>Department</th>
                             <th>Section</th>
-                            <th><?php $action = ''; if($role == 'verifier'){$action = 'verify';echo 'Verify';}elseif($role == 'approve-1'){$action = 'approve';echo 'Approve';}else{$action = 'edit';echo 'Edit';} ?></th>
+                            <th><?php $action = ''; if($role == 'verifier'){$action = 'verify';echo 'Verify';}elseif($role == 'approve-1'){$action = 'approve';echo 'Approve';}elseif($role == 'approve-2'){$action = 'approval1';echo 'Approve';}else{$action = 'reqEdit';echo 'Edit';} ?></th>
                         </tr>
                         </thead>
                         <tbody class="csn-text-up">
@@ -27,11 +29,13 @@
                             <tr>
                                 <td><?= $count ?></td>
                                 <td><?= $sn->date ?></td>
+                                <td><span style="cursor: pointer;" class="click-button" data-toggle="modal" data-target="#myModal-<?= $count ?>"><b><?= 'SCN ' . $sn->id ?></b></span></td>
                                 <td><?= $sn->location ?></td>
+                                <td><?= $sn->section ?></td>
                                 <td><?= $sn->created_by ?></td>
                                 <td><?= $role; ?></td>
                                 <td>Production</td>
-                                <td><a href="<?php echo $this->url->build(['controller' => 'Scn', 'action' => $action, $sn->id]); ?>"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve-1'){echo 'Approve';}else{echo 'Edit';} ?></a></td>
+                                <td><a href="<?php echo $this->url->build(['controller' => 'Scn', 'action' => $action, $sn->id]); ?>"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve-1'){echo 'Approve';}elseif($role == 'approve-2'){echo 'Approve';}else{echo 'Edit';} ?></a></td>
                             </tr>
                         <?php endforeach; ?>
                         </tbody>
@@ -54,3 +58,44 @@
             </div>
         </div>
     </div>
+
+    <!--======
+        PURCHASE ORDER REQUEST LIST POPUP
+      ===============================-->
+    <?php $count = 0; foreach($scn as $sn): $count++; ?>
+    <div class="modal fade" id="myModal-<?= $count ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title text-center" id="myModalLabel">Store Credit Note Popup</h4>
+                </div>
+                <div class="modal-body supplier-modal-body table-responsive">
+                    <table class="table table-bordered ">
+                        <thead>
+                        <tr>
+                            <th>Part No</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Reason</th>
+                            <th>Remark</th>
+                        </tr>
+                        </thead>
+                        <tbody class="csn-text-up">
+                        <?php foreach ($sn->items as $item): ?>
+                            <tr>
+                                <td><?= $item->part_no ?></td>
+                                <td><?= $item->part_desc ?></td>
+                                <td><?= $item->quantity ?></td>
+                                <td><?= $item->reason ?></td>
+                                <td><?= $item->remark ?></td>
+                            </tr>
+                        <?php endforeach;?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+<?php endforeach;?>
