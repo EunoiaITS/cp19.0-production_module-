@@ -46,7 +46,7 @@
                             <td><?= $mr->location ?></td>
                             <td><?= $mr->created_by ?></td>
                             <?php if($role != 'requester'): ?>
-                            <td><a href="<?php echo $this->url->build(['controller' => 'Nbdo', 'action' => $action, $mr->id]); ?>"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve-1'){echo 'Approve';} ?></a></td>
+                            <td><a href="<?php echo $this->Url->build(['controller' => 'Nbdo', 'action' => $action, $mr->id]); ?>"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve-1'){echo 'Approve';} ?></a></td>
                             <?php endif;?>
                         </tr>
                     <?php endforeach; ?>

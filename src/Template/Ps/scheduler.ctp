@@ -33,7 +33,6 @@ Create serial number form page
                         formatted = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
                     //alert(formatted);
                     var url = "<?php echo $this->Url->build(['controller'=>'ps','action'=>'dailyReport'])?>";
-                    //alert(url);
                     $(this).attr("href",url+"?date="+formatted);
 
                 });

@@ -143,7 +143,7 @@
             <div class="clearfix"></div>
             <div class="col-sm-offset-8 col-sm-4 col-xs-12">
                 <div class="prepareted-by-csn">
-                    <form method="post" action="<?php echo $this->url->build(['controller' => 'SerialNumber', 'action' => 'edit', $sn->id]); ?>">
+                    <form method="post" action="<?php echo $this->Url->build(['controller' => 'SerialNumber', 'action' => 'edit', $sn->id]); ?>">
                         <input type="hidden" name="status" value="approved">
                         <input type="hidden" name="approved_by" value="<?= $pic ?>">
                         <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>
@@ -165,7 +165,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title text-center" id="myModalLabel">Please Key In Remarks Here </h4>
                 </div>
-                <form method="post" action="<?php echo $this->url->build(['controller' => 'SerialNumber', 'action' => 'edit', $sn->id]); ?>">
+                <form method="post" action="<?php echo $this->Url->build(['controller' => 'SerialNumber', 'action' => 'edit', $sn->id]); ?>">
                 <div class="modal-body">
                     <input type="hidden" name="status" value="rejected">
                     <textarea name="reject_remark" id="" class="popup-textarea" cols="20" rows="8"></textarea>

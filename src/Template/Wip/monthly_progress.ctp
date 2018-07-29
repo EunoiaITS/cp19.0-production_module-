@@ -67,7 +67,7 @@ Create serial number form page
                             </div>
                         </div>
                         <div class="pre col-sm-8">
-                            <a href="<?php echo $this->url->build(['controller' => 'Wip', 'action' => 'monthlyProgress']).'?month='.$month.'&year='.$year; ?>" class="button btn btn-info btn-generate" id="btn-generate">Generate</a>
+                            <a href="<?php echo $this->Url->build(['controller' => 'Wip', 'action' => 'monthlyProgress']).'?month='.$month.'&year='.$year; ?>" class="button btn btn-info btn-generate" id="btn-generate">Generate</a>
                         </div>
                     </div>
             </div>

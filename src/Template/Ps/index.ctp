@@ -39,7 +39,7 @@
                             <td><?= $p->month ?></td>
                             <td><?= $p->total_items ?></td>
                             <td><?= $p->created_by ?></td>
-                            <td><a href="<?php echo $this->url->build(['controller' => 'Ps', 'action' => 'view', $p->id]); ?>"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve-1'){echo 'Approve';}elseif($role == 'approve-2'){echo 'Approve';}else{echo 'View';} ?></a></td>
+                            <td><a href="<?php echo $this->Url->build(['controller' => 'Ps', 'action' => 'view', $p->id]); ?>"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve-1'){echo 'Approve';}elseif($role == 'approve-2'){echo 'Approve';}else{echo 'View';} ?></a></td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>

@@ -120,7 +120,7 @@
         <div class="clearfix"></div>
         <div class="col-sm-offset-8 col-sm-4 col-xs-12">
             <div class="prepareted-by-csn">
-                <form method="post" action="<?php echo $this->url->build(['controller' => 'MaterialRequest', 'action' => 'edit', $mr->id]); ?>">
+                <form method="post" action="<?php echo $this->Url->build(['controller' => 'MaterialRequest', 'action' => 'edit', $mr->id]); ?>">
                     <input type="hidden" name="approved_by" value="<?= $pic ?>">
                     <input type="hidden" name="status" value="approved">
                     <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>
@@ -142,7 +142,7 @@ Remark popup module
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title text-center" id="myModalLabel">Please Key In Remarks Here </h4>
             </div>
-            <form method="post" action="<?php echo $this->url->build(['controller' => 'MaterialRequest', 'action' => 'edit', $mr->id]); ?>">
+            <form method="post" action="<?php echo $this->Url->build(['controller' => 'MaterialRequest', 'action' => 'edit', $mr->id]); ?>">
                 <div class="modal-body">
                     <textarea name="remark" id="" class="popup-textarea" cols="20" rows="8"></textarea>
                 </div>

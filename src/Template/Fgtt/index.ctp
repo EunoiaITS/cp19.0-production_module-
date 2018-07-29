@@ -35,7 +35,7 @@
                             <td><?= $mr->so_no ?></td>
                             <td><?= $mr->location ?></td>
                             <td><?= $mr->created_by ?></td>
-                            <td><a href="<?php echo $this->url->build(['controller' => 'Fgtt', 'action' => $action, $mr->id]); ?>"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve-1'){echo 'Approve';}else{echo 'Edit';} ?></a></td>
+                            <td><a href="<?php echo $this->Url->build(['controller' => 'Fgtt', 'action' => $action, $mr->id]); ?>"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve-1'){echo 'Approve';}else{echo 'Edit';} ?></a></td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>

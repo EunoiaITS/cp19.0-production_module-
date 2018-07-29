@@ -3,7 +3,7 @@
       ==============-->
 
 <div class="planner-from">
-    <form method="post" action="<?php echo $this->url->build(['controller' => 'Fgtt', 'action' => 'add']); ?>" class="planner-relative">
+    <form method="post" action="<?php echo $this->Url->build(['controller' => 'Fgtt', 'action' => 'add']); ?>" class="planner-relative">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12 col-sm-12">

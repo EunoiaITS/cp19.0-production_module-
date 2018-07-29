@@ -38,7 +38,7 @@
                                 <td><?= $sn->created_by ?></td>
                                 <td>Production</td>
                                 <td></td>
-                                <td><a href="<?php echo $this->url->build(['controller' => 'SerialNumber', 'action' => $action, $sn->id]); ?>"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve-1'){echo 'Approve';}else{echo 'Edit';} ?></a></td>
+                                <td><a href="<?php echo $this->Url->build(['controller' => 'SerialNumber', 'action' => $action, $sn->id]); ?>"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve-1'){echo 'Approve';}else{echo 'Edit';} ?></a></td>
                             </tr>
                         <?php endforeach; ?>
                         </tbody>

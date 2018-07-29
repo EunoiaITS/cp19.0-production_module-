@@ -3,7 +3,7 @@
       ==============-->
 
 <div class="planner-from" xmlns="http://www.w3.org/1999/html">
-    <form method="post" action="<?php echo $this->url->build(['controller' => 'Ps', 'action' => 'monthlyScheduler']); ?>">
+    <form method="post" action="<?php echo $this->Url->build(['controller' => 'Ps', 'action' => 'monthlyScheduler']); ?>">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12 col-sm-12">
@@ -66,7 +66,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-2 col-sm-12">
-                                    <a href="<?php echo $this->url->build(['controller' => 'Ps', 'action' => 'monthlyScheduler']).'?month='.$month.'&year='.$year; ?>" class="button btn btn-info btn-generate" id="btn-generate">Generate</a>
+                                    <a href="<?php echo $this->Url->build(['controller' => 'Ps', 'action' => 'monthlyScheduler']).'?month='.$month.'&year='.$year; ?>" class="button btn btn-info btn-generate" id="btn-generate">Generate</a>
                                 </div>
                             </div>
                         </div>

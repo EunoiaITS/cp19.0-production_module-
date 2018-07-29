@@ -42,7 +42,7 @@ Production Planner page
                         <td><?= $pr->section ?></td>
                         <td><?= $pr->created_by?></td>
                         <?php if($role != 'requester'): ?>
-                            <td><a href="<?php echo $this->url->build(['controller' => 'Prnf', 'action' => $action, $pr->id]); ?>"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve-1'){echo 'Approve';}elseif($role == 'approve-2'){echo 'Approve';}elseif($role == 'approve-3'){echo 'Approve';}elseif($role == 'approve-4'){echo 'Approve';}else{echo 'Edit';} ?></a></td>
+                            <td><a href="<?php echo $this->Url->build(['controller' => 'Prnf', 'action' => $action, $pr->id]); ?>"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve-1'){echo 'Approve';}elseif($role == 'approve-2'){echo 'Approve';}elseif($role == 'approve-3'){echo 'Approve';}elseif($role == 'approve-4'){echo 'Approve';}else{echo 'Edit';} ?></a></td>
                         <?php endif; ?>
                     </tr>
                     <?php endforeach;?>

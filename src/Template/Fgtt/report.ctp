@@ -46,11 +46,11 @@
                         <td><?= $count ?></td>
                         <td>N/A</td>
                         <td><?= $f->so_no ?></td>
-                        <td><?= $f->details->model ?></td>
-                        <td><?= $f->details->version ?></td>
-                        <td><?= $f->details->type1 ?></td>
-                        <td><?= $f->details->type2 ?></td>
-                        <td><?= $f->details->quantity ?></td>
+                        <td><?php if(isset($f->details->model)){echo $f->details->model;} ?></td>
+                        <td><?php if(isset($f->details->version)){echo $f->details->version;}  ?></td>
+                        <td><?php if(isset($f->details->type1)){echo $f->details->type1;}  ?></td>
+                        <td><?php if(isset($f->details->type2)){echo $f->details->type2;}  ?></td>
+                        <td><?php if(isset($f->details->quantity)){echo $f->details->quantity;} ?></td>
                         <td><?= $f->created_by ?></td>
                         <td>Production</td>
                         <td>Wiring</td>

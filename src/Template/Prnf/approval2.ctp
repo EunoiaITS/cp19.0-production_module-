@@ -176,7 +176,7 @@ Remark popup module
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title text-center" id="myModalLabel">Please Key In Remarks Here </h4>
             </div>
-            <form method="post" action="<?php echo $this->url->build(['controller' => 'Prnf', 'action' => 'edit', $prnf->id]); ?>">
+            <form method="post" action="<?php echo $this->Url->build(['controller' => 'Prnf', 'action' => 'edit', $prnf->id]); ?>">
                 <div class="modal-body">
                     <textarea name="remark" id="" class="popup-textarea" cols="20" rows="8"></textarea>
                 </div>

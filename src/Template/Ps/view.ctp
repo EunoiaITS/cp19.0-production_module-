@@ -171,7 +171,7 @@
             <div class="clearfix"></div>
             <div class="col-sm-offset-8 col-sm-4 col-xs-12">
                 <div class="prepareted-by-csn">
-                    <form method="post" action="<?php echo $this->url->build(['controller' => 'Ps', 'action' => 'edit', $ps->id]); ?>">
+                    <form method="post" action="<?php echo $this->Url->build(['controller' => 'Ps', 'action' => 'edit', $ps->id]); ?>">
                         <input type="hidden" name="status" value="<?php if($role == 'verifier'){echo 'verified';}elseif($role == 'approve-1'){echo 'approval-1';}elseif($role == 'approve-2'){echo 'approval-2';}else{echo '';}?>">
                         <input type="hidden" name="<?php if($role == 'verifier'){echo 'verified_by';}elseif($role == 'approve-1'){echo 'approval1_by';}elseif($role == 'approve-2'){echo 'approval2_by';}else{echo 'created_by';}?>" value="<?= $pic ?>">
                         <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#myModal">Reject</button>
@@ -194,7 +194,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title text-center" id="myModalLabel">Please Key In Remarks Here </h4>
                 </div>
-                <form method="post" action="<?php echo $this->url->build(['controller' => 'Ps', 'action' => 'edit', $ps->id]); ?>">
+                <form method="post" action="<?php echo $this->Url->build(['controller' => 'Ps', 'action' => 'edit', $ps->id]); ?>">
                 <div class="modal-body">
                     <textarea name="remark" id="" class="popup-textarea" cols="20" rows="8"></textarea>
                 </div>
