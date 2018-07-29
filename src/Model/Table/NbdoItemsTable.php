@@ -61,19 +61,16 @@ class NbdoItemsTable extends Table
         $validator
             ->scalar('part_no')
             ->maxLength('part_no', 255)
-            ->requirePresence('part_no', 'create')
             ->notEmpty('part_no');
 
         $validator
             ->scalar('part_desc')
             ->maxLength('part_desc', 255)
-            ->requirePresence('part_desc', 'create')
             ->notEmpty('part_desc');
 
         $validator
             ->scalar('quantity')
             ->maxLength('quantity', 255)
-            ->requirePresence('quantity', 'create')
             ->notEmpty('quantity');
 
         $validator

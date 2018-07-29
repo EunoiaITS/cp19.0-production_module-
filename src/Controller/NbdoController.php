@@ -117,6 +117,50 @@ class NbdoController extends AppController
         }
         $part_no = rtrim($part_no, ',');
         $part_name = rtrim($part_name, ',');
+
+        $urlToSales = 'http://salesmodule.acumenits.com/api/all-data';
+
+        $optionsForSales = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'GET'
+            ]
+        ];
+        $contextForSales  = stream_context_create($optionsForSales);
+        $resultFromSales = file_get_contents($urlToSales, false, $contextForSales);
+        if ($resultFromSales === FALSE) {
+            echo 'ERROR!!';
+        }
+        $dataFromSales = json_decode($resultFromSales);
+
+        $so_no  = null;
+        foreach ($dataFromSales as $d){
+            $parts = '';
+            foreach($d->soi as $item){
+                $urlToEng = 'http://engmodule.acumenits.com/api/bom-parts';
+                $sendToEng = [
+                    'model' => $item->model,
+                    'version' => $item->version
+                ];
+                $optionsForEng = [
+                    'http' => [
+                        'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                        'method'  => 'POST',
+                        'content' => http_build_query($sendToEng)
+                    ]
+                ];
+                $contextForEng  = stream_context_create($optionsForEng);
+                $resultFromEng = file_get_contents($urlToEng, false, $contextForEng);
+                if ($resultFromEng !== FALSE) {
+                    $dataFromEng = json_decode($resultFromEng);
+                    foreach($dataFromEng as $eng){
+                        $parts .= '{partNo:"'.$eng->partNo.'",partName:"'.$eng->partName.'",quantity:"'.$eng->quality.'"},';
+                    }
+                }
+            }
+            $so_no .= '{label:"'.$d->salesorder_no.'",parts:['.$parts.']},';
+        }
+        $so_no = rtrim($so_no, ',');
         $count = $this->Nbdo->find('all')->last();
         $nbdo = $this->Nbdo->newEntity();
         $this->loadModel('NbdoItems');
@@ -127,7 +171,7 @@ class NbdoController extends AppController
                 if($this->request->getData('total') != null){
                     $nbdoItem = TableRegistry::get('NbdoItems');
                     $itemData = array();
-                    for($i = 0; $i < $this->request->getData('total'); $i++){
+                    for($i = 0; $i <= $this->request->getData('total'); $i++){
                         $itemData[$i]['nbdo_id'] = $nbdo_no['id'];
                         $itemData[$i]['part_no'] = $this->request->getData('part_no'.$i);
                         $itemData[$i]['part_desc'] = $this->request->getData('part_desc'.$i);
@@ -161,6 +205,7 @@ class NbdoController extends AppController
             $this->Flash->error(__('The nbdo could not be saved. Please, try again.'));
         }
         $this->set(compact('nbdo'));
+        $this->set('so_no',$so_no);
         $this->set('sn_no', (isset($count->id) ? ($count->id + 1) : 1));
         $this->set('part_no', $part_no);
         $this->set('part_name', $part_name);

@@ -24,6 +24,7 @@ Production Planner page
                         <th>Part Name</th>
                         <th>Drawing No</th>
                         <th>Section</th>
+                        <th>Mit No</th>
                         <th>UOM</th>
                         <th>Current Qty</th>
                         <th>Zon</th>
@@ -47,6 +48,7 @@ Production Planner page
                         <td id="part-name<?= $inv->id; ?>"><?= $inv->part_name; ?></td>
                         <td id="drawing-no<?= $inv->id; ?>"><?= $inv->drawing_no; ?></td>
                         <td id="section<?= $inv->id; ?>"><?= $inv->section; ?></td>
+                        <td id="mit<?= $inv->id; ?>"><?= $inv->mit_no; ?></td>
                         <td id="uom<?= $inv->id; ?>"><?= $inv->uom; ?></td>
                         <td id="current<?= $inv->id; ?>"><?= $inv->current_quantity; ?></td>
                         <td id="zon<?= $inv->id; ?>"><?= $inv->zon; ?></td>
@@ -125,41 +127,46 @@ Production Planner page
                     </tr>
                     <tr>
                         <td>5</td>
+                        <td>Mit No</td>
+                        <td><input id="mit-view" type="text" class="form-control" name="mit_no"></td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
                         <td>UOM</td>
                         <td><input id="uom-view" type="text" class="form-control" name="uom"></td>
                     </tr>
                     <tr>
-                        <td>6</td>
+                        <td>7</td>
                         <td>Current Qty</td>
                         <td><input id="current-view" type="text" class="form-control" name="current_quantity"></td>
                     </tr>
                     <tr>
-                        <td>7</td>
+                        <td>8</td>
                         <td>Zon</td>
                         <td><input id="zon-view" type="text" class="form-control" name="zon"></td>
                     </tr>
                     <tr>
-                        <td>8</td>
+                        <td>9</td>
                         <td>Rack No</td>
                         <td><input id="rack-view" type="text" class="form-control" name="rack_no"></td>
                     </tr>
                     <tr>
-                        <td>9</td>
+                        <td>10</td>
                         <td>Bin No</td>
                         <td><input id="bin-view" type="text" class="form-control" name="bin_no"></td>
                     </tr>
                     <tr>
-                        <td>10</td>
+                        <td>11</td>
                         <td>Level</td>
                         <td><input id="level-view" type="text" class="form-control" name="level"></td>
                     </tr>
                     <tr>
-                        <td>11</td>
+                        <td>12</td>
                         <td>Min Stock Level</td>
                         <td><input id="min-stock-view" type="text" class="form-control" name="min_stock"></td>
                     </tr>
                     <tr>
-                        <td>12</td>
+                        <td>13</td>
                         <td>Max Stock Level</td>
                         <td><input id="max-stock-view" type="text" class="form-control" name="max_stock"></td>
                     </tr>
@@ -183,6 +190,7 @@ Production Planner page
             $('#part-name-view').val($('#part-name'+id).text());
             $('#drawing-no-view').val($('#drawing-no'+id).text());
             $('#section-view').val($('#section'+id).text());
+            $('#mit-view').val($('#mit'+id).text());
             $('#uom-view').val($('#uom'+id).text());
             $('#current-view').val($('#current'+id).text());
             $('#zon-view').val($('#zon'+id).text());

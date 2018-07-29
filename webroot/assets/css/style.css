@@ -77,6 +77,23 @@ body{
     line-height: 24px;
     overflow-x:hidden !important;
 }
+.so-loading-box{
+    position:relative;
+}
+.so-loading{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 2px;
+    right: 17px;
+}
+.so-loading-table {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 12px;
+    right: 12px;
+}
 
 /*----- icon --*/
 

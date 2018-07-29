@@ -154,12 +154,16 @@
 
         <div class="btn-group-vertical dropdown" role="group">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                Inventory<span class="caret"></span>
+                INVENTORY<span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                 <?php if($role == 'requester'): ?>
-                    <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'inventory','action'=>'add']);?>">Inventory Create</a></li>
+                    <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'inventory','action'=>'add']);?>">Stock In</a></li>
+                    <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'inventory','action'=>'stockOut']);?>">Stock Out</a></li>
                 <?php endif; ?>
+                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller' => 'Inventory', 'action' => 'stockInRecord']); ?>">Stock In Inventory Record</a></li>
+                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller' => 'Inventory', 'action' => 'stockOutRecord']); ?>">Stock Out Inventory Record</a></li>
+                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'inventory','action'=>'storeReport']);?>">Store Report</a></li>
                 <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller'=>'inventory','action'=>'index']);?>">Inventory Report</a></li>
             </ul>
         </div>

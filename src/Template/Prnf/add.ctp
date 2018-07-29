@@ -33,6 +33,7 @@ prn page
                         </div>
                         <div class="col-sm-5 col-xs-6">
                             <input name="so_no" type="text" class="form-control" id="so-no" value="">
+                            <span id="hidden-so"></span>
                         </div>
                     </div>
                 </div>
@@ -139,6 +140,14 @@ prn page
             $(this).autocomplete(options);
         });
         $(document).on('autocompleteselect', so_no, function (e, ui) {
+            setTimeout(function(){
+                $(this).addClass('so-loading-box');
+                $('#hidden-so').html('<img src="<?php echo $this->request->webroot."assets/img/loading.gif"; ?>" id="so-img" class="so-loading">');
+            },100);
+            setTimeout(function(){
+                $(this).removeClass('so-loading-box');
+                $('#hidden-so').html('');
+            },500);
             var parts = ui.item.parts;
             if (parts.length !== 0) {
                 var html_create = '';

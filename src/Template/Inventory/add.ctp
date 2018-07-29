@@ -25,6 +25,7 @@ Production Planner page
                         <th>Part Name</th>
                         <th>Drawing No</th>
                         <th>Section</th>
+                        <th>Mit No</th>
                         <th>UOM</th>
                         <th>Current Qty</th>
                         <th>Zon</th>
@@ -38,10 +39,27 @@ Production Planner page
                     <tbody id="add-item-table">
                     <tr>
                         <td>1</td>
-                        <td><input type="text" class="form-control part-no" id="part-no0" rel="0" name="part_no0"></td>
-                        <td><input type="text" class="form-control part-name" id="part-name0" rel="0" name="part_name0"></td>
+                        <td id="no-td0"><input type="text" class="form-control part-no" id="part-no0" rel="0" name="part_no0"><span id="no0"></span></td>
+                        <td id="name-td0"><input type="text" class="form-control part-name" id="part-name0" rel="0" name="part_name0"><span id="name0"></td>
                         <td><input type="text" class="form-control drawing-no" id="drawing-no0" rel="0" name="drawing_no0"></td>
-                        <td><input type="text" class="form-control" name="section0"></td>
+                        <td><select class="form-control" name="section0">
+                                <option value="Welding">Welding</option>
+                                <option value="Main Line Tank">Main Line Tank</option>
+                                <option value="Drive Mechanism">Drive Mechanism</option>
+                                <option value="Vacuum Camber">Vacuum Camber</option>
+                                <option value="Welding">Welding</option>
+                                <option value="BTA">BTA</option>
+                                <option value="Metal Clad">Metal Clad</option>
+                                <option value="Wiring">Wiring</option>
+                                <option value="Testing">Testing</option>
+                            </select></td>
+                        <td><select class="form-control" name="mit_no0">
+                                <?php foreach ($store_data as $sd): ?>
+                                    <?php if(!empty($sd->mit_no)){?>
+                                        <option value="<?php echo $sd->mit_no;?>"><?php echo $sd->mit_no;?></option>
+                                    <?php }?>
+                                <?php endforeach;?>
+                            </select></td>
                         <td><input type="text" class="form-control" name="uom0"></td>
                         <td><input type="text" class="form-control" name="current_quantity0"></td>
                         <td><input type="text" class="form-control" name="zon0"></td>
@@ -75,11 +93,29 @@ add item
         $('#add-part').on('click', function(e){
             e.preventDefault();
             var html_create = '<tr>'+
-                '<td>'+(count+1)+'</td>'+
-                '<td><input type="text" name="part_no'+count+'" id="part-no'+count+'" rel="'+count+'" class="form-control part-no half-control-sm"></td>'+
-                '<td><input type="text" name="part_name'+count+'" id="part-name'+count+'" rel="'+count+'" class="form-control part-name"></td>'+
+                '<td>'+(count+1)+'<input type="hidden" class="new-count" value="'+count+'"</td>'+
+                '<td id="no-td'+count+'"><input type="text" name="part_no'+count+'" id="part-no'+count+'" rel="'+count+'" class="form-control part-no half-control-sm"><span id="no'+count+'"></span></td>'+
+                '<td id="name-td'+count+'"><input type="text" name="part_name'+count+'" id="part-name'+count+'" rel="'+count+'" class="form-control part-name"><span id="name'+count+'"></td>'+
                 '<td><input type="text" name="drawing_no'+count+'" id="drawing-no'+count+'" rel="'+count+'" class="form-control drawing-no"></td>'+
-                '<td><input type="text" name="section'+count+'" class="form-control"></td>'+
+                '<td><select class="form-control" name="section'+count+'">' +
+                '<option value="Welding">Welding</option>' +
+                '<option value="Main Line Tank">Main Line Tank</option>' +
+                '<option value="Drive Mechanism">Drive Mechanism</option>' +
+                '<option value="Vacuum Camber">Vacuum Camber</option>' +
+                '<option value="Welding">Welding</option>' +
+                '<option value="BTA">BTA</option>' +
+                '<option value="Metal Clad">Metal Clad</option>' +
+                '<option value="Wiring">Wiring</option>' +
+                '<option value="Testing">Testing</option>' +
+                '</select></td>'+
+                '<td><select class="form-control" name="mit_no'+count+'">' +
+                '<?php foreach ($store_data as $sd){ ?>' +
+                '<?php if(!empty($sd->mit_no)){?>' +
+                '<option value="<?php echo $sd->mit_no;?>">'+
+                '<?php echo $sd->mit_no;?>'+
+                '</option>' +
+                '<?php }}?>' +
+                '</select></td>'+
                 '<td><input type="text" name="uom'+count+'" class="form-control"></td>'+
                 '<td><input type="text" name="current_quantity'+count+'" class="form-control"></td>'+
                 '<td><input type="text" name="zon'+count+'" class="form-control"></td>'+
@@ -107,6 +143,17 @@ add item
         });
         $(document).on('autocompleteselect', part_no, function(e, ui) {
             targetName = $(this).attr('rel');
+            targetName = $(this).attr('rel');
+            var newCount = $('.new-count').val();
+            //alert(newCount);
+            setTimeout(function(){
+                $('#name-td'+newCount).addClass('so-loading-box');
+                $('#name'+newCount).html('<img src="<?php echo $this->request->webroot."assets/img/loading.gif"; ?>" id="so-img" class="so-loading-table">');
+            },100);
+            setTimeout(function(){
+                $('#name-td'+newCount).removeClass('so-loading-box');
+                $('#name'+newCount).html('');
+            },500);
             $('#part-name'+targetName).val(ui.item.idx);
             $('#drawing-no'+targetName).val(ui.item.idw);
         });
@@ -121,6 +168,16 @@ add item
         });
         $(document).on('autocompleteselect', part_name, function(e, ui) {
             targetNo = $(this).attr('rel');
+            var newCount = $('.new-count').val();
+            //alert(newCount);
+            setTimeout(function(){
+                $('#no-td'+newCount).addClass('so-loading-box');
+                $('#no'+newCount).html('<img src="<?php echo $this->request->webroot."assets/img/loading.gif"; ?>" id="so-img" class="so-loading-table">');
+            },100);
+            setTimeout(function(){
+                $('#no-td'+newCount).removeClass('so-loading-box');
+                $('#no'+newCount).html('');
+            },500);
             $('#part-no'+targetNo).val(ui.item.idx);
             $('#drawing-no'+targetNo).val(ui.item.idw);
 

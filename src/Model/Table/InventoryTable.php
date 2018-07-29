@@ -70,6 +70,10 @@ class InventoryTable extends Table
             ->scalar('section')
             ->maxLength('section', 255)
             ->allowEmpty('section');
+        $validator
+            ->scalar('mit_no')
+            ->maxLength('mit_no', 255)
+            ->allowEmpty('mit_no');
 
         $validator
             ->scalar('uom')

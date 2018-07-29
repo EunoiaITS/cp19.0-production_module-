@@ -63,7 +63,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
+                        <td class="<?php if($m->status == 'requested'){echo 'colored-red';}elseif($m->status == 'verified'){echo 'colored-csn';}elseif($m->status == 'approved'){echo 'colored-csn';} ?>"><?php if($m->status == 'requested'){echo 'Pending';}elseif($m->status == 'Verified'){echo 'Verified';}elseif($m->status == 'approved'){echo 'Approved';} ?></td>
                         <td><?= $m->approved_by ?></td>
                         <td></td>
                     </tr>

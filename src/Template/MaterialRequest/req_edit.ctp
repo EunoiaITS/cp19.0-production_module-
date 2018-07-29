@@ -3,7 +3,7 @@
       ==============-->
 
 <div class="planner-from">
-    <form method="post" action="<?php echo $this->url->build(['controller' => 'MaterialRequest', 'action' => 'reqEdit',$mr->id]); ?>">
+    <form method="post" action="<?php echo $this->Url->build(['controller' => 'MaterialRequest', 'action' => 'reqEdit',$mr->id]); ?>">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">

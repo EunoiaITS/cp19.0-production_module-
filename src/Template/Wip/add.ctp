@@ -22,6 +22,7 @@ MiT form page
                             </div>
                             <div class="col-sm-5 col-xs-6">
                                 <input name="so_no" type="text" class="form-control wip-so-no" id="wip-so-no">
+                                <span id="hidden-so"></span>
                             </div>
                         </div>
                         <div class="form-group">
@@ -223,6 +224,14 @@ MiT form page
                 $(this).autocomplete(options_no);
             });
             $(document).on('autocompleteselect', sn_id, function (e, ui) {
+                setTimeout(function(){
+                    $(this).addClass('so-loading-box');
+                    $('#hidden-so').html('<img src="<?php echo $this->request->webroot."assets/img/loading.gif"; ?>" id="so-img" class="so-loading">');
+                },100);
+                setTimeout(function(){
+                    $(this).removeClass('so-loading-box');
+                    $('#hidden-so').html('');
+                },500);
                 var html = '';
                 var totItems = ui.item.item_ids;
                 for(j = 0; j < totItems.length; j++){

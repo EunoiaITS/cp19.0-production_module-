@@ -19,10 +19,11 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-3 col-xs-6">
-                                <label for="cn-type-so" class="planner-year">SO No <span class="planner-fright">:</span></label>
+                                <label for="so-no" class="planner-year">SO No <span class="planner-fright">:</span></label>
                             </div>
                             <div class="col-sm-5 col-xs-6">
-                                <input name="so_no" type="text" class="form-control" id="cn-type-so" required="">
+                                <input name="so_no" type="text" class="form-control" id="so-no" required="">
+                                <span id="hidden-so"></span>
                             </div>
                         </div>
                         <div class="form-group">
@@ -179,7 +180,7 @@
                     $('#cn-version').html('<option value="">No Version</option>');
                 }
             });
-            var so_no = 'input#cn-type-so';
+            var so_no = 'input#so-no';
             var data = [<?php echo $so_no; ?>];
             var options = {
                 source: data,
@@ -189,6 +190,14 @@
                 $(this).autocomplete(options);
             });
             $(document).on('autocompleteselect', so_no, function (e, ui) {
+                setTimeout(function(){
+                    $(this).addClass('so-loading-box');
+                    $('#hidden-so').html('<img src="<?php echo $this->request->webroot."assets/img/loading.gif"; ?>" id="so-img" class="so-loading">');
+                },100);
+                setTimeout(function(){
+                    $(this).removeClass('so-loading-box');
+                    $('#hidden-so').html('');
+                },500);
                 $('#model-planer').val(ui.item.idx);
                 $('#cn-version').val(ui.item.idv);
                 $('#cn-type-qty').val(ui.item.idq);

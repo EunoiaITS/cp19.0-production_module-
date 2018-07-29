@@ -97,37 +97,48 @@ class FgttController extends AppController
     {
         $this->loadModel('SerialNumber');
         $this->loadModel('SerialNumberChild');
-        $sos = $this->SerialNumber->find('all');
+        $this->loadModel('Wip');
+        $this->loadModel('WipSection');
+        $wip_child = $this->WipSection->find('all')
+            ->Where(['section'=>'Wiring','status'=>'acknowledged']);
         $so_nos = null;
-        foreach($sos as $ss){
-            $csn_items = $this->SerialNumberChild->find('all')
-                ->where(['serial_number_id' => $ss->id]);
-            $exF = $this->Fgtt->find('all')
-                ->where(['so_no' => $ss->so_no]);
-            $fgId = $selected = $action = $added_items = '';
-            $calc = 0;
-            foreach ($exF as $fgCheck){
-                $calc++;
-                if($calc > 0){
-                    $fgId = $fgCheck->id;
-                    $selected = 'yes';
-                    $action = 'edit';
-                    $fgItems = explode(',', $fgCheck->item_nos);
-                    foreach ($fgItems as $fIt){
-                        $added_items .= '"'.$fIt.'",';
+        foreach ($wip_child as $wc){
+            $wip = $this->Wip->find('all')
+                ->Where(['id'=>$wc->wip_id]);
+            foreach ($wip as $w){
+                $sos = $this->SerialNumber->find('all')
+                    ->where(['so_no'=>$w->so_no]);
+                foreach($sos as $ss){
+                    $csn_items = $this->SerialNumberChild->find('all')
+                        ->where(['serial_number_id' => $ss->id]);
+                    $exF = $this->Fgtt->find('all')
+                        ->where(['so_no' => $ss->so_no]);
+                    $fgId = $selected = $action = $added_items = '';
+                    $calc = 0;
+                    foreach ($exF as $fgCheck){
+                        $calc++;
+                        if($calc > 0){
+                            $fgId = $fgCheck->id;
+                            $selected = 'yes';
+                            $action = 'edit';
+                            $fgItems = explode(',', $fgCheck->item_nos);
+                            foreach ($fgItems as $fIt){
+                                $added_items .= '"'.$fIt.'",';
+                            }
+                        }
                     }
+                    $added_items = rtrim($added_items, ',');
+                    $so_nos .= '{label:"'.$ss->so_no.'",addedItems:['.$added_items.'],action:"'.$action.'",fgId:"'.$fgId.'",exCheck:"'.$selected.'",idx:"'.$ss->quantity.'",model:"'.$ss->model.'",version:"'.$ss->version.'",type_1:"'.$ss->type1.'",type_2:"'.$ss->type2.'"';
+                    $count = 0;
+                    $so_items = null;
+                    foreach($csn_items as $item){
+                        $so_items .= '"'.$item->id.'",';
+                        $count++;
+                    }
+                    $so_items = rtrim($so_items, ',');
+                    $so_nos .= ',items:['.$so_items.']},';
                 }
             }
-            $added_items = rtrim($added_items, ',');
-            $so_nos .= '{label:"'.$ss->so_no.'",addedItems:['.$added_items.'],action:"'.$action.'",fgId:"'.$fgId.'",exCheck:"'.$selected.'",idx:"'.$ss->quantity.'",model:"'.$ss->model.'",version:"'.$ss->version.'",type_1:"'.$ss->type1.'",type_2:"'.$ss->type2.'"';
-            $count = 0;
-            $so_items = null;
-            foreach($csn_items as $item){
-                $so_items .= '"'.$item->id.'",';
-                $count++;
-            }
-            $so_items = rtrim($so_items, ',');
-            $so_nos .= ',items:['.$so_items.']},';
         }
         $so_nos = rtrim($so_nos, ',');
         $count = $this->Fgtt->find('all')->last();
@@ -173,7 +184,8 @@ class FgttController extends AppController
         $this->set('pic_name', $this->Auth->user('name'));
         $this->set('pic_dept', $this->Auth->user('dept'));
         $this->set('pic_section', $this->Auth->user('section'));
-    }
+
+}
 
     /**
      * Edit method

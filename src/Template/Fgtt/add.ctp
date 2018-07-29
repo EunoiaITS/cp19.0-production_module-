@@ -31,6 +31,7 @@
                             </div>
                             <div class="col-sm-5 col-xs-6">
                                 <input name="so_no" type="text" class="form-control" id="fgtt-so">
+                                <span id="hidden-so"></span>
                             </div>
                         </div>
                         <div class="form-group">
@@ -132,6 +133,14 @@
                 $(this).autocomplete(options);
             });
             $(document).on('autocompleteselect', so_no, function(e, ui) {
+                setTimeout(function(){
+                    $(this).addClass('so-loading-box');
+                    $('#hidden-so').html('<img src="<?php echo $this->request->webroot."assets/img/loading.gif"; ?>" id="so-img" class="so-loading">');
+                },100);
+                setTimeout(function(){
+                    $(this).removeClass('so-loading-box');
+                    $('#hidden-so').html('');
+                },500);
                 $('#fgtt-qty').val(ui.item.idx);
                 var html_table = '';
                 var items = ui.item.items;

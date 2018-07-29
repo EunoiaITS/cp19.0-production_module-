@@ -4,21 +4,19 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * NbdoItem Entity
+ * StockOut Entity
  *
  * @property int $id
- * @property string $nbdo_id
+ * @property string $date
  * @property string $part_no
- * @property string $part_desc
+ * @property string $part_name
+ * @property string $mit_no
+ * @property string $tender_no
  * @property string $quantity
- * @property string $document
- * @property string $remark
- * @property \Cake\I18n\FrozenTime $created
- * @property \Cake\I18n\FrozenTime $modified
- *
- * @property \App\Model\Entity\Nbdo $nbdo
+ * @property string $pic_store
+ * @property string $trans_code
  */
-class NbdoItem extends Entity
+class StockOut extends Entity
 {
 
     /**

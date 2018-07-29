@@ -32,6 +32,7 @@
                         </div>
                         <div class="col-sm-5 col-xs-6">
                             <input name="so_no" type="text" class="form-control" id="so-no" value="">
+                            <span id="hidden-so"></span>
                         </div>
                     </div>
                 </div>
@@ -132,10 +133,10 @@
         $('#add-part').on('click', function(e){
             e.preventDefault();
             html_table = '<tr>' +
-                '<td>'+count+'</td>' +
+                '<td>'+count+'<input type="hidden" class="new-count" value="'+count+'"></td>' +
                 '<td><input type="checkbox" name="select-'+count+'"></td>' +
-                '<td><input type="text" class="form-control part-no" id="part-no' + count + '" rel="part-name' + count + '" name="part_no' + count + '" required></td>' +
-                '<td><input type="text" class="form-control part-name" id="part-name' + count + '" rel="part-no' + count + '" name="part_desc' + count + '" required></td>' +
+                '<td id="no-td'+count+'"><input type="text" class="form-control part-no" id="part-no' + count + '" rel="part-name' + count + '" name="part_no' + count + '" required><span id="no'+count+'"></span></td>' +
+                '<td id="name-td'+count+'"><input type="text" class="form-control part-name" id="part-name' + count + '" rel="part-no' + count + '" name="part_desc' + count + '" required><span id="name'+count+'"></span></td>' +
                 '<td><input type="text" class="form-control" name="quantity' + count + '" required></td>' +
                 '<td></td>' +
                 '</tr>';
@@ -153,6 +154,14 @@
             $(this).autocomplete(options);
         });
         $(document).on('autocompleteselect', so_no, function (e, ui) {
+            setTimeout(function(){
+                $(this).addClass('so-loading-box');
+                $('#hidden-so').html('<img src="<?php echo $this->request->webroot."assets/img/loading.gif"; ?>" id="so-img" class="so-loading">');
+            },100);
+            setTimeout(function(){
+                $(this).removeClass('so-loading-box');
+                $('#hidden-so').html('');
+            },500);
             $('#add-item-table').empty();
             count = 1;
             var parts = ui.item.parts;
@@ -186,6 +195,16 @@
         });
         $(document).on('autocompleteselect', part_no, function(e, ui) {
             targetName = $(this).attr('rel');
+            var newCount = $('.new-count').val();
+            //alert(newCount);
+            setTimeout(function(){
+                $('#name-td'+newCount).addClass('so-loading-box');
+                $('#name'+newCount).html('<img src="<?php echo $this->request->webroot."assets/img/loading.gif"; ?>" id="so-img" class="so-loading-table">');
+            },100);
+            setTimeout(function(){
+                $('#name-td'+newCount).removeClass('so-loading-box');
+                $('#name'+newCount).html('');
+            },500);
             $('#'+targetName).val(ui.item.idx);
         });
         var data_name = [<?php echo $part_name; ?>];
@@ -199,6 +218,16 @@
         });
         $(document).on('autocompleteselect', part_name, function(e, ui) {
             targetNo = $(this).attr('rel');
+            var newCount = $('.new-count').val();
+            //alert(newCount);
+            setTimeout(function(){
+                $('#no-td'+newCount).addClass('so-loading-box');
+                $('#no'+newCount).html('<img src="<?php echo $this->request->webroot."assets/img/loading.gif"; ?>" id="so-img" class="so-loading-table">');
+            },100);
+            setTimeout(function(){
+                $('#no-td'+newCount).removeClass('so-loading-box');
+                $('#no'+newCount).html('');
+            },500);
             $('#'+targetNo).val(ui.item.idx);
         });
     });
