@@ -122,11 +122,26 @@ class ApiController extends AppController
         echo json_encode($mr, JSON_PRETTY_PRINT);
         die();
     }
+    public function mit(){
+        $this->loadModel('Mit');
+        $mit = $this->Mit->find('all')
+            ->Where(['status'=>'approved']);
+        echo json_encode($mit, JSON_PRETTY_PRINT);
+        die();
+    }
+
+    public function prn(){
+        $this->loadModel('Prnf');
+        $mit = $this->Prnf->find('all')
+            ->Where(['status'=>'approved3']);
+        echo json_encode($mit, JSON_PRETTY_PRINT);
+        die();
+    }
 
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow(['allData', 'mitReport', 'mrReport']);
+        $this->Auth->allow(['allData', 'mitReport', 'mrReport','mit','prn']);
     }
 
 }
