@@ -19,8 +19,7 @@
                                     <option value="PRN">PRN</option>
                                     <option value="PR">PR</option>
                                 </select>
-                                <select name="select_val" id="selected-value"  class="fright-input input-stock">
-                                </select>
+                                <input type="text" name="select_val" id="selected-value"  class="fright-input input-stock">
                             </div>
                              <div id="hidden">
                              </div>
@@ -141,7 +140,7 @@
         </div>
     </div>
 </div>
-<form action="<?php echo $this->Url->build(['controller' => 'Inventory', 'action' => 'addStockOut']); ?>" method="post">
+<form action="<?php echo $this->Url->build(['controller' => 'Inventory','action' => 'addStockOut']); ?>" method="post">
 <div id="all-modals"></div>
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -204,23 +203,10 @@
             ev.preventDefault();
             if($(this).val() == 'MIT'){
                 $('#hidden').html('<input name="mit_no" type="hidden" value="'+sel_val+'">');
-                value_data = '<?php foreach ($mit_data  as $m): ?>'+
-                    '<option value=""></option>'+
-                    '<option value="<?php echo $m->id;?>">'+
-                    '<?php echo $m->id;?></option>'+
-                    '<?php endforeach;?>';
-                $('#selected-value').html(value_data);
             }else if($(this).val() =='PRN'){
                 $('#hidden').html('<input name="prn_no" type="hidden" value="'+sel_val+'">');
-                value_data = '<?php foreach ($prn_data  as $p): ?>'+
-                    '<option value=""></option>'+
-                    '<option value="<?php echo $p->id;?>">'+
-                    '<?php echo $p->id;?></option>'+
-                    '<?php endforeach;?>';
-                $('#selected-value').html(value_data);
             }else if($(this).val() =='PR'){
                 $('#hidden').html('<input name="pr_no" type="hidden" value="'+sel_val+'">');
-                value_data = '';
                 $('#selected-value').html(value_data);
             }
         });
@@ -304,7 +290,6 @@
         });
         $(document).on('autocompleteselect', part_name, function(e, ui) {
             $('#part-no').val(ui.item.idx);
-
         });
     });
 </script>
