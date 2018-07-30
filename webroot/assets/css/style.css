@@ -198,6 +198,13 @@ Login from
 .form-control{
     border-radius: 0px;
 }
+.input-stock{
+    width:100px;
+}
+
+table .form-control{
+    width:75px;
+}
 
 
 button.btn-default-login {
