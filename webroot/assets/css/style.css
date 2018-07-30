@@ -198,10 +198,11 @@ Login from
 .form-control{
     border-radius: 0px;
 }
-.input-stock{
-    width:100px;
+.input-stock {
+    width: 120px;
+    height: 35px;
+    margin-right: 7px;
 }
-
 table .form-control{
     width:75px;
 }
@@ -811,10 +812,20 @@ tr>th.simple-color {
 .color-yellow{
     background: yellow;
 }
+.table-part{
+    min-height: .01%;
+    overflow-x: auto;
+
+}
 /*--===============
 Responsive css
 ===================*/
-
+@media (min-width: 768px)
+    .modal-dialog {
+        width: 632px;
+        margin: 30px auto;
+    }
+}
 @media (min-width: 1024px){
     .login-title{
         font-size: 21px;
