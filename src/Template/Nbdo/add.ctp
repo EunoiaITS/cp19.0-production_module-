@@ -193,6 +193,7 @@
                     $(this).removeClass('so-loading-box');
                     $('#hidden-so').html('');
                 },500);
+                $('#add-item-table').empty();
                 var parts = ui.item.parts;
                 if (parts.length !== 0) {
                     var html_create = '';
