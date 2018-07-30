@@ -820,7 +820,7 @@ tr>th.simple-color {
 /*--===============
 Responsive css
 ===================*/
-@media (min-width: 768px)
+@media (min-width: 768px){
     .modal-dialog {
         width: 632px;
         margin: 30px auto;
