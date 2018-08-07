@@ -76,25 +76,25 @@ class NbdoController extends AppController
      */
     public function add()
     {
-        $urlTosSales = 'http://salesmodule.acumenits.com/customer/all-cust';
-
-        $optionsForSales = [
-            'http' => [
-                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-                'method'  => 'GET'
-            ]
-        ];
-        $contextForSales  = stream_context_create($optionsForSales);
-        $resultFromSales = file_get_contents($urlTosSales, false, $contextForSales);
-        if ($resultFromSales === FALSE) {
-            echo 'ERROR!!';
-        }
-        $dataFromSales = json_decode($resultFromSales);
-        $cust_details = null;
-        foreach($dataFromSales as $ss){
-            $cust_details .= '{label:"'.$ss->name.'",idx:"'.$ss->address.'",contact:"'.$ss->contactno1.'",conper:"'.$ss->contact_details->name.'"},';
-        }
-        $cust_details = rtrim($cust_details, ',');
+//        $urlTosSales = 'http://salesmodule.acumenits.com/customer/all-cust';
+//
+//        $optionsForSales = [
+//            'http' => [
+//                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+//                'method'  => 'GET'
+//            ]
+//        ];
+//        $contextForSales  = stream_context_create($optionsForSales);
+//        $resultFromSales = file_get_contents($urlTosSales, false, $contextForSales);
+//        if ($resultFromSales === FALSE) {
+//            echo 'ERROR!!';
+//        }
+//        $dataFromSales = json_decode($resultFromSales);
+//        $cust_details = null;
+//        foreach($dataFromSales as $ss){
+//            $cust_details .= '{label:"'.$ss->name.'",idx:"'.$ss->address.'",contact:"'.$ss->contactno1.'",conper:"'.$ss->contact_details->name.'"},';
+//        }
+//        $cust_details = rtrim($cust_details, ',');
 
         $urlToEng = 'http://engmodule.acumenits.com/api/all-parts';
 
@@ -158,7 +158,13 @@ class NbdoController extends AppController
                     }
                 }
             }
-            $so_no .= '{label:"'.$d->salesorder_no.'",parts:['.$parts.']},';
+            $customer = $contact = $address = $conper = '';
+            foreach($d->cus as $c){
+                $customer = $c->name;
+                $contact = $c->contactno1;
+                $address = $c->address;
+            }
+            $so_no .= '{label:"'.$d->salesorder_no.'",cus:"'.$customer.'",cont:"'.$contact.'",addr:"'.$address.'",conper:"'.$d->contact_details->name.'",parts:['.$parts.']},';
         }
         $so_no = rtrim($so_no, ',');
         $count = $this->Nbdo->find('all')->last();
@@ -209,7 +215,6 @@ class NbdoController extends AppController
         $this->set('sn_no', (isset($count->id) ? ($count->id + 1) : 1));
         $this->set('part_no', $part_no);
         $this->set('part_name', $part_name);
-        $this->set('cust_details', $cust_details);
         $this->set('pic', $this->Auth->user('username'));
         $this->set('pic_name', $this->Auth->user('name'));
         $this->set('pic_dept', $this->Auth->user('dept'));

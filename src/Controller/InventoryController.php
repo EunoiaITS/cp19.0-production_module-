@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Network\Request;
 use Cake\ORM\TableRegistry;
 use Cake\Event\Event;
 /**
@@ -87,22 +88,37 @@ class InventoryController extends AppController
             echo 'ERROR!!';
         }
         $dataFromEng = json_decode($resultFromEng);
-        $part_no = $part_name = $drawing_no =null;
+        $part_no = $part_name = $drawing_no = $pm_id = null;
         foreach($dataFromEng as $pm){
-            $part_no .= '{label:"'.$pm->partNo.'",idx:"'.$pm->partName.'",idw:"'.$pm->drawingNo.'"},';
-            $part_name .= '{label:"'.$pm->partName.'",idx:"'.$pm->partNo.'",idw:"'.$pm->drawingNo.'"},';
-            $drawing_no .= '{label:"'.$pm->drawingNo.'",idx:"'.$pm->partNo.'",idw:"'.$pm->partName.'"},';
+            $part_no .= '{label:"'.$pm->partNo.'",idx:"'.$pm->partName.'",idw:"'.$pm->drawingNo.'",pm_id:"'.$pm->id.'"},';
+            $part_name .= '{label:"'.$pm->partName.'",idx:"'.$pm->partNo.'",idw:"'.$pm->drawingNo.'",pm_id:"'.$pm->id.'"},';
+            $drawing_no .= '{label:"'.$pm->drawingNo.'",idx:"'.$pm->partNo.'",idw:"'.$pm->partName.'",pm_id:"'.$pm->id.'"},';
         }
         $part_no = rtrim($part_no, ',');
         $part_name = rtrim($part_name, ',');
         $drawing_no = rtrim($drawing_no, ',');
-
         $inventory = $this->Inventory->newEntity();
+
         if ($this->request->is('post')) {
             if($this->request->getData('total') != null){
                 $invItem = TableRegistry::get('inventory');
                 $invData = array();
                 for($i=0;$i<$this->request->getData('total');$i++){
+                    $stin = $this->Inventory->find('all')
+                        ->where([
+                            'part_no' => $this->request->getData('part_no'.$i),
+                            'part_name' => $this->request->getData('part_name'.$i),
+                            'section' => $this->request->getData('section'.$i)
+                        ])->last();
+                    $this->loadModel('StockOut');
+                    if(!empty($stin)){
+                        $invData[$i]['current_balance'] = $stin->current_balance +$this->request->getData('current_quantity'.$i);
+                    }else{
+                        $invData[$i]['current_balance'] = $this->request->getData('current_quantity'.$i);
+                    }
+
+                    $invData[$i]['pm_id'] = $this->request->getData('pm_id'.$i);
+                    $invData[$i]['date'] = date('Y-m-d',strtotime($this->request->getData('date'.$i)));
                     $invData[$i]['part_no'] = $this->request->getData('part_no'.$i);
                     $invData[$i]['part_name'] = $this->request->getData('part_name'.$i);
                     $invData[$i]['drawing_no'] = $this->request->getData('drawing_no'.$i);
@@ -116,14 +132,28 @@ class InventoryController extends AppController
                     $invData[$i]['level'] = $this->request->getData('level'.$i);
                     $invData[$i]['min_stock'] = $this->request->getData('min_stock'.$i);
                     $invData[$i]['max_stock'] = $this->request->getData('max_stock'.$i);
+                    $invData[$i]['created_by'] = $this->request->getData('created_by'.$i);
                 }
                 $items = $invItem->newEntities($invData);
+
                 foreach($items as $item){
-                    $invItem->save($item);
+                    if($invItem->save($item)){
+                        $stout = $this->StockOut->find('all')
+                            ->where([
+                                'part_no'=> $item->part_no,
+                                'part_name' => $item->part_name,
+                                'section' => $item->section
+                            ])->last();
+                        if(!empty($stout)){
+                            $sto_id = $this->StockOut->get($stout->id);
+                            $sto_id->current_balance = $stin->current_balance;
+                            $this->StockOut->save($sto_id);
+                        }
+                    }
                 }
                 $this->Flash->success(__('The inventory has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'add']);
             }
             $this->Flash->error(__('The inventory could not be saved. Please, try again.'));
         }
@@ -182,6 +212,40 @@ class InventoryController extends AppController
             $part_name .= '{label:"'.$pm->partName.'",idx:"'.$pm->partNo.'",idw:"'.$pm->drawingNo.'"},';
         }
 
+
+        $urlToProd = 'http://productionmodule.acumenits.com/api/mit';
+
+        $optionsForProd = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'GET'
+            ]
+        ];
+        $contextForProd  = stream_context_create($optionsForProd);
+        $resultFromProd = file_get_contents($urlToProd, false, $contextForProd);
+        if ($resultFromProd === FALSE) {
+            echo 'ERROR!!';
+        }
+        $dataFromProd = json_decode($resultFromProd);
+
+        $urlToProd2 = 'http://productionmodule.acumenits.com/api/prn';
+
+        $optionsForProd2 = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'GET'
+            ]
+        ];
+        $contextForProd2  = stream_context_create($optionsForProd2);
+        $resultFromProd2 = file_get_contents($urlToProd2, false, $contextForProd2);
+        if ($resultFromProd2 === FALSE) {
+            echo 'ERROR!!';
+        }
+        $dataFromProd2 = json_decode($resultFromProd2);
+
+
+        $this->set('mit_data',$dataFromProd);
+        $this->set('prn_data',$dataFromProd2);
         $this->set('part_no', $part_no);
         $this->set('part_name', $part_name);
         $this->set('pic', $this->Auth->user('username'));
@@ -192,11 +256,11 @@ class InventoryController extends AppController
     public function addStockOut(){
         $this->loadModel('StockOut');
         if($this->request->is('post')){
-            $this->autoRender = false;
             if($this->request->getData('count') != ''){
                 for($i = 1; $i <= $this->request->getData('count'); $i++){
                     $inStock = $this->StockOut->newEntity();
                     $inStock->part_no = $this->request->getData('part_no'.$i);
+
                     $inStock->part_name = $this->request->getData('part_name'.$i);
                     $inStock->tender_no = $this->request->getData('tender_no'.$i);
                     $inStock->so_no = $this->request->getData('so_no'.$i);
@@ -211,6 +275,22 @@ class InventoryController extends AppController
                     $inStock->quantity = $this->request->getData('quantity'.$i);
                     $inStock->pic_store = $this->request->getData('pic_store'.$i);
                     $inStock->date = $this->request->getData('date'.$i);
+
+                    $sin = $this->Inventory->find('all')
+                        ->where(['part_no'=> $inStock->part_no,'part_name'=>$inStock->part_name,'section'=>$inStock->section])->last();
+                        if($inStock->quantity > $sin->current_balance){
+                            $this->Flash->error(__('Item Quantity Exceeded !'));
+                            return $this->redirect(['action' => 'stockOut']);
+                        }else{
+                            $inStock->current_balance = $sin->current_balance - $inStock->quantity;
+                            $curbal = $sin->current_balance - $inStock->quantity;
+                            $stoin = $this->Inventory->find('all')
+                                ->where(['part_no'=> $inStock->part_no,'part_name'=>$inStock->part_name,'section'=>$inStock->section])->last();
+                            $inv_id = $this->Inventory->get($stoin->id);
+                            $inv_id->current_balance = $curbal;
+                            $this->Inventory->save($inv_id);
+                        }
+                    }
                     if(!ctype_digit($inStock->quantity)){
                         echo 'Quantity must be numeric!';
                     }elseif($this->StockOut->save($inStock)){
@@ -220,46 +300,76 @@ class InventoryController extends AppController
                     }else{
                         $this->Flash->error(__('The Record Can Not Be Added !'));
                         return $this->redirect(['action' => 'stockOut']);
-                    }
                 }
             }
         }
     }
 
-    public function stockInRecord(){
-        $urlToStore = 'http://storemodule.acumenits.com/api/stock-in-record';
 
-        $optionsForStore = [
-            'http' => [
-                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-                'method'  => 'GET'
-            ]
-        ];
-        $contextForStore  = stream_context_create($optionsForStore);
-        $resultFromStore = file_get_contents($urlToStore, false, $contextForStore);
-        if ($resultFromStore === FALSE) {
-            echo 'ERROR!!';
+    public function stockInRecord(){
+        //$this->autoRender = false;
+        $data = array();
+        if($this->request->getQuery('section') && $this->request->getQuery('section') != ''){
+            $pm = $this->Inventory->find('all')
+                ->where(['section'=>$this->request->getQuery('section')]);
+            foreach ($pm as $p){
+                $data[] = $p->part_no;
+            }
+            $part_no = array_unique($data);
+            foreach ($part_no as $pn){
+                $var = 0;
+                foreach ($pm as $m){
+                    if($pn == $m->part_no){
+                        $var = $var + $m->current_quantity;
+                        $m->cb = $var;
+                        $m->total = $var + $m->current_quantity;
+                    }
+                }
+            }
+        }else{
+            $pm = $this->Inventory->find('all');
+            foreach ($pm as $p){
+                $data[] = $p->part_no;
+            }
+            $part_no = array_unique($data);
+            foreach ($part_no as $pn){
+                $var = 0;
+                foreach ($pm as $m){
+                    if($pn == $m->part_no){
+                        $var = $var + $m->current_quantity;
+                        $m->cb = $var;
+                        $m->total = $var + $m->current_quantity;
+                    }
+                }
+            }
         }
-        $dataFromStore = json_decode($resultFromStore);
-        $this->set('pm',$dataFromStore);
+        $this->set('pm',$pm);
     }
 
     public function stockOutRecord(){
-        $urlToStore = 'http://storemodule.acumenits.com/api/stock-out-record';
-
-        $optionsForStore = [
-            'http' => [
-                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-                'method'  => 'GET'
-            ]
-        ];
-        $contextForStore  = stream_context_create($optionsForStore);
-        $resultFromStore = file_get_contents($urlToStore, false, $contextForStore);
-        if ($resultFromStore === FALSE) {
-            echo 'ERROR!!';
+        $data = array();
+        $this->loadModel('StockOut');
+        if($this->request->getQuery('section') && $this->request->getQuery('section') != ''){
+            $pm = $this->StockOut->find('all')
+                ->where(['section'=>$this->request->getQuery('section')]);
+        }else{
+            $pm = $this->StockOut->find('all');
+            foreach ($pm as $p){
+                $data[] = $p->part_no;
+            }
+            $part_no = array_unique($data);
+            foreach ($part_no as $pn){
+                $var = 0;
+                foreach ($pm as $m){
+                    if($pn == $m->part_no){
+                        $var = $var - $m->quantity;
+                        $m->cb = $var;
+                        $m->total = $var + $m->quantity;
+                    }
+                }
+            }
         }
-        $dataFromStore = json_decode($resultFromStore);
-        $this->set('pm',$dataFromStore);
+        $this->set('pm',$pm);
     }
     public function storeReport(){
         $urlToStore = 'http://storemodule.acumenits.com/api/store-report';

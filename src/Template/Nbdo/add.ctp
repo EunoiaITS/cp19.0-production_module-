@@ -194,6 +194,11 @@
                     $('#hidden-so').html('');
                 },500);
                 $('#add-item-table').empty();
+                $('#fgtt-customer').val(ui.item.cus);
+                $('#fgtt-address').val(ui.item.addr);
+                $('#nbdo-contact-no').val(ui.item.conper);
+                $('#nbdo-contact').val(ui.item.cont);
+                count = 1;
                 var parts = ui.item.parts;
                 if (parts.length !== 0) {
                     var html_create = '';
@@ -264,28 +269,5 @@
                 },500);
                 $('#'+targetNo).val(ui.item.idx);
             });
-
-            var cust_details = [<?php echo $cust_details; ?>];
-            var options_cust = {
-                source: cust_details,
-                minLength: 0
-            };
-            $(document).on('keydown.autocomplete', '#fgtt-customer', function(){
-                $(this).autocomplete(options_cust);
-            });
-            $(document).on('autocompleteselect', '#fgtt-customer', function(e, ui) {
-                setTimeout(function(){
-                    $(this).addClass('so-loading-box');
-                    $('#hidden-cus').html('<img src="<?php echo $this->request->webroot."assets/img/loading.gif"; ?>" id="so-img" class="so-loading">');
-                },100);
-                setTimeout(function(){
-                    $(this).removeClass('so-loading-box');
-                    $('#hidden-cus').html('');
-                },500);
-                $('#fgtt-address').val(ui.item.idx);
-                $('#nbdo-contact-no').val(ui.item.conper);
-                $('#nbdo-contact').val(ui.item.contact);
-            });
-
         });
     </script>
