@@ -256,118 +256,75 @@ class InventoryController extends AppController
     public function addStockOut(){
         $this->loadModel('StockOut');
         if($this->request->is('post')){
-            if($this->request->getData('count') != ''){
-                for($i = 1; $i <= $this->request->getData('count'); $i++){
+            if($this->request->getData('total') != ''){
+                for($i = 1; $i <= $this->request->getData('total'); $i++) {
                     $inStock = $this->StockOut->newEntity();
-                    $inStock->part_no = $this->request->getData('part_no'.$i);
-
-                    $inStock->part_name = $this->request->getData('part_name'.$i);
-                    $inStock->tender_no = $this->request->getData('tender_no'.$i);
-                    $inStock->so_no = $this->request->getData('so_no'.$i);
-                    if($this->request->getData('select_field'.$i) === 'PRN'){
-                        $inStock->prn_no = $this->request->getData('select_val'.$i);
-                    }elseif ($this->request->getData('select_field'.$i) === 'PR'){
-                        $inStock->pr_no = $this->request->getData('select_val'.$i);
-                    }elseif ($this->request->getData('select_field'.$i) === 'MIT'){
-                        $inStock->mit_no = $this->request->getData('select_val'.$i);
+                    $inStock->part_no = $this->request->getData('part_no' . $i);
+                    $inStock->part_name = $this->request->getData('part_name' . $i);
+                    $inStock->tender_no = $this->request->getData('tender_no' . $i);
+                    $inStock->so_no = $this->request->getData('so_no' . $i);
+                    if ($this->request->getData('select_field' . $i) === 'PRN') {
+                        $inStock->prn_no = $this->request->getData('select_val' . $i);
+                    } elseif ($this->request->getData('select_field' . $i) === 'PR') {
+                        $inStock->pr_no = $this->request->getData('select_val' . $i);
+                    } elseif ($this->request->getData('select_field' . $i) === 'MIT') {
+                        $inStock->mit_no = $this->request->getData('select_val' . $i);
                     }
-                    $inStock->section = $this->request->getData('section'.$i);
-                    $inStock->quantity = $this->request->getData('quantity'.$i);
-                    $inStock->pic_store = $this->request->getData('pic_store'.$i);
-                    $inStock->date = $this->request->getData('date'.$i);
+                        $inStock->section = $this->request->getData('section' . $i);
+                        $inStock->quantity = $this->request->getData('quantity' . $i);
+                        $inStock->pic_store = $this->request->getData('pic_store' . $i);
+                        $inStock->date = $this->request->getData('date' . $i);
 
-                    $sin = $this->Inventory->find('all')
-                        ->where(['part_no'=> $inStock->part_no,'part_name'=>$inStock->part_name,'section'=>$inStock->section])->last();
-                        if($inStock->quantity > $sin->current_balance){
+                        $sin = $this->Inventory->find('all')
+                            ->where([
+                                'part_no' => $inStock->part_no,
+                                'part_name' => $inStock->part_name,
+                                'section' => $inStock->section
+                            ])->last();
+                        if ($inStock->quantity > $sin->current_balance) {
                             $this->Flash->error(__('Item Quantity Exceeded !'));
                             return $this->redirect(['action' => 'stockOut']);
-                        }else{
+                        } else {
                             $inStock->current_balance = $sin->current_balance - $inStock->quantity;
                             $curbal = $sin->current_balance - $inStock->quantity;
                             $stoin = $this->Inventory->find('all')
-                                ->where(['part_no'=> $inStock->part_no,'part_name'=>$inStock->part_name,'section'=>$inStock->section])->last();
+                                ->where(['part_no' => $inStock->part_no, 'part_name' => $inStock->part_name, 'section' => $inStock->section])->last();
                             $inv_id = $this->Inventory->get($stoin->id);
                             $inv_id->current_balance = $curbal;
                             $this->Inventory->save($inv_id);
                         }
-                    }
-                    if(!ctype_digit($inStock->quantity)){
+                    if (!ctype_digit($inStock->quantity)) {
                         echo 'Quantity must be numeric!';
-                    }elseif($this->StockOut->save($inStock)){
+                    } elseif ($this->StockOut->save($inStock)) {
                         $this->Flash->success(__('The Record has been Added ! '));
-
-                        return $this->redirect(['action' => 'stockOut']);
-                    }else{
+                    } else {
                         $this->Flash->error(__('The Record Can Not Be Added !'));
                         return $this->redirect(['action' => 'stockOut']);
+                    }
                 }
+                return $this->redirect(['action' => 'stockOut']);
             }
         }
     }
 
 
     public function stockInRecord(){
-        //$this->autoRender = false;
-        $data = array();
         if($this->request->getQuery('section') && $this->request->getQuery('section') != ''){
-            $pm = $this->Inventory->find('all')
+            $pm = $this->Inventory->find('all',['order'=>['id'=>'desc']])
                 ->where(['section'=>$this->request->getQuery('section')]);
-            foreach ($pm as $p){
-                $data[] = $p->part_no;
-            }
-            $part_no = array_unique($data);
-            foreach ($part_no as $pn){
-                $var = 0;
-                foreach ($pm as $m){
-                    if($pn == $m->part_no){
-                        $var = $var + $m->current_quantity;
-                        $m->cb = $var;
-                        $m->total = $var + $m->current_quantity;
-                    }
-                }
-            }
         }else{
-            $pm = $this->Inventory->find('all');
-            foreach ($pm as $p){
-                $data[] = $p->part_no;
-            }
-            $part_no = array_unique($data);
-            foreach ($part_no as $pn){
-                $var = 0;
-                foreach ($pm as $m){
-                    if($pn == $m->part_no){
-                        $var = $var + $m->current_quantity;
-                        $m->cb = $var;
-                        $m->total = $var + $m->current_quantity;
-                    }
-                }
-            }
+            $pm = $this->Inventory->find('all',['order'=>['id'=>'desc']]);
         }
         $this->set('pm',$pm);
     }
 
     public function stockOutRecord(){
-        $data = array();
         $this->loadModel('StockOut');
         if($this->request->getQuery('section') && $this->request->getQuery('section') != ''){
-            $pm = $this->StockOut->find('all')
+            $pm = $this->StockOut->find('all',['order'=>['id'=>'desc']])
                 ->where(['section'=>$this->request->getQuery('section')]);
         }else{
-            $pm = $this->StockOut->find('all');
-            foreach ($pm as $p){
-                $data[] = $p->part_no;
-            }
-            $part_no = array_unique($data);
-            foreach ($part_no as $pn){
-                $var = 0;
-                foreach ($pm as $m){
-                    if($pn == $m->part_no){
-                        $var = $var - $m->quantity;
-                        $m->cb = $var;
-                        $m->total = $var + $m->quantity;
-                    }
-                }
-            }
+            $pm = $this->StockOut->find('all',['order'=>['id'=>'desc']]);
         }
         $this->set('pm',$pm);
     }

@@ -171,6 +171,7 @@
                     </table>
                     </div>
                 <input type="submit" class="btn btn-default pull-right" value="Submit">
+                <input type="hidden" name="total" id="total" value="">
                 <br>
             </div>
             <div class="modal-footer">
@@ -263,9 +264,9 @@
                 '<input name="pic_store'+count+'" type="hidden" value="'+$('#pstore').val()+'">'+
                 '<input name="quantity'+count+'" type="hidden" value="'+$('#quantity').val()+'">'+
                 '<input name="select_val'+count+'" type="hidden" value="'+sel_val+'">'+
-                '<input name="select_field'+count+'" type="hidden" value="'+sel_field+'">'+
-                '<input name="count" type="hidden" value="'+count+'">';
+                '<input name="select_field'+count+'" type="hidden" value="'+sel_field+'">';
             $('#modal-data').append(htmlPopup);
+            $('#total').val(count);
         });
         $('#generate-code').on('click', function(e) {
             e.preventDefault();

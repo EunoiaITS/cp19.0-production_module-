@@ -89,7 +89,7 @@
         $('#section').on('change',function (e) {
             e.preventDefault();
             var param = this.value;
-            var url = "<?php echo $this->Url->build(['controller'=> 'Inventory','action'=>'stockInRecord'])?>";
+            var url = "<?php echo $this->Url->build(['controller'=> 'Inventory','action'=>'stockOutRecord'])?>";
             $('#section-picker').attr('href',url+"?section="+param);
         });
     });
