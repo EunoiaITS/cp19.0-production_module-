@@ -102,7 +102,7 @@
                         <th>Select</th>
                         <th>Part No</th>
                         <th>Description</th>
-                        <th>Qty</th>
+                        <th>Quantity</th>
                         <th>Remarks</th>
                     </tr>
                     </thead>

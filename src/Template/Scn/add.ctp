@@ -99,7 +99,7 @@
                         <th>Part No</th>
                         <th>Part Name</th>
                         <th>Reason</th>
-                        <th>QTY</th>
+                        <th>Quantity</th>
                         <th>Remark 1</th>
                         <th>Remark 2</th>
                     </tr>

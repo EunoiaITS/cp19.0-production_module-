@@ -6,7 +6,7 @@ Production Planner page
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <div class="part-title-planner text-uppercase text-center"><b>Material Issue Ticket Acknowlegement List</b></div>
+                <div class="part-title-planner text-uppercase text-center"><b>Material Issue Ticket Acknowledgement List</b></div>
                 <div class="clearfix"></div>
 
                 <!--============== Add drawing table area ===================-->

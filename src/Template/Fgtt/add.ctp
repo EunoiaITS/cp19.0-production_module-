@@ -36,7 +36,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-3 col-xs-6">
-                                <label for="fgtt-qty" class="cn-text">QTY <span class="planner-fright">:</span></label>
+                                <label for="fgtt-qty" class="cn-text">Quantity <span class="planner-fright">:</span></label>
                             </div>
                             <div class="col-sm-5 col-xs-6">
                                 <input type="text" id="fgtt-qty" class="form-control">

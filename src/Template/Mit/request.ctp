@@ -30,8 +30,8 @@
                                 <td><?= $m->date ?></td>
                                 <td><?= $m->location ?></td>
                                 <td><?= $m->created_by ?></td>
-                                <td><?= $role; ?></td>
                                 <td>Production</td>
+                                <td></td>
                                 <td><a href="<?php echo $this->Url->build(['controller' => 'Mit', 'action' => $action, $m->id]); ?>"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve-1'){echo 'Approve';}else{echo 'Edit';} ?></a></td>
                             </tr>
                         <?php endforeach; ?>

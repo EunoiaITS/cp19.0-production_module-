@@ -128,7 +128,7 @@
                             <th>No</th>
                             <th>Part No</th>
                             <th>Part Name</th>
-                            <th>Qty</th>
+                            <th>Quantity</th>
                             <th>Document</th>
                             <th>Remark</th>
                         </tr>

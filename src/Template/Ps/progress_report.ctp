@@ -13,7 +13,7 @@
                             <p class="cn-text">Date <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
-                            <p class="cn-main-text">1/11/2017</p>
+                            <p class="cn-main-text"><?php echo date('m/d/Y');?></p>
                         </div>
                     </div>
                     <div class="form-group">

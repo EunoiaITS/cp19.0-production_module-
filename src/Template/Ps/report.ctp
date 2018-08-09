@@ -18,7 +18,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-3 col-xs-6">
-                            <p class="cn-text">Actual Qty <span class="planner-fright">:</span></p>
+                            <p class="cn-text">Actual Quantity <span class="planner-fright">:</span></p>
                         </div>
                         <div class="col-sm-5 col-xs-6">
                             <p class="cn-main-text">17</p>
@@ -46,7 +46,7 @@
                             <th>Version</th>
                             <th>Type 1</th>
                             <th>Type 2</th>
-                            <th>QTY</th>
+                            <th>Quantity</th>
                             <th>Ready For PI</th>
                             <th>After PI</th>
                             <th>Ready For Delivery</th>

@@ -26,9 +26,9 @@ Create serial number form page
                             <th>Status</th>
                             <th>MLT</th>
                             <th>Status</th>
-                            <th>Drive Mechism</th>
+                            <th>Drive Mechanism</th>
                             <th>status</th>
-                            <th>Vaccum Camber</th>
+                            <th>Vacuum Chamber</th>
                             <th>Status</th>
                             <th>Welding</th>
                             <th>Status</th>

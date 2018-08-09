@@ -25,7 +25,7 @@ Production Planner page
                                 <th rowspan="2">Version</th>
                                 <th rowspan="2">Type 1</th>
                                 <th rowspan="2">Type 2</th>
-                                <th rowspan="2">Qty</th>
+                                <th rowspan="2">Quantity</th>
                                 <th rowspan="2">Create By</th>
                                 <th rowspan="2">Department</th>
                                 <th rowspan="2">Section</th>
@@ -38,7 +38,7 @@ Production Planner page
                             </tr>
                             <tr class="table-cell">
                                 <th>Ack Status</th>
-                                <th>Recive By</th>
+                                <th>Received By</th>
                                 <th>Delivery Date</th>
                                 <th>Delivery Status</th>
                             </tr>

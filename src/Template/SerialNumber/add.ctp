@@ -72,7 +72,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-3 col-xs-6">
-                                <label for="cn-type-qty" class="planner-year">Qty <span class="planner-fright">:</span></label>
+                                <label for="cn-type-qty" class="planner-year">Quantity <span class="planner-fright">:</span></label>
                             </div>
                             <div class="col-sm-5 col-xs-6">
                                 <input name="quantity" type="text" class="form-control" id="cn-type-qty" required="">

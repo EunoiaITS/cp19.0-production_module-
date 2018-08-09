@@ -25,7 +25,7 @@ Production Planner page
                                 <th>Version</th>
                                 <th>Type 1</th>
                                 <th>Type 2</th>
-                                <th>Qty</th>
+                                <th>Quantity</th>
                                 <th>Create By</th>
                                 <th>Department</th>
                                 <th>Section</th>

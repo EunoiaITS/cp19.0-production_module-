@@ -18,7 +18,7 @@ Production Planner page
                             <th colspan="2">Welding</th>
                             <th colspan="2">Main line Tank</th>
                             <th colspan="2">Drive Mechanism</th>
-                            <th colspan="2">Vaccum Camber</th>
+                            <th colspan="2">Vacuum Camber</th>
                             <th colspan="2">Welding</th>
                             <th colspan="2">BTA</th>
                             <th colspan="2">Metal Clad</th>

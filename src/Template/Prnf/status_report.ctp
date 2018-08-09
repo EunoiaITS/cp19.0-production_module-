@@ -25,7 +25,7 @@
                         <th rowspan="2">Part No</th>
                         <th rowspan="2">Part Name</th>
                         <th rowspan="2" >Description</th>
-                        <th rowspan="2">QTY</th>
+                        <th rowspan="2">Quantity</th>
                         <th rowspan="2">Document</th>
                         <th rowspan="2">Create By</th>
                         <th rowspan="2">Section</th>
@@ -37,7 +37,7 @@
                         <th>Status</th>
                         <th>Verify By</th>
                         <th>Status</th>
-                        <th>Approve</th>
+                        <th>Approve 1</th>
                         <th>Status</th>
                         <th>Approve 2</th>
                         <th>Status</th>

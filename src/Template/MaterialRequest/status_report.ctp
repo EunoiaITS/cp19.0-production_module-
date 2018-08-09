@@ -25,7 +25,7 @@
                         <th>Part No</th>
                         <th>Description</th>
                         <th>UOM</th>
-                        <th>QTY</th>
+                        <th>Quantity</th>
                         <th>Document</th>
                         <th>Create By</th>
                         <th>Department</th>

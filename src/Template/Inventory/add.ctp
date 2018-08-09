@@ -96,7 +96,7 @@ Production Planner page
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <div class="col-sm-3 col-xs-6">
-                                    <label for="cn-qty" class="cn-text">Current Qty <span class="planner-fright">:</span></label>
+                                    <label for="cn-qty" class="cn-text">Current Quantity <span class="planner-fright">:</span></label>
                                 </div>
                                 <div class="col-sm-5 col-xs-6">
                                     <input type="text" class="form-control" name="current_quantity0" id="cn-qty">

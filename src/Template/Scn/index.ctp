@@ -17,7 +17,6 @@
                             <th>Date</th>
                             <th>SCN No</th>
                             <th>Location</th>
-                            <th>Section</th>
                             <th>Create By</th>
                             <th>Department</th>
                             <th>Section</th>
@@ -31,10 +30,9 @@
                                 <td><?= $sn->date ?></td>
                                 <td><span style="cursor: pointer;" class="click-button" data-toggle="modal" data-target="#myModal-<?= $count ?>"><b><?= 'SCN ' . $sn->id ?></b></span></td>
                                 <td><?= $sn->location ?></td>
-                                <td><?= $sn->section ?></td>
                                 <td><?= $sn->created_by ?></td>
-                                <td><?= $role; ?></td>
                                 <td>Production</td>
+                                <td><td><?= $sn->section ?></td></td>
                                 <td><a href="<?php echo $this->Url->build(['controller' => 'Scn', 'action' => $action, $sn->id]); ?>"><?php if($role == 'verifier'){echo 'Verify';}elseif($role == 'approve-1'){echo 'Approve';}elseif($role == 'approve-2'){echo 'Approve';}else{echo 'Edit';} ?></a></td>
                             </tr>
                         <?php endforeach; ?>

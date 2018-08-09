@@ -37,7 +37,7 @@
                             <th colspan="2">Stock-In Type</th>
 
                             <th rowspan="2">Current Balance</th>
-                            <th rowspan="2">Total Qty</th>
+                            <th rowspan="2">Total Quantity</th>
                             <th rowspan="2">Create By</th>
                             <th rowspan="2">Section</th>
                             <th colspan="4">Location</th>
@@ -46,7 +46,7 @@
                         </tr>
                         <tr class="table-cells">
                             <th>MIT/MR/PRN No</th>
-                            <th>QTY</th>
+                            <th>Quantity</th>
                             <th>Zon</th>
                             <th>Rack No</th>
                             <th>Bin No</th>

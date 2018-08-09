@@ -27,7 +27,7 @@ Create serial number form page
                         </div>
                         <div class="form-group">
                             <div class="col-sm-3 col-xs-6">
-                                <p class="cn-text">QTY Produce <span class="planner-fright">:</span></p>
+                                <p class="cn-text">Quantity Produce <span class="planner-fright">:</span></p>
                             </div>
                             <div class="col-sm-5 col-xs-6">
                                 <p class="cn-main-text"><?= $total ?></p>

@@ -47,8 +47,8 @@
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                 <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller' => 'Ps', 'action' => 'main']); ?>">Production Scheduler</a></li>
                 <?php if($role == 'requester'): ?><li class="color-hsh"><a href="<?php echo $this->Url->build(['controller' => 'Ps', 'action' => 'scheduler']); ?>">Planner Daily Operation Scheduler</a></li>
-                <li class="color-hsh3"><a href="<?php echo $this->Url->build(['controller' => 'Ps', 'action' => 'monthlyScheduler']); ?>">Production Monthly Schedule Form(Creation)</a></li><?php endif; ?>
-                <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller' => 'Ps', 'action' => 'index']); ?>">Planner Requests</a></li>
+                    <li class="color-hsh3"><a href="<?php echo $this->Url->build(['controller' => 'Ps', 'action' => 'monthlyScheduler']); ?>">Production Monthly Schedule Form(Creation)</a></li><?php endif; ?>
+                <?php if($role != 'requester'): ?><li class="color-hsh"><a href="<?php echo $this->Url->build(['controller' => 'Ps', 'action' => 'index']); ?>">Planner Requests</a></li><?php endif; ?>
                 <li class="color-hsh"><a href="<?php echo $this->Url->build(['controller' => 'Ps', 'action' => 'approvalStatus']); ?>">Approval Status</a></li>
                 <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller' => 'Ps', 'action' => 'report']); ?>">PS Report</a></li>
                 <li class="color-hsh2"><a href="<?php echo $this->Url->build(['controller' => 'Ps', 'action' => 'progressReport']); ?>">PS Progress Report</a></li>
